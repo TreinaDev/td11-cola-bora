@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_16_202511) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_16_203230) do
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "first_name"
@@ -32,6 +32,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_202511) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.integer "role", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_user_roles_on_project_id"
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,4 +58,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_202511) do
 
   add_foreign_key "profiles", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "user_roles", "projects"
+  add_foreign_key "user_roles", "users"
 end
