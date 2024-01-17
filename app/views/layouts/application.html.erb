@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <nav>
+      <%= link_to 'Meu perfil', profile_path(current_user.profile) %>
+    </nav>
 
     <div>
       <p class="notice"><%= notice %></p>

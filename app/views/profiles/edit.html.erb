@@ -1,0 +1,27 @@
+<p>Editar Perfil</p>
+
+<%= form_with model: @profile do |f| %>
+  <div>
+    <%= f.label :first_name, 'Nome' %>
+    <%= f.text_field :first_name %>
+  </div>
+  
+  <div>
+    <%= f.label :second_name, 'Sobrenome' %>
+    <%= f.text_field :second_name %>
+  </div>
+  
+  <div>
+    <%= f.label :work_experience, 'Experiência profissional' %>
+    <%= f.text_field :work_experience %>
+  </div>
+
+  <div>
+    <%= f.label :education, 'Informação acadêmica' %>
+    <%= f.text_field :education %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar Perfil' %>
+  </div>
+<% end %>
