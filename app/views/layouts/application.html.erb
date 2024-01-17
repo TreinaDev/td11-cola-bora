@@ -12,10 +12,7 @@
 
   <body>
 
-    <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
+    
 
     <div class="container">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -32,6 +29,12 @@
           </div>
         </div>
       </nav>
+
+      <div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+      
       <%= yield %>
     </div>
   </body>

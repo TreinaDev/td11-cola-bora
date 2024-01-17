@@ -1,4 +1,15 @@
 <%= form_with model: @project do |f| %>
+  <% if @project.errors.any? %>
+    <div class='text-danger'>
+      <h3>Erros:</h3>
+      <ul>
+        <% @project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <div class="mb-3">
     <%= f.label :title, class: 'form-label' %>
     <%= f.text_field :title, class: 'form-control' %>
@@ -12,6 +23,6 @@
     <%= f.text_field :category, class: 'form-control' %>
   </div>
   <div>
-    <%= f.submit 'Criar Projeto', class: 'btn btn-primary'%>
+    <%= f.submit 'Salvar Projeto', class: 'btn btn-primary'%>
   </div>
 <% end %>
