@@ -1,1 +1,18 @@
+<h1>Meu <%= Profile.model_name.human %></h1>
+
+<p>
+  <strong><%= t 'full_name' %>: </strong>
+  <%= @profile.full_name %>
+</p>
+
+<p>
+  <strong><%= Profile.human_attribute_name :work_experience %>: </strong>
+  <%= @profile.work_experience %>
+</p>
+
+<p>
+  <strong><%= Profile.human_attribute_name :education %>: </strong>
+  <%= @profile.education %>
+</p>
+
 <%= link_to 'Editar', edit_profile_path(current_user.profile) %>

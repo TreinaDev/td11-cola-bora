@@ -20,7 +20,7 @@ describe 'Usuário edita perfil' do
 
   it 'com sucesso' do
     user = create(:user)
-    create(:profile, user:, first_name: '', second_name: '',
+    create(:profile, user:, first_name: '', last_name: '',
                      work_experience: '', education: '')
 
     login_as user, scope: :user
@@ -33,14 +33,14 @@ describe 'Usuário edita perfil' do
 
     expect(current_path).to eq profile_path(user.profile)
     expect(page).to have_content 'Perfil atualizado com sucesso!'
-    expect(page).to have_content 'Nome: Pedro'
-    expect(page).to have_content 'Sobrenome: Silva'
+    expect(page).to have_content 'Nome: Pedro Silva'
     expect(page).to have_content 'Experiência profissional: Programador, Designer'
     expect(page).to have_content 'Informação acadêmica: Ciências da Computação'
   end
 
-  xit 'e volta para pagina de perfil'
+  xit 'e cancela edição de perfil'
   xit 'deixa campo vazio'
   xit 'não é o dono do perfil'
   xit 'não está autenticado'
+  xit 'pela primeira vez'
 end
