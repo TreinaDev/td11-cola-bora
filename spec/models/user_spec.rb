@@ -42,5 +42,37 @@ RSpec.describe User, type: :model do
         expect(user.errors).to include :email
       end
     end
+
+    context 'CPF válido' do
+      it 'falso com CPF inválido com formatação' do
+        user = User.new(cpf: '123.456.789-00')
+
+        expect(user.valid?).to be false
+        expect(user.errors).to include :cpf
+      end
+
+      it 'falso com CPF inválido sem formatação' do
+        user = User.new(cpf: '12345678900')
+
+        expect(user.valid?).to be false
+        expect(user.errors).to include :cpf
+      end
+
+      it 'verdadeiro com CPF válido com formatação' do
+        user = User.new(cpf: '125.445.890-51')
+
+        user.valid?
+
+        expect(user.errors).not_to include :cpf
+      end
+
+      it 'verdadeiro com CPF válido sem formatação' do
+        user = User.new(cpf: '12544589051')
+
+        user.valid?
+
+        expect(user.errors).not_to include :cpf
+      end
+    end
   end
 end

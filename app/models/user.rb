@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   validates :cpf, presence: true
   validates :cpf, uniqueness: true
+  validate :validate_cpf
 
   after_create :create_profile
 
@@ -17,5 +18,9 @@ class User < ApplicationRecord
 
   def create_profile
     self.profile = Profile.new
+  end
+
+  def validate_cpf
+    errors.add(:cpf, 'inválido') unless CPF.valid?(cpf)
   end
 end
