@@ -9,3 +9,5 @@ pt-BR:
         cpf: 'CPF'
         email: 'E-mail'
         password: 'Senha'
+  
+  sign_up: 'Criar conta'
