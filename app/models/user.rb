@@ -9,8 +9,6 @@ class User < ApplicationRecord
 
   after_create :create_profile
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -21,6 +19,6 @@ class User < ApplicationRecord
   end
 
   def validate_cpf
-    errors.add(:cpf, 'inválido') unless CPF.valid?(cpf)
+    errors.add(:cpf, I18n.t(:invalid)) unless CPF.valid?(cpf)
   end
 end

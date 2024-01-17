@@ -11,3 +11,4 @@ pt-BR:
         password: 'Senha'
   
   sign_up: 'Criar conta'
+  invalid: 'inválido'
