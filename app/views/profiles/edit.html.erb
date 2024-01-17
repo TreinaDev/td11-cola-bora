@@ -22,6 +22,10 @@
   </div>
 
   <div>
-    <%= f.submit 'Salvar Perfil' %>
+    <%= f.submit 'Atualizar Perfil' %>
+  </div>
+
+  <div>
+    <%= link_to t('skip'), profile_path(@profile) %>
   </div>
 <% end %>
