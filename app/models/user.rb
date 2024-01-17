@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :user_roles, dependent: :destroy
 
   validates :cpf, presence: true
+  validates :cpf, uniqueness: true
 
   after_create :create_profile
 
