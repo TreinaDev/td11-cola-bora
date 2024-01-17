@@ -32,5 +32,18 @@ describe 'Visitante acessa página de criação de conta' do
     expect(User.last.profile).to be_present
   end
 
-  it 'e não cria uma conta com dados inválidos'
+  it 'e não cria uma conta com campos vazios' do
+    visit new_user_registration_path
+    fill_in 'CPF', with: ''
+    fill_in 'E-mail', with: ''
+    fill_in 'Senha', with: ''
+    fill_in 'Confirmar senha', with: ''
+    click_on 'Criar conta'
+
+    # TODO: traduzir expectativas
+    expect(page).to have_content 'Cpf can\'t be blank'
+    expect(page).to have_content 'Email can\'t be blank'
+    expect(page).to have_content 'Password can\'t be blank'
+    expect(User.all).to be_empty
+  end
 end

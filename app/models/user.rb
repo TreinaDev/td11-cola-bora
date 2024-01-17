@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :user_roles, dependent: :destroy
 
+  validates :cpf, presence: true
+
   after_create :create_profile
 
   # Include default devise modules. Others available are:
