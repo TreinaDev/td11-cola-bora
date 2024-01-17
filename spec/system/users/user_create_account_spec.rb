@@ -40,10 +40,9 @@ describe 'Visitante acessa página de criação de conta' do
     fill_in 'Confirmar senha', with: ''
     click_on 'Criar conta'
 
-    # TODO: traduzir expectativas
-    expect(page).to have_content 'Cpf can\'t be blank'
-    expect(page).to have_content 'Email can\'t be blank'
-    expect(page).to have_content 'Password can\'t be blank'
+    expect(page).to have_content 'CPF não pode ficar em branco'
+    expect(page).to have_content 'E-mail não pode ficar em branco'
+    expect(page).to have_content 'Senha não pode ficar em branco'
     expect(User.all).to be_empty
   end
 end
