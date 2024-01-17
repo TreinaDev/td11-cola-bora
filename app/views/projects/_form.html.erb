@@ -1,0 +1,17 @@
+<%= form_with model: @project do |f| %>
+  <div class="mb-3">
+    <%= f.label :title, class: 'form-label' %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :description, class: 'form-label' %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :category, class: 'form-label' %>
+    <%= f.text_field :category, class: 'form-control' %>
+  </div>
+  <div>
+    <%= f.submit 'Criar Projeto', class: 'btn btn-primary'%>
+  </div>
+<% end %>
