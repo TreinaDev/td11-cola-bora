@@ -38,7 +38,7 @@ describe 'Usuário edita perfil' do
     expect(page).to have_content 'Informação acadêmica: Ciências da Computação'
   end
 
-  context 'e cancela edição de perfil' do
+  context 'e cancela edição' do
     it 'pela primeira vez' do
       profile = create(:profile, first_name: '', last_name: '',
                                  work_experience: '', education: '')
@@ -46,6 +46,17 @@ describe 'Usuário edita perfil' do
       login_as profile.user, scope: :user
       visit edit_profile_path profile
       click_on 'Pular etapa'
+
+      expect(current_path).to eq root_path
+    end
+
+    it 'e já tem informação registrada' do
+      profile = create(:profile, first_name: 'Jhon', last_name: 'Doe',
+                                 work_experience: 'Designer', education: 'Superior completo')
+
+      login_as profile.user, scope: :user
+      visit edit_profile_path profile
+      click_on 'Voltar'
 
       expect(current_path).to eq profile_path profile
     end
