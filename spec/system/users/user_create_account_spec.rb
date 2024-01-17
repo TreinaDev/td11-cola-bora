@@ -21,6 +21,7 @@ describe 'Visitante acessa página de criação de conta' do
     fill_in 'Confirme sua senha', with: '123456'
     click_on 'Criar conta'
 
+    expect(page).to have_content 'Você realizou seu registro com sucesso.'
     within 'nav' do
       expect(page).to have_content 'usuario@email.com'
       expect(page).to have_button 'Sair'
@@ -32,7 +33,7 @@ describe 'Visitante acessa página de criação de conta' do
     expect(User.last.profile).to be_present
   end
 
-  it 'e não cria uma conta com campos vazios' do
+  it 'e não cria uma conta com campos inválidos' do
     visit new_user_registration_path
     fill_in 'CPF', with: '123456789'
     fill_in 'E-mail', with: ''
