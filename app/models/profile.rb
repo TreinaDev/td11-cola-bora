@@ -6,8 +6,8 @@ class Profile < ApplicationRecord
   end
 
   def first_update?
-    attributes.except('user_id', 'id', 'created_at', 'updated_at').each_value do |v|
-      return false if v != ''
+    attributes.slice('first_name', 'last_name', 'work_experience', 'education').each_value do |v|
+      return false unless v.empty?
     end
 
     true
