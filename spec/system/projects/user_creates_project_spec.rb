@@ -18,7 +18,7 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_field 'Título'
     expect(page).to have_field 'Descrição'
     expect(page).to have_field 'Categoria'
-    expect(page).to have_button 'Criar Projeto'
+    expect(page).to have_button 'Salvar Projeto'
   end
 
   it 'com sucesso' do

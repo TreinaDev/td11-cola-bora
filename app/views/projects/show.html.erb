@@ -1,5 +1,7 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
-<dt><%= Project.human_attribute_name :description %></dt>
-<dd><%= @project.description %></dd>
-<dt><%= Project.human_attribute_name :category %></dt>
-<dd><%= @project.category %></dd>
+<dl>
+  <dt><%= Project.human_attribute_name :description %>: </dt>
+  <dd><%= @project.description %></dd>
+  <dt><%= Project.human_attribute_name :category %>: </dt>
+  <dd><%= @project.category %></dd>
+</dl>

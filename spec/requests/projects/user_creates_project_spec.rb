@@ -1,5 +1,15 @@
 require 'rails_helper'
 
 describe 'Usuário cria um projeto' do
-  pending 'e deve estar autenticado'
+  it 'e deve estar autenticado' do
+    user = create :user
+    project_params = { title: 'Mewtwo', description: 'Um projeto para criar um pokémon.', category: 'Jogo', user: }
+    initial_project_count = Project.count
+
+    post projects_path, params: { project: project_params }
+    project_count = Project.count
+
+    expect(response).to redirect_to new_user_session_path
+    expect(project_count).to eq(initial_project_count)
+  end
 end
