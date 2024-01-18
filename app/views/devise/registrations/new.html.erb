@@ -16,7 +16,7 @@
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> <%= I18n.t("characters minimum") %>)</em>
+    <em><%= I18n.t("devise.shared.minimum_password_length.other", count: @minimum_password_length) %></em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>

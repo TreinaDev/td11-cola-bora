@@ -1,4 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2> <%= I18n.t("devise.registrations.edit.title", resource: resource_name.to_s.humanize) %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -9,15 +9,15 @@
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div><%= I18n.t("currently_waiting_confirmation_for_email", email: resource.unconfirmed_email) %></div>
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password %> <i>(<%=I18n.t("devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it")%>)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= I18n.t("devise.shared.minimum_password_length.other", count: @minimum_password_length) %></em>
     <% end %>
   </div>
 
@@ -27,17 +27,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password %> <i>(<%=I18n.t("devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes")%>)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit I18n.t("devise.registrations.edit.update") %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3><%=I18n.t("devise.registrations.edit.cancel_my_account")%></h3>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+<div><%=I18n.t("devise.registrations.edit.unhappy")%> <%= button_to I18n.t("devise.registrations.edit.cancel_my_account"), registration_path(resource_name), data: { confirm: I18n.t("devise.registrations.edit.are_you_sure"), turbo_confirm: I18n.t("devise.registrations.edit.are_you_sure") }, method: :delete %></div>
 
-<%= link_to "Back", :back %>
+<%= link_to I18n.t("devise.shared.links.back"), :back %>
