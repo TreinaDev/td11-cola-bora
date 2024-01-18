@@ -3,3 +3,5 @@
 <dd><%= @project.description %></dd>
 <dt><%= Project.human_attribute_name :category %></dt>
 <dd><%= @project.category %></dd>
+
+<%= link_to 'Nova Tarefa', new_project_task_path(@project) %>

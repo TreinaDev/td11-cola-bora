@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      task:
+        one: Tarefa
+        other: Tarefas
+    attributes:
+      task:
+        title: Título
+        description: Descrição
+        due_date: Prazo
+        project_id: Projeto
+        author_id: Autor
+        assigned_id: Responsável
+        assigned: Responsável
+  tasks:
+    create:
+      success: Tarefa criada com sucesso.
+      fail: Não foi possível criar a tarefa.
