@@ -1,21 +1,36 @@
 require 'rails_helper'
 
 describe 'Usuário edita perfil' do
-  it 'a partir da tela inicial' do
-    user = create(:user)
-    create(:profile, user:)
+  context 'a partir da tela inicial' do
+    it 'pela primeira vez' do
+      user = create(:user)
+      create(:profile, user:, first_name: '', last_name: '',
+                       work_experience: '', education: '')
 
-    login_as user, scope: :user
-    visit root_path
-    click_on 'Meu perfil'
-    click_on 'Editar'
+      login_as user, scope: :user
+      visit root_path
+      click_on 'Meu perfil'
+      click_on 'Completar perfil'
 
-    expect(page).to have_content 'Editar Perfil'
-    expect(page).to have_field 'Nome'
-    expect(page).to have_field 'Sobrenome'
-    expect(page).to have_field 'Experiência profissional'
-    expect(page).to have_field 'Informação acadêmica'
-    expect(page).to have_button 'Atualizar Perfil'
+      expect(page).to have_content 'Complete o seu perfil'
+      expect(page).to have_field 'Nome'
+      expect(page).to have_field 'Sobrenome'
+      expect(page).to have_field 'Experiência profissional'
+      expect(page).to have_field 'Informação acadêmica'
+      expect(page).to have_button 'Atualizar Perfil'
+    end
+
+    it 'e já tem informação registrada' do
+      user = create(:user)
+      create(:profile, user:)
+
+      login_as user, scope: :user
+      visit root_path
+      click_on 'Meu perfil'
+      click_on 'Atualizar perfil'
+
+      expect(page).to have_content 'Atualizar perfil'
+    end
   end
 
   it 'com sucesso' do
@@ -62,8 +77,25 @@ describe 'Usuário edita perfil' do
     end
   end
 
-  xit 'deixa campo vazio'
-  xit 'não é o dono do perfil'
-  xit 'não está autenticado'
-  xit 'pela primeira vez'
+  it 'e não é o dono do perfil' do
+    user = create(:user, email: 'user@email.com', cpf: '787.077.980-67')
+    other_user = create(:user, email: 'other_user@email.com', cpf: '047.813.770-25')
+    create(:profile, first_name: 'Pedro', user:)
+    create(:profile, first_name: 'Leandro', user: other_user)
+
+    login_as user
+    visit edit_profile_path(other_user.profile)
+
+    expect(page).not_to have_field 'Nome', with: 'Leandro'
+    expect(page).to have_field 'Nome', with: 'Pedro'
+  end
+
+  it 'e não está autenticado' do
+    profile = create(:profile)
+
+    visit edit_profile_path(profile)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Entrar'
+  end
 end

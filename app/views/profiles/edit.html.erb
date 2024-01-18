@@ -1,4 +1,8 @@
-<p>Editar Perfil</p>
+<% if @profile.first_update? %>
+  <h1><%= t 'complete_profile_msg' %></h1>
+<% else %>
+  <h1><%= t 'update_profile_msg' %></h1>
+<% end %>
 
 <%= form_with model: @profile do |f| %>
   <div>

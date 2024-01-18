@@ -15,4 +15,9 @@
   <%= @profile.education %>
 </p>
 
-<%= link_to 'Editar', edit_profile_path(current_user.profile) %>
+<% if @profile.first_update? %>
+  <%= link_to 'Completar perfil', edit_profile_path(current_user.profile) %>
+<% else %>
+  <%= link_to 'Atualizar perfil', edit_profile_path(current_user.profile) %>
+<% end %>
+

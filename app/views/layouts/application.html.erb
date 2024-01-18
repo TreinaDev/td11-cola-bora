@@ -12,7 +12,9 @@
 
   <body>
     <nav>
-      <%= link_to 'Meu perfil', profile_path(current_user.profile) %>
+      <% if user_signed_in? %>
+        <%= link_to 'Meu perfil', profile_path(current_user.profile) %>
+      <% end %>
     </nav>
 
     <div>
