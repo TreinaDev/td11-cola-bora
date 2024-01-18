@@ -38,13 +38,15 @@ describe 'Visitante acessa página de criação de conta' do
     visit new_user_registration_path
     fill_in 'CPF', with: '123456789'
     fill_in 'E-mail', with: ''
-    fill_in 'Senha', with: ''
+    fill_in 'Senha', with: '12345'
     fill_in 'Confirme sua senha', with: ''
     click_on 'Criar conta'
 
+    expect(page).to have_content 'Não foi possível salvar usuário'
     expect(page).to have_content 'CPF inválido'
     expect(page).to have_content 'E-mail não pode ficar em branco'
-    expect(page).to have_content 'Senha não pode ficar em branco'
+    expect(page).to have_content 'Senha é muito curta (mínimo: 6 caracteres)'
+    expect(page).to have_content 'Confirme sua senha não é igual a Senha'
     expect(User.all).to be_empty
   end
 end
