@@ -21,6 +21,7 @@ describe 'Visitante acessa página de criação de conta' do
     fill_in 'Confirme sua senha', with: '123456'
     click_on 'Criar conta'
 
+    expect(page).to have_current_path edit_profile_path(User.last.profile)
     expect(page).to have_content 'Você realizou seu registro com sucesso.'
     within 'nav' do
       expect(page).to have_content 'usuario@email.com'
