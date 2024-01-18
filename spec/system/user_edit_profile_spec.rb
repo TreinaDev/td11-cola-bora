@@ -51,7 +51,7 @@ describe 'Usuário edita perfil' do
     fill_in 'Informação acadêmica', with: 'Ciências da Computação'
     click_on 'Atualizar Perfil'
 
-    # FIXME: expect(current_path).to eq profile_path(user.profile)
+    expect(page).to have_current_path(profile_path(user.profile))
     expect(page).to have_content 'Perfil atualizado com sucesso!'
     expect(page).to have_content 'Nome: Pedro Silva'
     expect(page).to have_content 'Experiência profissional: Programador, Designer'
