@@ -27,9 +27,14 @@ describe 'Usuário edita perfil' do
       login_as user, scope: :user
       visit root_path
       click_on 'Meu perfil'
-      click_on 'Atualizar perfil'
+      click_on 'Atualizar Perfil'
 
       expect(page).to have_content 'Atualizar perfil'
+      expect(page).to have_field 'Nome'
+      expect(page).to have_field 'Sobrenome'
+      expect(page).to have_field 'Experiência profissional'
+      expect(page).to have_field 'Informação acadêmica'
+      expect(page).to have_button 'Atualizar Perfil'
     end
   end
 

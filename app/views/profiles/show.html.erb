@@ -1,23 +1,15 @@
 <h1>Meu <%= Profile.model_name.human %></h1>
 
-<p>
-  <strong><%= t 'full_name' %>: </strong>
-  <%= @profile.full_name %>
-</p>
-
-<p>
-  <strong><%= Profile.human_attribute_name :work_experience %>: </strong>
-  <%= @profile.work_experience %>
-</p>
-
-<p>
-  <strong><%= Profile.human_attribute_name :education %>: </strong>
-  <%= @profile.education %>
-</p>
 
 <% if @profile.first_update? %>
+  <h2>
+    Seu perfil ainda não tem informações
+    Clique no botão abaixo para preencher
+  </h2>
+
   <%= link_to 'Completar perfil', edit_profile_path(current_user.profile) %>
 <% else %>
-  <%= link_to 'Atualizar perfil', edit_profile_path(current_user.profile) %>
+  <%= render partial: 'profile_info', locals: { profile: @profile } %>
+  <%= link_to t('helpers.submit.update', model: Profile.model_name.human),
+              edit_profile_path(current_user.profile) %>
 <% end %>
-
