@@ -1,0 +1,33 @@
+<%= form_with model: profile do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :work_experience %>
+    <%= f.text_field :work_experience %>
+  </div>
+
+  <div>
+    <%= f.label :education %>
+    <%= f.text_field :education %>
+  </div>
+
+  <div>
+    <%= f.submit 'Atualizar Perfil' %>
+  </div>
+
+  <div>
+    <% if profile.first_update? %>
+      <%= link_to t('skip'), root_path %>
+    <% else %>
+      <%= link_to t('back'), profile_path(@profile) %>
+    <% end %>
+  </div>
+<% end %>
