@@ -10,5 +10,6 @@ pt-BR:
         email: 'E-mail'
         password: 'Senha'
   
+  log_in: 'Entrar'
   sign_up: 'Criar conta'
   invalid: 'inválido'
