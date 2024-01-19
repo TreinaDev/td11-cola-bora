@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário cria tarefa' do
   it 'á partir da pagina princial do projeto' do
-    author = create(:user, email: 'joão@email.com', password: 'password', cpf: '123456')
-    create(:user, email: 'valeria@email.com', password: 'password', cpf: '123457')
+    author = create(:user, email: 'joão@email.com', password: 'password')
+    create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
     project = create(:project, user: author)
 
     login_as(author)
@@ -25,8 +25,8 @@ describe 'Usuário cria tarefa' do
   end
 
   it 'e a criação falha' do
-    author = create(:user, email: 'joão@email.com', password: 'password', cpf: '123456')
-    create(:user, email: 'valeria@email.com', password: 'password', cpf: '123457')
+    author = create(:user, email: 'joão@email.com', password: 'password')
+    create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
     project = create(:project, user: author)
 
     login_as(author)
@@ -42,16 +42,13 @@ describe 'Usuário cria tarefa' do
   end
 
   it 'e tem que estar autenticado' do
-    author = create(:user, email: 'joão@email.com', password: 'password', cpf: '123456')
-    create(:user, email: 'valeria@email.com', password: 'password', cpf: '123457')
+    author = create(:user, email: 'joão@email.com', password: 'password')
+    create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
     project = create(:project, user: author)
 
     visit project_path(project)
 
     expect(page).to have_content('Para continuar, faça login ou registre-se.')
     expect(current_path).to eq new_user_session_path
-  end
-
-  xit 'e tem que estar autorizado' do
   end
 end
