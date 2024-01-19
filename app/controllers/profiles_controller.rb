@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[show edit update]
-  before_action :authorize_user, only: %i[update]
+  before_action :authorize_user, only: %i[edit update]
 
   def show
     @profile = current_user.profile

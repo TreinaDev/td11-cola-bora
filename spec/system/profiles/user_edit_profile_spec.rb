@@ -92,8 +92,7 @@ describe 'Usuário edita perfil' do
     login_as user, scope: :user
     visit edit_profile_path(other_user.profile)
 
-    expect(page).not_to have_field 'Nome', with: 'Leandro'
-    expect(page).to have_field 'Nome', with: 'Pedro'
+    expect(page).to have_current_path(root_path)
   end
 
   it 'e não está autenticado' do
