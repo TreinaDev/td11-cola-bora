@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
-    email { 'user@email.com' }
-    cpf { '837.513.746-47' }
-    password { 'password' }
+    cpf { '757.113.930-90' }
+    email { 'usuario@email.com' }
+    password { '123456' }
   end
 end

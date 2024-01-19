@@ -20,7 +20,7 @@ describe 'Usuário cria um projeto' do
     click_on 'Salvar Projeto'
 
     expect(page).to have_content 'Projeto: Mewtwo'
-    expect(page).to have_content 'Autor: user@email.com'
+    expect(page).to have_content 'Autor: usuario@email.com'
     expect(page).to have_content 'Um projeto para criar o pokémon mais poderoso.'
     expect(page).to have_content 'Jogo'
     expect(page).to have_content 'Projeto criado com sucesso.'
