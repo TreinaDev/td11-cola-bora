@@ -1,4 +1,9 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
+
+<p>
+  <strong><%= Project.human_attribute_name :user %>: </strong>
+  <%= @project.user.email %>
+</p>
 <p>
   <strong><%= Project.human_attribute_name :description %>: </strong>
   <%= @project.description %>

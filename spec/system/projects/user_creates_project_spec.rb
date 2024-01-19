@@ -12,13 +12,15 @@ describe 'Usuário cria um projeto' do
     user = create :user
 
     login_as(user)
-    visit(new_project_path)
+    visit(root_path)
+    click_on 'Criar Projeto'
     fill_in 'Título', with: 'Mewtwo'
     fill_in 'Descrição', with: 'Um projeto para criar o pokémon mais poderoso.'
     fill_in 'Categoria', with: 'Jogo'
     click_on 'Salvar Projeto'
 
     expect(page).to have_content 'Projeto: Mewtwo'
+    expect(page).to have_content 'Autor: user@email.com'
     expect(page).to have_content 'Um projeto para criar o pokémon mais poderoso.'
     expect(page).to have_content 'Jogo'
     expect(page).to have_content 'Projeto criado com sucesso.'

@@ -2,6 +2,8 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create show index my_projects]
   before_action :set_project, only: [:show]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   def index
     @projects = Project.all
   end
@@ -36,5 +38,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description, :category)
+  end
+
+  def not_found
+    redirect_to root_path, alert: t('.not_found')
   end
 end
