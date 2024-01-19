@@ -7,4 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-FactoryBot.create(:task)
+ash = FactoryBot.create(:user, email: 'ash@email.com')
+brock = FactoryBot.create(:user, email: 'brock@email.com', cpf: '000.000.001-91')
+
+FactoryBot.create(:project, user: ash)
+FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio', description: 'Me tornar líder do estádio de pedra.', category: 'Auto Ajuda') 
