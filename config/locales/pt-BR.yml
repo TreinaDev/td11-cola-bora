@@ -151,6 +151,7 @@ pt-BR:
       create: Criar %{model}
       submit: Salvar %{model}
       update: Atualizar %{model}
+      complete: Completar %{model}
   number:
     currency:
       format:

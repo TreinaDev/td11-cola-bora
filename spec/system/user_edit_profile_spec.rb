@@ -17,7 +17,7 @@ describe 'Usuário edita perfil' do
       expect(page).to have_field 'Sobrenome'
       expect(page).to have_field 'Experiência profissional'
       expect(page).to have_field 'Informação acadêmica'
-      expect(page).to have_button 'Atualizar Perfil'
+      expect(page).to have_button 'Completar Perfil'
     end
 
     it 'e já tem informação registrada' do
@@ -49,13 +49,13 @@ describe 'Usuário edita perfil' do
     fill_in 'Sobrenome', with: 'Silva'
     fill_in 'Experiência profissional', with: 'Programador, Designer'
     fill_in 'Informação acadêmica', with: 'Ciências da Computação'
-    click_on 'Atualizar Perfil'
+    click_on 'Completar Perfil'
 
-    expect(page).to have_current_path(profile_path(user.profile))
     expect(page).to have_content 'Perfil atualizado com sucesso!'
     expect(page).to have_content 'Nome: Pedro Silva'
     expect(page).to have_content 'Experiência profissional: Programador, Designer'
     expect(page).to have_content 'Informação acadêmica: Ciências da Computação'
+    expect(page).to have_current_path(profile_path(user.profile))
   end
 
   context 'e cancela edição' do
