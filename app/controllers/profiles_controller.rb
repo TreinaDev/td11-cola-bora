@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[show edit update]
+  before_action :authorize_user, only: %i[update]
 
   def show
     @profile = current_user.profile
@@ -21,5 +22,9 @@ class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:first_name, :last_name, :work_experience,
                                     :education)
+  end
+
+  def authorize_user
+    redirect_to root_path unless current_user == Profile.find(params[:id]).user
   end
 end
