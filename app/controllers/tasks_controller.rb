@@ -4,14 +4,12 @@ class TasksController < ApplicationController
   before_action :set_contributors, only: %i[new create]
 
   def new
-    @contributors = User.all
     @task = @project.tasks.build(author: current_user)
   end
 
   def create
-    @contributors = User.all
     @task = @project.tasks.build(task_params)
-    @task.author = current_user
+    @task.author_id = current_user.id
 
     if @task.save
       redirect_to project_task_path(@project, @task), notice: t('.success')
@@ -19,6 +17,9 @@ class TasksController < ApplicationController
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
   end
 
   private
@@ -38,6 +39,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :assigned)
+    params.require(:task).permit(:title, :description, :due_date, :assigned_id)
   end
 end

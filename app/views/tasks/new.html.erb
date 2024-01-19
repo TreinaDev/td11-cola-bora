@@ -12,8 +12,8 @@
     <%= f.date_field :due_date, class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= f.label :assigned, class: 'form-label' %>
-    <%= f.collection_select :assigned, @contributors, :id, :email %>
+    <%= f.label :assigned_id, class: 'form-label' %>
+    <%= f.collection_select :assigned_id, @contributors, :id, :email %>
   </div>
   <div>
     <%= f.submit 'Criar Tarefa', class: 'btn btn-primary'%>
