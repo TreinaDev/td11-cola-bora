@@ -17,4 +17,17 @@ describe 'Usuário visualiza perfil' do
     expect(page).to have_content 'Clique no botão abaixo para preencher'
     expect(page).to have_link 'Completar perfil'
   end
+
+  it 'com informações' do
+    user = create(:user)
+    user.profile.update(first_name: 'Pedro', last_name: 'Silva',
+                        work_experience: 'Programador', education: 'Ciências da Computação')
+
+    login_as user, scope: :user
+    visit profile_path user.profile
+
+    expect(page).to have_content 'Nome: Pedro Silva'
+    expect(page).to have_content 'Experiência profissional: Programador'
+    expect(page).to have_content 'Informação acadêmica: Ciências da Computação'
+  end
 end
