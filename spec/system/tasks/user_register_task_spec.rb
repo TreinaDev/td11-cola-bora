@@ -38,4 +38,18 @@ describe 'Usuário cria tarefa' do
     expect(current_path).to eq new_project_task_path(project)
     expect(page).to have_field 'Título'
   end
+
+  it 'e tem que estar autenticado' do
+    author = create(:user, email: 'joão@email.com', password: 'password', cpf: '123456')
+    create(:user, email: 'valeria@email.com', password: 'password', cpf: '123457')
+    project = create(:project, user: author)
+
+    visit project_path(project)
+
+    expect(page).to have_content('Para continuar, faça login ou registre-se.')
+    expect(current_path).to eq new_user_session_path
+  end
+
+  xit 'e tem que estar autorizado' do
+  end
 end

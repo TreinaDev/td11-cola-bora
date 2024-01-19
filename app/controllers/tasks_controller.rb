@@ -1,11 +1,15 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create]
-  before_action :set_project, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create show index]
+  before_action :set_project, only: %i[new create index]
   before_action :set_contributors, only: %i[new create]
   before_action :set_task, only: %i[show]
 
+  def index
+    @tasks = @project.tasks
+  end
+
   def new
-    @task = @project.tasks.build(author: current_user)
+    @task = @project.tasks.build
   end
 
   def create

@@ -7,7 +7,15 @@
 <dd><%= @task.author.email %></dd>
 
 <dt><%= Task.human_attribute_name :assigned %></dt>
-<dd><%= @task.assigned.email %></dd>
+<% if @task.assigned %>
+  <dd><%= @task.assigned.email %></dd>
+<% else %>
+  <dd>Sem responsável</dd>
+<% end %>
 
 <dt><%= Task.human_attribute_name :due_date %></dt>
-<dd><%= @task.due_date %></dd>
+<% if @task.due_date %>
+  <dd><%= @task.due_date %></dd>
+<% else %>
+  <dd>Sem prazo</dd>
+<% end %>
