@@ -4,8 +4,8 @@ describe 'Usuário edita perfil' do
   context 'a partir da tela inicial' do
     it 'pela primeira vez' do
       user = create(:user)
-      create(:profile, user:, first_name: '', last_name: '',
-                       work_experience: '', education: '')
+      user.profile.update(first_name: '', last_name: '', work_experience: '',
+                          education: '')
 
       login_as user, scope: :user
       visit root_path
@@ -22,7 +22,8 @@ describe 'Usuário edita perfil' do
 
     it 'e já tem informação registrada' do
       user = create(:user)
-      create(:profile, user:)
+      user.profile.update(first_name: 'João', last_name: 'Neces',
+                          work_experience: 'Designer', education: 'Ensino Superior')
 
       login_as user, scope: :user
       visit root_path
@@ -40,8 +41,6 @@ describe 'Usuário edita perfil' do
 
   it 'com sucesso' do
     user = create(:user)
-    create(:profile, user:, first_name: '', last_name: '',
-                     work_experience: '', education: '')
 
     login_as user, scope: :user
     visit edit_profile_path user.profile
@@ -60,35 +59,37 @@ describe 'Usuário edita perfil' do
 
   context 'e cancela edição' do
     it 'pela primeira vez' do
-      profile = create(:profile, first_name: '', last_name: '',
-                                 work_experience: '', education: '')
+      user = create(:user)
+      user.profile.update(first_name: '', last_name: '', work_experience: '',
+                          education: '')
 
-      login_as profile.user, scope: :user
-      visit edit_profile_path profile
+      login_as user, scope: :user
+      visit edit_profile_path user.profile
       click_on 'Pular etapa'
 
       expect(current_path).to eq root_path
     end
 
     it 'e já tem informação registrada' do
-      profile = create(:profile, first_name: 'Jhon', last_name: 'Doe',
-                                 work_experience: 'Designer', education: 'Superior completo')
+      user = create(:user)
+      user.profile.update(first_name: 'Jhon', last_name: 'Doe',
+                          work_experience: 'Designer', education: 'Superior completo')
 
-      login_as profile.user, scope: :user
-      visit edit_profile_path profile
+      login_as user, scope: :user
+      visit edit_profile_path user.profile
       click_on 'Voltar'
 
-      expect(current_path).to eq profile_path profile
+      expect(current_path).to eq profile_path user.profile
     end
   end
 
   it 'e não é o dono do perfil' do
     user = create(:user, email: 'user@email.com', cpf: '787.077.980-67')
+    user.profile.update(first_name: 'Pedro')
     other_user = create(:user, email: 'other_user@email.com', cpf: '047.813.770-25')
-    create(:profile, first_name: 'Pedro', user:)
-    create(:profile, first_name: 'Leandro', user: other_user)
+    other_user.profile.update(first_name: 'Leandro')
 
-    login_as user
+    login_as user, scope: :user
     visit edit_profile_path(other_user.profile)
 
     expect(page).not_to have_field 'Nome', with: 'Leandro'
@@ -96,11 +97,11 @@ describe 'Usuário edita perfil' do
   end
 
   it 'e não está autenticado' do
-    profile = create(:profile)
+    user = create(:user)
 
-    visit edit_profile_path(profile)
+    visit edit_profile_path(user.profile)
 
     expect(current_path).to eq new_user_session_path
-    expect(page).to have_content 'Login'
+    expect(page).to have_content 'Entrar'
   end
 end

@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :profile do
-    user
-    first_name { 'MyString' }
-    last_name { 'MyString' }
-    work_experience { 'MyText' }
-    education { 'MyText' }
+    first_name { 'João' }
+    last_name { 'Neves' }
+    work_experience { 'Programador' }
+    education { 'Ensino Médio' }
   end
 end

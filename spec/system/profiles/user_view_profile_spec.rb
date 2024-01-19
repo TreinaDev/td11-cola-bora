@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário visualiza perfil' do
   it 'sem informações' do
-    profile = create(:profile, first_name: '', last_name: '',
-                               work_experience: '', education: '')
+    user = create(:user)
+    user.profile.update(first_name: '', last_name: '',
+                        work_experience: '', education: '')
 
-    login_as profile.user
+    login_as user, scope: :user
     visit root_path
     click_on 'Meu perfil'
 
