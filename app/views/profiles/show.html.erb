@@ -2,14 +2,17 @@
 
 
 <% if @profile.first_update? %>
-  <h2>
-    Seu perfil ainda não tem informações
-    Clique no botão abaixo para preencher
-  </h2>
+  <h2>Seu perfil ainda não tem informações</h2>
+  <p>
+    <strong>Clique no botão abaixo para preencher</strong>
+  </p>
 
-  <%= link_to 'Completar perfil', edit_profile_path(current_user.profile) %>
+  <%= link_to 'Completar perfil',
+              edit_profile_path(current_user.profile),
+              class: 'btn btn-primary' %>
 <% else %>
   <%= render partial: 'profile_info', locals: { profile: @profile } %>
   <%= link_to t('helpers.submit.update', model: Profile.model_name.human),
-              edit_profile_path(current_user.profile) %>
+              edit_profile_path(current_user.profile),
+              class: 'btn btn-primary' %>
 <% end %>

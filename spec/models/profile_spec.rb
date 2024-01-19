@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Profile, type: :model do
   context '#first_update?' do
-    it 'retorna true com quando nenhum campo foi preenchido' do
+    it 'retorna true quando nenhum campo foi preenchido' do
       user = create(:user)
       user.profile.update(first_name: '', last_name: '', work_experience: '',
                           education: '')
