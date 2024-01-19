@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create show]
+  before_action :authenticate_user!, only: %i[new create show index]
   before_action :set_project, only: [:show]
+
+  def index
+    @projects = Project.all
+  end
 
   def new
     @project = current_user.projects.build
