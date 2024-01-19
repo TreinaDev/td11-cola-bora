@@ -15,7 +15,7 @@
 
 <dt><%= Task.human_attribute_name :due_date %></dt>
 <% if @task.due_date %>
-  <dd><%= @task.due_date %></dd>
+  <dd><%= I18n.l @task.due_date %></dd>
 <% else %>
   <dd>Sem prazo</dd>
 <% end %>

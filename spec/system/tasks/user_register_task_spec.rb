@@ -8,6 +8,7 @@ describe 'Usuário cria tarefa' do
 
     login_as(author)
     visit project_path(project)
+    click_on 'Tarefas'
     click_on 'Nova Tarefa'
     fill_in 'Título', with: 'Bugfix do projeto'
     fill_in 'Descrição', with: 'Conserta o erro tal do arquivo tal'
@@ -18,7 +19,7 @@ describe 'Usuário cria tarefa' do
     expect(page).to have_content('Tarefa criada com sucesso')
     expect(page).to have_content("Autor\n#{author.email}")
     expect(page).to have_content('Tarefa: Bugfix do projeto')
-    expect(page).to have_content("Prazo\n#{10.days.from_now.to_date}")
+    expect(page).to have_content("Prazo\n#{I18n.l 10.days.from_now.to_date}")
     expect(page).to have_content("Responsável\nvaleria@email.com")
     expect(page).to have_content("Descrição\nConserta o erro tal do arquivo tal")
   end
@@ -30,6 +31,7 @@ describe 'Usuário cria tarefa' do
 
     login_as(author)
     visit project_path(project)
+    click_on 'Tarefas'
     click_on 'Nova Tarefa'
     fill_in 'Título', with: ''
     click_on 'Criar Tarefa'
