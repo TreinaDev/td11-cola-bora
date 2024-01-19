@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      project:
+        one: Projeto
+        other: Projetos
+    attributes:
+      project:
+        title: Título
+        description: Descrição
+        category: Categoria
+        user_id: Usuário
+  projects:
+    create:
+      success: Projeto criado com sucesso.
+      fail: Não foi possível criar o projeto.    
