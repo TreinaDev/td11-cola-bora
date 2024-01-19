@@ -16,10 +16,10 @@ describe 'Usuário cria tarefa' do
     click_on 'Criar Tarefa'
 
     expect(page).to have_content('Tarefa criada com sucesso')
-    expect(page).to have_content("Autor: #{author.email}")
-    expect(page).to have_content('Responsável: valeria@email.com')
-    expect(page).to have_content('Título: Bugfix do projeto')
-    expect(page).to have_content('Descrição: Conserta o erro tal do arquivo tal')
-    expect(page).to have_content("Prazo: #{10.days.from_now}")
+    expect(page).to have_content("Autor\n#{author.email}")
+    expect(page).to have_content('Tarefa: Bugfix do projeto')
+    expect(page).to have_content("Prazo\n#{10.days.from_now.to_date}")
+    expect(page).to have_content("Responsável\nvaleria@email.com")
+    expect(page).to have_content("Descrição\nConserta o erro tal do arquivo tal")
   end
 end

@@ -1,0 +1,13 @@
+<h1><%= Task.model_name.human %>: <%= @task.title %></h1>
+
+<dt><%= Task.human_attribute_name :description %></dt>
+<dd><%= @task.description %></dd>
+
+<dt><%= Task.human_attribute_name :author %></dt>
+<dd><%= @task.author.email %></dd>
+
+<dt><%= Task.human_attribute_name :assigned %></dt>
+<dd><%= @task.assigned.email %></dd>
+
+<dt><%= Task.human_attribute_name :due_date %></dt>
+<dd><%= @task.due_date %></dd>

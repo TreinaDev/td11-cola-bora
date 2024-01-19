@@ -11,6 +11,7 @@ pt-BR:
         due_date: Prazo
         project_id: Projeto
         author_id: Autor
+        author: Autor
         assigned_id: Responsável
         assigned: Responsável
   tasks:
