@@ -13,3 +13,8 @@ user3 = User.create!(cpf: '913.951.070-09',
 user4 = User.create!(cpf: '243.089.080-19',
                      email: 'andre-daluz82@engenharia.ufjf.br',
                      password: '102030')
+ash = FactoryBot.create(:user, email: 'ash@email.com')
+brock = FactoryBot.create(:user, email: 'brock@email.com', cpf: '000.000.001-91')
+
+FactoryBot.create(:project, user: ash)
+FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio', description: 'Me tornar líder do estádio de pedra.', category: 'Auto Ajuda')
