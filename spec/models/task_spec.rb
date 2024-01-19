@@ -34,7 +34,7 @@ RSpec.describe Task, type: :model do
 
         task.valid?
 
-        expect(task.errors[:due_date]).to include ' deve ser futura.'
+        expect(task.errors[:due_date]).to include ' deve ser futuro.'
       end
 
       it 'verdadeiro se data é hoje' do
@@ -42,7 +42,7 @@ RSpec.describe Task, type: :model do
 
         task.valid?
 
-        expect(task.errors[:due_date]).not_to include ' deve ser futura.'
+        expect(task.errors[:due_date]).not_to include ' deve ser futuro.'
       end
 
       it 'verdadeiro se data é no futuro' do
@@ -50,7 +50,7 @@ RSpec.describe Task, type: :model do
 
         task.valid?
 
-        expect(task.errors[:due_date]).not_to include ' deve ser futura.'
+        expect(task.errors[:due_date]).not_to include ' deve ser futuro.'
       end
     end
   end

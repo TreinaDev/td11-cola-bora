@@ -1,6 +1,6 @@
 <h1><%= Task.model_name.human.pluralize %></h1>
 
-<%= link_to 'Nova Tarefa', new_project_task_path(@project) %>
+<%= link_to I18n.t('tasks.new_task'), new_project_task_path(@project) %>
 <br>
 <br>
 <ul>

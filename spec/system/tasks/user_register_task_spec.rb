@@ -14,7 +14,7 @@ describe 'Usuário cria tarefa' do
     fill_in 'Descrição', with: 'Conserta o erro tal do arquivo tal'
     fill_in 'Prazo', with: 10.days.from_now.to_date
     select 'valeria@email.com', from: 'Responsável'
-    click_on 'Criar Tarefa'
+    click_on 'Salvar'
 
     expect(page).to have_content('Tarefa criada com sucesso')
     expect(page).to have_content("Autor\n#{author.email}")
@@ -34,9 +34,10 @@ describe 'Usuário cria tarefa' do
     click_on 'Tarefas'
     click_on 'Nova Tarefa'
     fill_in 'Título', with: ''
-    click_on 'Criar Tarefa'
+    click_on 'Salvar'
 
     expect(page).to have_content('Não foi possível criar a tarefa.')
+    expect(page).to have_content('Título não pode ficar em branco')
     expect(current_path).to eq new_project_task_path(project)
     expect(page).to have_field 'Título'
   end

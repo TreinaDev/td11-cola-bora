@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create show index]
-  before_action :set_project, only: %i[new create index]
-  before_action :set_contributors, only: %i[new create]
-  before_action :set_task, only: %i[show]
+  before_action :authenticate_user!, only: %i[new create show index edit update]
+  before_action :set_project, only: %i[new create index show edit update]
+  before_action :set_contributors, only: %i[new create edit update]
+  before_action :set_task, only: %i[show edit update]
 
   def index
     @tasks = @project.tasks
@@ -25,6 +25,17 @@ class TasksController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    if @task.update(task_params)
+      redirect_to project_task_path(@project, @task), notice: t('.success')
+    else
+      flash.now[:alert] = t('.fail')
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   private
 

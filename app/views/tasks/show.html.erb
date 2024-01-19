@@ -10,12 +10,14 @@
 <% if @task.assigned %>
   <dd><%= @task.assigned.email %></dd>
 <% else %>
-  <dd>Sem responsável</dd>
+  <dd><%= I18n.t('tasks.no_assigned') %></dd>
 <% end %>
 
 <dt><%= Task.human_attribute_name :due_date %></dt>
 <% if @task.due_date %>
   <dd><%= I18n.l @task.due_date %></dd>
 <% else %>
-  <dd>Sem prazo</dd>
+  <dd><%= I18n.t('tasks.no_due_date') %></dd>
 <% end %>
+
+<%= link_to I18n.t('tasks.edit_task'), edit_project_task_path(@project, @task) %>

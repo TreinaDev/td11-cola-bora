@@ -18,3 +18,12 @@ pt-BR:
     create:
       success: Tarefa criada com sucesso.
       fail: Não foi possível criar a tarefa.
+    update:
+      success: Tarefa editada com sucesso.
+      fail: Não foi possível editar a tarefa.
+    edit_task: Editar Tarefa
+    new_task: Nova Tarefa
+    create_task: Criar Tarefa
+    no_due_date: Sem prazo
+    no_assigned: Sem responsável
+    save: Salvar
