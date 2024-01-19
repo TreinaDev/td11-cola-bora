@@ -13,7 +13,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :assigned_id, class: 'form-label' %>
-    <%= f.collection_select :assigned_id, @contributors, :id, :email %>
+    <%= f.collection_select :assigned_id, @contributors, :id, :email, :include_blank => true, class: 'form-control' %>
   </div>
   <div>
     <%= f.submit 'Criar Tarefa', class: 'btn btn-primary'%>

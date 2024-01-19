@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :project do
-    user { nil }
+    user
     title { 'MyString' }
     description { 'MyText' }
     category { 'MyString' }

@@ -22,4 +22,20 @@ describe 'Usuário cria tarefa' do
     expect(page).to have_content("Responsável\nvaleria@email.com")
     expect(page).to have_content("Descrição\nConserta o erro tal do arquivo tal")
   end
+
+  it 'e a criação falha' do
+    author = create(:user, email: 'joão@email.com', password: 'password', cpf: '123456')
+    create(:user, email: 'valeria@email.com', password: 'password', cpf: '123457')
+    project = create(:project, user: author)
+
+    login_as(author)
+    visit project_path(project)
+    click_on 'Nova Tarefa'
+    fill_in 'Título', with: ''
+    click_on 'Criar Tarefa'
+
+    expect(page).to have_content('Não foi possível criar a tarefa.')
+    expect(current_path).to eq new_project_task_path(project)
+    expect(page).to have_field 'Título'
+  end
 end

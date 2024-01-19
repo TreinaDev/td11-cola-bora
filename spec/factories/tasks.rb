@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :task do
-    title { "MyString" }
-    description { "MyText" }
-    project { nil }
-    user { nil }
-    due_date { "2024-01-18" }
-    assigned { "MyString" }
+    title { 'Bugfix' }
+    description { 'Fix de um bug' }
+    project
+    author { User.last }
+    assigned { User.last }
+    due_date { 10.days.from_now.to_date }
   end
 end
