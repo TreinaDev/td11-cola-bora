@@ -1,15 +1,25 @@
 <h1><%= Project.model_name.human(count: 2) %></h1>
-<% @projects.each do |project| %>
-  <p>
-    <strong><%= Project.human_attribute_name :title %>: </strong>
-    <%= project.title %>
-  </p>
-  <p>
-    <strong><%= Project.human_attribute_name :description %>: </strong>
-    <%= project.description %>
-  </p>
-  <p>
-    <strong><%= Project.human_attribute_name :category %>: </strong>
-    <%= project.category %>
-  </p>
+<div class="nav-scroller py-1 mb-3 border-bottom">
+  <nav class="nav nav-underline">
+    <%= link_to 'Todos os Projetos', projects_path, class: "nav-item nav-link link-body-emphasis" %>
+    <%= link_to 'Meus Projetos', my_projects_projects_path, class: "nav-item nav-link link-body-emphasis" %>
+  </nav>
+</div>
+<% if @projects.any? %>
+  <% @projects.each do |project| %>
+    <p>
+      <strong><%= Project.human_attribute_name :title %>: </strong>
+      <%= project.title %>
+    </p>
+    <p>
+      <strong><%= Project.human_attribute_name :description %>: </strong>
+      <%= project.description %>
+    </p>
+    <p>
+      <strong><%= Project.human_attribute_name :category %>: </strong>
+      <%= project.category %>
+    </p>
+  <% end %>
+<% else %>
+  <h3>Não existem projetos cadastrados.</h3>
 <% end %>
