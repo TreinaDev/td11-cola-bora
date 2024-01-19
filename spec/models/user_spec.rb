@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe 'create' do
+    it 'cria um perfil associado ao usuário com campos vazios' do
+      user = User.create!(cpf: '590.439.290-77', email: 'user@example.com', password: '654321')
+
+      expect(user.profile).to be_present
+      expect(user.profile.first_name).to be nil
+      expect(user.profile.last_name).to be nil
+      expect(user.profile.work_experience).to be nil
+      expect(user.profile.education).to be nil
+    end
+  end
+
   describe '#valid?' do
     context 'presence' do
       it 'falso sem CPF' do
