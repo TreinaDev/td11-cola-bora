@@ -24,8 +24,8 @@ RSpec.describe Profile, type: :model do
     end
 
     it 'retorna falso com pelo menos a experiência de profissional preenchida' do
-      profile = create(:profile, first_name: '', last_name: '', work_experience: 'Consultor financeiro',
-                                 education: '')
+      profile = create(:profile, first_name: '', last_name: '',
+                                 work_experience: 'Consultor financeiro', education: '')
 
       expect(profile.first_update?).to be false
     end
