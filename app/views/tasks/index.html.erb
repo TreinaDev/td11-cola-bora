@@ -1,6 +1,8 @@
 <h1><%= Task.model_name.human.pluralize %></h1>
 
 <%= link_to 'Nova Tarefa', new_project_task_path(@project) %>
+<br>
+<br>
 <ul>
   <% @tasks.each do |task| %>
     <li><h4><%= link_to task.title, project_task_path(@project, task) %>
