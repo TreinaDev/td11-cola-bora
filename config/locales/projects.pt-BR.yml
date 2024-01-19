@@ -13,4 +13,6 @@ pt-BR:
   projects:
     create:
       success: Projeto criado com sucesso.
-      fail: Não foi possível criar o projeto.    
+      fail: Não foi possível criar o projeto.
+    destroy:
+      success: Projeto deletado com sucesso!

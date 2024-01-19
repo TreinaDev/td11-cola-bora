@@ -5,3 +5,7 @@
   <dt><%= Project.human_attribute_name :category %>: </dt>
   <dd><%= @project.category %></dd>
 </dl>
+
+<div>
+  <%= link_to 'Editar Projeto', edit_project_path(@project) %>
+</div>

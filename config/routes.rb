@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :profiles, only: %i[edit]
-  resources :projects, only: [:new, :create, :show]
+  resources :projects, only: %i[new create show edit destroy]
 end

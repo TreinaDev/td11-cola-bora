@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create show]
-  before_action :set_project, only: [:show]
+  before_action :set_project, only: %i[show edit destroy]
 
   def new
     @project = current_user.projects.build
@@ -18,6 +18,13 @@ class ProjectsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def destroy
+    @project.destroy
+    redirect_to root_path, notice: t('.success')
+  end
 
   private
 
