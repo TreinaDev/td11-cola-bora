@@ -8,20 +8,7 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'a partir da home' do
-    user = create :user
-
-    login_as(user)
-    visit(root_path)
-    click_on 'Criar Projeto'
-
-    expect(page).to have_field 'Título'
-    expect(page).to have_field 'Descrição'
-    expect(page).to have_field 'Categoria'
-    expect(page).to have_button 'Salvar Projeto'
-  end
-
-  it 'com sucesso' do
+  it 'a partir da home com sucesso' do
     user = create :user
 
     login_as(user)
