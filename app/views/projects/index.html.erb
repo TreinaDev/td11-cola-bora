@@ -9,7 +9,7 @@
   <% @projects.each do |project| %>
     <p>
       <strong><%= Project.human_attribute_name :title %>: </strong>
-      <%= project.title %>
+      <%= link_to project.title, project_path(project) %>
     </p>
     <p>
       <strong><%= Project.human_attribute_name :description %>: </strong>
