@@ -16,3 +16,4 @@ pt-BR:
       fail: Não foi possível criar o projeto.
     destroy:
       success: Projeto deletado com sucesso!
+      fail: Não foi possível completar a sua requisição
