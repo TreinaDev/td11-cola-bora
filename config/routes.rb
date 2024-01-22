@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :projects, only: [:new, :create, :show, :index] do
+  resources :projects, only: %i[new create show index] do
     get 'my_projects', on: :collection
   end
 
-  resources :profiles, only: %i[edit]
-
+  resources :profiles, only: %i[edit update show]
 end

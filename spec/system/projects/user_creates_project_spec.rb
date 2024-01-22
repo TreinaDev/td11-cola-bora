@@ -10,6 +10,7 @@ describe 'Usuário cria um projeto' do
 
   it 'a partir da home com sucesso' do
     user = create :user
+    create(:profile, user:)
 
     login_as(user)
     visit(root_path)
@@ -28,6 +29,7 @@ describe 'Usuário cria um projeto' do
 
   it 'com campos vazios' do
     user = create :user
+    create(:profile, user:)
 
     login_as(user)
     visit(new_project_path)

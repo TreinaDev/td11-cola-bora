@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    models:
+      profile:
+        one: Perfil
+        other: Perfis
+    attributes:
+      profile:
+        first_name: Nome
+        last_name: Sobrenome
+        work_experience: Experiência profissional
+        education: Informação acadêmica
+  profiles:
+    update:
+      success: Perfil atualizado com sucesso!
+      error: Não foi possível atualizar perfil!
+  full_name: Nome
+  skip: Pular etapa
+  back: Voltar
+  complete_profile_msg: Complete o seu perfil
+  update_profile_msg: Atualizar perfil
+  
