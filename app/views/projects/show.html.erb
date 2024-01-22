@@ -15,4 +15,5 @@
 
 <div>
   <%= link_to t(:edit_project_btn), edit_project_path(@project) %>
+  <%= link_to Task.model_name.human.pluralize, project_tasks_path(@project) %>
 </div>
