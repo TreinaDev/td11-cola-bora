@@ -22,7 +22,7 @@ describe 'Usuário vê projetos' do
     visit root_path
     click_on 'Projetos'
 
-    expect(current_path).to eq projects_path
+    expect(page).to have_current_path projects_path
     expect(page).to have_content 'Título: Padrão'
     expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes'
     expect(page).to have_content 'Categoria: Teste'

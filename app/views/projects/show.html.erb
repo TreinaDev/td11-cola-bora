@@ -12,3 +12,7 @@
   <strong><%= Project.human_attribute_name :category %>: </strong>
   <%= @project.category %>
 </p>
+
+<div>
+  <%= link_to t(:edit_project_btn), edit_project_path(@project) %>
+</div>
