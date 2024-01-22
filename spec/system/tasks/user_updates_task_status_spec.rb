@@ -67,22 +67,4 @@ describe 'Usuário atualiza o status da tarefa' do
     expect(page).to have_current_path(task_path(task))
     expect(task.reload.status).to eq 'cancelled'
   end
-
-  # it 'quando não está expirada' do
-  #   author = create(:user, email: 'joão@email.com', password: 'password')
-  #   project = create(:project, user: author)
-  
-  #   task = create(:task, project:, due_date: Time.zone.tomorrow)
-
-  #   travel_to 2.days.from_now
-  #     login_as(author)
-  #     visit task_path(task)
-
-  #     expect(page).to have_content "Status\nExpirada"
-  #     expect(page).not_to have_button 'Iniciar Tarefa'
-  #     expect(page).not_to have_button 'Finalizar Tarefa'
-  #     expect(page).not_to have_button 'Cancelar Tarefa'
-  #     expect(task.reload.status).to eq 'expired'
-  #   travel_back
-  # end
 end

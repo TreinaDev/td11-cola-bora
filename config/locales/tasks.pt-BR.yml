@@ -32,7 +32,9 @@ pt-BR:
     finish:
       success: Tarefa finalizada. 
     cancel:
-      success: Tarefa cancelada. 
+      success: Tarefa cancelada.
+    check_user:
+      fails: 'Você não possui acesso a esta tarefa.'
     edit_task: Editar Tarefa
     start_task: Iniciar Tarefa
     finish_task: Finalizar Tarefa

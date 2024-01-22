@@ -30,3 +30,5 @@
 <%= button_to I18n.t('tasks.cancel_task'), cancel_task_path(@task) if @task.uninitialized? || @task.in_progress? %>
 
 <%= link_to I18n.t('tasks.edit_task'), edit_task_path(@task) %>
+
+<%= link_to I18n.t('.back'), project_tasks_path(@task.project) %>

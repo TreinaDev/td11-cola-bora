@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário edita tarefa' do
-  it 'á partir da pagina tarefa' do
+  it 'á partir da página de tarefa com sucesso' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
     task = create(:task, project:)
@@ -17,7 +17,8 @@ describe 'Usuário edita tarefa' do
     expect(page).to have_content('Tarefa: Conserta a tarefa')
     expect(page).to have_content("Descrição\nEssa edição conserta a tarefa")
   end
-  it 'á partir da pagina tarefa' do
+
+  it 'e falha porque um campo obrigatório ficou em branco' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
     task = create(:task, project:)

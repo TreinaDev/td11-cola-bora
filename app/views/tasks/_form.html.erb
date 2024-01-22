@@ -20,7 +20,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :due_date, class: 'form-label' %>
-    <%= f.date_field :due_date, class: 'form-control' %>
+    <%= f.date_field :due_date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %>
   </div>
   <div class="mb-3">
     <%= f.label :assigned_id, class: 'form-label' %>

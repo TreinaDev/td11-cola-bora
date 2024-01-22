@@ -37,4 +37,25 @@ describe 'Usuário vê tarefas' do
     expect(page).to have_content "Responsável\nSem responsável"
     expect(current_path).to eq task_path(task)
   end
+
+  it 'e volta para a página do projeto' do
+    project = create(:project, title: 'Projeto Secreto', description: 'Esse projeto é secreto')
+    create(:task, title: 'Tarefa 1', project:)
+    create(:task, title: 'Tarefa 2', project:)
+    create(:task, title: 'Tarefa 3', project:)
+    create(:task, title: 'Tarefa 4', project:)
+
+    login_as(project.user)
+    visit project_path(project)
+    click_on 'Tarefas'
+    click_on 'Tarefa 2'
+    click_on 'Voltar'
+
+    expect(page).to have_content 'Tarefas'
+    expect(page).to have_link 'Tarefa 1'
+    expect(page).to have_link 'Tarefa 2'
+    expect(page).to have_link 'Tarefa 3'
+    expect(page).to have_link 'Tarefa 4'
+    expect(current_path).to eq project_tasks_path(project)
+  end
 end

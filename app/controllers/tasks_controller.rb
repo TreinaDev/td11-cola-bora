@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :set_project, only: %i[new create index]
   before_action :set_contributors, only: %i[new create edit update]
   before_action :set_task, only: %i[show edit update start finish cancel]
+  before_action :check_user, only: %i[edit update]
 
   def index
     @tasks = @project.tasks
@@ -70,5 +71,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :due_date, :assigned_id)
+  end
+
+  def check_user
+    redirect_to root_path, alert: t('.fail') \
+      unless @task.author == current_user || @task.assigned == current_user || @task.project.user == current_user
   end
 end
