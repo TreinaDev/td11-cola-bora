@@ -1,5 +1,5 @@
 require 'rails_helper'
-# todos os projetos da plataforma
+
 describe 'Usuário vê projetos' do
   it 'e deve estar autenticado' do
     visit projects_path
