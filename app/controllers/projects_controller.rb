@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     return redirect_to root_path, alert: t('.fail') unless current_user == @project.user
 
     @project.destroy
-    redirect_to projects_path, notice: t('.success')
+    redirect_to my_projects_projects_path, notice: t('.success')
   end
 
   private

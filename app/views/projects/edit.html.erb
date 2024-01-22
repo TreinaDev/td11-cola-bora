@@ -1,6 +1,6 @@
-<%= button_to 'Deletar',
+<%= button_to t(:delete_project_btn),
               project_path(@project),
               method: :delete,
-              data: { turbo_confirm: 'Deletar projeto?',
+              data: { turbo_confirm: t(:delete_confirm_message),
                       turbo_method: :delete },
               class: 'btn btn-danger' %>
