@@ -1,0 +1,35 @@
+<%= form_with model: profile do |f| %>
+  <div class="mb-3">
+    <%= f.label :first_name, class: 'form-label' %>
+    <%= f.text_field :first_name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :last_name, class: 'form-label' %>
+    <%= f.text_field :last_name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :work_experience, class: 'form-label' %>
+    <%= f.text_area :work_experience, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :education, class: 'form-label' %>
+    <%= f.text_field :education, class: 'form-control' %>
+  </div>
+
+  <div>
+    <% if profile.first_update? %>
+      <%= link_to t('skip'), root_path, class: 'btn btn-danger' %>
+      <%= f.submit t('helpers.submit.complete',
+                   model: Profile.model_name.human),
+                   class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to t('back'), profile_path(@profile), class: 'btn btn-danger' %>
+      <%= f.submit t('helpers.submit.update',
+                   model: Profile.model_name.human),
+                   class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>

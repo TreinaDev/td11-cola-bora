@@ -36,6 +36,8 @@ module ColaBora
     config.time_zone = "Brasilia"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.i18n.default_locale = :'pt-BR'
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end
