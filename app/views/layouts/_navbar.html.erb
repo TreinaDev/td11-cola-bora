@@ -9,10 +9,11 @@
         <%= link_to 'Home', root_path, class:"nav-link" %>
         <%= link_to 'Criar Projeto', new_project_path, class:"nav-link" %>
         <% if user_signed_in? %>
-          <p><%= current_user.email %></p>
-          <%= button_to "Sair", destroy_user_session_path, method: :delete %>
+          <%= link_to 'Meu perfil', profile_path(current_user.profile), class: 'nav-link' %>
+          <p class="nav-link"><%= current_user.email %></p>
+          <%= button_to "Sair", destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
         <% else %>
-          <%= link_to "Entrar", new_user_session_path %>
+          <%= link_to "Entrar", new_user_session_path, class: 'btn btn-primary' %>
         <% end %>
       </div>
     </div>

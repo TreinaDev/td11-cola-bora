@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :profiles, only: %i[edit]
+  resources :profiles, only: [:edit, :update, :show]
   resources :projects, only: [:new, :create, :show]
 end
