@@ -6,6 +6,9 @@
 <dt><%= Task.human_attribute_name :author %></dt>
 <dd><%= @task.author.email %></dd>
 
+<dt><%= Task.human_attribute_name :status %></dt>
+<dd><%= I18n.t(@task.status) %></dd>
+
 <dt><%= Task.human_attribute_name :assigned %></dt>
 <% if @task.assigned %>
   <dd><%= @task.assigned.email %></dd>
@@ -20,4 +23,10 @@
   <dd><%= I18n.t('tasks.no_due_date') %></dd>
 <% end %>
 
-<%= link_to I18n.t('tasks.edit_task'), edit_project_task_path(@project, @task) %>
+<%= button_to I18n.t('tasks.start_task'), start_task_path(@task) if @task.uninitialized? %>
+
+<%= button_to I18n.t('tasks.finish_task'), finish_task_path(@task) if @task.in_progress? %>
+
+<%= button_to I18n.t('tasks.cancel_task'), cancel_task_path(@task) if @task.uninitialized? || @task.in_progress? %>
+
+<%= link_to I18n.t('tasks.edit_task'), edit_task_path(@task) %>

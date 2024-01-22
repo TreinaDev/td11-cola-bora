@@ -24,7 +24,7 @@ describe 'Usuário cria tarefa' do
     expect(page).to have_content("Descrição\nConserta o erro tal do arquivo tal")
   end
 
-  it 'e a criação falha' do
+  it 'e a criação falha pois os campos estão em branco' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
     project = create(:project, user: author)

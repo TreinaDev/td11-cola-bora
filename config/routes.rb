@@ -4,7 +4,14 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :profiles, only: %i[edit]
   resources :projects, only: [:new, :create, :show] do
-    resources :tasks, only: [:index, :new, :create, :show, :edit, :update]
+    resources :tasks, only: [:index, :new, :create]
   end
 
+  resources :tasks, only: [:show, :edit, :update,] do
+    member do
+      post 'start'
+      post 'finish'
+      post 'cancel'
+    end
+  end
 end

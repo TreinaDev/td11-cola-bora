@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_133253) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_22_115325) do
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "first_name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_133253) do
     t.datetime "updated_at", null: false
     t.integer "author_id"
     t.integer "assigned_id"
+    t.integer "status", default: 0
     t.index ["assigned_id"], name: "index_tasks_on_assigned_id"
     t.index ["author_id"], name: "index_tasks_on_author_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
