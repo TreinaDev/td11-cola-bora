@@ -9,8 +9,18 @@ pt-BR:
         title: Título
         description: Descrição
         category: Categoria
-        user_id: Usuário
+        user_id: Autor
+        user: Autor
   projects:
     create:
       success: Projeto criado com sucesso.
-      fail: Não foi possível criar o projeto.    
+      fail: Não foi possível criar o projeto.
+    show:
+      not_found: Projeto não encontrado.
+    destroy:
+      success: Projeto deletado com sucesso!
+      fail: Não foi possível completar a sua requisição
+
+  edit_project_btn: Editar Projeto
+  delete_project_btn: Deletar
+  delete_confirm_message: Deletar projeto?

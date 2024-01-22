@@ -1,6 +1,15 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create show]
-  before_action :set_project, only: [:show]
+  before_action :authenticate_user!, only: %i[new create show index destroy my_projects]
+  before_action :set_project, only: %i[show edit destroy]
+
+  def index
+    @projects = Project.all
+  end
+
+  def my_projects
+    @projects = Project.where(user_id: current_user)
+    render :index
+  end
 
   def new
     @project = current_user.projects.build
@@ -18,6 +27,15 @@ class ProjectsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def destroy
+    return redirect_to root_path, alert: t('.fail') unless current_user == @project.user
+
+    @project.destroy
+    redirect_to my_projects_projects_path, notice: t('.success')
+  end
 
   private
 
