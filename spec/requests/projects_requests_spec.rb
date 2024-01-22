@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :request do
-  describe 'Usuário cria um projeto' do
+  describe 'POST /projects' do
     it 'e deve estar autenticado' do
       user = create :user
       project_params = { title: 'Mewtwo', description: 'Um projeto para criar um pokémon.', category: 'Jogo', user: }
@@ -40,7 +40,7 @@ RSpec.describe Project, type: :request do
       expect(Project.count).to eq 1
     end
 
-    it 'não delete um projeto de outro usuário' do
+    it 'não deleta um projeto de outro usuário' do
       project_owner = create(:user)
       project = create(:project, user: project_owner)
       other_user = create(:user, cpf: '440.502.910-53', email: 'otheruser@email.com')
@@ -50,6 +50,16 @@ RSpec.describe Project, type: :request do
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Não foi possível completar a sua requisição'
+      expect(Project.count).to eq 1
+      expect(Project.last).to eq project
+    end
+
+    it 'não deleta um projeto sem estar logado' do
+      project = create(:project)
+
+      delete project_path(project)
+
+      expect(response).to redirect_to new_user_session_path
       expect(Project.count).to eq 1
       expect(Project.last).to eq project
     end

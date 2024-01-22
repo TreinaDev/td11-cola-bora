@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create show index my_projects]
+  before_action :authenticate_user!, only: %i[new create show index destroy my_projects]
   before_action :set_project, only: %i[show edit destroy]
 
   def index
