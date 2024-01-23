@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :tasks, only: %i[index new create]
     get 'my_projects', on: :collection
   end
-  
+
   resources :tasks, only: %i[show edit update] do
     member do
       post 'start'
@@ -16,4 +16,8 @@ Rails.application.routes.draw do
       post 'cancel'
     end
   end
+
+  resources :portfoliorrr_profiles, only: %i[show]
+  resources :invitations, only: %i[create]
+  # get 'portfoliorrr_profiles/:id', to: 'portfoliorrr_profiles#show', as: :portfoliorrr_profile
 end
