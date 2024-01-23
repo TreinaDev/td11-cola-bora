@@ -1,0 +1,46 @@
+pt-BR:
+  uninitialized: Não iniciada
+  in_progress: Em andamento
+  finished: Finalizada 
+  expired: Expirada
+  cancelled: Cancelada
+  activerecord:
+    models:
+      task:
+        one: Tarefa
+        other: Tarefas
+    attributes:
+      task:
+        title: Título
+        description: Descrição
+        due_date: Prazo
+        project_id: Projeto
+        author_id: Autor
+        author: Autor
+        assigned_id: Responsável
+        assigned: Responsável
+        status: Status
+  tasks:
+    create:
+      success: Tarefa criada com sucesso.
+      fail: Não foi possível criar a tarefa.
+    update:
+      success: Tarefa editada com sucesso.
+      fail: Não foi possível editar a tarefa.
+    start:
+      success: Tarefa iniciada.
+    finish:
+      success: Tarefa finalizada. 
+    cancel:
+      success: Tarefa cancelada.
+    check_user:
+      fails: 'Você não possui acesso a esta tarefa.'
+    edit_task: Editar Tarefa
+    start_task: Iniciar Tarefa
+    finish_task: Finalizar Tarefa
+    cancel_task: Cancelar Tarefa
+    new_task: Nova Tarefa
+    create_task: Criar Tarefa
+    no_due_date: Sem prazo
+    no_assigned: Sem responsável
+    save: Salvar

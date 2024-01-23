@@ -1,0 +1,37 @@
+<h1><%= Task.model_name.human %>: <%= @task.title %></h1>
+
+<dt><%= Task.human_attribute_name :description %></dt>
+<dd><%= @task.description %></dd>
+
+<dt><%= Task.human_attribute_name :author %></dt>
+<dd><%= @task.author.email %></dd>
+
+<dt><%= Task.human_attribute_name :status %></dt>
+<dd><%= I18n.t(@task.status) %></dd>
+
+<dt><%= Task.human_attribute_name :assigned %></dt>
+<% if @task.assigned %>
+  <dd><%= @task.assigned.email %></dd>
+<% else %>
+  <dd><%= I18n.t('tasks.no_assigned') %></dd>
+<% end %>
+
+<dt><%= Task.human_attribute_name :due_date %></dt>
+<% if @task.due_date %>
+  <dd><%= I18n.l @task.due_date %></dd>
+<% else %>
+  <dd><%= I18n.t('tasks.no_due_date') %></dd>
+<% end %>
+
+<br>
+<%= button_to I18n.t('tasks.start_task'), start_task_path(@task), class: 'btn btn-primary' if @task.uninitialized? %>
+
+<%= button_to I18n.t('tasks.finish_task'), finish_task_path(@task), class: 'btn btn-primary' if @task.in_progress? %>
+<br>
+
+<%= button_to I18n.t('tasks.cancel_task'), cancel_task_path(@task), class: 'btn btn-danger' if @task.uninitialized? || @task.in_progress? %>
+<br>
+
+<%= link_to I18n.t('tasks.edit_task'), edit_task_path(@task) %>
+
+<%= link_to I18n.t('.back'), project_tasks_path(@task.project) %>

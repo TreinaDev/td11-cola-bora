@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_16_203230) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_22_115325) do
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "first_name"
@@ -30,6 +30,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_203230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.integer "project_id", null: false
+    t.date "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "author_id"
+    t.integer "assigned_id"
+    t.integer "status", default: 0
+    t.index ["assigned_id"], name: "index_tasks_on_assigned_id"
+    t.index ["author_id"], name: "index_tasks_on_author_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -58,6 +73,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_203230) do
 
   add_foreign_key "profiles", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users", column: "assigned_id"
+  add_foreign_key "tasks", "users", column: "author_id"
   add_foreign_key "user_roles", "projects"
   add_foreign_key "user_roles", "users"
 end
