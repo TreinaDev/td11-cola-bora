@@ -1,0 +1,11 @@
+<h1><%= Meeting.model_name.human(count: 2) %></h1>
+
+<%= link_to I18n.t('meetings.new_meeting'), new_project_meeting_path(@project) %>
+<br>
+<br>
+<ul>
+  <% @meetings.each do |meeting| %>
+    <li><h4><%= link_to meeting.title, meeting_path(meeting) %>
+    <span style="font-size: small;"><%= I18n.l meeting.due_date if meeting.due_date %></span></h4></li>
+  <% end %>
+</ul>

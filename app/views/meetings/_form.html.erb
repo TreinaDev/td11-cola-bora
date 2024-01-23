@@ -1,0 +1,41 @@
+<%= form_with(model: [@project, @meeting]) do |f| %>  
+  <% if @meeting.errors.any? %>
+     <div class='text-danger'>
+       <h3><%= I18n.t('.errors_title') %>:</h3>
+       <ul>
+         <% @meeting.errors.each do |error| %>
+           <li><%= error.full_message %></li>
+         <% end %>
+       </ul>
+     </div>
+   <% end %>
+ 
+   <div class="mb-3">
+     <%= f.label :title, class: 'form-label' %>
+     <%= f.text_field :title, class: 'form-control' %>
+   </div>
+   <div class="mb-3">
+     <%= f.label :description, class: 'form-label' %>
+     <%= f.text_area :description, class: 'form-control' %>
+   </div>
+   <div class="mb-3">
+     <%= f.label :date, class: 'form-label' %>
+     <%= f.date_field :date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %>
+   </div>
+   <div class="mb-3">
+     <%= f.label :time, class: 'form-label' %>
+     <%= f.time_field :time, class: 'form-control' %>
+   </div>
+   <div class="mb-3">
+     <%= f.label :duration, class: 'form-label' %>
+     <%= f.number_field :duration, class: 'form-control' %>
+   </div>
+   <div class="mb-3">
+     <%= f.label :address, class: 'form-label' %>
+     <%= f.text_field :address, class: 'form-control' %>
+   </div>
+   <div>
+     <%= f.submit I18n.t('meetings.save'), class: 'btn btn-primary'%>
+   </div>
+ <% end %>
+ 
