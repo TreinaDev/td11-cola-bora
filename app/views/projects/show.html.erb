@@ -1,5 +1,9 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
 
+<div>
+  <%= link_to 'Documentos', project_documents_path(@project) %>
+</div>
+
 <p>
   <strong><%= Project.human_attribute_name :user %>: </strong>
   <%= @project.user.email %>
