@@ -1,5 +1,5 @@
 <main>
-  <%= link_to 'Voltar', project_documents_path(@document.project) %>
+  <%= link_to t(:back), project_documents_path(@document.project) %>
 
   <h1><%= @document.title %></h1>
   <p><%= simple_format @document.description %></p>
@@ -11,9 +11,9 @@
   </div>
 
   <div>
-    <%= link_to 'Download' %>
+    <%= link_to t(:document_download_btn) %>
     <% if @document.user == current_user %>
-      <%= button_to 'Arquivar' %>
+      <%= button_to t(:document_archive_btn) %>
     <% end %>
   </div>
 </main>
