@@ -4,7 +4,7 @@ class ContributorsController < ApplicationController
   before_action :authorize_user, only: %i[search]
 
   def search
-    @contributors = Contributor.all
+    @contributors = params[:q] ? Contributor.find(params[:q]) : Contributor.all
   end
 
   private

@@ -1,5 +1,15 @@
 <h1>Usuários disponíveis</h1>
 
+<%= form_with url: search_project_contributors_path(@project), method: :get do |f| %>
+  <div>
+    <%= f.label :q, 'Busca:' %>
+    <%= f.text_field :q %>
+  </div>
+  <div>
+    <%= f.submit 'Buscar' %>
+  </div>
+<% end %>
+
 <% if @contributors.any? %>
   <table class="table table-hover align-middle mb-0 bg-white">
     <thead class="bg-light">
