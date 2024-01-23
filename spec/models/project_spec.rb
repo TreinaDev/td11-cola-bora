@@ -29,4 +29,14 @@ RSpec.describe Project, type: :model do
       expect(project.errors.include?(:category)).to be true
     end
   end
+
+  describe 'Autor do projeto se torna líder' do
+    it 'com sucesso' do
+      user = create :user
+      project = create(:project, user:)
+
+      expect(project.user_roles.count).to eq 1
+      expect(project.user_roles.last.role).to eq 'leader'
+    end
+  end
 end

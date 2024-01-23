@@ -4,4 +4,14 @@ class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   validates :title, :description, :category, presence: true
+
+  after_create :set_leader_on_create
+  
+  private
+
+  def set_leader_on_create
+    role = self.user.user_roles.build(role: :leader)
+    role.project = self
+    role.save
+  end
 end
