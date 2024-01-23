@@ -1,12 +1,15 @@
 ash = FactoryBot.create(:user, email: 'ash@email.com', cpf: '837.513.746-47')
-FactoryBot.create(:profile, user: ash, first_name: 'Ash', last_name: 'Ketchum',
+ash.profile.update(first_name: 'Ash', last_name: 'Ketchum',
                             work_experience: 'Treinador Pokemon', education: 'Escola Pokemon')
+
 brock = FactoryBot.create(:user, email: 'brock@email.com', cpf: '000.000.001-91')
-FactoryBot.create(:profile, user: brock, first_name: 'Brock', last_name: '',
-                            work_experience: 'Treinador de Pokemon de rocha', education: 'Escola Pokemon')
+brock.profile.update(first_name: 'Brock', last_name: 'Harrison',
+                            work_experience: 'Treinador Pokemon de rocha', education: 'Escola Pokemon')
+
 misty = FactoryBot.create(:user, email: 'misty@email.com', cpf: '293.912.970-30')
-FactoryBot.create(:profile, user: misty, first_name: '', last_name: '',
-                            work_experience: '', education: '')
+misty.profile.update(first_name: 'Mysty', last_name: '',
+                            work_experience: 'Treinadora Pokemon de agua', education: 'Escola Pokemon')
+
 
 FactoryBot.create(:project, user: ash)
 pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio', 
