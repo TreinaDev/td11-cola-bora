@@ -1,18 +1,2 @@
-<%= form_with model: [@project, @document] do |f| %>
-  <div>
-    <%= f.label :title, 'Título' %>
-    <%= f.text_field :title, placeholder: 'Título do documento' %>
-  </div>
-
-  <div>
-    <%= f.label :description, 'Descrição' %>
-    <%= f.text_area :description, placeholder: 'Descrição do documento' %>
-  </div>
-
-  <div>
-    <%= f.label :file, 'Arquivo' %>
-    <%= f.file_field :file %>
-  </div>
-
-  <%= f.submit 'Salvar documento' %>
-<% end %>
+<h1>Novo documento</h1>
+<%= render 'form' %>

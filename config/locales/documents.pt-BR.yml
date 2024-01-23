@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      document:
+        one: Documento
+        other: Documentos
+    attributes:
+      document:
+        title: Título
+        description: Descrição
+        file: Arquivo
+        archived: Arquivado
+  documents:
+    create:
+      success: 'Documento adicionado com sucesso.'
+      fail: 'Não foi possível adicionar o documento'
+
+  document_title_placeholder: Título do documento
+  document_description_placeholder: Descrição do documento
