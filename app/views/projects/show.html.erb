@@ -1,5 +1,11 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
 
+<% if @project.is_leader?(current_user) %>
+  <div>
+    <%= link_to 'Procurar usuários', search_project_contributors_path(@project) %>
+  </div>
+<% end %>
+
 <p>
   <strong><%= Project.human_attribute_name :user %>: </strong>
   <%= @project.user.email %>

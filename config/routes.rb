@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :tasks, only: %i[index new create]
     get 'my_projects', on: :collection
     
-    resources :collaborators, only: %i[show] do
+    resources :contributors, only: %i[show] do
       get 'search', on: :collection
     end
   end

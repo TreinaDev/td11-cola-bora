@@ -14,7 +14,8 @@ misty.profile.update(first_name: 'Mysty', last_name: '',
 FactoryBot.create(:project, user: ash)
 pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio', 
                                               description: 'Me tornar líder do estádio de pedra.',
-                                              category: 'Auto Ajuda') 
+                                              category: 'Auto Ajuda')
+FactoryBot.create(:user_role, user: brock, project: pokemon_project, role: :leader)
 
 FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude', 
                          description:'Para completar o meu time de pedra, preciso de um geodude, vamos captura-lo',
