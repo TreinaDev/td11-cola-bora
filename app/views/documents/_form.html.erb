@@ -24,5 +24,8 @@
     <%= f.file_field :file, class: 'form-control' %>
   </div>
 
-  <%= f.submit class: 'btn btn-primary' %>
+  <div>
+    <%= f.submit class: 'btn btn-primary' %>
+    <%= link_to 'Voltar', project_documents_path(@project), class: 'btn btn-secondary' %>
+  </div>
 <% end %>

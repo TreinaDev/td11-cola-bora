@@ -44,4 +44,15 @@ describe 'Usuário anexa documento ao projeto' do
       expect(page).to have_field 'Descrição', with: 'Descrição teste'
     end
   end
+
+  it 'mas desiste e retorna a listagem de documentos' do
+    user = create(:user)
+    project = create(:project, user:)
+
+    login_as user, scope: :user
+    visit new_project_document_path(project)
+    click_on 'Voltar'
+
+    expect(page).to have_current_path project_documents_path(project)
+  end
 end

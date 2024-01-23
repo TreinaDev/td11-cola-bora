@@ -1,12 +1,12 @@
 <%= link_to 'Novo documento', new_project_document_path %>
 
 <section>
-  <% @documents.each do |doc| %>
+  <% @documents.each do |document| %>
     <div>
-      <h4><%= doc.title %></h4>
-      <p><%= doc.description %></p>
-      <% if doc.file.attached? %>
-        <%= image_tag doc.file %>
+      <h4><%= link_to document.title, document_path(document) %></h4>
+      <p><%= document.description %></p>
+      <% if document.file.attached? %>
+        <%= image_tag document.file %>
       <% end %>
     </div>
   <% end %>
