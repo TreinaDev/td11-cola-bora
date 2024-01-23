@@ -1,21 +1,21 @@
-<h1>Perfil do Portfoliorr</h1>
+<h1><%= @profile['name'] %></h1>
 
 <% if Invitation.find_by(profile_id: @profile['id']).nil? %>
   <%= form_with(model: @invitation, url: invitations_path, local: true) do |form| %>
     <%= form.hidden_field :profile_id, value: @profile['id'] %>
 
     <div class="mb-3">
-      <%= form.label :due_date, 'Vencimento' %>
-      <%= form.date_field :due_date %>
+      <%= form.label :due_date, class: 'form-label' %>
+      <%= form.date_field :due_date, class: 'form-control' %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :project_id, 'Projetos', class: 'form-label' %>
+      <%= form.label :project_id, class: 'form-label' %>
       <%= form.collection_select :project_id, @projects, :id, :title, :include_blank => true, class: 'form-control' %>
     </div>
 
-    <%= form.submit 'Enviar convite' %>
+    <%= form.submit I18n.t 'invitations.send_invitation' %>
   <% end %>
 <% else %>
-  <h2>Esse usuário possui convite pendente</h2>
+  <h2><%= I18n.t 'invitations.pending_invitation' %></h2>
 <% end %>

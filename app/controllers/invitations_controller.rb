@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
 
     @invitation.save
     redirect_to portfoliorrr_profile_path(invitation_params[:profile_id]),
-                notice: 'Convite enviado com sucesso!'
+                notice: t('.success')
   end
 
   private
