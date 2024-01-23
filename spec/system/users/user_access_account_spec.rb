@@ -5,7 +5,9 @@ describe 'Usuário acessa página de login' do
     create(:user, email: 'usuario@email.com', password: '123456')
 
     visit root_path
-    click_on 'Entrar'
+    within 'nav' do
+      click_on 'Entrar'
+    end
     within 'form' do
       fill_in 'E-mail', with: 'usuario@email.com'
       fill_in 'Senha', with: '123456'

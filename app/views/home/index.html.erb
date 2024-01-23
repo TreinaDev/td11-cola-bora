@@ -5,10 +5,10 @@
     <p class="col-lg-8 mx-auto fs-5 text-muted">A maior plataforma colaborativa para gerenciamento de projetos com times de grande e pequeno porte.</p>
     <div class="d-inline-flex gap-2 mb-5">
       <% if user_signed_in? %>
-        <%= link_to "Projetos", projects_path, class: 'd-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill' %>
+        <%= link_to "Ver Projetos", projects_path, class: 'd-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill' %>
       <%else%>
         <%= link_to "Entrar", new_user_session_path, class: 'd-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill' %>
-        <%= link_to "Criar Conta", new_user_registration_path, class: 'btn btn-outline-secondary btn-lg px-4 rounded-pill' %>
+        <%= link_to "Criar sua conta", new_user_registration_path, class: 'btn btn-outline-secondary btn-lg px-4 rounded-pill' %>
       <% end %>
     </div>
   </div>
