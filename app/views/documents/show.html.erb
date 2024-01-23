@@ -12,6 +12,8 @@
 
   <div>
     <%= link_to 'Download' %>
-    <%= button_to 'Arquivar' %>
+    <% if @document.user == current_user %>
+      <%= button_to 'Arquivar' %>
+    <% end %>
   </div>
 </main>
