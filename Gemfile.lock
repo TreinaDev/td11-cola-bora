@@ -122,6 +122,10 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     ferrum (0.14)
       addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
@@ -156,6 +160,8 @@ GEM
     minitest (5.21.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.9.1)
       date
       net-protocol
@@ -291,6 +297,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uri (0.13.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webrick (1.8.1)
@@ -314,6 +321,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
+  faraday
   jbuilder
   jsbundling-rails
   puma (~> 6.0)
