@@ -1,0 +1,23 @@
+<h1><%= Meeting.model_name.human %>: <%= @meeting.title %></h1>
+
+<dt><%= Meeting.human_attribute_name :user_role %></dt>
+<dd><%= @meeting.user_role.user.email %></dd>
+
+<dt><%= Meeting.human_attribute_name :duration %></dt>
+<dd><%= @meeting.duration %></dd>
+
+<dt><%= Meeting.human_attribute_name :description %></dt>
+<dd><%= @meeting.description %></dd>
+
+<dt><%= Meeting.human_attribute_name :description %></dt>
+<% unless @meeting.description.blank? %>
+  <dd><%= @meeting.description %></dd>
+<% else %>
+  <dd><%= I18n.t('meetings.no_description') %></dd>
+<% end %>
+
+<dt><%= Meeting.human_attribute_name :address %></dt>
+<dd><%= @meeting.address %></dd>
+
+<dt><%= Meeting.human_attribute_name :datetime %></dt>
+  <dd><%= I18n.l @meeting.datetime %></dd>

@@ -1,26 +1,30 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[index new create]
+  before_action :set_meeting, only: %i[show]
 
   def index
     @meetings = @project.meetings
   end
 
   def new
-    @meeting = @project.meetings.new 
+    @meeting = @project.meetings.new
   end
 
   def create
     @meeting = @project.meetings.build(meeting_params)
-    @meeting.user_role = set_user_role
+    user_role = UserRole.find_by(user: current_user, project: @project)
+    @meeting.user_role = user_role
 
     if @meeting.save
-      redirect_to meeting_path(@meeting), notice: t('.success')
+      redirect_to @meeting, notice: t('.success')
     else
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity
     end
   end
+
+  def show; end
 
   private
 
@@ -39,12 +43,6 @@ class MeetingsController < ApplicationController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:title, :description, :date, :time, :duration, :address)
-  end
-
-  def set_user_role
-    (current_user.user_roles & @project.user_roles).first
+    params.require(:meeting).permit(:title, :description, :datetime, :duration, :address)
   end
 end
-
-# project.user_roles

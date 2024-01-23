@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     resources :meetings, only: %i[index new create]
     get 'my_projects', on: :collection
   end
-  
+
+  resources :meetings, only: %i[show]
+
   resources :tasks, only: %i[show edit update] do
     member do
       post 'start'

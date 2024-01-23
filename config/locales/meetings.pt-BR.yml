@@ -8,12 +8,11 @@ pt-BR:
       meeting:
         title: Título
         description: Descrição
-        date: Data
-        time: Horário
+        datetime: Data e horário
         address: Endereço
         duration: Duração
         role: Papel
-        user: Usuário
+        user_role: Autor
         project: Projeto
   meetings:
     create:
@@ -26,5 +25,5 @@ pt-BR:
     cancel_meeting: Cancelar Reunião
     new_meeting: Nova Reunião
     create_meeting: Criar Reunião
-    no_description: Sem descrição
+  no_description: Sem descrição
     save: Salvar

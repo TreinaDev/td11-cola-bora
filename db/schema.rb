@@ -16,8 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_150004) do
     t.integer "project_id", null: false
     t.string "title", null: false
     t.string "description"
-    t.date "date", null: false
-    t.time "time", null: false
+    t.datetime "datetime", null: false
     t.integer "duration", null: false
     t.string "address", null: false
     t.datetime "created_at", null: false

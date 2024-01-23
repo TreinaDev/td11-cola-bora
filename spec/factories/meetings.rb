@@ -1,11 +1,10 @@
 FactoryBot.define do
   factory :meeting do
     user_role { nil }
-    title { "MyString" }
-    description { "MyString" }
-    date { "2024-01-23" }
-    time { "2024-01-23 12:00:05" }
+    title { 'MyString' }
+    description { 'MyString' }
+    datetime { '2024-01-23T14:00:00' }
     duration { 1 }
-    address { "MyString" }
+    address { 'MyString' }
   end
 end
