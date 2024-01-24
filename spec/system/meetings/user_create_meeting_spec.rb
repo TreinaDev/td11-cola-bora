@@ -32,6 +32,8 @@ describe 'Usuário cria reunião' do
     expect(page).to have_content "Data e horário\n24/05/2024, 14:00"
     expect(page).to have_content "Duração\n2h"
     expect(page).to have_content "Endereço\nhttps://meet.google.com"
+    expect(page).to have_link 'https://meet.google.com'
+
     travel_back
   end
 

@@ -7,9 +7,6 @@
 <dd><%= format_duration(@meeting.duration) %></dd>
 
 <dt><%= Meeting.human_attribute_name :description %></dt>
-<dd><%= @meeting.description %></dd>
-
-<dt><%= Meeting.human_attribute_name :description %></dt>
 <% unless @meeting.description.blank? %>
   <dd><%= @meeting.description %></dd>
 <% else %>
@@ -17,7 +14,9 @@
 <% end %>
 
 <dt><%= Meeting.human_attribute_name :address %></dt>
-<dd><%= @meeting.address %></dd>
+<dd><%= link_to_address(@meeting.address) %></dd>
 
 <dt><%= Meeting.human_attribute_name :datetime %></dt>
 <dd><%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></dd>
+
+<%= link_to I18n.t('.back'), project_meetings_path(@meeting.project) %>
