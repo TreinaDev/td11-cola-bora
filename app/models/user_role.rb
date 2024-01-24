@@ -12,7 +12,7 @@ class UserRole < ApplicationRecord
     return unless project.user_roles.any?
 
     project.user_roles.each do |user_role|
-      errors.add(:project, I18n.t(:one_leader)) if user_role.leader?
+      errors.add(:project, I18n.t(:one_leader)) if leader? && user_role.leader?
     end
   end
 end

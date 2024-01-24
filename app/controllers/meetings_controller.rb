@@ -43,12 +43,6 @@ class MeetingsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  def set_contributors
-    # TODO
-    # Limitar para os colaboradores do projeto
-    @contributors = User.all
-  end
-
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end

@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe 'Usuário edita Reunião' do
+  it 'e deve estar autenticado' do
+    meeting = create(:meeting)
+    visit edit_meeting_path(meeting)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se'
+  end
+
   it 'á partir da página de Reunião com sucesso' do
     user = create(:user)
     project = create(:project, user:)
