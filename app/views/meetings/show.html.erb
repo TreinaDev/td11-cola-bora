@@ -19,4 +19,6 @@
 <dt><%= Meeting.human_attribute_name :datetime %></dt>
 <dd><%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></dd>
 
+<%= link_to I18n.t('meetings.edit_meeting'), edit_meeting_path(@meeting) %>
+
 <%= link_to I18n.t('.back'), project_meetings_path(@meeting.project) %>

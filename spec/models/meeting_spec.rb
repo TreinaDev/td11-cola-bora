@@ -32,5 +32,39 @@ RSpec.describe Meeting, type: :model do
         expect(meeting.errors[:address]).to include 'não pode ficar em branco'
       end
     end
+
+    context 'prazo deve ser futuro' do
+      it 'falso se data é no passado' do
+        meeting = FactoryBot.build(:meeting, datetime: 1.day.ago.to_date)
+
+        meeting.valid?
+
+        expect(meeting.errors.full_messages).to include 'Data e horário deve ser futuro.'
+      end
+
+      it 'verdadeiro se data é hoje, mas horário é futuro' do
+        meeting = FactoryBot.build(:meeting, datetime: (Time.zone.now + 1.hour))
+
+        meeting.valid?
+
+        expect(meeting.errors.full_messages).not_to include 'Data e horário deve ser futuro.'
+      end
+
+      it 'falso se data é hoje, mas horário é passado' do
+        meeting = FactoryBot.build(:meeting, datetime: Time.zone.now - 1.hour)
+
+        meeting.valid?
+
+        expect(meeting.errors.full_messages).to include 'Data e horário deve ser futuro.'
+      end
+
+      it 'verdadeiro se data é no futuro' do
+        meeting = FactoryBot.build(:meeting, datetime: 1.day.from_now.to_date)
+
+        meeting.valid?
+
+        expect(meeting.errors.full_messages).not_to include 'Data e horário deve ser futuro.'
+      end
+    end
   end
 end

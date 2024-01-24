@@ -61,7 +61,7 @@ describe 'Usuário vê página de reuniões de um projeto' do
   it 'e completa o fluxo de index' do
     travel_to Time.zone.local(2024, 11, 24, 1, 4, 44)
     user = create(:user)
-    project = create(:project, user:, title:'Pousadaria')
+    project = create(:project, user:, title: 'Pousadaria')
     create(:meeting, project:, title: 'Daily da segunda', datetime: Time.zone.local(2024, 11, 24, 14, 0, 0))
     create(:meeting, project:, title: 'Daily do feriado', datetime: Time.zone.local(2024, 11, 27, 14, 0, 0))
 

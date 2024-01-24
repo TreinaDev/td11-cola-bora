@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get 'my_projects', on: :collection
   end
 
-  resources :meetings, only: %i[show]
+  resources :meetings, only: %i[show edit update]
 
   resources :tasks, only: %i[show edit update] do
     member do
