@@ -1,6 +1,6 @@
 <h1>Usuários disponíveis</h1>
 
-<%= form_with url: search_project_contributors_path(@project), method: :get do |f| %>
+<%= form_with url: search_project_portifoliorrr_profiles_path(@project), method: :get do |f| %>
   <div>
     <%= f.label :q, 'Busca:' %>
     <%= f.text_field :q %>
@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<% if @contributors.any? %>
+<% if @portifoliorrr_profiles.any? %>
   <table class="table table-hover align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
@@ -19,20 +19,20 @@
       </tr>
     </thead>
     <tbody>
-      <% @contributors.each do |contributor| %>
+      <% @portifoliorrr_profiles.each do |portifoliorrr_profile| %>
         <tr>
           <td>
             <div class="d-flex align-items-center">
               <div class="ms-3">
                 <p class="fw-bold mb-1">
-                  <%= contributor.name %>
+                  <%= portifoliorrr_profile.name %>
                 </p>
               </div>
             </div>
           </td>
           <td>
             <p class="fw-normal mb-1">
-              <%= contributor.job_category %>
+              <%= portifoliorrr_profile.job_category %>
             </p>
           </td>
         </tr>

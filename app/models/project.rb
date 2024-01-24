@@ -5,7 +5,17 @@ class Project < ApplicationRecord
 
   validates :title, :description, :category, presence: true
 
-  def is_leader?(user)
-    self.user_roles.find_by(user: user).leader?
+  after_create :set_leader_on_create
+
+  def leader?(user)
+    user_roles.find_by(user:).leader?
+  end
+
+  private
+
+  def set_leader_on_create
+    role = user.user_roles.build(role: :leader)
+    role.project = self
+    role.save
   end
 end

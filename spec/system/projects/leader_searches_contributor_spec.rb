@@ -4,7 +4,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
   it 'e deve estar autenticado' do
     project = create :project
 
-    visit search_project_contributors_path project
+    visit search_project_portifoliorrr_profiles_path project
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
@@ -17,7 +17,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       create :user_role, user:, project:, role: :contributor
 
       login_as user
-      visit search_project_contributors_path project
+      visit search_project_portifoliorrr_profiles_path project
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem acesso a esse recurso'
@@ -42,7 +42,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       create :user_role, user:, project:, role: :admin
 
       login_as user
-      visit search_project_contributors_path project
+      visit search_project_portifoliorrr_profiles_path project
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem acesso a esse recurso'
@@ -69,7 +69,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
     allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
     login_as user
-    visit search_project_contributors_path project
+    visit search_project_portifoliorrr_profiles_path project
 
     expect(page).to have_content 'Não há usuários a serem exibidos.'
   end
@@ -80,7 +80,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :leader
       url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_users_data.json'))
+      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
       fake_response = double('faraday_response', status: 200, body: json)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
@@ -90,7 +90,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       click_on 'Projeto Top'
       click_on 'Procurar usuários'
 
-      expect(current_path).to eq search_project_contributors_path project
+      expect(current_path).to eq search_project_portifoliorrr_profiles_path project
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'
       expect(page).to have_content 'Usuários disponíveis'
       expect(page).to have_content 'Lucas'
@@ -107,28 +107,20 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :leader
       url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_users_data.json'))
+      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
       fake_response = double('faraday_response', status: 200, body: json)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
       url = 'http://localhost:8000/api/v1/users?search=video'
-      json = '{ 
-                "data": [
-                  {
-                    "id": 3,
-                    "name": "Rodolfo",
-                    "job_category": "Editor de Video"
-                  }
-                ] 
-              }'
+      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data_filtered.json'))
       fake_response = double('faraday_response', status: 200, body: json)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
       login_as user
-      visit search_project_contributors_path project
+      visit search_project_portifoliorrr_profiles_path project
       fill_in 'Busca:', with: 'video'
       click_on 'Buscar'
 
-      expect(current_path).to eq search_project_contributors_path project
+      expect(current_path).to eq search_project_portifoliorrr_profiles_path project
       expect(page).not_to have_content 'Lucas'
       expect(page).not_to have_content 'Desenvolvedor'
       expect(page).not_to have_content 'Mateus'
@@ -136,7 +128,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       expect(page).to have_content 'Rodolfo'
       expect(page).to have_content 'Editor de Video'
     end
-    
+
     it 'e retorna erro interno' do
       project = create :project
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
@@ -146,7 +138,20 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
       login_as user
-      visit search_project_contributors_path project
+      visit search_project_portifoliorrr_profiles_path project
+
+      expect(page).to have_content 'Não há usuários a serem exibidos.'
+    end
+
+    it 'e não consegue se conectar com a API' do
+      project = create :project
+      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      create :user_role, user:, project:, role: :leader
+      url = 'http://localhost:8000/api/v1/users'
+      allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
+
+      login_as user
+      visit search_project_portifoliorrr_profiles_path project
 
       expect(page).to have_content 'Não há usuários a serem exibidos.'
     end

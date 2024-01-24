@@ -1,8 +1,8 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
 
-<% if @project.is_leader?(current_user) %>
+<% if @project.leader?(current_user) %>
   <div>
-    <%= link_to 'Procurar usuários', search_project_contributors_path(@project) %>
+    <%= link_to 'Procurar usuários', search_project_portifoliorrr_profiles_path(@project) %>
   </div>
 <% end %>
 
