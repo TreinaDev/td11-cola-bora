@@ -4,7 +4,7 @@
 <dd><%= @meeting.user_role.user.email %></dd>
 
 <dt><%= Meeting.human_attribute_name :duration %></dt>
-<dd><%= @meeting.duration %></dd>
+<dd><%= format_duration(@meeting.duration) %></dd>
 
 <dt><%= Meeting.human_attribute_name :description %></dt>
 <dd><%= @meeting.description %></dd>
@@ -20,4 +20,4 @@
 <dd><%= @meeting.address %></dd>
 
 <dt><%= Meeting.human_attribute_name :datetime %></dt>
-  <dd><%= I18n.l @meeting.datetime %></dd>
+<dd><%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></dd>
