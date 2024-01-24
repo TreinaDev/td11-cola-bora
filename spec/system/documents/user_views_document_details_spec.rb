@@ -5,9 +5,12 @@ describe 'Colaborador vê detalhes de um documento' do
     project = create(:project, title: 'Projeto teste')
     contributor = create(:user, cpf: '391.503.760-55', email: 'user@email.com')
     project.user_roles.create!(user: contributor)
-    document = project.documents.build(title: 'Documento teste', description: 'Descrição teste', user: contributor)
-    document.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
-    document.save!
+    document = project.documents.create! do |d|
+      d.title = 'Documento teste'
+      d.description = 'Descrição teste'
+      d.user = contributor
+      d.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
+    end
 
     login_as contributor, scope: :user
     visit project_documents_path(project)
@@ -27,9 +30,12 @@ describe 'Colaborador vê detalhes de um documento' do
     document_creator = create(:user, cpf: '492.294.960-73', email: 'contributor1@email.com')
     contributor = create(:user, cpf: '958.314.240-90', email: 'contributor2@email.com')
     project.user_roles.create!([{ user: document_creator }, { user: contributor }])
-    document = project.documents.build(title: 'Documento teste', description: 'Descrição teste', user: document_creator)
-    document.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
-    document.save!
+    document = project.documents.create! do |d|
+      d.user = document_creator
+      d.title = 'Documento teste'
+      d.description = 'Descrição teste'
+      d.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
+    end
 
     login_as contributor
     visit document_path document
@@ -40,6 +46,4 @@ describe 'Colaborador vê detalhes de um documento' do
     expect(page).to have_link 'Download'
     expect(page).not_to have_button 'Arquivar'
   end
-
-  it 'de um projeto ao qual não pertence'
 end

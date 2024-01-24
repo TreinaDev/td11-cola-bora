@@ -1,9 +1,9 @@
 class DocumentsController < ApplicationController
   before_action :set_project, only: %i[index new create]
-  before_action :set_document, only: %i[show]
+  before_action :set_document, only: %i[show archive]
 
   def index
-    @documents = @project.documents
+    @documents = @project.documents.where(archived: false)
   end
 
   def new
@@ -21,6 +21,11 @@ class DocumentsController < ApplicationController
   end
 
   def show; end
+
+  def archive
+    @document.update(archived: true)
+    redirect_to project_documents_path(@document.project), notice: t('.success')
+  end
 
   private
 

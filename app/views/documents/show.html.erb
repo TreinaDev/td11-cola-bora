@@ -13,7 +13,7 @@
   <div>
     <%= link_to t(:document_download_btn) %>
     <% if @document.user == current_user %>
-      <%= button_to t(:document_archive_btn) %>
+      <%= button_to t(:document_archive_btn), archive_document_path(@document), method: :patch %>
     <% end %>
   </div>
 </main>

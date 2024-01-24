@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :documents, only: %i[show]
+  resources :documents, only: %i[show] do
+    patch 'archive', on: :member
+  end
 end
