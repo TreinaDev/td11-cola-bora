@@ -43,6 +43,21 @@ describe 'Usuário anexa documento ao projeto' do
       expect(page).to have_field 'Título'
       expect(page).to have_field 'Descrição', with: 'Descrição teste'
     end
+
+    it 'com tipo de arquivo inválido' do
+      user = create(:user)
+      project = create(:project, user:)
+
+      login_as user, scope: :user
+      visit new_project_document_path(project)
+      fill_in 'Título', with: 'Título de teste'
+      attach_file 'Arquivo', Rails.root.join('spec/support/files/invalid_upload_file.txt')
+      click_on 'Criar Documento'
+
+      expect(page).to have_content 'Arquivo não suportado.'
+      expect(page).to have_field 'Título', with: 'Título de teste'
+      expect(project.documents).to be_empty
+    end
   end
 
   it 'mas desiste e retorna a listagem de documentos' do
