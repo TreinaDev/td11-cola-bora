@@ -85,7 +85,7 @@ RSpec.describe 'Documento', type: :request do
         contributor = create(:user, cpf: '706.259.640-04', email: 'contributor@email.com')
         project.user_roles.create!(user: contributor)
         params = { document: {
-          title: 'Arquivo docx',
+          title: 'Arquivo Word',
           file: fixture_file_upload('spec/support/files/sample_word_file.docx')
         } }
 
@@ -150,6 +150,42 @@ RSpec.describe 'Documento', type: :request do
         expect(project.documents.last.user).to eq contributor
         expect(project.documents.last.file.attached?).to be true
         expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_ppt.ppt')
+      end
+
+      it 'com extensão csv' do
+        project = create(:project)
+        contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+        project.user_roles.create!(user: contributor)
+        params = { document: {
+          title: 'Arquivo CSV',
+          file: fixture_file_upload('spec/support/files/sample_csv.csv')
+        } }
+
+        login_as contributor, scope: :user
+        post(project_documents_path(project), params:)
+
+        expect(response).to redirect_to project_documents_path(project)
+        expect(project.documents.last.user).to eq contributor
+        expect(project.documents.last.file.attached?).to be true
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_csv.csv')
+      end
+
+      it 'com extensão zip' do
+        project = create(:project)
+        contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+        project.user_roles.create!(user: contributor)
+        params = { document: {
+          title: 'Arquivo ZIP',
+          file: fixture_file_upload('spec/support/files/sample_zip.zip')
+        } }
+
+        login_as contributor, scope: :user
+        post(project_documents_path(project), params:)
+
+        expect(response).to redirect_to project_documents_path(project)
+        expect(project.documents.last.user).to eq contributor
+        expect(project.documents.last.file.attached?).to be true
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_zip.zip')
       end
     end
 

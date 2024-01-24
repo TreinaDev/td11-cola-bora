@@ -15,6 +15,7 @@ class DocumentsController < ApplicationController
     if @document.save
       redirect_to project_documents_path(@project), notice: t('.success')
     else
+      # debugger
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity
     end
