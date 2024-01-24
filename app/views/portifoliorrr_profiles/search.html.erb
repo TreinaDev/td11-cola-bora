@@ -1,6 +1,6 @@
 <h1>Usuários disponíveis</h1>
 
-<% unless params[:q].empty? %>
+<% if params[:q] && params[:q] != '' %>
   <h3>Resultados para: <%= params[:q] %></h3>
 <% end %>
 
