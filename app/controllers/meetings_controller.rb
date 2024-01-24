@@ -4,7 +4,7 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: %i[show]
 
   def index
-    @meetings = @project.meetings
+    @meetings = @project.meetings.order(datetime: :asc).where('datetime > ?', Date.current)
   end
 
   def new
