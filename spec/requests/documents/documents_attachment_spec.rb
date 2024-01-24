@@ -9,7 +9,7 @@ RSpec.describe 'Documento', type: :request do
         params = { document: {
           title: 'Teste de request',
           description: 'Descrição',
-          file: fixture_file_upload('spec/support/files/imagem1.jpg')
+          file: fixture_file_upload('spec/support/files/sample_jpg.jpg')
         } }
 
         login_as leader, scope: :user
@@ -21,7 +21,7 @@ RSpec.describe 'Documento', type: :request do
         expect(project.documents.last.description).to eq 'Descrição'
         expect(project.documents.last.user).to eq leader
         expect(project.documents.last.file.attached?).to be true
-        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/imagem1.jpg')
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_jpg.jpg')
       end
 
       it 'por um colaborador' do
@@ -29,10 +29,9 @@ RSpec.describe 'Documento', type: :request do
         contributor = create(:user, cpf: '747.860.990-23', email: 'colaborador@email.com')
         project.user_roles.create(user: contributor)
         params = { document: {
-          user: contributor,
           title: 'Documento de contribuidor',
           description: 'Descrição',
-          file: fixture_file_upload('spec/support/files/imagem1.jpg')
+          file: fixture_file_upload('spec/support/files/sample_png.png')
         } }
 
         login_as contributor, scope: :user
@@ -42,26 +41,7 @@ RSpec.describe 'Documento', type: :request do
         expect(response).to redirect_to project_documents_path(project)
         expect(project.documents.last.user).to eq contributor
         expect(project.documents.last.file.attached?).to be true
-        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/imagem1.jpg')
-      end
-
-      it 'com extensão png' do
-        project = create(:project)
-        contributor = create(:user, cpf: '054.101.990-22', email: 'colaborador@email.com')
-        project.user_roles.create(user: contributor)
-        params = { document: {
-          user: contributor,
-          title: 'Arquivo png',
-          file: fixture_file_upload('spec/support/files/imagem1.png')
-        } }
-
-        login_as contributor, scope: :user
-        post(project_documents_path(project), params:)
-
-        expect(response).to redirect_to project_documents_path(project)
-        expect(project.documents.last.user).to eq contributor
-        expect(project.documents.last.file.attached?).to be true
-        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/imagem1.png')
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_png.png')
       end
 
       it 'com extensão mp4' do
@@ -69,7 +49,6 @@ RSpec.describe 'Documento', type: :request do
         contributor = create(:user, cpf: '616.782.230-18', email: 'contributor@email.com')
         project.user_roles.create!(user: contributor)
         params = { document: {
-          user: contributor,
           title: 'Arquivo mp4',
           file: fixture_file_upload('spec/support/files/sample_video.mp4')
         } }
@@ -88,7 +67,6 @@ RSpec.describe 'Documento', type: :request do
         contributor = create(:user, cpf: '038.580.790-22', email: 'contributor@email.com')
         project.user_roles.create!(user: contributor)
         params = { document: {
-          user: contributor,
           title: 'Arquivo mp3',
           file: fixture_file_upload('spec/support/files/sample_audio.mp3')
         } }
@@ -107,7 +85,6 @@ RSpec.describe 'Documento', type: :request do
         contributor = create(:user, cpf: '706.259.640-04', email: 'contributor@email.com')
         project.user_roles.create!(user: contributor)
         params = { document: {
-          user: contributor,
           title: 'Arquivo docx',
           file: fixture_file_upload('spec/support/files/sample_word_file.docx')
         } }
@@ -121,9 +98,59 @@ RSpec.describe 'Documento', type: :request do
         expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_word_file.docx')
       end
 
-      it 'com extensão pdf'
-      it 'com extensão xls'
-      it 'com extensão ppt'
+      it 'com extensão pdf' do
+        project = create(:project)
+        contributor = create(:user, cpf: '279.907.860-52', email: 'contributor@email.com')
+        project.user_roles.create!(user: contributor)
+        params = { document: {
+          title: 'Arquivo pdf',
+          file: fixture_file_upload('spec/support/files/sample_pdf.pdf')
+        } }
+
+        login_as contributor, scope: :user
+        post(project_documents_path(project), params:)
+
+        expect(response).to redirect_to project_documents_path(project)
+        expect(project.documents.last.user).to eq contributor
+        expect(project.documents.last.file.attached?).to be true
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_pdf.pdf')
+      end
+
+      it 'com extensão xlsx' do
+        project = create(:project)
+        contributor = create(:user, cpf: '471.301.980-10', email: 'contributor@email.com')
+        project.user_roles.create!(user: contributor)
+        params = { document: {
+          title: 'Arquivo Excel',
+          file: fixture_file_upload('spec/support/files/sample_excel.xlsx')
+        } }
+
+        login_as contributor, scope: :user
+        post(project_documents_path(project), params:)
+
+        expect(response).to redirect_to project_documents_path(project)
+        expect(project.documents.last.user).to eq contributor
+        expect(project.documents.last.file.attached?).to be true
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_excel.xlsx')
+      end
+
+      it 'com extensão ppt' do
+        project = create(:project)
+        contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+        project.user_roles.create!(user: contributor)
+        params = { document: {
+          title: 'Arquivo Power Point',
+          file: fixture_file_upload('spec/support/files/sample_ppt.ppt')
+        } }
+
+        login_as contributor, scope: :user
+        post(project_documents_path(project), params:)
+
+        expect(response).to redirect_to project_documents_path(project)
+        expect(project.documents.last.user).to eq contributor
+        expect(project.documents.last.file.attached?).to be true
+        expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_ppt.ppt')
+      end
     end
 
     context 'sem sucesso' do
