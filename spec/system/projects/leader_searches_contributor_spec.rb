@@ -121,6 +121,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       click_on 'Buscar'
 
       expect(current_path).to eq search_project_portifoliorrr_profiles_path project
+      expect(page).to have_content 'Resultados para: video'
       expect(page).not_to have_content 'Lucas'
       expect(page).not_to have_content 'Desenvolvedor'
       expect(page).not_to have_content 'Mateus'
