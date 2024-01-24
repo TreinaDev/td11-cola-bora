@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create show index edit update start finish cancel]
   before_action :set_project, only: %i[new create index]
   before_action :set_contributors, only: %i[new create edit update]
   before_action :set_task, only: %i[show edit update start finish cancel]
