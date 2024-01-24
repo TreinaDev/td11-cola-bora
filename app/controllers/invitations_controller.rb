@@ -2,9 +2,13 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(invitation_params)
 
-    @invitation.save
-    redirect_to portfoliorrr_profile_path(invitation_params[:profile_id]),
-                notice: t('.success')
+    if @invitation.save
+      redirect_to portfoliorrr_profile_path(invitation_params[:profile_id]),
+                  notice: t('.success')
+    else
+      redirect_to portfoliorrr_profile_path(invitation_params[:profile_id]),
+                  notice: t('.pending_invitation')
+    end
   end
 
   private

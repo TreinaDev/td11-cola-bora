@@ -14,5 +14,6 @@ pt-BR:
     create:
       success: Convite enviado com sucesso!
       fail: Não foi possível enviar o convite.
+      pending_invitation: Esse usuário possui convite pendente
     send_invitation: Enviar convite
     pending_invitation: Esse usuário possui convite pendente
