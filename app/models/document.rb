@@ -5,8 +5,7 @@ class Document < ApplicationRecord
 
   validates :title, :file, presence: true
   validates :file, content_type: {
-    in: %w[image/jpg
-           image/png
+    in: %w[image/png
            image/jpeg
            audio/mpeg
            video/mp4
