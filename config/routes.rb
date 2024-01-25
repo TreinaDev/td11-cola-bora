@@ -7,6 +7,16 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create show index edit destroy] do
     resources :tasks, only: %i[index new create]
     get 'my_projects', on: :collection
+
+    resources :portfoliorrr_profiles, only: %i[show] do
+      get 'search', on: :collection
+
+      resources :invitations, shallow: true, only: %i[create] do
+        member do
+          patch 'cancel'
+        end
+      end
+    end
   end
 
   resources :tasks, only: %i[show edit update] do
@@ -16,7 +26,4 @@ Rails.application.routes.draw do
       post 'cancel'
     end
   end
-
-  resources :portfoliorrr_profiles, only: %i[show]
-  resources :invitations, only: %i[create]
 end

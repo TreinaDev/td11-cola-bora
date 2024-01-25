@@ -14,12 +14,12 @@ describe 'Usuário quer enviar convite' do
     allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
     login_as user
-    visit portfoliorrr_profile_path(id)
+    visit project_portfoliorrr_profile_path(project, id)
     fill_in 'Prazo de validade (em dias)', with: 10
-    select 'Meu novo projeto', from: 'Projetos'
     click_on 'Enviar convite'
 
     expect(page).to have_content 'Convite enviado com sucesso!'
+    expect(project.invitations.last.pending?).to eq true
   end
 
   it 'mas o usuário da Portfoliorrr já foi convidado para o projeto' do
@@ -36,9 +36,8 @@ describe 'Usuário quer enviar convite' do
     Invitation.create!(expiration_days: 10, project:, profile_id: 1)
 
     login_as user
-    visit portfoliorrr_profile_path(id)
+    visit project_portfoliorrr_profile_path(project, id)
     fill_in 'Prazo de validade (em dias)', with: 10
-    select 'Meu novo projeto', from: 'Projetos'
     click_on 'Enviar convite'
 
     expect(page).to have_content 'Esse usuário possui convite pendente'
