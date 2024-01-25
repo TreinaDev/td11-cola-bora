@@ -3,7 +3,6 @@
 <% end %>
 
 <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile['id']), local: true) do |form| %>
-  <%= form.hidden_field :profile, value: @profile %>
   <%= form.hidden_field :profile_id, value: profile['id'] %>
 
   <div class="mb-3">
