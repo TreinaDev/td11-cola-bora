@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :set_project, only: %i[index new create]
   before_action :set_document, only: %i[show archive]
+  before_action -> { authorize_member(@project) }, only: %i[create]
 
   def index
     @documents = @project.documents.where(archived: false)
@@ -41,5 +42,9 @@ class DocumentsController < ApplicationController
     params.require(:document)
           .permit(:title, :description, :file)
           .merge(user: current_user)
+  end
+
+  def authorize_member(project)
+    redirect_to root_path, alert: t('.unauthorized') unless project.member? current_user
   end
 end

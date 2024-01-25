@@ -9,6 +9,10 @@ class Project < ApplicationRecord
 
   after_create :set_leader_on_create
 
+  def member?(user)
+    user_roles.any? { |member| member.user == user }
+  end
+
   private
 
   def set_leader_on_create

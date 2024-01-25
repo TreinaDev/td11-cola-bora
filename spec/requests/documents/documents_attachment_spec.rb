@@ -202,7 +202,21 @@ describe 'Documento é anexado ao projeto' do
       expect(project.documents).to be_empty
     end
 
-    it 'por um usuário não pertencente ao projeto'
+    it 'por um usuário não pertencente ao projeto' do
+      project = create(:project)
+      non_member = create(:user, cpf: '161.176.400-99', email: 'non_member@email.com')
+      params = { document: {
+        title: 'Documento de um membro não pertencente ao projeto',
+        file: fixture_file_upload('spec/support/files/sample_audio.mp3')
+      } }
+
+      login_as non_member, scope: :user
+      post(project_documents_path(project), params:)
+
+      expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq 'Não foi possível completar sua requisição.'
+      expect(project.documents).to be_empty
+    end
 
     it 'com extensão não permitida' do
       project = create(:project)
