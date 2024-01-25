@@ -64,9 +64,7 @@ describe 'Líder de projeto pesquisa por colaboradores' do
     user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
     project = create(:project, user:)
     project.user_roles.find_by(user:).update(role: :leader)
-    url = 'http://localhost:8000/api/v1/users'
-    fake_response = double('faraday_response', status: 200, body: '{ "data": [] }', success?: true)
-    allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+    allow(PortifoliorrrProfile).to receive(:all).and_return([])
 
     login_as user
     visit search_project_portifoliorrr_profiles_path project
@@ -79,10 +77,11 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
-      url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
-      fake_response = double('faraday_response', status: 200, body: json, success?: true)
-      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+      lucas_profile = PortifoliorrrProfile.new id: 1, name: 'Lucas', job_category: 'Desenvolvedor'
+      mateus_profile = PortifoliorrrProfile.new id: 2, name: 'Mateus', job_category: 'Designer'
+      rodolfo_profile = PortifoliorrrProfile.new id: 3, name: 'Rodolfo', job_category: 'Editor de Video'
+      portifoliorrr_profiles = [lucas_profile, mateus_profile, rodolfo_profile]
+      allow(PortifoliorrrProfile).to receive(:all).and_return(portifoliorrr_profiles)
 
       login_as user
       visit root_path
@@ -102,59 +101,44 @@ describe 'Líder de projeto pesquisa por colaboradores' do
       expect(page).to have_selector('table tbody tr', count: 3)
     end
 
-    it 'buscando por termo' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :leader)
-      url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
-      fake_response = double('faraday_response', status: 200, body: json, success?: true)
-      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
-      url = 'http://localhost:8000/api/v1/users?search=video'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data_filtered.json'))
-      fake_response = double('faraday_response', status: 200, body: json, success?: true)
-      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+    context 'buscando por termo' do
+      it 'com sucesso' do
+        user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+        project = create(:project, user:)
+        project.user_roles.find_by(user:).update(role: :leader)
+        rodolfo_profile = PortifoliorrrProfile.new id: 3, name: 'Rodolfo', job_category: 'Editor de Video'
+        allow(PortifoliorrrProfile).to receive(:find).with('video').and_return([rodolfo_profile])
 
-      login_as user
-      visit search_project_portifoliorrr_profiles_path project
-      fill_in 'Busca:', with: 'video'
-      click_on 'Buscar'
+        login_as user
+        visit search_project_portifoliorrr_profiles_path project
+        fill_in 'Busca:', with: 'video'
+        click_on 'Buscar'
 
-      expect(current_path).to eq search_project_portifoliorrr_profiles_path project
-      expect(page).to have_content 'Resultados para: video'
-      expect(page).not_to have_content 'Lucas'
-      expect(page).not_to have_content 'Desenvolvedor'
-      expect(page).not_to have_content 'Mateus'
-      expect(page).not_to have_content 'Designer'
-      expect(page).to have_content 'Rodolfo'
-      expect(page).to have_content 'Editor de Video'
-    end
+        expect(current_path).to eq search_project_portifoliorrr_profiles_path project
+        expect(page).to have_content 'Resultados para: video'
+        expect(page).not_to have_content 'Lucas'
+        expect(page).not_to have_content 'Desenvolvedor'
+        expect(page).not_to have_content 'Mateus'
+        expect(page).not_to have_content 'Designer'
+        expect(page).to have_content 'Rodolfo'
+        expect(page).to have_content 'Editor de Video'
+      end
 
-    it 'e retorna erro interno' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :leader)
-      url = 'http://localhost:8000/api/v1/users'
-      fake_response = double('faraday_response', status: 500, body: '{ "error": ["Erro interno"] }', success?: false)
-      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+      it 'e não há resultados' do
+        user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+        project = create(:project, user:)
+        project.user_roles.find_by(user:).update(role: :leader)
+        allow(PortifoliorrrProfile).to receive(:find).with('termo maluco').and_return([])
 
-      login_as user
-      visit search_project_portifoliorrr_profiles_path project
+        login_as user
+        visit search_project_portifoliorrr_profiles_path project
+        fill_in 'Busca:', with: 'termo maluco'
+        click_on 'Buscar'
 
-      expect(page).to have_content 'Não há usuários a serem exibidos.'
-    end
-
-    it 'e não consegue se conectar com a API' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :leader)
-      url = 'http://localhost:8000/api/v1/users'
-      allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
-
-      login_as user
-      visit search_project_portifoliorrr_profiles_path project
-
-      expect(page).to have_content 'Não há usuários a serem exibidos.'
+        expect(current_path).to eq search_project_portifoliorrr_profiles_path project
+        expect(page).to have_content 'Resultados para: termo maluco'
+        expect(page).to have_content 'Não há usuários a serem exibidos.'
+      end
     end
   end
 end

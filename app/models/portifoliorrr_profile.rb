@@ -27,6 +27,8 @@ class PortifoliorrrProfile
       new(id: portifoliorrr_profile[:id], name: portifoliorrr_profile[:name],
           job_category: portifoliorrr_profile[:job_category])
     end
+  rescue Faraday::ConnectionFailed
+    []
   end
 
   private_class_method :fetch_portifoliorrr_profiles
