@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "full_name": "Rodolfo",
+  "email": "rodolfo@email.com",
+  "job_categories": [
+    {
+      "name": "Editor de Video",
+      "description": "Canal do Youtube"
+    }
+  ],
+  "profile":
+    {
+      "cover_letter": "Me chamo Rodolfo e sou editor de vídeos em um canal do Youtube."
+    }
+}

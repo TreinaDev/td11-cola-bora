@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Líder de projeto pesquisa por colaboradores' do
+describe 'Líder de projeto pesquisa por perfis da Portifoliorrr' do
   it 'e deve estar autenticado' do
     project = create :project
 
