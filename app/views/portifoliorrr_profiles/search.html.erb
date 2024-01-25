@@ -1,0 +1,46 @@
+<h1>Usuários disponíveis</h1>
+
+<% if @query.present? %>
+  <h3>Resultados para: <%= @query %></h3>
+<% end %>
+
+<%= form_with url: search_project_portifoliorrr_profiles_path(@project), method: :get do |f| %>
+  <div class="input-group">
+    <%= f.label :q, 'Busca:', class: 'd-none' %>
+    <%= f.text_field :q, class: 'form-control rounded', placeholder: 'Busca' %>
+    <%= f.submit 'Buscar', class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>
+
+<% if @portifoliorrr_profiles.any? %>
+  <table class="table table-hover align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Nome</th>
+        <th>Tipo de Serviço</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @portifoliorrr_profiles.each do |portifoliorrr_profile| %>
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="ms-3">
+                <p class="fw-bold mb-1">
+                  <%= portifoliorrr_profile.name %>
+                </p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">
+              <%= portifoliorrr_profile.job_category %>
+            </p>
+          </td>
+        </tr>
+      <% end %>    
+    </tbody>
+  </table>
+<% else %>
+  <h3>Não há usuários a serem exibidos.</h3>
+<% end %>
