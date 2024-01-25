@@ -14,6 +14,6 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.require(:invitation).permit(:profile_id, :due_date, :project_id)
+    params.require(:invitation).permit(:profile_id, :expiration_days, :project_id)
   end
 end

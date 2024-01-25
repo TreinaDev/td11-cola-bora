@@ -1,0 +1,16 @@
+<%= form_with(model: invitation, url: invitations_path, local: true) do |form| %>
+  <%= form.hidden_field :profile, value: @profile %>
+  <%= form.hidden_field :profile_id, value: profile['id'] %>
+
+  <div class="mb-3">
+    <%= form.label :expiration_days, class: 'form-label', html: { min: '0', step: 1 } %>
+    <%= form.number_field :expiration_days, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :project_id, class: 'form-label' %>
+    <%= form.collection_select :project_id, @projects, :id, :title, :include_blank => true, class: 'form-control' %>
+  </div>
+
+  <%= form.submit I18n.t 'invitations.send_invitation', class: 'btn btn-primary' %>
+<% end %>

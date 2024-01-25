@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_133819) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_25_115838) do
   create_table "invitations", force: :cascade do |t|
-    t.date "due_date"
+    t.integer "expiration_days"
     t.integer "project_id", null: false
     t.integer "profile_id", null: false
     t.integer "status", default: 0

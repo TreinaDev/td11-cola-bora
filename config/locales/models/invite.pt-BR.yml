@@ -6,7 +6,7 @@ pt-BR:
         other: Convites
     attributes:
       invitation:
-        due_date: Vencimento
+        expiration_days: Prazo de validade (em dias)
         project_id: Projetos
         profile_id: Perfil
         status: Status

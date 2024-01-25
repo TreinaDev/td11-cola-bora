@@ -19,5 +19,4 @@ Rails.application.routes.draw do
 
   resources :portfoliorrr_profiles, only: %i[show]
   resources :invitations, only: %i[create]
-  # get 'portfoliorrr_profiles/:id', to: 'portfoliorrr_profiles#show', as: :portfoliorrr_profile
 end
