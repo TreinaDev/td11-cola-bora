@@ -21,20 +21,20 @@
       </tr>
     </thead>
     <tbody>
-      <% @portifoliorrr_profiles.each do |portifoliorrr_profile| %>
+      <% @portifoliorrr_profiles.each do |profile| %>
         <tr>
           <td>
             <div class="d-flex align-items-center">
               <div class="ms-3">
                 <p class="fw-bold mb-1">
-                  <%= portifoliorrr_profile.name %>
+                  <%= link_to profile.name, project_portifoliorrr_profile_path(@project, profile.id) %>
                 </p>
               </div>
             </div>
           </td>
           <td>
             <p class="fw-normal mb-1">
-              <%= portifoliorrr_profile.job_category %>
+              <%= profile.job_category %>
             </p>
           </td>
         </tr>

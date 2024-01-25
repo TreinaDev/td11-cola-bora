@@ -59,7 +59,7 @@ RSpec.describe PortifoliorrrProfile, type: :model do
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portifoliorrr_profiles = PortifoliorrrProfile.find('video')
+      portifoliorrr_profiles = PortifoliorrrProfile.search('video')
 
       expect(portifoliorrr_profiles.count).to eq 1
       expect(portifoliorrr_profiles[0].name).to eq 'Rodolfo'

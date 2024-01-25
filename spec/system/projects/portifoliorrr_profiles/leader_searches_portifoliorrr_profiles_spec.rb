@@ -107,7 +107,7 @@ describe 'Líder de projeto pesquisa por perfis da Portifoliorrr' do
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
         rodolfo_profile = PortifoliorrrProfile.new id: 3, name: 'Rodolfo', job_category: 'Editor de Video'
-        allow(PortifoliorrrProfile).to receive(:find).with('video').and_return([rodolfo_profile])
+        allow(PortifoliorrrProfile).to receive(:search).with('video').and_return([rodolfo_profile])
 
         login_as user
         visit search_project_portifoliorrr_profiles_path project
@@ -128,7 +128,7 @@ describe 'Líder de projeto pesquisa por perfis da Portifoliorrr' do
         user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
-        allow(PortifoliorrrProfile).to receive(:find).with('termo maluco').and_return([])
+        allow(PortifoliorrrProfile).to receive(:search).with('termo maluco').and_return([])
 
         login_as user
         visit search_project_portifoliorrr_profiles_path project

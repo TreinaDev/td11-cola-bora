@@ -1,0 +1,23 @@
+<% if @portfoliorrr_profile.present? %>
+  <h3>Perfil de <%= @portfoliorrr_profile.name %><h3>
+
+  <dl>
+    <dt><strong>Informações: </strong></dt>
+    <dd><strong>Nome: </strong> <%= @portfoliorrr_profile.name %></dd>
+    <dd><strong>Email: </strong> <%= @portfoliorrr_profile.email %></dd>
+  </dl>
+
+  <dl>
+    <dt><strong>Tipos de Serviço: </strong></dt>
+    <% @portfoliorrr_profile.job_categories.each do |category| %>
+      <dd><strong>Nome: </strong> <%= category.name %></dd>
+      <dd><strong>Descrição: </strong> <%= category.description %></dd>
+    <% end %>
+  </dl>
+
+  <p>Sobre mim: <%= @portfoliorrr_profile.cover_letter %></p>
+<% else %>
+  <h3>Perfil não disponível</h3>
+  <h3>Tente mais tarde</h3>
+<% end %>
+

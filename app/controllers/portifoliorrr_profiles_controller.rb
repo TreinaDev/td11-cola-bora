@@ -5,7 +5,11 @@ class PortifoliorrrProfilesController < ApplicationController
 
   def search
     @query = params[:q]
-    @portifoliorrr_profiles = @query ? PortifoliorrrProfile.find(@query) : PortifoliorrrProfile.all
+    @portifoliorrr_profiles = @query ? PortifoliorrrProfile.search(@query) : PortifoliorrrProfile.all
+  end
+
+  def show
+    @portfoliorrr_profile = PortifoliorrrProfile.find(params['id'])
   end
 
   private
