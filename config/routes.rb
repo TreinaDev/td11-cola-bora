@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create]
     get 'my_projects', on: :collection
+
+    resources :portifoliorrr_profiles, only: %i[show] do
+      get 'search', on: :collection
+    end
   end
 
   resources :meetings, only: %i[show edit update]
@@ -23,5 +27,11 @@ Rails.application.routes.draw do
 
   resources :documents, only: %i[show] do
     patch 'archive', on: :member
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :projects, only: %i[index]
+    end
   end
 end

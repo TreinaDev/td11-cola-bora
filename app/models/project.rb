@@ -13,6 +13,10 @@ class Project < ApplicationRecord
     user_roles.any? { |member| member.user == user }
   end
 
+  def leader?(user)
+    user_roles.find_by(user:).leader?
+  end
+
   private
 
   def set_leader_on_create
