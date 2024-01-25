@@ -29,7 +29,7 @@ RSpec.describe Project, type: :model do
       expect(project.errors.include?(:category)).to be true
     end
   end
-  
+
   context '#leader?' do
     it 'retorna true se Usuário for lider' do
       user = create :user
@@ -55,10 +55,10 @@ RSpec.describe Project, type: :model do
       expect(project.leader?(user)).to eq false
     end
   end
-  
+
   context '#set_leader_on_create' do
     it 'só o criador se torna líder' do
-      another_user = create(:user, email: 'another_user@mail.com', cpf: '891.586.070-56')
+      create(:user, email: 'another_user@mail.com', cpf: '891.586.070-56')
       leader = create(:user, email: 'leader@email.com')
       project = create(:project, user: leader)
       contributor = create(:user, email: 'contributor@mail.com', cpf: '000.000.001-91')

@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   def future_meetings
     meetings.order(datetime: :asc).where('datetime > ?', Date.current)
   end
-  
+
   def leader?(user)
     user_roles.find_by(user:).leader?
   end
