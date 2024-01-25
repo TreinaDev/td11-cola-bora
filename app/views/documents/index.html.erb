@@ -1,24 +1,23 @@
-<%= link_to t(:back), project_path(@project) %>
+<%= link_to t(:back), project_path(@project), class: "btn btn-sm btn-secondary" %>
 
 <h1>Documentos <%= @project.title %></h1>
 
 <section>
-  <div>
-    <%= link_to t(:document_new_btn), new_project_document_path %>
+  <div class="mb-3 mt-3">
+    <%= link_to t(:document_new_btn), new_project_document_path, class: "btn btn-primary" %>
   </div>
 
   <div id="documents-list">
     <% if @documents.empty? %>
       <p><%= t(:documents_empty_state) %></p>
     <% else %>
-      <table>
+      <table class="table table-hover">
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Criado em</th>
-            <th></th>
-            <th></th>
+            <th scope="col">Título</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Criado em</th>
+            <th scope="col" colspan="2"></th>
           </tr>
         </thead>
 
