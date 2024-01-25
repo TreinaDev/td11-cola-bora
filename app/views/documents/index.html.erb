@@ -1,13 +1,33 @@
-<%= link_to t(:document_new_btn), new_project_document_path %>
+<%= link_to t(:back), project_path(@project) %>
+
+<h1>Documentos <%= @project.title %></h1>
 
 <section>
-  <% @documents.each do |document| %>
-    <div>
-      <h4><%= link_to document.title, document_path(document) %></h4>
-      <p><%= document.description %></p>
-      <% if document.file.attached? %>
-        <%= image_tag document.file %>
-      <% end %>
-    </div>
-  <% end %>
+  <div>
+    <%= link_to t(:document_new_btn), new_project_document_path %>
+  </div>
+
+  <div id="documents-list">
+    <% if @documents.empty? %>
+      <p><%= t(:documents_empty_state) %></p>
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Criado em</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @documents.each do |document| %>
+            <%= render 'document_row', document: %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
 </section>

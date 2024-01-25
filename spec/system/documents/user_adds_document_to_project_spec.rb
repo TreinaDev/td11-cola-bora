@@ -21,7 +21,6 @@ describe 'Usuário anexa documento ao projeto' do
 
       expect(page).to have_current_path project_documents_path(project)
       expect(page).to have_content 'Documento teste'
-      expect(page).to have_selector 'img[src$="imagem1.jpg"]'
       expect(page).to have_content 'Documento adicionado com sucesso'
     end
   end
