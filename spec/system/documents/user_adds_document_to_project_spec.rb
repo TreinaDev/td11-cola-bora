@@ -16,10 +16,10 @@ describe 'Usuário anexa documento ao projeto' do
       click_on 'Novo documento'
       fill_in 'Título',	with: 'Documento teste'
       fill_in 'Descrição',	with: 'Descrição teste'
-      attach_file 'Arquivo', Rails.root.join('spec/support/files/imagem1.jpg')
+      attach_file 'Arquivo', Rails.root.join('spec/support/files/sample_jpg.jpg')
       click_on 'Criar Documento'
 
-      expect(page).to have_current_path project_documents_path(project)
+      expect(page).to have_current_path document_path(project.documents.last)
       expect(page).to have_content 'Documento teste'
       expect(page).to have_content 'Documento adicionado com sucesso'
     end

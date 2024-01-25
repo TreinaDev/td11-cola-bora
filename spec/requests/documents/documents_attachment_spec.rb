@@ -14,7 +14,7 @@ describe 'Documento é anexado ao projeto' do
       login_as leader, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.count).to eq 1
       expect(project.documents.last.title).to eq 'Teste de request'
       expect(project.documents.last.description).to eq 'Descrição'
@@ -37,7 +37,7 @@ describe 'Documento é anexado ao projeto' do
       post(project_documents_path(project), params:)
       project.reload
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_png.png')
@@ -55,7 +55,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_video.mp4')
@@ -73,7 +73,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, sope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_audio.mp3')
@@ -91,7 +91,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_word_file.docx')
@@ -109,7 +109,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_pdf.pdf')
@@ -127,7 +127,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_excel.xlsx')
@@ -145,7 +145,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_ppt.ppt')
@@ -163,7 +163,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_csv.csv')
@@ -181,7 +181,7 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to project_documents_path(project)
+      expect(response).to redirect_to document_path(project.documents.last)
       expect(project.documents.last.user).to eq contributor
       expect(project.documents.last.file.attached?).to be true
       expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_zip.zip')

@@ -3,10 +3,19 @@
       project_documents_path(@document.project),
       class: "btn btn-sm btn-secondary" %>
 
-  <div id="document-details" class="text-center">
+  <div id="document-details">
     <h1><%= @document.title %></h1>
-    <p><%= simple_format @document.description %></p>
-    
+    <dl>
+      <dt>Descrição:</dt>
+      <dd><%= simple_format @document.description %></dd>
+      <dt>Autor:</dt>
+      <dd><%= @document.user.email %></dd>
+      <dt>Tamanho:</dt>
+      <dd><%= number_to_human_size @document.file.byte_size %></dd>
+      <dt>Criado em:</dt>
+      <dd><%= l(@document.created_at.to_date) %></dd>
+    </dl>
+
     <div>
       <% if @document.file.image? %>
         <%= image_tag @document.file, width: "200px" %>

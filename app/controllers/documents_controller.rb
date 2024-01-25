@@ -14,7 +14,7 @@ class DocumentsController < ApplicationController
   def create
     @document = @project.documents.build(document_params)
     if @document.save
-      redirect_to project_documents_path(@project), notice: t('.success')
+      redirect_to document_path(@document), notice: t('.success')
     else
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity
