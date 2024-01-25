@@ -3,7 +3,7 @@ class MeetingsController < ApplicationController
   before_action :set_project
   before_action :set_meeting, only: %i[show edit update]
   before_action :check_contributor
-
+  before_action :edit_meeting_access, only: %i[edit update]
 
   def index
     @meetings = @project.meetings.order(datetime: :asc).where('datetime > ?', Date.current)
@@ -57,8 +57,9 @@ class MeetingsController < ApplicationController
     redirect_to root_path, alert: t('.not_contributor') unless @project.project_paticipant?(current_user)
   end
 
-  def check_user
-    redirect_to root_path, alert: t('.fail') \
-    if @meeting.user_role.user != current_user
+  def edit_meeting_access
+    user_role = UserRole.get_user_role(@project, current_user)
+    redirect_to project_meeting_path(@project, @meeting), alert: t('.fail') \
+    unless @meeting.user_role.user == current_user || user_role.leader? || user_role.admin?
   end
 end

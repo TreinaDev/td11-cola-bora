@@ -11,8 +11,8 @@ describe 'Usuário edita reunião' do
     login_as contributor, scope: :user
     patch(project_meeting_path(project, meeting), params: { meeting: { title: 'Reunião do Rock in rio' } })
 
-    expect(meeting.title).to eq 'Reunião do Rock in rio'
     expect(response).to redirect_to project_meeting_path(project, meeting)
+    expect(meeting.reload.title).to eq 'Reunião do Rock in rio'
   end
 
   it 'e é contribuinte do projeto não autor da reunião' do
@@ -25,7 +25,7 @@ describe 'Usuário edita reunião' do
     login_as contributor, scope: :user
     patch(project_meeting_path(project, meeting), params: { meeting: { title: 'Reunião do Rock in rio' } })
 
-    expect(meeting.title).to eq 'Reunião blabla'
+    expect(meeting.reload.title).to eq 'Reunião blabla'
     expect(response).to redirect_to project_meeting_path(project, meeting)
   end
 
@@ -39,7 +39,7 @@ describe 'Usuário edita reunião' do
     login_as leader, scope: :user
     patch(project_meeting_path(project, meeting), params: { meeting: { title: 'Reunião do Rock in rio' } })
 
-    expect(meeting.title).to eq 'Reunião do Rock in rio'
+    expect(meeting.reload.title).to eq 'Reunião do Rock in rio'
     expect(response).to redirect_to project_meeting_path(project, meeting)
   end
 
@@ -53,7 +53,7 @@ describe 'Usuário edita reunião' do
     login_as admin, scope: :user
     patch(project_meeting_path(project, meeting), params: { meeting: { title: 'Reunião do Rock in rio' } })
 
-    expect(meeting.title).to eq 'Reunião do Rock in rio'
+    expect(meeting.reload.title).to eq 'Reunião do Rock in rio'
     expect(response).to redirect_to project_meeting_path(project, meeting)
   end
 end
