@@ -1,23 +1,60 @@
 <% if @portfoliorrr_profile.present? %>
-  <h3>Perfil de <%= @portfoliorrr_profile.name %><h3>
-
-  <dl>
-    <dt><strong>Informações: </strong></dt>
-    <dd><strong>Nome: </strong> <%= @portfoliorrr_profile.name %></dd>
-    <dd><strong>Email: </strong> <%= @portfoliorrr_profile.email %></dd>
-  </dl>
-
-  <dl>
-    <dt><strong>Tipos de Serviço: </strong></dt>
-    <% @portfoliorrr_profile.job_categories.each do |category| %>
-      <dd><strong>Nome: </strong> <%= category.name %></dd>
-      <dd><strong>Descrição: </strong> <%= category.description %></dd>
-    <% end %>
-  </dl>
-
-  <p>Sobre mim: <%= @portfoliorrr_profile.cover_letter %></p>
+  <section>
+    <div class="container">
+      <div class="row">
+        <h3 class="mb-3">Perfil de <%= @portfoliorrr_profile.name %></h3>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Nome</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= @portfoliorrr_profile.name %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= @portfoliorrr_profile.email %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% @portfoliorrr_profile.job_categories.each do |category| %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-4">
+                  <div class="card-body">
+                    <h4><%= category.name %></h4>
+                    <hr>
+                    <h6><%= category.description %></h6>              
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <h5 class="my-3">Sobre mim</h5>
+              <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary" disabled>Convidar</button>
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>
+    </div>
+  </section>
 <% else %>
   <h3>Perfil não disponível</h3>
   <h3>Tente mais tarde</h3>
 <% end %>
-

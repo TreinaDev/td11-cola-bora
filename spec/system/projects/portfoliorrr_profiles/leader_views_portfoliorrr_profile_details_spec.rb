@@ -37,6 +37,18 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
     expect(page).to have_content 'Você não tem acesso a esse recurso'
   end
 
+  it 'e precisa ter vínculo com o projeto' do
+    project = create :project
+    user = create :user, cpf: '149.759.780-32', email: 'administrador@email.com'
+    profile_id = 1
+
+    login_as user
+    visit project_portfoliorrr_profile_path project, profile_id
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem acesso a esse recurso'
+  end
+
   it 'com sucesso a partir da home' do
     user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
     project = create :project, user:, title: 'Projeto Top'
@@ -59,14 +71,11 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
 
     expect(current_path).to eq project_portfoliorrr_profile_path project, mateus_profile.id
     expect(page).to have_content 'Perfil de Rodolfo'
-    expect(page).to have_content 'Nome: Rodolfo'
-    expect(page).to have_content 'Email: rodolfo@email.com'
-    expect(page).to have_content 'Tipos de Serviço:'
-    expect(page).to have_content 'Nome: Editor de Video'
-    expect(page).to have_content 'Descrição: Canal do Youtube'
-    expect(page).to have_content 'Nome: Editor de Imagem'
-    expect(page).to have_content 'Descrição: Photoshop'
-    expect(page).to have_content 'Sobre mim: Sou editor de vídeos em um canal do Youtube.'
+    expect(page).to have_content "Nome\nRodolfo"
+    expect(page).to have_content "Email\nrodolfo@email.com"
+    expect(page).to have_content "Editor de Video\nCanal do Youtube"
+    expect(page).to have_content "Editor de Imagem\nPhotoshop"
+    expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
   end
 
   it 'e não há resultado' do

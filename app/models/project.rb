@@ -11,6 +11,10 @@ class Project < ApplicationRecord
     user_roles.find_by(user:).leader?
   end
 
+  def participant?(user)
+    user_roles.find_by(user:).present?
+  end
+
   private
 
   def set_leader_on_create

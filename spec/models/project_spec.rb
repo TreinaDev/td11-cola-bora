@@ -55,4 +55,21 @@ RSpec.describe Project, type: :model do
       expect(project.leader?(user)).to eq false
     end
   end
+
+  context '#participant?' do
+    it 'retorna true se Usuário tem vínculo com o projeto' do
+      user = create :user, cpf: '149.759.780-32', email: 'user@gmail.com'
+      project = create(:project)
+      create :user_role, user:, project:, role: :contributor
+
+      expect(project.participant?(user)).to eq true
+    end
+
+    it 'retorna false se Usuário não tem vínculo com o projeto' do
+      user = create :user, cpf: '149.759.780-32', email: 'user@teste.com'
+      project = create(:project)
+
+      expect(project.participant?(user)).to eq false
+    end
+  end
 end

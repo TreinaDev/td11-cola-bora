@@ -60,6 +60,17 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
     end
   end
 
+  it 'e precisa ter vinculo com o projeto' do
+    project = create :project
+    user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+
+    login_as user
+    visit search_project_portfoliorrr_profiles_path project
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem acesso a esse recurso'
+  end
+
   it 'e não há colaboradores a serem exibidos' do
     user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
     project = create(:project, user:)

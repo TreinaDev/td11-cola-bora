@@ -1,7 +1,8 @@
 class PortfoliorrrProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[search show]
   before_action :set_project, only: %i[search show]
-  before_action :authorize_user, only: %i[search show]
+  before_action :participant?, only: %i[search show]
+  before_action :leader?, only: %i[search show]
 
   def search
     @query = params[:q]
@@ -14,7 +15,11 @@ class PortfoliorrrProfilesController < ApplicationController
 
   private
 
-  def authorize_user
+  def participant?
+    redirect_to root_path, alert: t('unauthorized') unless @project.participant?(current_user)
+  end
+
+  def leader?
     redirect_to root_path, alert: t('unauthorized') unless @project.leader?(current_user)
   end
 
