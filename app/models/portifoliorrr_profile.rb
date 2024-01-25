@@ -20,7 +20,7 @@ class PortifoliorrrProfile
   def self.fetch_portifoliorrr_profiles(url)
     response = Faraday.get(url)
 
-    return {} if response.status == 500
+    return [] unless response.success?
 
     json = JSON.parse(response.body, symbolize_names: true)[:data]
     json.map do |portifoliorrr_profile|

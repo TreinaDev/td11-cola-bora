@@ -61,11 +61,11 @@ describe 'Líder de projeto pesquisa por colaboradores' do
   end
 
   it 'e não há colaboradores a serem exibidos' do
-    project = create :project
     user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-    create :user_role, user:, project:, role: :leader
+    project = create(:project, user:)
+    project.user_roles.find_by(user:).update(role: :leader)
     url = 'http://localhost:8000/api/v1/users'
-    fake_response = double('faraday_response', status: 200, body: '{ "data": [] }')
+    fake_response = double('faraday_response', status: 200, body: '{ "data": [] }', success?: true)
     allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
     login_as user
@@ -76,12 +76,12 @@ describe 'Líder de projeto pesquisa por colaboradores' do
 
   context 'com sucesso a partir da home' do
     it 'buscando por todos' do
-      project = create :project, title: 'Projeto Top'
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      create :user_role, user:, project:, role: :leader
+      project = create :project, user:, title: 'Projeto Top'
+      project.user_roles.find_by(user:).update(role: :leader)
       url = 'http://localhost:8000/api/v1/users'
       json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
-      fake_response = double('faraday_response', status: 200, body: json)
+      fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
       login_as user
@@ -103,16 +103,16 @@ describe 'Líder de projeto pesquisa por colaboradores' do
     end
 
     it 'buscando por termo' do
-      project = create :project, title: 'Projeto Top'
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      create :user_role, user:, project:, role: :leader
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
       url = 'http://localhost:8000/api/v1/users'
       json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
-      fake_response = double('faraday_response', status: 200, body: json)
+      fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
       url = 'http://localhost:8000/api/v1/users?search=video'
       json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data_filtered.json'))
-      fake_response = double('faraday_response', status: 200, body: json)
+      fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
       login_as user
@@ -131,11 +131,11 @@ describe 'Líder de projeto pesquisa por colaboradores' do
     end
 
     it 'e retorna erro interno' do
-      project = create :project
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      create :user_role, user:, project:, role: :leader
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
       url = 'http://localhost:8000/api/v1/users'
-      fake_response = double('faraday_response', status: 500, body: '{ "error": ["Erro interno"] }')
+      fake_response = double('faraday_response', status: 500, body: '{ "error": ["Erro interno"] }', success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
       login_as user
@@ -145,9 +145,9 @@ describe 'Líder de projeto pesquisa por colaboradores' do
     end
 
     it 'e não consegue se conectar com a API' do
-      project = create :project
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-      create :user_role, user:, project:, role: :leader
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
       url = 'http://localhost:8000/api/v1/users'
       allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
 

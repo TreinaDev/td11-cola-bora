@@ -1,7 +1,7 @@
 <h1>Usuários disponíveis</h1>
 
-<% if params[:q] && params[:q] != '' %>
-  <h3>Resultados para: <%= params[:q] %></h3>
+<% if @query.present? %>
+  <h3>Resultados para: <%= @query %></h3>
 <% end %>
 
 <%= form_with url: search_project_portifoliorrr_profiles_path(@project), method: :get do |f| %>

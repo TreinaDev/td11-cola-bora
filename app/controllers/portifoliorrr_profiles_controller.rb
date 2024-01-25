@@ -6,7 +6,8 @@ class PortifoliorrrProfilesController < ApplicationController
   rescue_from Faraday::ConnectionFailed, with: :return_empty
 
   def search
-    @portifoliorrr_profiles = params[:q] ? PortifoliorrrProfile.find(params[:q]) : PortifoliorrrProfile.all
+    @query = params[:q]
+    @portifoliorrr_profiles = @query ? PortifoliorrrProfile.find(@query) : PortifoliorrrProfile.all
   end
 
   private
