@@ -3,8 +3,8 @@
   <td><%= document.user.email %></td>
   <td><%= l(document.created_at.to_date) %></td>
   <td colspan="2">
-    <%= link_to 'Detalhes', document_path(document), class: "btn btn-secondary" %>
-    <%= link_to 'Download',
+    <%= link_to t(:document_details_btn), document_path(document), class: "btn btn-secondary" %>
+    <%= link_to t(:document_download_btn),
                  rails_blob_path(document.file, disposition: "attachment"),
                  class: "btn btn-primary ms-2" %>
   </td>

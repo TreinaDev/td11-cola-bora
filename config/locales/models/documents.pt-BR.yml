@@ -7,9 +7,11 @@ pt-BR:
     attributes:
       document:
         title: Título
+        user: Autor
         description: Descrição
         file: Arquivo
         archived: Arquivado
+        created_at: Criado em
   documents:
     create:
       success: Documento adicionado com sucesso.
@@ -23,5 +25,8 @@ pt-BR:
   document_download_btn: Download
   document_archive_btn: Arquivar
   document_new_btn: Novo documento
+  document_details_btn: Detalhes
   not_supported: não suportado.
   documents_empty_state: Nenhum documento encontrado
+  document_archive_confirm: Arquivar documento?
+  document_size: Tamanho

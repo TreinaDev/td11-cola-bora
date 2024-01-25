@@ -11,12 +11,17 @@
 <%= form_with model: [@project, @document] do |f| %>
   <div class="mb-3">
     <%= f.label :title, class: 'form-label' %>
-    <%= f.text_field :title, placeholder: I18n.t(:document_title_placeholder), class: 'form-control' %>
+    <%= f.text_field :title,
+        placeholder: I18n.t(:document_title_placeholder),
+        class: 'form-control',
+        autofocus: true %>
   </div>
 
   <div class="mb-3">
     <%= f.label :description, class: 'form-label' %>
-    <%= f.text_area :description, placeholder: I18n.t(:document_description_placeholder), class: 'form-control' %>
+    <%= f.text_area :description,
+        placeholder: I18n.t(:document_description_placeholder),
+        class: 'form-control' %>
   </div>
 
   <div class="mb-3">
@@ -26,6 +31,8 @@
 
   <div>
     <%= f.submit class: 'btn btn-primary' %>
-    <%= link_to 'Voltar', project_documents_path(@project), class: 'btn btn-secondary' %>
+    <%= link_to 'Voltar',
+        project_documents_path(@project),
+        class: 'btn btn-secondary' %>
   </div>
 <% end %>

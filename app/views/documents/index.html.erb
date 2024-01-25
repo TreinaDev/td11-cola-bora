@@ -1,6 +1,6 @@
 <%= link_to t(:back), project_path(@project), class: "btn btn-sm btn-secondary" %>
 
-<h1>Documentos <%= @project.title %></h1>
+<h1><%= Document.model_name.human count: 2 %> | <%= @project.title %></h1>
 
 <section>
   <div class="mb-3 mt-3">
@@ -14,9 +14,9 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Criado em</th>
+            <th><%= Document.human_attribute_name :title %></th>
+            <th><%= Document.human_attribute_name :user %></th>
+            <th><%= Document.human_attribute_name :created_at %></th>
             <th colspan="2"></th>
           </tr>
         </thead>

@@ -6,19 +6,19 @@
   <div id="document-details">
     <h1><%= @document.title %></h1>
     <dl>
-      <dt>Descrição:</dt>
+      <dt><%= Document.human_attribute_name :description %>:</dt>
       <dd><%= simple_format @document.description %></dd>
-      <dt>Autor:</dt>
+      <dt><%= Document.human_attribute_name :user %>:</dt>
       <dd><%= @document.user.email %></dd>
-      <dt>Tamanho:</dt>
+      <dt><%= t(:document_size) %>:</dt>
       <dd><%= number_to_human_size @document.file.byte_size %></dd>
-      <dt>Criado em:</dt>
+      <dt><%= Document.human_attribute_name :created_at %>:</dt>
       <dd><%= l(@document.created_at.to_date) %></dd>
     </dl>
 
     <div>
       <% if @document.file.image? %>
-        <%= image_tag @document.file, width: "200px" %>
+        <%= image_tag @document.file, width: "300px" %>
       <% elsif @document.file.audio? %>
         <audio controls>
           <source src="<%= rails_blob_url @document.file %>"
@@ -31,8 +31,7 @@
         </video>
       <% else %>
         <%= image_tag "document_placeholder.jpg",
-            alt: "Ícone de documento",
-            width: "100px" %>
+            width: "200px" %>
       <% end %>
     </div>
 
@@ -44,7 +43,7 @@
         <%= button_to t(:document_archive_btn), 
                       archive_document_path(@document), 
                       method: :patch,
-                      data: { turbo_confirm: 'Arquivar documento?' },
+                      data: { turbo_confirm: t(:document_archive_confirm) },
                       class: "btn btn-danger" %>
       <% end %>
     </div>
