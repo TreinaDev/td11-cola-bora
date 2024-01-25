@@ -1,4 +1,4 @@
-class PortifoliorrrProfile
+class PortfoliorrrProfile
   attr_accessor :id, :name, :job_category, :email, :job_categories, :cover_letter
 
   def initialize(id:, name:, job_category:)
@@ -9,12 +9,12 @@ class PortifoliorrrProfile
 
   def self.all
     url = 'http://localhost:8000/api/v1/users'
-    fetch_portifoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(url)
   end
 
   def self.search(query)
     url = "http://localhost:8000/api/v1/users?search=#{query}"
-    fetch_portifoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(url)
   end
 
   def self.find(id)
@@ -47,19 +47,19 @@ class PortifoliorrrProfile
     end
   end
 
-  def self.fetch_portifoliorrr_profiles(url)
+  def self.fetch_portfoliorrr_profiles(url)
     response = Faraday.get(url)
 
     return [] unless response.success?
 
     json = JSON.parse(response.body, symbolize_names: true)[:data]
-    json.map do |portifoliorrr_profile|
-      new(id: portifoliorrr_profile[:id], name: portifoliorrr_profile[:name],
-          job_category: portifoliorrr_profile[:job_category])
+    json.map do |portfoliorrr_profile|
+      new(id: portfoliorrr_profile[:id], name: portfoliorrr_profile[:name],
+          job_category: portfoliorrr_profile[:job_category])
     end
   rescue Faraday::ConnectionFailed
     []
   end
 
-  private_class_method :fetch_portifoliorrr_profiles
+  private_class_method :fetch_portfoliorrr_profiles
 end

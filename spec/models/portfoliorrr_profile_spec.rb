@@ -1,22 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe PortifoliorrrProfile, type: :model do
+RSpec.describe PortfoliorrrProfile, type: :model do
   context '#all' do
     it 'API retorna todos os resultados' do
       url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data.json'))
+      json = File.read(Rails.root.join('spec/support/portfoliorrr_profiles_data.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portifliorrr_profiles = PortifoliorrrProfile.all
+      portfliorrr_profiles = PortfoliorrrProfile.all
 
-      expect(portifliorrr_profiles.count).to eq 3
-      expect(portifliorrr_profiles[0].name).to eq 'Lucas'
-      expect(portifliorrr_profiles[0].job_category).to eq 'Desenvolvedor'
-      expect(portifliorrr_profiles[1].name).to eq 'Mateus'
-      expect(portifliorrr_profiles[1].job_category).to eq 'Designer'
-      expect(portifliorrr_profiles[2].name).to eq 'Rodolfo'
-      expect(portifliorrr_profiles[2].job_category).to eq 'Editor de Video'
+      expect(portfliorrr_profiles.count).to eq 3
+      expect(portfliorrr_profiles[0].name).to eq 'Lucas'
+      expect(portfliorrr_profiles[0].job_category).to eq 'Desenvolvedor'
+      expect(portfliorrr_profiles[1].name).to eq 'Mateus'
+      expect(portfliorrr_profiles[1].job_category).to eq 'Designer'
+      expect(portfliorrr_profiles[2].name).to eq 'Rodolfo'
+      expect(portfliorrr_profiles[2].job_category).to eq 'Editor de Video'
     end
 
     it 'API retorna vazio' do
@@ -24,10 +24,10 @@ RSpec.describe PortifoliorrrProfile, type: :model do
       fake_response = double('faraday_response', status: 200, body: '{ "data": [] }', success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portifliorrr_profiles = PortifoliorrrProfile.all
+      portfliorrr_profiles = PortfoliorrrProfile.all
 
-      expect(portifliorrr_profiles.count).to eq 0
-      expect(portifliorrr_profiles[0]).to eq nil
+      expect(portfliorrr_profiles.count).to eq 0
+      expect(portfliorrr_profiles[0]).to eq nil
     end
 
     it 'API retorna erro interno' do
@@ -35,46 +35,46 @@ RSpec.describe PortifoliorrrProfile, type: :model do
       fake_response = double('faraday_response', status: 500, body: '{ "error": ["Erro interno"] }', success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portifliorrr_profiles = PortifoliorrrProfile.all
+      portfliorrr_profiles = PortfoliorrrProfile.all
 
-      expect(portifliorrr_profiles.count).to eq 0
-      expect(portifliorrr_profiles[0]).to eq nil
+      expect(portfliorrr_profiles.count).to eq 0
+      expect(portfliorrr_profiles[0]).to eq nil
     end
 
     it 'e não consegue se conectar na API' do
       url = 'http://localhost:8000/api/v1/users'
       allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
 
-      portifliorrr_profiles = PortifoliorrrProfile.all
+      portfliorrr_profiles = PortfoliorrrProfile.all
 
-      expect(portifliorrr_profiles.count).to eq 0
-      expect(portifliorrr_profiles[0]).to eq nil
+      expect(portfliorrr_profiles.count).to eq 0
+      expect(portfliorrr_profiles[0]).to eq nil
     end
   end
 
   context '#search' do
     it 'e retorna os resultados filtrados' do
       url = 'http://localhost:8000/api/v1/users?search=video'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data_filtered.json'))
+      json = File.read(Rails.root.join('spec/support/portfoliorrr_profiles_data_filtered.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portifoliorrr_profiles = PortifoliorrrProfile.search('video')
+      portfoliorrr_profiles = PortfoliorrrProfile.search('video')
 
-      expect(portifoliorrr_profiles.count).to eq 1
-      expect(portifoliorrr_profiles[0].name).to eq 'Rodolfo'
-      expect(portifoliorrr_profiles[0].job_category).to eq 'Editor de Video'
+      expect(portfoliorrr_profiles.count).to eq 1
+      expect(portfoliorrr_profiles[0].name).to eq 'Rodolfo'
+      expect(portfoliorrr_profiles[0].job_category).to eq 'Editor de Video'
     end
   end
 
   context '#find' do
     it 'API retorna resultado' do
       url = 'http://localhost:8000/api/v1/users/3'
-      json = File.read(Rails.root.join('spec/support/portifoliorrr_profile_details_data.json'))
+      json = File.read(Rails.root.join('spec/support/portfoliorrr_profile_details_data.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portfoliorrr_profile = PortifoliorrrProfile.find(3)
+      portfoliorrr_profile = PortfoliorrrProfile.find(3)
 
       expect(portfoliorrr_profile.name).to eq 'Rodolfo'
       expect(portfoliorrr_profile.email).to eq 'rodolfo@email.com'
@@ -89,7 +89,7 @@ RSpec.describe PortifoliorrrProfile, type: :model do
                                                  success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portfoliorrr_profile = PortifoliorrrProfile.find(999)
+      portfoliorrr_profile = PortfoliorrrProfile.find(999)
 
       expect(portfoliorrr_profile).to be_blank
     end
@@ -100,7 +100,7 @@ RSpec.describe PortifoliorrrProfile, type: :model do
                                                  success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
-      portfoliorrr_profile = PortifoliorrrProfile.find(1)
+      portfoliorrr_profile = PortfoliorrrProfile.find(1)
 
       expect(portfoliorrr_profile).to be_blank
     end
@@ -109,7 +109,7 @@ RSpec.describe PortifoliorrrProfile, type: :model do
       url = 'http://localhost:8000/api/v1/users/1'
       allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
 
-      portfoliorrr_profile = PortifoliorrrProfile.find(1)
+      portfoliorrr_profile = PortfoliorrrProfile.find(1)
 
       expect(portfoliorrr_profile).to be_blank
     end

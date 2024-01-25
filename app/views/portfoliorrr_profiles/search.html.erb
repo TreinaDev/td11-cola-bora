@@ -4,7 +4,7 @@
   <h3>Resultados para: <%= @query %></h3>
 <% end %>
 
-<%= form_with url: search_project_portifoliorrr_profiles_path(@project), method: :get do |f| %>
+<%= form_with url: search_project_portfoliorrr_profiles_path(@project), method: :get do |f| %>
   <div class="input-group">
     <%= f.label :q, 'Busca:', class: 'd-none' %>
     <%= f.text_field :q, class: 'form-control rounded', placeholder: 'Busca' %>
@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<% if @portifoliorrr_profiles.any? %>
+<% if @portfoliorrr_profiles.any? %>
   <table class="table table-hover align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
@@ -21,13 +21,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @portifoliorrr_profiles.each do |profile| %>
+      <% @portfoliorrr_profiles.each do |profile| %>
         <tr>
           <td>
             <div class="d-flex align-items-center">
               <div class="ms-3">
                 <p class="fw-bold mb-1">
-                  <%= link_to profile.name, project_portifoliorrr_profile_path(@project, profile.id) %>
+                  <%= link_to profile.name, project_portfoliorrr_profile_path(@project, profile.id) %>
                 </p>
               </div>
             </div>
