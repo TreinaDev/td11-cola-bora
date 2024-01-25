@@ -2,9 +2,7 @@
   <%= button_to 'Cancelar convite', cancel_invitation_path(current_invitation.id), method: :patch %>
 <% end %>
 
-<%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile['id']), local: true) do |form| %>
-  <%= form.hidden_field :profile_id, value: profile['id'] %>
-
+<%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
   <div class="mb-3">
     <%= form.label :expiration_days, class: 'form-label', html: { min: '0', step: 1 } %>
     <%= form.number_field :expiration_days, class: 'form-control' %>

@@ -1,15 +1,25 @@
 class PortfoliorrrProfilesController < ApplicationController
+  before_action :authenticate_user!, only: %i[search show]
+  before_action :set_project, only: %i[search show]
+
   def show
-    @project = Project.find(params[:project_id])
-    @portfoliorrr_profile_id = params[:id]
+    @portfoliorrr_profile_id = params[:id].to_i
     @current_invitation = @project.invitations.find_by(profile_id: @portfoliorrr_profile_id, status: :pending)
 
-    response = Faraday.get("https://e07813cd-df3d-4023-920b-4037df5a0c31.mock.pstmn.io/profiles/#{@portfoliorrr_profile_id}")
-    if response.status == 200
-      @profile = JSON.parse(response.body)
-      @invitation = Invitation.new
-    else
-      redirect_to root_path
-    end
+    @profile = PortfoliorrrProfile.find(@portfoliorrr_profile_id)
+    return redirect_to root_path if @profile.blank?
+
+    @invitation = Invitation.new
+  end
+
+  def search
+    @query = params[:q]
+    @portifoliorrr_profiles = @query ? PortifoliorrrProfile.find(@query) : PortifoliorrrProfile.all
+  end
+
+  private
+
+  def set_project
+    @project = Project.find(params[:project_id])
   end
 end

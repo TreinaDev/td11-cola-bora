@@ -1,25 +1,45 @@
 require 'rails_helper'
 
 describe 'Lider revoga convite' do
-  it 'e status muda para cancelado' do
+  it 'e status muda de pendente para cancelado' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu novo projeto')
 
-    json = File.read(Rails.root.join('spec/support/json/portfoliorrr_profile.json'))
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
 
-    fake_response = double('faraday_response', status: 200, body: json)
-    id = JSON.parse(fake_response.body)['id']
-    url = "https://e07813cd-df3d-4023-920b-4037df5a0c31.mock.pstmn.io/profiles/#{id}"
-    allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+    allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
-    create(:invitation, project:, profile_id: id)
+    create(:invitation, project:, profile_id: joao.id)
 
     login_as user
-    visit project_portfoliorrr_profile_path(project, id)
+    visit project_portfoliorrr_profile_path(project, joao.id)
     click_on 'Cancelar convite'
 
     expect(page).to have_content 'Convite cancelado!'
-    expect(current_path).to eq project_portfoliorrr_profile_path(project, id)
+    expect(current_path).to eq project_portfoliorrr_profile_path(project, joao.id)
     expect(Invitation.last.cancelled?).to eq true
+  end
+
+  it 'e envia novo convite' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu novo projeto')
+
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
+
+    allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+
+    create(:invitation, project:, profile_id: joao.id, status: :cancelled)
+
+    login_as user
+    visit project_portfoliorrr_profile_path(project, joao.id)
+    fill_in 'Prazo de validade (em dias)', with: 10
+    click_on 'Enviar convite'
+
+    expect(page).to have_content 'Convite enviado com sucesso!'
+    expect(current_path).to eq project_portfoliorrr_profile_path(project, joao.id)
+    expect(Invitation.last.pending?).to eq true
+  end
+
+  xit 'apenas se status for igual a pendente' do
   end
 end

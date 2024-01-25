@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_25_115838) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_25_183545) do
   create_table "invitations", force: :cascade do |t|
     t.integer "expiration_days"
     t.integer "project_id", null: false
@@ -18,7 +18,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_25_115838) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id", "profile_id"], name: "index_invitations_on_project_id_and_profile_id", unique: true
     t.index ["project_id"], name: "index_invitations_on_project_id"
   end
 
