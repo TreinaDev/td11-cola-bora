@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  describe 'Campo vazio' do
-    it 'Título do projeto vazio' do
+  context '#valid?' do
+    it 'retorna false se Título for vazio' do
       user = create :user
       project = Project.new(user:, title: '')
 
@@ -11,7 +11,7 @@ RSpec.describe Project, type: :model do
       expect(project.errors.include?(:title)).to be true
     end
 
-    it 'Descrição vazia' do
+    it 'retorna false se Descrição for vazio' do
       user = create :user
       project = Project.new(user:, description: '')
 
@@ -20,13 +20,39 @@ RSpec.describe Project, type: :model do
       expect(project.errors.include?(:description)).to be true
     end
 
-    it 'Categoria vazia' do
+    it 'retorna false se Categoria for vazio' do
       user = create :user
       project = Project.new(user:, category: '')
 
       project.valid?
 
       expect(project.errors.include?(:category)).to be true
+    end
+  end
+
+  context '#leader?' do
+    it 'retorna true se Usuário for lider' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
+
+      expect(project.leader?(user)).to eq true
+    end
+
+    it 'retorna false se Usuário for colaborador' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :contributor)
+
+      expect(project.leader?(user)).to eq false
+    end
+
+    it 'retorna false se Usuário for administrador' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :admin)
+
+      expect(project.leader?(user)).to eq false
     end
   end
 end
