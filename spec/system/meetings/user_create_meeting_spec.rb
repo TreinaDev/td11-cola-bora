@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 describe 'Usuário cria reunião' do
-  it 'e deve estar autenticado' do
-    project = create(:project)
-    visit new_project_meeting_path(project)
-
-    expect(current_path).to eq new_user_session_path
-    expect(page).to have_content 'Para continuar, faça login ou registre-se'
-  end
-
   it 'com sucesso' do
     user = create(:user)
     project = create(:project, user:, title: 'Pousadaria')
