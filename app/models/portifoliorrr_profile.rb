@@ -24,15 +24,24 @@ class PortifoliorrrProfile
     return {} unless response.success?
 
     profile_json = JSON.parse(response.body, symbolize_names: true)[:data]
-    new(id: profile_json[:id], name: profile_json[:name],
-        job_category: profile_json[:job_category])
 
-    @email = profile_json[:email]
-    @job_categories = build_categories(profile_json[:job_categories])
-    @cover_letter = profile_json[:cover_letter]
+    profile = new(id: profile_json[:id],
+                  name: profile_json[:name],
+                  job_category: profile_json[:job_category])
+
+    build_details(profile, profile_json)
+  rescue Faraday::ConnectionFailed
+    []
   end
 
-  def build_categories(job_categories)
+  def self.build_details(profile, profile_json)
+    profile.email = profile_json[:email]
+    profile.cover_letter = profile_json[:profile][:cover_letter]
+    profile.job_categories = build_categories(profile_json[:job_categories])
+    profile
+  end
+
+  def self.build_categories(job_categories)
     job_categories.map do |category|
       JobCategory.new(name: category[:name], description: category[:description])
     end

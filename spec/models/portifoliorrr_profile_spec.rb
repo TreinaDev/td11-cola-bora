@@ -52,7 +52,7 @@ RSpec.describe PortifoliorrrProfile, type: :model do
     end
   end
 
-  context '#find' do
+  context '#search' do
     it 'e retorna os resultados filtrados' do
       url = 'http://localhost:8000/api/v1/users?search=video'
       json = File.read(Rails.root.join('spec/support/portifoliorrr_profiles_data_filtered.json'))
@@ -64,6 +64,54 @@ RSpec.describe PortifoliorrrProfile, type: :model do
       expect(portifoliorrr_profiles.count).to eq 1
       expect(portifoliorrr_profiles[0].name).to eq 'Rodolfo'
       expect(portifoliorrr_profiles[0].job_category).to eq 'Editor de Video'
+    end
+  end
+
+  context '#find' do
+    it 'API retorna resultado' do
+      url = 'http://localhost:8000/api/v1/users/3'
+      json = File.read(Rails.root.join('spec/support/portifoliorrr_profile_details_data.json'))
+      fake_response = double('faraday_response', status: 200, body: json, success?: true)
+      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+
+      portfoliorrr_profile = PortifoliorrrProfile.find(3)
+
+      expect(portfoliorrr_profile.name).to eq 'Rodolfo'
+      expect(portfoliorrr_profile.email).to eq 'rodolfo@email.com'
+      expect(portfoliorrr_profile.job_categories[0].name).to eq 'Editor de Video'
+      expect(portfoliorrr_profile.job_categories[0].description).to eq 'Canal do Youtube'
+      expect(portfoliorrr_profile.cover_letter).to eq 'Sou editor de vídeos em um canal do Youtube.'
+    end
+
+    it 'API retorna que não foi encontrado' do
+      url = 'http://localhost:8000/api/v1/users/999'
+      fake_response = double('faraday_response', status: 404, body: '{ "errors": ["Perfil não encontrado"] }',
+                                                 success?: false)
+      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+
+      portfoliorrr_profile = PortifoliorrrProfile.find(999)
+
+      expect(portfoliorrr_profile).to be_blank
+    end
+
+    it 'API retorna erro interno' do
+      url = 'http://localhost:8000/api/v1/users/1'
+      fake_response = double('faraday_response', status: 500, body: '{ "errors": ["Erro interno de servidor"] }',
+                                                 success?: false)
+      allow(Faraday).to receive(:get).with(url).and_return(fake_response)
+
+      portfoliorrr_profile = PortifoliorrrProfile.find(1)
+
+      expect(portfoliorrr_profile).to be_blank
+    end
+
+    it 'e não consegue se conectar com a API' do
+      url = 'http://localhost:8000/api/v1/users/1'
+      allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
+
+      portfoliorrr_profile = PortifoliorrrProfile.find(1)
+
+      expect(portfoliorrr_profile).to be_blank
     end
   end
 end
