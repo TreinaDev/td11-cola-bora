@@ -39,4 +39,21 @@ RSpec.describe Project, type: :model do
       expect(project.user_roles.last.role).to eq 'leader'
     end
   end
+
+  describe '#member?' do
+    it 'retorna true se usuário é colaborador do projeto' do
+      project = build(:project)
+      member = build(:user, cpf: '551.838.230-81', email: 'member@email.com')
+      project.user_roles.build(user: member)
+
+      expect(project.member?(member)).to be true
+    end
+
+    it 'retorna false se usuário não é colaborador do projeto' do
+      project = build(:project)
+      non_member = build(:user, cpf: '551.838.230-81', email: 'non_member@email.com')
+
+      expect(project.member?(non_member)).to be false
+    end
+  end
 end
