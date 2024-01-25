@@ -1,7 +1,7 @@
 class PortifoliorrrProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %i[search]
-  before_action :set_project, only: %i[search]
-  before_action :authorize_user, only: %i[search]
+  before_action :authenticate_user!, only: %i[search show]
+  before_action :set_project, only: %i[search show]
+  before_action :authorize_user, only: %i[search show]
 
   def search
     @query = params[:q]
