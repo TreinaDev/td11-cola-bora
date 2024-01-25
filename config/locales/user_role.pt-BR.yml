@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      user_role:
+        one: 'Papel do usuário'
+        other: 'Papéis do usuário'
+    attributes:
+      user_role:
+        role: 'Papel'
+        user: 'Usuário'
+        project: 'Projeto'
+  one_leader: 'aceita apenas 1 líder'

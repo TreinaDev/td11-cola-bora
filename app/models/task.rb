@@ -12,6 +12,6 @@ class Task < ApplicationRecord
   private
 
   def due_date_is_future
-    errors.add(:due_date, ' deve ser futuro.') if due_date.present? && due_date < Time.zone.today.to_date
+    errors.add(:due_date, 'deve ser futuro.') if due_date.present? && due_date < Time.zone.today.to_date
   end
 end

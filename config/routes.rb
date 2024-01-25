@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create show index edit destroy] do
     resources :tasks, only: %i[index new create]
     resources :documents, only: %i[index new create]
+    resources :meetings, only: %i[index new create]
     get 'my_projects', on: :collection
   end
+
+  resources :meetings, only: %i[show edit update]
 
   resources :tasks, only: %i[show edit update] do
     member do

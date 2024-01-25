@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_143254) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_150004) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_143254) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_documents_on_project_id"
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.integer "user_role_id", null: false
+    t.integer "project_id", null: false
+    t.string "title", null: false
+    t.string "description"
+    t.datetime "datetime", null: false
+    t.integer "duration", null: false
+    t.string "address", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_meetings_on_project_id"
+    t.index ["user_role_id"], name: "index_meetings_on_user_role_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -115,6 +129,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_143254) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "documents", "projects"
   add_foreign_key "documents", "users"
+  add_foreign_key "meetings", "projects"
+  add_foreign_key "meetings", "user_roles"
   add_foreign_key "profiles", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"

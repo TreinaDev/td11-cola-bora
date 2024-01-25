@@ -1,0 +1,31 @@
+pt-BR:
+  activerecord:
+    models:
+      meeting:
+        one: Reunião
+        other: Reuniões
+    attributes:
+      meeting:
+        title: Título
+        description: Descrição
+        datetime: Data e horário
+        address: Endereço
+        duration: Duração
+        role: Papel
+        user_role: Autor
+        project: Projeto
+  meetings:
+    create:
+      success: Reunião criada com sucesso.
+      fail: Não foi possível criar a Reunião.
+    update:
+      success: Reunião editada com sucesso.
+      fail: Não foi possível editar a Reunião.
+    edit_meeting: Editar Reunião
+    cancel_meeting: Cancelar Reunião
+    new_meeting: Nova Reunião
+    create_meeting: Criar Reunião
+    no_description: Sem descrição
+    save: Salvar
+    no_meetings: Sem reuniões registradas
+
