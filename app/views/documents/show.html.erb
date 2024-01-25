@@ -1,19 +1,43 @@
 <main>
-  <%= link_to t(:back), project_documents_path(@document.project) %>
+  <%= link_to t(:back), 
+      project_documents_path(@document.project),
+      class: "btn btn-sm btn-secondary" %>
 
-  <h1><%= @document.title %></h1>
-  <p><%= simple_format @document.description %></p>
-  
-  <div>
-    <% if @document.file.image? %>
-      <%= image_tag @document.file %>
-    <% end %>
-  </div>
+  <div id="document-details" class="text-center">
+    <h1><%= @document.title %></h1>
+    <p><%= simple_format @document.description %></p>
+    
+    <div>
+      <% if @document.file.image? %>
+        <%= image_tag @document.file, width: "200px" %>
+      <% elsif @document.file.audio? %>
+        <audio controls>
+          <source src="<%= rails_blob_url @document.file %>"
+                  type="<%= @document.file.content_type %>">
+        </audio>
+      <% elsif @document.file.video? %>
+        <video controls width="480">
+          <source src="<%= rails_blob_url @document.file %>"
+                  type="<%= @document.file.content_type %>">
+        </video>
+      <% else %>
+        <%= image_tag "document_placeholder.jpg",
+            alt: "Ícone de documento",
+            width: "100px" %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= link_to t(:document_download_btn) %>
-    <% if @document.user == current_user %>
-      <%= button_to t(:document_archive_btn), archive_document_path(@document), method: :patch %>
-    <% end %>
+    <div class="d-flex justify-content-center mt-4">
+      <%= link_to t(:document_download_btn),
+                  rails_blob_path(@document.file),
+                  class: "btn btn-primary me-3" %>
+      <% if @document.user == current_user %>
+        <%= button_to t(:document_archive_btn), 
+                      archive_document_path(@document), 
+                      method: :patch,
+                      data: { turbo_confirm: 'Arquivar documento?' },
+                      class: "btn btn-danger" %>
+      <% end %>
+    </div>
   </div>
 </main>

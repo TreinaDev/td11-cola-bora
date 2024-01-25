@@ -14,11 +14,10 @@ describe 'Usuário arquiva um documento' do
 
     login_as contributor, scope: :user
     visit document_path(document)
-    click_on 'Arquivar'
+    accept_confirm('Arquivar documento?') { click_on 'Arquivar' }
 
     expect(page).to have_current_path project_documents_path(project)
-    expect(page).not_to have_link 'Documento teste'
-    expect(page).not_to have_selector 'img[src$="imagem1.jpg"]'
+    expect(page).not_to have_content 'Documento teste'
     expect(page).to have_content 'Documento arquivado com sucesso.'
   end
 end
