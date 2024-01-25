@@ -33,13 +33,16 @@ RSpec.describe Project, type: :model do
   describe 'Autor do projeto se torna líder' do
     it 'com sucesso' do
       leader = create(:user, email: 'leader@email.com')
-      another_user = create(:user, email: 'email@mail.com', cpf: '000.000.001-91')
       project = create(:project, user: leader)
+      contributor = create(:user, email: 'contributor@mail.com', cpf: '000.000.001-91')
+      project.user_roles.create!(user: contributor, role: :contributor)
+      another_user = create(:user, email: 'another_user@mail.com', cpf: '891.586.070-56')
 
-      expect(project.user_roles.count).to eq 1
-      expect(project.user_roles.last.role).to eq 'leader'
-      expect(project.user_roles.last.user).not_to eq another_user
-      expect(project.user_roles.last.user).to eq leader
+      expect(project.user_roles.count).to eq 2
+      expect(project.user_roles.first.role).to eq 'leader'
+      expect(project.user_roles.first.user).to eq leader
+      expect(project.user_roles.last.role).to eq 'contributor'
+      expect(project.user_roles.last.user).to eq contributor
     end
   end
 end
