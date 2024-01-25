@@ -2,20 +2,21 @@ require 'rails_helper'
 
 describe 'Usuário edita Reunião' do
   it 'e deve estar autenticado' do
-    meeting = create(:meeting)
-    visit edit_meeting_path(meeting)
+    project = create(:project)
+    meeting = create(:meeting, project:)
+    visit edit_project_meeting_path(project, meeting)
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'á partir da página de Reunião com sucesso' do
+  it 'com sucesso' do
     user = create(:user)
     project = create(:project, user:)
     meeting = create(:meeting, project:)
 
     login_as(user, scope: :user)
-    visit meeting_path(meeting)
+    visit project_meeting_path(project, meeting)
     click_on 'Editar Reunião'
     fill_in 'Título', with: 'Reunião correta'
     fill_in 'Descrição', with: 'Essa edição conserta a Reunião'
@@ -36,7 +37,7 @@ describe 'Usuário edita Reunião' do
     meeting = create(:meeting, project:)
 
     login_as(user, scope: :user)
-    visit meeting_path(meeting)
+    visit project_meeting_path(project, meeting)
     click_on 'Editar Reunião'
     fill_in 'Título', with: ''
     click_on 'Salvar'

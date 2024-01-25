@@ -8,6 +8,10 @@ class Project < ApplicationRecord
 
   after_create :set_leader_on_create
 
+  def project_paticipant?(user)
+    UserRole.find_by(user:, project: self).present?
+  end
+
   private
 
   def set_leader_on_create

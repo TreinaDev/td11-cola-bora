@@ -15,7 +15,7 @@
       </div>
     <% end %>
     <div class="pl-5">
-      <li><h4><%= link_to meeting.title, meeting_path(meeting) %>
+      <li><h4><%= link_to meeting.title, project_meeting_path(@project, meeting) %>
       <span style="font-size: small;"><%= meeting.datetime.strftime("%H:%M") %>
       <%= format_duration(meeting.duration) %></span></h4></li>
     </div>

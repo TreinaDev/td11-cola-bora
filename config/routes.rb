@@ -6,11 +6,10 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit destroy] do
     resources :tasks, only: %i[index new create]
-    resources :meetings, only: %i[index new create]
+    resources :meetings, only: %i[index new create show edit update]
     get 'my_projects', on: :collection
   end
 
-  resources :meetings, only: %i[show edit update]
 
   resources :tasks, only: %i[show edit update] do
     member do
