@@ -43,7 +43,7 @@ RSpec.describe Meeting, type: :model do
       end
 
       it 'verdadeiro se data é hoje, mas horário é futuro' do
-        meeting = FactoryBot.build(:meeting, datetime: (Time.zone.now + 1.hour))
+        meeting = FactoryBot.build(:meeting, datetime: 1.hour.from_now)
 
         meeting.valid?
 
@@ -51,7 +51,7 @@ RSpec.describe Meeting, type: :model do
       end
 
       it 'falso se data é hoje, mas horário é passado' do
-        meeting = FactoryBot.build(:meeting, datetime: Time.zone.now - 1.hour)
+        meeting = FactoryBot.build(:meeting, datetime: 1.hour.ago)
 
         meeting.valid?
 

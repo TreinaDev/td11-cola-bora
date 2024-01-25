@@ -49,6 +49,6 @@ class ProjectsController < ApplicationController
   end
 
   def check_contributor
-    redirect_to root_path, alert: t('.not_contributor') unless @project.project_paticipant?(current_user)
+    redirect_to root_path, alert: t('.not_contributor') unless @project.member?(current_user)
   end
 end

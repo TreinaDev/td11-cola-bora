@@ -8,8 +8,12 @@ class Project < ApplicationRecord
 
   after_create :set_leader_on_create
 
-  def project_paticipant?(user)
+  def member?(user)
     UserRole.find_by(user:, project: self).present?
+  end
+
+  def future_meetings
+    meetings.order(datetime: :asc).where('datetime > ?', Date.current)
   end
 
   private
