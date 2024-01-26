@@ -24,21 +24,16 @@ class PortfoliorrrProfile
     return {} unless response.success?
 
     profile_json = JSON.parse(response.body, symbolize_names: true)[:data]
-
-    profile = new(id: profile_json[:id],
-                  name: profile_json[:name],
-                  job_category: profile_json[:job_category])
-
-    build_details(profile, profile_json)
+    profile = new_profile(profile_json)
+    profile.build_details(profile_json)
   rescue Faraday::ConnectionFailed
-    []
+    {}
   end
 
-  def self.build_details(profile, profile_json)
-    profile.email = profile_json[:email]
-    profile.cover_letter = profile_json[:profile][:cover_letter]
-    profile.job_categories = build_categories(profile_json[:job_categories])
-    profile
+  def self.new_profile(profile_json)
+    new(id: profile_json[:id],
+        name: profile_json[:name],
+        job_category: profile_json[:job_category])
   end
 
   def self.build_categories(job_categories)
@@ -53,13 +48,19 @@ class PortfoliorrrProfile
     return [] unless response.success?
 
     json = JSON.parse(response.body, symbolize_names: true)[:data]
-    json.map do |portfoliorrr_profile|
-      new(id: portfoliorrr_profile[:id], name: portfoliorrr_profile[:name],
-          job_category: portfoliorrr_profile[:job_category])
-    end
+    json.map { |portfoliorrr_profile| new_profile(portfoliorrr_profile) }
   rescue Faraday::ConnectionFailed
     []
   end
 
-  private_class_method :fetch_portfoliorrr_profiles
+  private
+
+  def build_details(profile_json)
+    @email = profile_json[:email]
+    @cover_letter = profile_json[:profile][:cover_letter]
+    @job_categories = build_categories(profile_json[:job_categories])
+    self
+  end
+
+  private_class_method :fetch_portfoliorrr_profiles, :new_profile, :build_categories
 end

@@ -151,5 +151,18 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
         expect(page).to have_content 'Não há usuários a serem exibidos.'
       end
     end
+
+    it 'e volta para a página de projetos' do
+      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
+      allow(PortfoliorrrProfile).to receive(:all).and_return([])
+
+      login_as user
+      visit search_project_portfoliorrr_profiles_path project
+      click_on 'Voltar'
+
+      expect(current_path).to eq project_path project
+    end
   end
 end

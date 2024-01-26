@@ -90,4 +90,21 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
     expect(page).to have_content 'Perfil não disponível'
     expect(page).to have_content 'Tente mais tarde'
   end
+
+  it 'e volta para a página de busca' do
+    user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+    project = create :project, user:, title: 'Projeto Top'
+    project.user_roles.find_by(user:).update(role: :leader)
+    profile_id = 1
+    allow(PortfoliorrrProfile).to receive(:find).and_return({})
+    allow(PortfoliorrrProfile).to receive(:all).and_return([])
+
+    login_as user
+    visit project_portfoliorrr_profile_path project, profile_id
+    click_on 'Voltar'
+
+    expect(current_path).to eq search_project_portfoliorrr_profiles_path project
+    expect(page).to have_field 'Busca'
+    expect(page).to have_button 'Buscar'
+  end
 end
