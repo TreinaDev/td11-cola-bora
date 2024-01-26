@@ -17,7 +17,6 @@ describe 'Invitation search API' do
 
       get api_v1_invitations_path(params: { id: 1 })
 
-
       expect(response).to have_http_status :ok
       expect(response.content_type).to include('application/json')
       json_response = JSON.parse(response.body)

@@ -1,5 +1,4 @@
 require 'rails_helper'
-include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Invitation, type: :model do
   describe '#valid?' do
@@ -73,6 +72,18 @@ RSpec.describe Invitation, type: :model do
         invitation.cancelled!
 
         expect(invitation.expired?).to be_truthy
+      end
+    end
+  end
+
+  describe '#validate_expiration_days' do
+    it 'muda status para expired convite está vencido' do
+      invitation = create(:invitation, status: :pending, expiration_days: 5)
+
+      travel_to 8.days.from_now do
+        invitation.validate_expiration_days
+
+        expect(invitation.reload.expired?).to be_truthy
       end
     end
   end

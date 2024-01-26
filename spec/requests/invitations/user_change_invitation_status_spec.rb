@@ -36,7 +36,7 @@ describe 'Usuário tenta atualizar status do convite' do
     other_user = create(:user, cpf: '11859924050')
 
     project = create(:project, user:)
-    other_project = create(:project, user: other_user)
+    create(:project, user: other_user)
 
     invitation = create(:invitation, status: :pending, project:)
 

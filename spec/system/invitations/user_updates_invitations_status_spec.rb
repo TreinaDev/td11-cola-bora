@@ -1,5 +1,4 @@
 require 'rails_helper'
-include ActiveSupport::Testing::TimeHelpers
 
 describe 'Lider revoga convite' do
   it 'e status muda de pendente para cancelado' do

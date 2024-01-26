@@ -14,11 +14,10 @@ class Invitation < ApplicationRecord
     super if pending?
   end
 
-  def pending!
-  end
+  def pending!; end
 
   def validate_expiration_days
-    expired! if pending? && (expiration_days <= (Time.zone.today.day - created_at.day))
+    expired! if pending? && (Time.zone.today.after? created_at.to_date + expiration_days)
   end
 
   private
