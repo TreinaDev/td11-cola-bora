@@ -49,7 +49,7 @@ RSpec.describe Project, type: :request do
       delete project_path(project)
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Não foi possível completar a sua requisição'
+      expect(flash[:alert]).to eq 'Você não é um colaborador desse projeto'
       expect(Project.count).to eq 1
       expect(Project.last).to eq project
     end

@@ -14,7 +14,7 @@ describe 'Usuário edita uma tarefa' do
     expect(response).to redirect_to(root_path)
   end
 
-  it 'e é o lider do projeto, o autor ou responsável' do
+  it 'e é o lider do projeto, autor ou responsável' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
     task = create(:task, project:, title: 'Corrige Bug', author:, assigned: author)
