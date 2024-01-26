@@ -19,9 +19,6 @@
           <source src="<%= rails_blob_url @document.file %>"
                   type="<%= @document.file.content_type %>">
         </video>
-      <% else %>
-        <%= image_tag "document_placeholder.jpg",
-            width: "200px" %>
       <% end %>
     </div>
 
@@ -38,7 +35,7 @@
       <dd><%= l(@document.created_at.to_date) %></dd>
     </dl>
 
-    <div class="d-flex justify-content-center mt-4">
+    <div class="d-flex mt-4">
       <%= link_to t(:document_download_btn),
                   rails_blob_path(@document.file),
                   class: "btn btn-primary me-3" %>
