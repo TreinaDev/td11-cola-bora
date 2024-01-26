@@ -5,7 +5,9 @@ class DocumentsController < ApplicationController
   before_action -> { authorize_member(@document.project) }, only: %i[show]
 
   def index
-    @documents = @project.documents.where(archived: false)
+    @documents = @project.documents
+                         .includes(:file_attachment)
+                         .where(archived: false)
   end
 
   def new
