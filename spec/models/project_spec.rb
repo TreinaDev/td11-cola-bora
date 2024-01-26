@@ -56,20 +56,36 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  context '#participant?' do
+  context '#member?' do
     it 'retorna true se Usuário tem vínculo com o projeto' do
       user = create :user, cpf: '149.759.780-32', email: 'user@gmail.com'
       project = create(:project)
       create :user_role, user:, project:, role: :contributor
 
-      expect(project.participant?(user)).to eq true
+      expect(project.member?(user)).to eq true
     end
 
     it 'retorna false se Usuário não tem vínculo com o projeto' do
       user = create :user, cpf: '149.759.780-32', email: 'user@teste.com'
       project = create(:project)
 
-      expect(project.participant?(user)).to eq false
+      expect(project.member?(user)).to eq false
+    end
+  end
+
+  context '#set_leader_on_create' do
+    it 'só o criador se torna líder' do
+      create(:user, email: 'another_user@mail.com', cpf: '891.586.070-56')
+      leader = create(:user, email: 'leader@email.com')
+      project = create(:project, user: leader)
+      contributor = create(:user, email: 'contributor@mail.com', cpf: '000.000.001-91')
+      project.user_roles.create!(user: contributor, role: :contributor)
+
+      expect(project.user_roles.count).to eq 2
+      expect(project.user_roles.first.role).to eq 'leader'
+      expect(project.user_roles.first.user).to eq leader
+      expect(project.user_roles.last.role).to eq 'contributor'
+      expect(project.user_roles.last.user).to eq contributor
     end
   end
 end

@@ -22,4 +22,5 @@
 <div>
   <%= link_to t(:edit_project_btn), edit_project_path(@project) %>
   <%= link_to Task.model_name.human.pluralize, project_tasks_path(@project) %>
+  <%= link_to Meeting.model_name.human(count: 2), project_meetings_path(@project) %>
 </div>

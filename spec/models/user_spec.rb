@@ -87,4 +87,24 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#can_edit?' do
+    it 'Usuário edita reunião' do
+      leader = create(:user)
+      project = create(:project, user: leader)
+      admin = create(:user, email: 'admin@email.com', cpf: '082.307.110-38')
+      project.user_roles.create!(user: admin, role: :admin)
+      contributor = create(:user, email: 'contributor@email.com', cpf: '891.586.070-56')
+      project.user_roles.create!(user: contributor, role: :contributor)
+      author = create(:user, email: 'author@email.com', cpf: '000.000.001-91')
+      author_role = project.user_roles.create!(user: author, role: :contributor)
+
+      meeting = create(:meeting, project:, user_role: author_role, title: 'Reunião do Lucas e Adoniran')
+
+      expect(leader.can_edit?(meeting)).to eq true
+      expect(admin.can_edit?(meeting)).to eq true
+      expect(author.can_edit?(meeting)).to eq true
+      expect(contributor.can_edit?(meeting)).to eq false
+    end
+  end
 end
