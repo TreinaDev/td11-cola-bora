@@ -22,6 +22,7 @@ describe 'Colaborador vê detalhes de um documento' do
     expect(page).to have_content 'user@email.com'
     expect(page).to have_content I18n.l(Time.zone.today).to_s
     expect(page).to have_selector 'img[src$="imagem1.jpg"]'
+    expect(page).to have_content 'imagem1.jpg'
     expect(page).to have_content '2,32 KB'
     expect(page).to have_link 'Download'
     expect(page).to have_button 'Arquivar'

@@ -30,3 +30,5 @@ pt-BR:
   documents_empty_state: Nenhum documento encontrado
   document_archive_confirm: Arquivar documento?
   document_size: Tamanho
+  document_extension: Tipo
+  document_filename: Nome do arquivo

@@ -24,7 +24,7 @@ describe 'Usuário vê lista de documentos' do
     project.documents.create!(
       [{ user: contributor1, title: 'Imagem', description: 'Documento de imagem',
          file: fixture_file_upload('spec/support/files/sample_jpg.jpg') },
-       { user: contributor2, title: 'PDF', description: 'Documento em PDF',
+       { user: contributor2, title: 'Doc pdf', description: 'Documento em PDF',
          file: fixture_file_upload('spec/support/files/sample_pdf.pdf') }]
     )
 
@@ -33,11 +33,14 @@ describe 'Usuário vê lista de documentos' do
 
     expect(page).not_to have_content 'Nenhum documento encontrado'
     expect(page).to have_content 'Título'
+    expect(page).to have_content 'Tipo'
     expect(page).to have_content 'Autor'
     expect(page).to have_content 'Criado em'
     expect(page).to have_content 'Imagem'
+    expect(page).to have_content 'JPG'
     expect(page).to have_content 'contributor1@email.com'
     expect(page).to have_content I18n.l(project.documents.first.created_at.to_date)
+    expect(page).to have_content 'Doc pdf'
     expect(page).to have_content 'PDF'
     expect(page).to have_content 'contributor2@email.com'
     expect(page).to have_content I18n.l(project.documents.second.created_at.to_date)

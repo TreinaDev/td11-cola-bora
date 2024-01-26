@@ -1,5 +1,6 @@
 <tr>
   <td><%= document.title %></td>
+  <td><%= document.file.filename.extension.upcase %></td>
   <td><%= document.user.email %></td>
   <td><%= l(document.created_at.to_date) %></td>
   <td colspan="2">
