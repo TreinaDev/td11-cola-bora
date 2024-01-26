@@ -50,7 +50,6 @@ class PortfoliorrrProfile
   def build_details(profile_json)
     @email = profile_json[:email]
     @cover_letter = profile_json[:profile][:cover_letter]
-    @job_categories = JobCategory.build_categories(profile_json[:job_categories])
     self
   end
 
