@@ -14,18 +14,19 @@ describe 'Documento é anexado ao projeto' do
       login_as leader, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
       expect(project.documents.count).to eq 1
-      expect(project.documents.last.title).to eq 'Teste de request'
-      expect(project.documents.last.description).to eq 'Descrição'
-      expect(project.documents.last.user).to eq leader
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_jpg.jpg')
+      expect(document.title).to eq 'Teste de request'
+      expect(document.description).to eq 'Descrição'
+      expect(document.user).to eq leader
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_jpg.jpg')
     end
 
     it 'por um colaborador' do
       project = create(:project)
-      contributor = create(:user, cpf: '747.860.990-23', email: 'colaborador@email.com')
+      contributor = create(:user, cpf: '747.860.990-23')
       project.user_roles.create(user: contributor)
       params = { document: {
         title: 'Documento de contribuidor',
@@ -35,17 +36,17 @@ describe 'Documento é anexado ao projeto' do
 
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
-      project.reload
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_png.png')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_png.png')
     end
 
     it 'com extensão mp4' do
       project = create(:project)
-      contributor = create(:user, cpf: '616.782.230-18', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '616.782.230-18')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo mp4',
@@ -55,15 +56,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_video.mp4')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_video.mp4')
     end
 
     it 'com extensão mp3' do
       project = create(:project)
-      contributor = create(:user, cpf: '038.580.790-22', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '038.580.790-22')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo mp3',
@@ -73,15 +75,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, sope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_audio.mp3')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_audio.mp3')
     end
 
     it 'com extensão docx' do
       project = create(:project)
-      contributor = create(:user, cpf: '706.259.640-04', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '706.259.640-04')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo Word',
@@ -91,15 +94,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_word_file.docx')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_word_file.docx')
     end
 
     it 'com extensão pdf' do
       project = create(:project)
-      contributor = create(:user, cpf: '279.907.860-52', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '279.907.860-52')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo pdf',
@@ -109,15 +113,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_pdf.pdf')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_pdf.pdf')
     end
 
     it 'com extensão xlsx' do
       project = create(:project)
-      contributor = create(:user, cpf: '471.301.980-10', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '471.301.980-10')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo Excel',
@@ -127,15 +132,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_excel.xlsx')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_excel.xlsx')
     end
 
     it 'com extensão ppt' do
       project = create(:project)
-      contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '939.351.790-81')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo Power Point',
@@ -145,15 +151,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_ppt.ppt')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_ppt.ppt')
     end
 
     it 'com extensão csv' do
       project = create(:project)
-      contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '939.351.790-81')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo CSV',
@@ -163,15 +170,16 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_csv.csv')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_csv.csv')
     end
 
     it 'com extensão zip' do
       project = create(:project)
-      contributor = create(:user, cpf: '939.351.790-81', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '939.351.790-81')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Arquivo ZIP',
@@ -181,10 +189,11 @@ describe 'Documento é anexado ao projeto' do
       login_as contributor, scope: :user
       post(project_documents_path(project), params:)
 
-      expect(response).to redirect_to document_path(project.documents.last)
-      expect(project.documents.last.user).to eq contributor
-      expect(project.documents.last.file.attached?).to be true
-      expect(project.documents.last.file.byte_size).to eq File.size('spec/support/files/sample_zip.zip')
+      document = project.reload.documents.last
+      expect(response).to redirect_to document_path(document)
+      expect(document.user).to eq contributor
+      expect(document.file.attached?).to be true
+      expect(document.file.byte_size).to eq File.size('spec/support/files/sample_zip.zip')
     end
   end
 
@@ -204,7 +213,7 @@ describe 'Documento é anexado ao projeto' do
 
     it 'por um usuário não pertencente ao projeto' do
       project = create(:project)
-      non_member = create(:user, cpf: '161.176.400-99', email: 'non_member@email.com')
+      non_member = create(:user, cpf: '161.176.400-99')
       params = { document: {
         title: 'Documento de um membro não pertencente ao projeto',
         file: fixture_file_upload('spec/support/files/sample_audio.mp3')
@@ -220,7 +229,7 @@ describe 'Documento é anexado ao projeto' do
 
     it 'com extensão não permitida' do
       project = create(:project)
-      contributor = create(:user, cpf: '866.726.620-57', email: 'contributor@email.com')
+      contributor = create(:user, cpf: '866.726.620-57')
       project.user_roles.create!(user: contributor)
       params = { document: {
         title: 'Documento com arquivo não suportado',

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário vê lista de documentos' do
   it 'vazia' do
     project = create(:project)
-    contributor = create(:user, cpf: '459.103.780-07', email: 'contributor@email.com')
+    contributor = create(:user, cpf: '459.103.780-07')
     project.user_roles.create(user: contributor)
 
     login_as contributor, scope: :user

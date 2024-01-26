@@ -5,12 +5,14 @@ describe 'Colaborador vê detalhes de um documento' do
     project = create(:project, title: 'Projeto teste')
     contributor = create(:user, cpf: '391.503.760-55', email: 'user@email.com')
     project.user_roles.create!(user: contributor)
-    document = project.documents.create! do |d|
-      d.title = 'Documento teste'
-      d.description = 'Descrição teste'
-      d.user = contributor
-      d.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
-    end
+    document = create(
+      :document,
+      project:,
+      title: 'Documento teste',
+      description: 'Descrição teste',
+      user: contributor,
+      file: fixture_file_upload('spec/support/files/imagem1.jpg')
+    )
 
     login_as contributor, scope: :user
     visit project_documents_path(project)
@@ -31,15 +33,16 @@ describe 'Colaborador vê detalhes de um documento' do
 
   it 'que ele não adicionou ao projeto' do
     project = create(:project, title: 'Projeto Teste')
-    document_creator = create(:user, cpf: '492.294.960-73', email: 'contributor1@email.com')
-    contributor = create(:user, cpf: '958.314.240-90', email: 'contributor2@email.com')
+    document_creator = create(:user, cpf: '492.294.960-73')
+    contributor = create(:user, cpf: '958.314.240-90')
     project.user_roles.create!([{ user: document_creator }, { user: contributor }])
-    document = project.documents.create! do |d|
-      d.user = document_creator
-      d.title = 'Documento teste'
-      d.description = 'Descrição teste'
-      d.file.attach(io: File.open('spec/support/files/imagem1.jpg'), filename: 'imagem1.jpg')
-    end
+    document = create(
+      :document,
+      project:,
+      user: document_creator,
+      title: 'Documento teste', description: 'Descrição teste',
+      file: fixture_file_upload('spec/support/files/imagem1.jpg')
+    )
 
     login_as contributor
     visit document_path document
@@ -53,12 +56,9 @@ describe 'Colaborador vê detalhes de um documento' do
 
   it 'de um projeto ao qual ele não pertence' do
     project = create(:project)
-    contributor = create(:user, cpf: '760.378.330-52', email: 'contributor@email.com')
-    project.documents.create!(user: contributor,
-                              title: 'Documento secreto',
-                              file: fixture_file_upload('spec/support/files/sample_pdf.pdf'))
-    non_contributor = create(:user, cpf: '123.405.150-84', email: 'non_contributor@email.com')
-    document = project.documents.first
+    contributor = create(:user, cpf: '760.378.330-52')
+    document = create(:document, project:, user: contributor)
+    non_contributor = create(:user, cpf: '123.405.150-84')
 
     login_as non_contributor, scope: :user
     visit document_path(document)
