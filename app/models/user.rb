@@ -15,6 +15,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def can_edit?(meeting)
+    user_role = UserRole.get_user_role(meeting.project, self)
+    meeting.user_role.user == self || user_role.leader? || user_role.admin?
+  end
+
   private
 
   def create_profile

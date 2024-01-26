@@ -10,7 +10,11 @@ class Project < ApplicationRecord
   after_create :set_leader_on_create
 
   def member?(user)
-    user_roles.any? { |member| member.user == user }
+    UserRole.find_by(user:, project: self).present?
+  end
+
+  def future_meetings
+    meetings.order(datetime: :asc).where('datetime > ?', Date.current)
   end
 
   def leader?(user)

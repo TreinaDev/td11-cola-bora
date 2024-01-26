@@ -6,6 +6,10 @@ class UserRole < ApplicationRecord
 
   validate :only_one_leader_per_project
 
+  def self.get_user_role(project, user)
+    UserRole.find_by(user:, project:)
+  end
+
   private
 
   def only_one_leader_per_project

@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project, only: %i[show edit destroy]
+  before_action :check_contributor, only: %i[show edit destroy]
 
   def index
     @projects = Project.all
@@ -44,5 +46,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description, :category)
+  end
+
+  def check_contributor
+    redirect_to root_path, alert: t('.not_contributor') unless @project.member?(current_user)
   end
 end

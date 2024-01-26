@@ -20,6 +20,7 @@ pt-BR:
     destroy:
       success: Projeto deletado com sucesso!
       fail: Não foi possível completar a sua requisição
+    not_contributor: Você não é um colaborador desse projeto
 
   edit_project_btn: Editar Projeto
   delete_project_btn: Deletar

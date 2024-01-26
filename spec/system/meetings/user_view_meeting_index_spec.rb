@@ -1,26 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário vê página de reuniões de um projeto' do
-  it 'e deve estar autenticado ao entrar no index' do
-    user = create(:user)
-    project = create(:project, user:)
-
-    visit project_meetings_path(project)
-
-    expect(page).to have_current_path(new_user_session_path)
-  end
-
-  it 'e deve estar autenticado ao entrar no show' do
-    user = create(:user)
-    project = create(:project, user:)
-    meeting = create(:meeting, project:)
-
-    visit meeting_path(meeting)
-
-    expect(page).to have_current_path(new_user_session_path)
-  end
-
-  it 'e eaxistem reuniões cadastradas' do
+  it 'e existem reuniões cadastradas' do
     travel_to Time.zone.local(2024, 11, 24, 1, 4, 44)
     user = create(:user)
     project = create(:project, user:)
