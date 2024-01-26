@@ -26,8 +26,8 @@ Rails.application.routes.draw do
       post 'cancel'
     end
   end
-  resources :api do
-    resources :v1 do
+  namespace :api do
+    namespace :v1 do
       resources :invitations, only: %i[index]
     end
   end

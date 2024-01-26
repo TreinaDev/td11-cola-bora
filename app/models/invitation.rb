@@ -4,7 +4,7 @@ class Invitation < ApplicationRecord
   validate :pending_invitation_for_current_project, on: :create
   validates :expiration_days, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: { pending: 0, accepted: 1, denied: 2, cancelled: 3, expired: 4, removed: 5 }
+  enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
 
   private
 
