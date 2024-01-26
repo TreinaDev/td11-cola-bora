@@ -12,11 +12,11 @@ RSpec.describe PortfoliorrrProfile, type: :model do
 
       expect(portfliorrr_profiles.count).to eq 3
       expect(portfliorrr_profiles[0].name).to eq 'Lucas'
-      expect(portfliorrr_profiles[0].job_category).to eq 'Desenvolvedor'
+      expect(portfliorrr_profiles[0].job_categories[0].name).to eq 'Desenvolvedor'
       expect(portfliorrr_profiles[1].name).to eq 'Mateus'
-      expect(portfliorrr_profiles[1].job_category).to eq 'Designer'
+      expect(portfliorrr_profiles[1].job_categories[0].name).to eq 'Designer'
       expect(portfliorrr_profiles[2].name).to eq 'Rodolfo'
-      expect(portfliorrr_profiles[2].job_category).to eq 'Editor de Video'
+      expect(portfliorrr_profiles[2].job_categories[0].name).to eq 'Editor de Video'
     end
 
     it 'API retorna vazio' do
@@ -63,7 +63,7 @@ RSpec.describe PortfoliorrrProfile, type: :model do
 
       expect(portfoliorrr_profiles.count).to eq 1
       expect(portfoliorrr_profiles[0].name).to eq 'Rodolfo'
-      expect(portfoliorrr_profiles[0].job_category).to eq 'Editor de Video'
+      expect(portfoliorrr_profiles[0].job_categories[0].name).to eq 'Editor de Video'
     end
   end
 

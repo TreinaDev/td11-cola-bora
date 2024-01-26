@@ -1,10 +1,10 @@
 class PortfoliorrrProfile
-  attr_accessor :id, :name, :job_category, :email, :job_categories, :cover_letter
+  attr_accessor :id, :name, :email, :job_categories, :cover_letter
 
-  def initialize(id:, name:, job_category:)
+  def initialize(id:, name:, job_categories:)
     @id = id
     @name = name
-    @job_category = job_category
+    @job_categories = job_categories
   end
 
   def self.all
@@ -33,7 +33,7 @@ class PortfoliorrrProfile
   def self.new_profile(profile_json)
     new(id: profile_json[:id],
         name: profile_json[:name],
-        job_category: profile_json[:job_category])
+        job_categories: JobCategory.build_categories(profile_json[:job_categories]))
   end
 
   def self.fetch_portfoliorrr_profiles(url)
@@ -50,16 +50,8 @@ class PortfoliorrrProfile
   def build_details(profile_json)
     @email = profile_json[:email]
     @cover_letter = profile_json[:profile][:cover_letter]
-    @job_categories = build_categories(profile_json[:job_categories])
+    @job_categories = JobCategory.build_categories(profile_json[:job_categories])
     self
-  end
-
-  private
-
-  def build_categories(job_categories)
-    job_categories.map do |category|
-      JobCategory.new(name: category[:name], description: category[:description])
-    end
   end
 
   private_class_method :fetch_portfoliorrr_profiles, :new_profile

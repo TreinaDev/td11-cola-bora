@@ -3,17 +3,29 @@
     {
       "id": 1,
       "name": "Lucas",
-      "job_category": "Desenvolvedor"
+      "job_categories": [
+        {
+          "name": "Desenvolvedor"
+        }
+      ]
     },
     {
       "id": 2,
       "name": "Mateus",
-      "job_category": "Designer"
+      "job_categories": [
+        {
+          "name": "Designer"
+        }
+      ]
     },
     {
       "id": 3,
       "name": "Rodolfo",
-      "job_category": "Editor de Video"
+      "job_categories": [
+        {
+          "name": "Editor de Video"
+        }
+      ]
     }
   ]
 }

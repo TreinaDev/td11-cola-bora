@@ -36,7 +36,7 @@
           </td>
           <td>
             <p class="fw-normal mb-1">
-              <%= profile.job_category %>
+              <%= profile.job_categories.map { |x| x.name }.join(', ') %>
             </p>
           </td>
         </tr>
