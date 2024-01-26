@@ -36,12 +36,6 @@ class PortfoliorrrProfile
         job_category: profile_json[:job_category])
   end
 
-  def self.build_categories(job_categories)
-    job_categories.map do |category|
-      JobCategory.new(name: category[:name], description: category[:description])
-    end
-  end
-
   def self.fetch_portfoliorrr_profiles(url)
     response = Faraday.get(url)
 
@@ -53,8 +47,6 @@ class PortfoliorrrProfile
     []
   end
 
-  private
-
   def build_details(profile_json)
     @email = profile_json[:email]
     @cover_letter = profile_json[:profile][:cover_letter]
@@ -62,5 +54,13 @@ class PortfoliorrrProfile
     self
   end
 
-  private_class_method :fetch_portfoliorrr_profiles, :new_profile, :build_categories
+  private
+
+  def build_categories(job_categories)
+    job_categories.map do |category|
+      JobCategory.new(name: category[:name], description: category[:description])
+    end
+  end
+
+  private_class_method :fetch_portfoliorrr_profiles, :new_profile
 end

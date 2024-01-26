@@ -1,16 +1,16 @@
-<%= link_to 'Voltar', search_project_portfoliorrr_profiles_path(@project), class: 'btn btn-secondary' %>
+<%= link_to t('back'), search_project_portfoliorrr_profiles_path(@project), class: 'btn btn-secondary' %>
 
 <% if @portfoliorrr_profile.present? %>
   <section>
     <div class="container">
       <div class="row">
-        <h3 class="mb-3">Perfil de <%= @portfoliorrr_profile.name %></h3>
+        <h3 class="mb-3"><%= t('profile', name: @portfoliorrr_profile.name) %></h3>
         <div class="col-lg-8">
           <div class="card mb-4">
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Nome</p>
+                  <p class="mb-0"><%= t('portfoliorrr_profile.attributes.name') %></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @portfoliorrr_profile.name %></p>
@@ -19,7 +19,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
+                  <p class="mb-0"><%= t('portfoliorrr_profile.attributes.email') %></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @portfoliorrr_profile.email %></p>
@@ -45,10 +45,10 @@
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <h5 class="my-3">Sobre mim</h5>
+              <h5 class="my-3"><%= t('portfoliorrr_profile.attributes.cover_letter') %></h5>
               <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary" disabled>Convidar</button>
+                <button type="button" class="btn btn-primary d-none" disabled>Convidar</button>
               </div>
             </div>
           </div>        
@@ -57,6 +57,6 @@
     </div>
   </section>
 <% else %>
-  <h3>Perfil não disponível</h3>
-  <h3>Tente mais tarde</h3>
+  <h3><%= t('profile_not_available') %></h3>
+  <h3><%= t('try_again_later') %></h3>
 <% end %>

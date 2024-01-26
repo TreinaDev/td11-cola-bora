@@ -122,7 +122,7 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
 
         login_as user
         visit search_project_portfoliorrr_profiles_path project
-        fill_in 'Busca:', with: 'video'
+        fill_in 'Busca', with: 'video'
         click_on 'Buscar'
 
         expect(current_path).to eq search_project_portfoliorrr_profiles_path project
@@ -143,7 +143,7 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
 
         login_as user
         visit search_project_portfoliorrr_profiles_path project
-        fill_in 'Busca:', with: 'termo maluco'
+        fill_in 'Busca', with: 'termo maluco'
         click_on 'Buscar'
 
         expect(current_path).to eq search_project_portfoliorrr_profiles_path project

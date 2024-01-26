@@ -1,16 +1,16 @@
-<%= link_to 'Voltar', project_path(@project), class: 'btn btn-secondary' %>
+<%= link_to t('back'), project_path(@project), class: 'btn btn-secondary' %>
 
-<h1>Usuários disponíveis</h1>
+<h1><%= t('available_users') %></h1>
 
 <% if @query.present? %>
-  <h3>Resultados para: <%= @query %></h3>
+  <h3><%= t('results_to') %>: <%= @query %></h3>
 <% end %>
 
 <%= form_with url: search_project_portfoliorrr_profiles_path(@project), method: :get do |f| %>
   <div class="input-group">
-    <%= f.label :q, 'Busca:', class: 'd-none' %>
-    <%= f.text_field :q, class: 'form-control rounded', placeholder: 'Busca' %>
-    <%= f.submit 'Buscar', class: 'btn btn-outline-primary' %>
+    <%= f.label :q, t('search'), class: 'd-none' %>
+    <%= f.text_field :q, class: 'form-control rounded', placeholder: t('search') %>
+    <%= f.submit t('to_search'), class: 'btn btn-outline-primary' %>
   </div>
 <% end %>
 
@@ -18,8 +18,8 @@
   <table class="table table-hover align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
-        <th>Nome</th>
-        <th>Tipo de Serviço</th>
+        <th><%= t('portfoliorrr_profile.attributes.name') %></th>
+        <th><%= t('portfoliorrr_profile.attributes.job_category') %></th>
       </tr>
     </thead>
     <tbody>
@@ -44,5 +44,5 @@
     </tbody>
   </table>
 <% else %>
-  <h3>Não há usuários a serem exibidos.</h3>
+  <h3><%= t('no_users_to_display') %>.</h3>
 <% end %>

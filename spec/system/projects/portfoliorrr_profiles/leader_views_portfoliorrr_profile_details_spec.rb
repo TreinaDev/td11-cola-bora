@@ -72,7 +72,7 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
     expect(current_path).to eq project_portfoliorrr_profile_path project, mateus_profile.id
     expect(page).to have_content 'Perfil de Rodolfo'
     expect(page).to have_content "Nome\nRodolfo"
-    expect(page).to have_content "Email\nrodolfo@email.com"
+    expect(page).to have_content "E-mail\nrodolfo@email.com"
     expect(page).to have_content "Editor de Video\nCanal do Youtube"
     expect(page).to have_content "Editor de Imagem\nPhotoshop"
     expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
@@ -88,7 +88,7 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
     visit project_portfoliorrr_profile_path project, 999
 
     expect(page).to have_content 'Perfil não disponível'
-    expect(page).to have_content 'Tente mais tarde'
+    expect(page).to have_content 'Tente novamente mais tarde'
   end
 
   it 'e volta para a página de busca' do
