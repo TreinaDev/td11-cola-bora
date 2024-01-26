@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 describe 'Lider revoga convite' do
   it 'e status muda de pendente para cancelado' do
@@ -39,7 +40,19 @@ describe 'Lider revoga convite' do
     expect(current_path).to eq project_portfoliorrr_profile_path(project, joao.id)
     expect(Invitation.last.pending?).to eq true
   end
+end
 
-  xit 'apenas se status for igual a pendente' do
+describe 'Atualiza status para expirado' do
+  it 'quando convite estiver vencido' do
+    user = create(:user)
+    project = create(:project, user:)
+    invitation = create(:invitation, project:, expiration_days: 3)
+
+    travel_to 4.days.from_now do
+      login_as(user)
+      visit project_portfoliorrr_profile_path(project, invitation.profile_id)
+
+      expect(invitation.reload.expired?).to be_truthy
+    end
   end
 end

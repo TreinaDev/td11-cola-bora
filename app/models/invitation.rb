@@ -6,6 +6,21 @@ class Invitation < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
 
+  def cancelled!
+    super if pending?
+  end
+
+  def expired!
+    super if pending?
+  end
+
+  def pending!
+  end
+
+  def validate_expiration_days
+    expired! if pending? && (expiration_days <= (Time.zone.today.day - created_at.day))
+  end
+
   private
 
   def pending_invitation_for_current_project

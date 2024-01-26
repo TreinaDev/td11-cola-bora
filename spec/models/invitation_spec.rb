@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Invitation, type: :model do
   describe '#valid?' do
@@ -8,6 +9,70 @@ RSpec.describe Invitation, type: :model do
 
         expect(invitation).not_to be_valid
         expect(invitation.errors[:expiration_days]).to include 'deve ser maior ou igual a 0'
+      end
+    end
+  end
+
+  describe '#cancelled?' do
+    it 'retorna verdadeiro se tentar mudar de pending para cancelled' do
+      invitation = build(:invitation, status: :pending)
+
+      invitation.cancelled!
+
+      expect(invitation.cancelled?).to be_truthy
+    end
+
+    it 'retorna falso se tentar mudar de accepted para cancelled' do
+      invitation = build(:invitation, status: :accepted)
+
+      invitation.cancelled!
+
+      expect(invitation.cancelled?).to be_falsy
+    end
+
+    it 'retorna falso se tentar mudar de expired para cancelled' do
+      invitation = build(:invitation, status: :expired)
+
+      invitation.cancelled!
+
+      expect(invitation.cancelled?).to be_falsy
+    end
+
+    context 'retorna verdadeiro se tentar mudar de cancelled para qualquer outro' do
+      it 'de cancelled para pending' do
+        invitation = build(:invitation, status: :cancelled)
+
+        invitation.pending!
+
+        expect(invitation.cancelled?).to be_truthy
+      end
+
+      it 'de cancelled para expired' do
+        invitation = build(:invitation, status: :cancelled)
+
+        invitation.expired!
+
+        expect(invitation.cancelled?).to be_truthy
+      end
+    end
+  end
+
+  describe '#expired?' do
+    context 'retorna verdadeiro se tentar mudar de expired para qualquer outro' do
+      it 'de expired para pending' do
+        invitation = build(:invitation, status: :expired)
+
+        invitation.pending!
+
+        expect(invitation.expired?).to be_truthy
+      end
+
+      it 'de expired para pending' do
+        invitation = build(:invitation, status: :expired)
+
+        invitation.cancelled!
+
+        expect(invitation.expired?).to be_truthy
       end
     end
   end

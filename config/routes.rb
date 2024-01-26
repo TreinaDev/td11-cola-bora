@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
       resources :invitations, shallow: true, only: %i[create] do
         member do
-          patch 'cancel'
+          patch 'cancel', to: 'invitations#cancel'
         end
       end
     end
