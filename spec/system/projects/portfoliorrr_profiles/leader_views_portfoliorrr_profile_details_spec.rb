@@ -53,13 +53,13 @@ describe 'Líder de projeto vê detalhes de um perfil da Portfoliorrr' do
     user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
     project = create :project, user:, title: 'Projeto Top'
     project.user_roles.find_by(user:).update(role: :leader)
-    rodolfo_categories = [JobCategory.new(name: 'Designer')]
-    rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo', job_categories: rodolfo_categories
+    rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo', job_categories: [JobCategory.new(name: 'Designer')]
     allow(PortfoliorrrProfile).to receive(:all).and_return([rodolfo_profile])
+    rodolfo_profile.job_categories = [
+      JobCategory.new(name: 'Editor de Video', description: 'Canal do Youtube'),
+      JobCategory.new(name: 'Editor de Imagem', description: 'Photoshop')
+    ]
     rodolfo_profile.email = 'rodolfo@email.com'
-    first_job_category = JobCategory.new(name: 'Editor de Video', description: 'Canal do Youtube')
-    second_job_category = JobCategory.new(name: 'Editor de Imagem', description: 'Photoshop')
-    rodolfo_profile.job_categories = [first_job_category, second_job_category]
     rodolfo_profile.cover_letter = 'Sou editor de vídeos em um canal do Youtube.'
     allow(PortfoliorrrProfile).to receive(:find).and_return(rodolfo_profile)
 

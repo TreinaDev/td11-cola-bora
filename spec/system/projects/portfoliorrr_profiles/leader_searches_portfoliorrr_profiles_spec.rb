@@ -88,13 +88,11 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
-      lucas_categories = [JobCategory.new(name: 'Desenvolvedor')]
-      lucas_profile = PortfoliorrrProfile.new id: 1, name: 'Lucas', job_categories: lucas_categories
-      mateus_categories = [JobCategory.new(name: 'Designer')]
-      mateus_profile = PortfoliorrrProfile.new id: 2, name: 'Mateus', job_categories: mateus_categories
-      rodolfo_categories = [JobCategory.new(name: 'Editor de Video')]
-      rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo', job_categories: rodolfo_categories
-      portfoliorrr_profiles = [lucas_profile, mateus_profile, rodolfo_profile]
+      portfoliorrr_profiles = [
+        PortfoliorrrProfile.new(id: 1, name: 'Lucas', job_categories: [JobCategory.new(name: 'Desenvolvedor')]),
+        PortfoliorrrProfile.new(id: 2, name: 'Mateus', job_categories: [JobCategory.new(name: 'Designer')]),
+        PortfoliorrrProfile.new(id: 3, name: 'Rodolfo', job_categories: [JobCategory.new(name: 'Editor de Video')])
+      ]
       allow(PortfoliorrrProfile).to receive(:all).and_return(portfoliorrr_profiles)
 
       login_as user
@@ -120,8 +118,8 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
         user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
-        rodolfo_categories = [JobCategory.new(name: 'Editor de Video')]
-        rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo', job_categories: rodolfo_categories
+        rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo',
+                                                  job_categories: [JobCategory.new(name: 'Editor de Video')]
         allow(PortfoliorrrProfile).to receive(:search).with('video').and_return([rodolfo_profile])
 
         login_as user
