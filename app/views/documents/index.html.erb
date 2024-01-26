@@ -1,0 +1,33 @@
+<%= link_to t(:back), project_path(@project), class: "btn btn-sm btn-secondary" %>
+
+<h1><%= Document.model_name.human count: 2 %> | <%= @project.title %></h1>
+
+<section>
+  <div class="mb-3 mt-3">
+    <%= link_to t(:document_new_btn), new_project_document_path, class: "btn btn-primary" %>
+  </div>
+
+  <div id="documents-list">
+    <% if @documents.empty? %>
+      <p><%= t(:documents_empty_state) %></p>
+    <% else %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= Document.human_attribute_name :title %></th>
+            <th><%= t(:document_extension) %></th>
+            <th><%= Document.human_attribute_name :user %></th>
+            <th><%= Document.human_attribute_name :created_at %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @documents.each do |document| %>
+            <%= render 'document_row', document: %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</section>

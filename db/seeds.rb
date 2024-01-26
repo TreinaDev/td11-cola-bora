@@ -1,3 +1,6 @@
+user = FactoryBot.create(:user, email: 'user@email.com', cpf: '026.732.930-00',
+                         password: '123456')
+
 ash = FactoryBot.create(:user, email: 'ash@email.com', cpf: '837.513.746-47')
 ash.profile.update(first_name: 'Ash', last_name: 'Ketchum',
                             work_experience: 'Treinador Pokemon', education: 'Escola Pokemon')
@@ -12,15 +15,15 @@ misty.profile.update(first_name: 'Mysty', last_name: '',
 
 
 FactoryBot.create(:project, user: ash)
-pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio', 
-                                              description: 'Me tornar líder do estádio de pedra.',
-                                              category: 'Auto Ajuda')
+pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio',
+                                    description: 'Me tornar líder do estádio de pedra.',
+                                    category: 'Auto Ajuda')
 
-FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude', 
+FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude',
                          description:'Para completar o meu time de pedra, preciso de um geodude, vamos captura-lo',
                          assigned: brock, due_date: 2.months.from_now.to_date, author: brock)
 
-FactoryBot.create(:task, project: pokemon_project, title:'Parar a equipe rocket', 
+FactoryBot.create(:task, project: pokemon_project, title:'Parar a equipe rocket',
                          description:'A equipe rocket está aprontando novamente, temos que para-los',
                          assigned: ash, due_date: Time.zone.tomorrow, author: ash)
 
