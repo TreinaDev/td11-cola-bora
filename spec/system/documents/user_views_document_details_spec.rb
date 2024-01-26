@@ -50,4 +50,20 @@ describe 'Colaborador vê detalhes de um documento' do
     expect(page).to have_link 'Download'
     expect(page).not_to have_button 'Arquivar'
   end
+
+  it 'de um projeto ao qual ele não pertence' do
+    project = create(:project)
+    contributor = create(:user, cpf: '760.378.330-52', email: 'contributor@email.com')
+    project.documents.create!(user: contributor,
+                              title: 'Documento secreto',
+                              file: fixture_file_upload('spec/support/files/sample_pdf.pdf'))
+    non_contributor = create(:user, cpf: '123.405.150-84', email: 'non_contributor@email.com')
+    document = project.documents.first
+
+    login_as non_contributor, scope: :user
+    visit document_path(document)
+
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Você não é membro deste projeto'
+  end
 end

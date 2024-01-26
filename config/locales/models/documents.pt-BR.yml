@@ -17,8 +17,14 @@ pt-BR:
       success: Documento adicionado com sucesso.
       fail: Não foi possível adicionar o documento.
       unauthorized: Não foi possível completar sua requisição.
+    new:
+      unauthorized: Você não é membro deste projeto
     archive:
       success: Documento arquivado com sucesso.
+    show:
+      unauthorized: Você não é membro deste projeto
+    index:
+      unauthorized: Você não é membro deste projeto
 
   document_title_placeholder: Título do documento
   document_description_placeholder: Descrição do documento

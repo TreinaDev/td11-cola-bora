@@ -1,7 +1,8 @@
 class DocumentsController < ApplicationController
   before_action :set_project, only: %i[index new create]
   before_action :set_document, only: %i[show archive]
-  before_action -> { authorize_member(@project) }, only: %i[create]
+  before_action -> { authorize_member(@project) }, only: %i[index new create]
+  before_action -> { authorize_member(@document.project) }, only: %i[show]
 
   def index
     @documents = @project.documents.where(archived: false)
