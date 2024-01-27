@@ -45,12 +45,12 @@ describe 'Invitation search API' do
       expect(json_response).to eq []
     end
 
-    it 'fail if theres an internal error' do
+    it 'falha quando ocorre erro interno' do
       allow(Invitation).to receive(:pending).and_raise(ActiveRecord::QueryCanceled)
 
       get api_v1_invitations_path(params: { id: 1 })
 
-      expect(response).to have_http_status(500)
+      expect(response).to have_http_status(:internal_server_error)
     end
   end
 end

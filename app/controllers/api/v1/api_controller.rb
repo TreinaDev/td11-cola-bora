@@ -6,7 +6,7 @@ module Api
       protected
 
       def return500
-        render status: :internal_server_error, json: { errors: ['Erro interno de servidor.'] }
+        render status: :internal_server_error, json: { errors: [I18n.t('server_error')] }
       end
     end
   end

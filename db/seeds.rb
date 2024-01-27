@@ -27,3 +27,6 @@ FactoryBot.create(:task, project: pokemon_project, title:'Parar a equipe rocket'
 FactoryBot.create(:task, project: pokemon_project, title:'Derrotar um Charmander',
                          description: 'Lutar contra outro treinador com um Charmander.',
                          assigned: ash, due_date: 1.week.from_now, author: ash)
+
+FactoryBot.create(:invitation, project: pokemon_project, profile_id: 1,
+                               expiration_days: 10, status: :pending)

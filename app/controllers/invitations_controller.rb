@@ -10,8 +10,9 @@ class InvitationsController < ApplicationController
       return redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
                          notice: t('.success')
     end
+
     redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
-                alert: t('.pending_invitation')
+                alert: invitation_error
   end
 
   def cancel
@@ -42,5 +43,11 @@ class InvitationsController < ApplicationController
 
   def authorize_cancel
     redirect_to root_path unless @invitation.pending?
+  end
+
+  def invitation_error
+    return t('.fail') if @invitation.expiration_days.negative?
+
+    t('.pending_invitation')
   end
 end

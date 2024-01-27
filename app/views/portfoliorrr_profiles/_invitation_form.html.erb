@@ -1,12 +1,23 @@
 <% if current_invitation.present? %>
-  <%= button_to 'Cancelar convite', cancel_invitation_path(current_invitation.id), method: :patch %>
+  <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id), method: :patch, class: 'btn btn-danger' %>
 <% end %>
 
 <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
+  <% if invitation.errors.any? %>
+    <div class='text-danger'>
+      <h3><%= I18n.t('.errors_title') %>:</h3>
+      <ul>
+        <% invitation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="mb-3">
     <%= form.label :expiration_days, class: 'form-label', html: { min: '0', step: 1 } %>
     <%= form.number_field :expiration_days, class: 'form-control' %>
   </div>
 
-  <%= form.submit I18n.t 'invitations.send_invitation', class: 'btn btn-primary' %>
+  <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
 <% end %>

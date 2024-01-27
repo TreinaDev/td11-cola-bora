@@ -66,7 +66,7 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.expired?).to be_truthy
       end
 
-      it 'de expired para pending' do
+      it 'de expired para cancelled' do
         invitation = build(:invitation, status: :expired)
 
         invitation.cancelled!
@@ -77,7 +77,7 @@ RSpec.describe Invitation, type: :model do
   end
 
   describe '#validate_expiration_days' do
-    it 'muda status para expired convite está vencido' do
+    it 'muda status para expired quando convite está vencido' do
       invitation = create(:invitation, status: :pending, expiration_days: 5)
 
       travel_to 8.days.from_now do

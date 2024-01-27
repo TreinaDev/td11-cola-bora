@@ -6,6 +6,8 @@ class Invitation < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
 
+  def pending!; end
+
   def cancelled!
     super if pending?
   end
@@ -13,8 +15,6 @@ class Invitation < ApplicationRecord
   def expired!
     super if pending?
   end
-
-  def pending!; end
 
   def validate_expiration_days
     expired! if pending? && (Time.zone.today.after? created_at.to_date + expiration_days)
@@ -25,6 +25,6 @@ class Invitation < ApplicationRecord
   def pending_invitation_for_current_project
     return unless Invitation.exists?(project:, profile_id:, status: :pending)
 
-    errors.add(:base, 'Esse usuário possui convite pendente')
+    errors.add(:base, I18n.t('invitations.create.pending_invitation'))
   end
 end
