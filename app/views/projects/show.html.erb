@@ -1,5 +1,15 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
 
+<div>
+  <%= link_to Document.model_name.human(count: 2), project_documents_path(@project) %>
+</div>
+
+<% if @project.leader?(current_user) %>
+  <div>
+    <%= link_to t(:search_users_btn), search_project_portifoliorrr_profiles_path(@project) %>
+  </div>
+<% end %>
+
 <p>
   <strong><%= Project.human_attribute_name :user %>: </strong>
   <%= @project.user.email %>
@@ -15,4 +25,6 @@
 
 <div>
   <%= link_to t(:edit_project_btn), edit_project_path(@project) %>
+  <%= link_to Task.model_name.human.pluralize, project_tasks_path(@project) %>
+  <%= link_to Meeting.model_name.human(count: 2), project_meetings_path(@project) %>
 </div>

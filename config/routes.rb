@@ -5,6 +5,32 @@ Rails.application.routes.draw do
 
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit destroy] do
+    resources :tasks, only: %i[index new create]
+    resources :documents, only: %i[index new create]
+    resources :meetings, only: %i[index new create show edit update]
+
     get 'my_projects', on: :collection
+
+    resources :portifoliorrr_profiles, only: %i[show] do
+      get 'search', on: :collection
+    end
+  end
+
+  resources :tasks, only: %i[show edit update] do
+    member do
+      post 'start'
+      post 'finish'
+      post 'cancel'
+    end
+  end
+
+  resources :documents, only: %i[show] do
+    patch 'archive', on: :member
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :projects, only: %i[index]
+    end
   end
 end

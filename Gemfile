@@ -4,13 +4,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 gem 'rails', '~> 7.1.2'
 
+gem 'active_storage_validations'
 gem 'bootsnap', require: false
 gem 'cpf_cnpj', '~> 0.5.0'
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'faraday'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'
+gem 'rack-cors'
 gem 'sprockets-rails'
 gem 'sqlite3', '~> 1.4'
 gem 'turbo-rails'
