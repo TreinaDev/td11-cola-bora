@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   root to: "home#index"
-  get 'my_projects', to: 'projects#my_projects'
 
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit destroy] do

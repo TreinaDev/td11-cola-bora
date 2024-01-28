@@ -10,7 +10,7 @@ describe 'Usuário deleta projeto' do
     click_on 'Editar Projeto'
     accept_confirm('Deletar projeto?') { click_on 'Deletar' }
 
-    expect(page).to have_current_path my_projects_path
+    expect(page).to have_current_path projects_path
     expect(Project.all).to be_empty
     expect(page).to have_content 'Projeto deletado com sucesso!'
     expect(page).not_to have_content 'Projeto teste'
