@@ -1,4 +1,3 @@
-<%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>
 
 <%= render 'shared/project_header', project: @project %>
 
@@ -21,4 +20,6 @@
   <%= @project.category %>
 </p>
 
+<hr>
 
+<%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário edita tarefa' do
-  it 'á partir da página de tarefa com sucesso' do
+  it 'a partir da página de tarefa com sucesso' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
     task = create(:task, project:)

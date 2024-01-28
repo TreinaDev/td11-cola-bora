@@ -1,19 +1,48 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
   <div class="container-fluid">
-    <%= link_to 'Cola?Bora!', root_path, class:"navbar-brand" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <%= link_to 'Cola?Bora!', 
+                root_path, 
+                class:"navbar-brand" %>
+    <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNavAltMarkup" 
+            aria-controls="navbarNavAltMarkup" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <% if user_signed_in? %>
-          <li class="nav-item"><%= link_to 'Criar Projeto', new_project_path, class:"nav-link" %></li>
-          <li class="nav-item"><%= link_to 'Projetos', projects_path, class:"nav-link" %></li>
-          <li class="nav-item"><%= link_to 'Meu perfil', profile_path(current_user.profile), class: 'nav-link' %></li>
+          <li class="nav-item">
+            <%= link_to t(:create_project_link), 
+                        new_project_path, 
+                        class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to Project.model_name.human(count: 2), 
+                        projects_path, 
+                        class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t(:my_profile), 
+                        profile_path(current_user.profile), 
+                        class: 'nav-link' %>
+          </li>
           <p class="nav-link"><%= current_user.email %></p>
-          <li class="nav-item"><%= button_to "Sair", destroy_user_session_path, method: :delete, class: 'btn btn-danger' %></li>
+          <li class="nav-item">
+            <%= button_to t(:log_out), 
+                          destroy_user_session_path, 
+                          method: :delete, 
+                          class: 'btn btn-danger' %>
+          </li>
         <% else %>
-          <%= link_to "Entrar", new_user_session_path, class: 'btn btn-primary nav-text' %>
+          <li>
+            <%= link_to t(:log_in), 
+                        new_user_session_path, 
+                        class: 'btn btn-primary link-light' %>
+          </li>
         <% end %>
       </ul>
     </div>

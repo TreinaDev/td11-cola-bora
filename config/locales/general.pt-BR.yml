@@ -1,4 +1,6 @@
 pt-BR:
   errors_title: Erros
   back: Voltar
+  log_in: Entrar
+  log_out: Sair
   unauthorized: Você não tem acesso a esse recurso

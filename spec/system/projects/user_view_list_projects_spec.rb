@@ -23,14 +23,14 @@ describe 'Usuário vê projetos seus' do
     click_on 'Projetos'
 
     expect(page).to have_current_path projects_path
-    expect(page).to have_content 'Título: Padrão'
-    expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes'
+    expect(page).to have_content 'Padrão'
+    expect(page).to have_content 'Descrição de um projeto padrão para testes'
     expect(page).to have_content 'Categoria: Teste'
-    expect(page).to have_content 'Título: Criação de site'
-    expect(page).to have_content 'Descrição: Esse projeto é sobre a criação de um website para a cidade'
+    expect(page).to have_content 'Criação de site'
+    expect(page).to have_content 'Esse projeto é sobre a criação de um website para a cidade'
     expect(page).to have_content 'Categoria: Webdesign'
-    expect(page).not_to have_content 'Título: Peça de Teatro'
-    expect(page).not_to have_content 'Descrição: Espetáculo de Shakespeare'
+    expect(page).not_to have_content 'Peça de Teatro'
+    expect(page).not_to have_content 'Espetáculo de Shakespeare'
     expect(page).not_to have_content 'Categoria: Teatro'
   end
 
@@ -66,14 +66,14 @@ describe 'Usuário vê projetos seus' do
     click_on 'Meus Projetos'
 
     expect(current_path).to eq projects_path
-    expect(page).to have_content 'Título: Padrão'
-    expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes'
+    expect(page).to have_content 'Padrão'
+    expect(page).to have_content 'Descrição de um projeto padrão para testes'
     expect(page).to have_content 'Categoria: Teste'
-    expect(page).to have_content 'Título: Criação de site'
-    expect(page).to have_content 'Descrição: Esse projeto é sobre a criação de um website para a cidade'
+    expect(page).to have_content 'Criação de site'
+    expect(page).to have_content 'Esse projeto é sobre a criação de um website para a cidade'
     expect(page).to have_content 'Categoria: Webdesign'
-    expect(page).not_to have_content 'Título: Peça de Teatro'
-    expect(page).not_to have_content 'Descrição: Espetáculo de Shakespeare'
+    expect(page).not_to have_content 'Peça de Teatro'
+    expect(page).not_to have_content 'Espetáculo de Shakespeare'
     expect(page).not_to have_content 'Categoria: Teatro'
   end
 
@@ -90,11 +90,11 @@ describe 'Usuário vê projetos seus' do
     visit projects_path
 
     expect(page).to have_content 'Não existem projetos cadastrados.'
-    expect(page).not_to have_content 'Título: Padrão'
-    expect(page).not_to have_content 'Descrição: Descrição de um projeto padrão para testes'
+    expect(page).not_to have_content 'Padrão'
+    expect(page).not_to have_content 'Descrição de um projeto padrão para testes'
     expect(page).not_to have_content 'Categoria: Teste'
-    expect(page).not_to have_content 'Título: Criação de site'
-    expect(page).not_to have_content 'Descrição: Esse projeto é sobre a criação de um website para a cidade'
+    expect(page).not_to have_content 'Criação de site'
+    expect(page).not_to have_content 'Esse projeto é sobre a criação de um website para a cidade'
     expect(page).not_to have_content 'Categoria: Webdesign'
   end
 end
