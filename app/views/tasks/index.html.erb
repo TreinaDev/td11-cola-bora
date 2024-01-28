@@ -1,8 +1,8 @@
 <%= render 'shared/project_header', project: @project %>
 
-<h1><%= Task.model_name.human.pluralize %></h1>
-
-<%= link_to I18n.t('tasks.new_task'), new_project_task_path(@project) %>
+<%= link_to I18n.t('tasks.new_task'), 
+            new_project_task_path(@project),
+            class: 'btn btn-primary' %>
 <br>
 <br>
 <ul>

@@ -1,10 +1,8 @@
 <%= render 'shared/project_header', project: @project %>
 
-<h1><%= Meeting.model_name.human(count: 2) %></h1>
-
-<%= link_to I18n.t('meetings.new_meeting'), new_project_meeting_path(@project) %>
-<br>
-<br>
+<%= link_to I18n.t('meetings.new_meeting'), 
+            new_project_meeting_path(@project),
+            class: 'btn btn-primary' %>
 <% if @meetings.empty? %>
   <%= I18n.t('meetings.no_meetings') %>
 <% end %>

@@ -1,8 +1,21 @@
 .logo {
   width: 150px;
 }
-.btn.btn-primary {
+ nav a {
+  color:  #13795b!important;
+  text-decoration: none!important;
+}
+ nav a:hover {
+  color: #10674d!important;
+}
+
+/* .btn.btn-primary {
   background-color: #4f8471;
+  border: 0;
+  color: rgb(226, 226, 226)!important;
+}
+.btn.btn-secondary {
+  background-color: #6c757d;
   border: 0;
   color: rgb(226, 226, 226)!important;
 }
@@ -14,10 +27,4 @@
   background-color:#8dcbbb!important;
   border: 0;
 }
-a {
-  color:  #3d8573!important;
-  text-decoration: none!important;
-}
-a:hover {
-  color: #8dcbbb!important;
-}
+ */

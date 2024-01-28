@@ -1,8 +1,6 @@
-<main>
-  <%= link_to t(:back), 
-      project_documents_path(@document.project),
-      class: "btn btn-sm btn-secondary" %>
+<%= render 'shared/project_header', project: @document.project %>
 
+<main>
   <div id="document-details">
     <h1><%= @document.title %></h1>
 
@@ -44,8 +42,11 @@
                       archive_document_path(@document), 
                       method: :patch,
                       data: { turbo_confirm: t(:document_archive_confirm) },
-                      class: "btn btn-danger" %>
+                      class: "btn btn-danger me-3" %>
       <% end %>
+        <%= link_to t(:back), 
+                    project_documents_path(@document.project),
+                    class: "btn btn-secondary" %>
     </div>
   </div>
 </main>

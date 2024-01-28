@@ -6,8 +6,7 @@ describe 'Usuário deleta projeto' do
     project = create(:project, title: 'Projeto teste', user:)
 
     login_as user, scope: :user
-    visit project_path project
-    click_on 'Editar Projeto'
+    visit edit_project_path project
     accept_confirm('Deletar projeto?') { click_on 'Deletar' }
 
     expect(page).to have_current_path projects_path
@@ -21,8 +20,7 @@ describe 'Usuário deleta projeto' do
     project = create(:project, title: 'Projeto teste', user:)
 
     login_as user, scope: :user
-    visit project_path project
-    click_on 'Editar Projeto'
+    visit edit_project_path project
     dismiss_confirm('Deletar projeto?') { click_on 'Deletar' }
 
     expect(page).to have_current_path edit_project_path(project)

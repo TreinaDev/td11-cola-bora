@@ -26,7 +26,7 @@
                    model: Profile.model_name.human),
                    class: 'btn btn-primary' %>
     <% else %>
-      <%= link_to t('back'), profile_path(@profile), class: 'btn btn-danger' %>
+      <%= link_to t('back'), profile_path(@profile), class: 'btn btn-secondary' %>
       <%= f.submit t('helpers.submit.update',
                    model: Profile.model_name.human),
                    class: 'btn btn-primary' %>

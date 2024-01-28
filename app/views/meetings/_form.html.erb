@@ -32,6 +32,7 @@
   </div>
   <div>
     <%= f.submit I18n.t('meetings.save'), class: 'btn btn-primary'%>
+    <%= link_to t(:back), project_meetings_path(@project), class: 'btn btn-secondary' %>
   </div>
  <% end %>
  

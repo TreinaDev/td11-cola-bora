@@ -1,7 +1,5 @@
 <%= render 'shared/project_header', project: @project %>
 
-<h1><%= Document.model_name.human count: 2 %> | <%= @project.title %></h1>
-
 <section>
   <div class="mb-3 mt-3">
     <%= link_to t(:document_new_btn), new_project_document_path, class: "btn btn-primary" %>

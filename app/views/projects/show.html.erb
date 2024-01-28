@@ -1,4 +1,12 @@
+<%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>
+
 <%= render 'shared/project_header', project: @project %>
+
+<div class="mb-3 d-none">
+  <%= link_to t(:edit_project_btn), 
+              edit_project_path(@project), 
+              class: 'btn btn-primary' %>
+</div>
 
 <p>
   <strong><%= Project.human_attribute_name :user %>: </strong>
@@ -13,6 +21,4 @@
   <%= @project.category %>
 </p>
 
-<div>
-  <%= link_to t(:edit_project_btn), edit_project_path(@project) %>
-</div>
+

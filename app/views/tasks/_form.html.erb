@@ -28,5 +28,6 @@
   </div>
   <div>
     <%= f.submit I18n.t('tasks.save'), class: 'btn btn-primary'%>
+    <%= link_to t(:back), project_tasks_path(@task.project), class: 'btn btn-secondary' %>
   </div>
 <% end %>
