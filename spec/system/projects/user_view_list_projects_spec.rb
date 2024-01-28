@@ -45,7 +45,7 @@ describe 'Usuário vê projetos' do
   end
 
   it 'que criou e deve estar autenticado' do
-    visit my_projects_projects_path
+    visit my_projects_path
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
@@ -65,7 +65,7 @@ describe 'Usuário vê projetos' do
     visit projects_path
     click_on 'Meus Projetos'
 
-    expect(current_path).to eq my_projects_projects_path
+    expect(current_path).to eq my_projects_path
     expect(page).to have_content 'Título: Padrão'
     expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes'
     expect(page).to have_content 'Categoria: Teste'
@@ -87,7 +87,7 @@ describe 'Usuário vê projetos' do
                      category: 'Webdesign', user: deco
 
     login_as mateus
-    visit my_projects_projects_path
+    visit my_projects_path
 
     expect(page).to have_content 'Não existem projetos cadastrados.'
     expect(page).not_to have_content 'Título: Padrão'
