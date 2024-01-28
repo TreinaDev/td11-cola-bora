@@ -11,7 +11,6 @@ describe 'Usuário vê lista de documentos' do
 
     expect(page).to have_content 'Nenhum documento encontrado'
     expect(page).to have_link 'Novo documento', href: new_project_document_path(project)
-    expect(page).to have_link 'Voltar', href: project_path(project)
   end
 
   it 'com documentos anexados' do
@@ -32,19 +31,21 @@ describe 'Usuário vê lista de documentos' do
     visit project_documents_path(project)
 
     expect(page).not_to have_content 'Nenhum documento encontrado'
-    expect(page).to have_content 'Título'
-    expect(page).to have_content 'Tipo'
-    expect(page).to have_content 'Autor'
-    expect(page).to have_content 'Criado em'
-    expect(page).to have_content 'Imagem'
-    expect(page).to have_content 'JPG'
-    expect(page).to have_content 'contributor1@email.com'
-    expect(page).to have_content I18n.l(project.documents.first.created_at.to_date)
-    expect(page).to have_content 'Doc pdf'
-    expect(page).to have_content 'PDF'
-    expect(page).to have_content 'contributor2@email.com'
-    expect(page).to have_content I18n.l(project.documents.second.created_at.to_date)
-    expect(page).to have_link 'Detalhes', count: 2
-    expect(page).to have_link 'Download', count: 2
+    within 'table' do
+      expect(page).to have_content 'Título'
+      expect(page).to have_content 'Tipo'
+      expect(page).to have_content 'Autor'
+      expect(page).to have_content 'Criado em'
+      expect(page).to have_content 'Imagem'
+      expect(page).to have_content 'JPG'
+      expect(page).to have_content 'contributor1@email.com'
+      expect(page).to have_content I18n.l(project.documents.first.created_at.to_date)
+      expect(page).to have_content 'Doc pdf'
+      expect(page).to have_content 'PDF'
+      expect(page).to have_content 'contributor2@email.com'
+      expect(page).to have_content I18n.l(project.documents.second.created_at.to_date)
+      expect(page).to have_link 'Detalhes', count: 2
+      expect(page).to have_link 'Download', count: 2
+    end
   end
 end

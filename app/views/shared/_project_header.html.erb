@@ -1,0 +1,23 @@
+<h1><%= Project.model_name.human %>: <%= @project.title %></h1>
+
+<div class="nav-scroller py-1 mb-3 border-bottom">
+  <nav class="nav nav-underline">
+    <%= link_to I18n.t(:details), 
+                project_path(project), 
+                class: "nav-item nav-link link-body-emphasis" %>
+    <%= link_to Task.model_name.human.pluralize, 
+                project_tasks_path(project), 
+                class: "nav-item nav-link link-body-emphasis" %>
+    <%= link_to Meeting.model_name.human(count: 2), 
+                project_meetings_path(project), 
+                class: "nav-item nav-link link-body-emphasis" %>
+    <%= link_to Document.model_name.human(count: 2), 
+                project_documents_path(project), 
+                class: "nav-item nav-link link-body-emphasis" %>
+    <% if @project.leader?(current_user) %>
+      <%= link_to t(:search_users_btn), 
+                  search_project_portifoliorrr_profiles_path(@project), 
+                  class: "nav-item nav-link link-body-emphasis" %>
+    <% end %>
+  </nav>
+</div>

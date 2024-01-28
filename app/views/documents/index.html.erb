@@ -1,4 +1,4 @@
-<%= link_to t(:back), project_path(@project), class: "btn btn-sm btn-secondary" %>
+<%= render 'shared/project_header', project: @project %>
 
 <h1><%= Document.model_name.human count: 2 %> | <%= @project.title %></h1>
 

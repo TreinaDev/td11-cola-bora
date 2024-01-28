@@ -16,7 +16,9 @@ describe 'Colaborador vê detalhes de um documento' do
 
     login_as contributor, scope: :user
     visit project_documents_path(project)
-    click_on 'Detalhes'
+    within 'table' do
+      click_on 'Detalhes'
+    end
 
     expect(page).to have_current_path document_path(document)
     expect(page).to have_content 'Documento teste'
