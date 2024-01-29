@@ -36,7 +36,7 @@
           </td>
           <td>
             <p class="fw-normal mb-1">
-              <%= profile.job_categories.map { |x| x.name }.join(', ') %>
+              <%= profile.job_categories.map(&:name).to_sentence %>
             </p>
           </td>
         </tr>

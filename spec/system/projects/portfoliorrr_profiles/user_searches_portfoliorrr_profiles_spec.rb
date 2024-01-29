@@ -120,7 +120,10 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
         rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo',
-                                                  job_categories: [JobCategory.new(name: 'Editor de Video')]
+                                                  job_categories: [
+                                                    JobCategory.new(name: 'Editor de Video'),
+                                                    JobCategory.new(name: 'Editor de Imagem')
+                                                  ]
         allow(PortfoliorrrProfile).to receive(:search).with('video').and_return([rodolfo_profile])
 
         login_as user
@@ -135,7 +138,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
         expect(page).not_to have_content 'Mateus'
         expect(page).not_to have_content 'Designer'
         expect(page).to have_content 'Rodolfo'
-        expect(page).to have_content 'Editor de Video'
+        expect(page).to have_content 'Editor de Video e Editor de Imagem'
       end
 
       it 'e não há resultados' do
