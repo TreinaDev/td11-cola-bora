@@ -1,24 +1,55 @@
-# README
+# Cola?Bora!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicação para gerenciamento de projetos em time. Convide participantes, crie reuniões, tarefas, documentos e acelere o desenvolvimento de qualquer tipo de projeto.
 
-Things you may want to cover:
+**Status do projeto:** em desenvolvimento
 
-* Ruby version
+## Setup
 
-* System dependencies
+### Pré-requisitos
+- Ruby 3.2.1
+- Versão atual do NodeJS com Yarn
 
-* Configuration
+### Instalação
+- Faça o clone do repositório
+```
+git clone https://github.com/TreinaDev/td11-cola-bora.git`
+``` 
+- Entre no diretório do projeto e execute:
 
-* Database creation
+```
+bin/setup
 
-* Database initialization
+yarn install
+```
 
-* How to run the test suite
+- Para iniciar o servidor, execute o comando:
+```
+bin/dev
+```
+- Para executar os testes, utilize o comando:
+```
+rake spec
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## API
 
-* Deployment instructions
 
-* ...
+## Time de desenvolvimento
+
+- [@adoniranfranceh](https://github.com/adoniranfranceh)
+- [@decoporteira](https://github.com/decoporteira)
+- [@fredericomozzato](https://github.com/fredericomozzato)
+- [@Luckvc](https://github.com/Luckvc)
+- [@mateuscavedini](https://github.com/mateuscavedini)
+- [@MoisesssDev](https://github.com/MoisesssDev)
+- [@olucasaguilar](https://github.com/olucasaguilar)
+- [@paulohenrique-gh](https://github.com/paulohenrique-gh)
+- [@valerialrc](https://github.com/valerialrc)
+
+
+## Agradecimentos
+Nosso agradecimento a toda equipe Campus Code pelo apoio durante o desenvolvimento do projeto!
+
+## Licença
+

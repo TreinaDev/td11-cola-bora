@@ -13,7 +13,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
 
   it 'e não pode ser colaborador' do
     project = create :project
-    user = create :user, cpf: '149.759.780-32', email: 'contributor@email.com'
+    user = create :user, cpf: '149.759.780-32'
     create(:user_role, user:, project:, role: :contributor)
     profile_id = 1
 
@@ -26,7 +26,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
 
   it 'e não pode ser administrador' do
     project = create :project
-    user = create :user, cpf: '149.759.780-32', email: 'administrador@email.com'
+    user = create :user, cpf: '149.759.780-32'
     create(:user_role, user:, project:, role: :admin)
     profile_id = 1
 
@@ -39,7 +39,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
 
   it 'e é lider apenas de outro projeto' do
     project = create :project
-    other_leader = create :user, email: 'otherleader@email.com', cpf: '149.759.780-32'
+    other_leader = create :user, cpf: '149.759.780-32'
     create :project, user: other_leader, title: 'Outro Projeto'
     profile_id = 1
 
@@ -52,7 +52,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
 
   context 'com sucesso sendo líder do projeto' do
     it 'a partir da pagina inicial' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo',
@@ -84,20 +84,20 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
     end
 
     it 'e também é lider de outro projeto' do
-        user = create :user
-        create(:project, user:, title: 'Primeiro Projeto')
-        second_project = create(:project, user:, title: 'Segundo Projeto')
-        profile_id = 1
+      user = create :user
+      create(:project, user:, title: 'Primeiro Projeto')
+      second_project = create(:project, user:, title: 'Segundo Projeto')
+      profile_id = 1
 
-        login_as user
-        visit project_portfoliorrr_profile_path second_project, profile_id
+      login_as user
+      visit project_portfoliorrr_profile_path second_project, profile_id
 
-        expect(current_path).to eq project_portfoliorrr_profile_path second_project, profile_id
-        expect(page).not_to have_content 'Você não tem acesso a esse recurso'
+      expect(current_path).to eq project_portfoliorrr_profile_path second_project, profile_id
+      expect(page).not_to have_content 'Você não tem acesso a esse recurso'
     end
 
     it 'e não há resultado' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       allow(PortfoliorrrProfile).to receive(:find).and_return({})
@@ -110,7 +110,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
     end
 
     it 'e volta para a página de busca' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       profile_id = 1

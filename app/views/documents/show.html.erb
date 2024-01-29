@@ -1,0 +1,51 @@
+<main>
+  <%= link_to t(:back), 
+      project_documents_path(@document.project),
+      class: "btn btn-sm btn-secondary" %>
+
+  <div id="document-details">
+    <h1><%= @document.title %></h1>
+
+    <div>
+      <% if @document.file.image? %>
+        <%= image_tag @document.file, width: "300px" %>
+      <% elsif @document.file.audio? %>
+        <audio controls>
+          <source src="<%= rails_blob_url @document.file %>"
+                  type="<%= @document.file.content_type %>">
+        </audio>
+      <% elsif @document.file.video? %>
+        <video controls width="480">
+          <source src="<%= rails_blob_url @document.file %>"
+                  type="<%= @document.file.content_type %>">
+        </video>
+      <% end %>
+    </div>
+
+    <dl>
+      <dt><%= Document.human_attribute_name :description %>:</dt>
+      <dd><%= simple_format @document.description %></dd>
+      <dt><%= Document.human_attribute_name :user %>:</dt>
+      <dd><%= @document.user.email %></dd>
+      <dt><%= t(:document_filename) %>:</dt>
+      <dd><%= @document.file.blob.filename %></dd>
+      <dt><%= t(:document_size) %>:</dt>
+      <dd><%= number_to_human_size @document.file.byte_size %></dd>
+      <dt><%= Document.human_attribute_name :created_at %>:</dt>
+      <dd><%= l(@document.created_at.to_date) %></dd>
+    </dl>
+
+    <div class="d-flex mt-4">
+      <%= link_to t(:document_download_btn),
+                  rails_blob_path(@document.file),
+                  class: "btn btn-primary me-3" %>
+      <% if @document.user == current_user %>
+        <%= button_to t(:document_archive_btn), 
+                      archive_document_path(@document), 
+                      method: :patch,
+                      data: { turbo_confirm: t(:document_archive_confirm) },
+                      class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+</main>

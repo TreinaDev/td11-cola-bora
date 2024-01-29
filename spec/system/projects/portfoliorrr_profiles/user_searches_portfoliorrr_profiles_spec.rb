@@ -13,7 +13,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
   context 'e não pode ser contribuidor' do
     it 'para acessar a página' do
       project = create :project
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :contributor
 
       login_as user
@@ -25,7 +25,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
     it 'para ver o botão' do
       project = create :project
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :contributor
 
       login_as user
@@ -38,7 +38,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
   context 'e não pode ser administrador' do
     it 'para acessar a página' do
       project = create :project
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :admin
 
       login_as user
@@ -50,7 +50,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
     it 'para ver o botão' do
       project = create :project
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       create :user_role, user:, project:, role: :admin
 
       login_as user
@@ -62,7 +62,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
   it 'e é lider apenas de outro projeto' do
     project = create :project
-    other_leader = create :user, email: 'otherleader@email.com', cpf: '149.759.780-32'
+    other_leader = create :user, cpf: '149.759.780-32'
     create :project, user: other_leader, title: 'Outro Projeto'
 
     login_as other_leader
@@ -74,7 +74,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
   context 'com sucesso sendo líder do projeto' do
     it 'buscando por todos' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       portfoliorrr_profiles = [
@@ -104,7 +104,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
     end
 
     it 'e não há colaboradores a serem exibidos' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create(:project, user:)
       project.user_roles.find_by(user:).update(role: :leader)
       allow(PortfoliorrrProfile).to receive(:all).and_return([])
@@ -117,7 +117,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
     context 'buscando por termo' do
       it 'com sucesso' do
-        user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+        user = create :user, cpf: '149.759.780-32'
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
         rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo',
@@ -143,7 +143,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       end
 
       it 'e não há resultados' do
-        user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+        user = create :user, cpf: '149.759.780-32'
         project = create(:project, user:)
         project.user_roles.find_by(user:).update(role: :leader)
         allow(PortfoliorrrProfile).to receive(:search).with('termo maluco').and_return([])
@@ -160,7 +160,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
     end
 
     it 'e volta para a página de projetos' do
-      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      user = create :user, cpf: '149.759.780-32'
       project = create(:project, user:)
       project.user_roles.find_by(user:).update(role: :leader)
       allow(PortfoliorrrProfile).to receive(:all).and_return([])

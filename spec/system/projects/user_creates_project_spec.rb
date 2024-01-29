@@ -9,7 +9,7 @@ describe 'Usuário cria um projeto' do
   end
 
   it 'a partir da home com sucesso' do
-    user = create :user
+    user = create :user, email: 'usuario@email.com'
     create(:profile, user:)
 
     login_as(user)

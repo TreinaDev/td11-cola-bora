@@ -1,8 +1,12 @@
 <h1><%= Project.model_name.human %>: <%= @project.title %></h1>
 
+<div>
+  <%= link_to Document.model_name.human(count: 2), project_documents_path(@project) %>
+</div>
+
 <% if @project.leader?(current_user) %>
   <div>
-    <%= link_to 'Procurar usuários', search_project_portfoliorrr_profiles_path(@project) %>
+    <%= link_to t(:search_users_btn), search_project_portfoliorrr_profiles_path(@project) %>
   </div>
 <% end %>
 

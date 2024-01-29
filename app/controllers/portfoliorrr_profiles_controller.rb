@@ -1,5 +1,4 @@
 class PortfoliorrrProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %i[search show]
   before_action :set_project, only: %i[search show]
   before_action :leader?, only: %i[search show]
 
