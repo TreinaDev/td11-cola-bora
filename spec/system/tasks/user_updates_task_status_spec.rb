@@ -41,7 +41,7 @@ describe 'Usuário atualiza o status da tarefa' do
 
     login_as(author)
     visit task_path(task)
-    click_on 'Cancelar Tarefa'
+    accept_confirm('Cancelar tarefa?') { click_on 'Cancelar Tarefa' }
 
     expect(page).to have_content "Status\nCancelada"
     expect(page).to have_content 'Tarefa cancelada'
@@ -58,7 +58,7 @@ describe 'Usuário atualiza o status da tarefa' do
 
     login_as(author)
     visit task_path(task)
-    click_on 'Cancelar Tarefa'
+    accept_confirm('Cancelar tarefa?') { click_on 'Cancelar Tarefa' }
 
     expect(page).to have_content "Status\nCancelada"
     expect(page).to have_content 'Tarefa cancelada'

@@ -1,12 +1,15 @@
-
-<div id="vue-app" class="card">
-  <div class="card-body">
-    <label>Mensagem
-      <input type="text" v-model="insertText" placeholder="Coloque uma mensagem aqui" class="form-control">
-    </label>
-    <button v-on:click="insertMessage" class="btn btn-primary">Imprimir</button>
-  </div>
-  <div class="card-footer">
-    <p>{{ message }}</p>
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <%= image_tag 'logo_cola_bora.png', class:'bi mt-4 mb-3 logo'  %>
+    <h1 class="text-body-emphasis">Cola?Bora!</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted">A maior plataforma colaborativa para gerenciamento de projetos com times de grande e pequeno porte.</p>
+    <div class="d-inline-flex gap-2 mb-5">
+      <% if user_signed_in? %>
+        <%= link_to "Ver Projetos", projects_path, class: 'd-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill' %>
+      <%else%>
+        <%= link_to "Entrar", new_user_session_path, class: 'd-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill' %>
+        <%= link_to "Criar sua conta", new_user_registration_path, class: 'btn btn-outline-secondary btn-lg px-4 rounded-pill' %>
+      <% end %>
+    </div>
   </div>
 </div>

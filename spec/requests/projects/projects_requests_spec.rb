@@ -36,7 +36,7 @@ RSpec.describe Project, type: :request do
       login_as project_owner, scope: :user
       delete project_path(project)
 
-      expect(response).to redirect_to my_projects_projects_path
+      expect(response).to redirect_to projects_path
       expect(Project.count).to eq 1
     end
 

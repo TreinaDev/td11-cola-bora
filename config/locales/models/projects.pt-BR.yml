@@ -22,8 +22,12 @@ pt-BR:
       fail: Não foi possível completar a sua requisição
     not_contributor: Você não é um colaborador desse projeto
 
+  create_project_link: Criar Projeto
   edit_project_btn: Editar Projeto
   delete_project_btn: Deletar
   delete_confirm_message: Deletar projeto?
-  profile_search_title: '%{project_title} - Recrutamento de colaboradores'
   search_users_btn: Procurar usuários
+  details: Detalhes
+  my_projects: Meus Projetos
+  projects_empty_state: Não existem projetos cadastrados.
+  profile_search_title: '%{project_title} - Recrutamento de colaboradores'

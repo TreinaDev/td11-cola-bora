@@ -1,9 +1,11 @@
 pt-BR:
   uninitialized: Não iniciada
   in_progress: Em andamento
+  task_empty_state: Sem tarefas registradas
   finished: Finalizada 
   expired: Expirada
   cancelled: Cancelada
+  task_cancel_confirmation: Cancelar tarefa?
   activerecord:
     models:
       task:

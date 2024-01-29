@@ -70,7 +70,9 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       visit root_path
       click_on 'Projetos'
       click_on 'Projeto Top'
-      click_on 'Procurar usuários'
+      within '#project-navbar' do
+        click_on 'Procurar usuários'
+      end
       click_on 'Rodolfo'
 
       expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id

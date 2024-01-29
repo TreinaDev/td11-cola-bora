@@ -1,3 +1,5 @@
+<%= render 'shared/project_header', project: @project %>
+
 <%= link_to t('back'), project_path(@project), class: 'btn btn-secondary' %>
 
 <h1><%= t('profile_search_title', project_title: @project.title) %></h1>

@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]
 
-    get 'my_projects', on: :collection
-
     resources :portfoliorrr_profiles, only: %i[show] do
       get 'search', on: :collection
 

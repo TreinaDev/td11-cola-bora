@@ -9,7 +9,7 @@ describe 'Usuário edita perfil' do
 
       login_as user, scope: :user
       visit root_path
-      click_on 'Meu perfil'
+      click_on 'Meu Perfil'
       click_on 'Completar perfil'
 
       expect(page).to have_content 'Complete o seu perfil'
@@ -27,7 +27,7 @@ describe 'Usuário edita perfil' do
 
       login_as user, scope: :user
       visit root_path
-      click_on 'Meu perfil'
+      click_on 'Meu Perfil'
       click_on 'Atualizar Perfil'
 
       expect(page).to have_content 'Atualizar perfil'

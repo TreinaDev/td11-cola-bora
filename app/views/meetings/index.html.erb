@@ -1,23 +1,37 @@
-<h1><%= Meeting.model_name.human(count: 2) %></h1>
+<%= render 'shared/project_header', project: @project %>
 
-<%= link_to I18n.t('meetings.new_meeting'), new_project_meeting_path(@project) %>
-<br>
-<br>
-<% if @meetings.empty? %>
-  <%= I18n.t('meetings.no_meetings') %>
-<% end %>
-<ul style="list-style-type: none;">
-  <% @meetings.each_with_index do |meeting, index| %>
-    <% unless @meetings[index - 1].datetime.to_date == meeting.datetime.to_date %>
-      <div class="row border-bottom mb-3 mt-5">
-        <h4 class="text-center" id="<%= meeting.datetime.to_date %>"><%= I18n.l meeting.datetime.to_date, class:'text-center' %></h4>
-        <br>
-      </div>
+<section>
+  <div class="mb-3 mt-3">
+    <%= link_to I18n.t('meetings.new_meeting'), 
+                new_project_meeting_path(@project),
+                class: 'btn btn-primary' %>
+  </div>
+
+  <div id="meeting-list">
+    <% if @meetings.empty? %>
+      <p><%= t('meetings.empty_state') %></p>
+    <% else %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= t('meetings.date')%></th>
+            <th><%= t('meetings.time')%></th>
+            <th><%= Meeting.human_attribute_name :title %></th>
+            <th><%= Meeting.human_attribute_name :duration %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @meetings.each do |meeting| %>
+            <tr>
+              <td><%= l(meeting.datetime.to_date) %></td>
+              <td><%= meeting.datetime.strftime("%H:%M") %></td>
+              <td><%= link_to meeting.title, project_meeting_path(@project, meeting) %></td>
+              <td><%= format_duration(meeting.duration) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     <% end %>
-    <div class="pl-5">
-      <li><h4><%= link_to meeting.title, project_meeting_path(@project, meeting) %>
-      <span style="font-size: small;"><%= meeting.datetime.strftime("%H:%M") %>
-      <%= format_duration(meeting.duration) %></span></h4></li>
-    </div>
-  <% end %>
-</ul>
+  </div>
+</section>

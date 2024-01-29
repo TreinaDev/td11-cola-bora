@@ -8,7 +8,7 @@ describe 'Usuário visualiza perfil' do
 
     login_as user, scope: :user
     visit root_path
-    click_on 'Meu perfil'
+    click_on 'Meu Perfil'
 
     expect(page).not_to have_content 'Nome: '
     expect(page).not_to have_content 'Experiência profissional: '

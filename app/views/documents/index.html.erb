@@ -1,15 +1,17 @@
-<%= link_to t(:back), project_path(@project), class: "btn btn-sm btn-secondary" %>
-
-<h1><%= Document.model_name.human count: 2 %> | <%= @project.title %></h1>
+<%= render 'shared/project_header', project: @project %>
 
 <section>
   <div class="mb-3 mt-3">
-    <%= link_to t(:document_new_btn), new_project_document_path, class: "btn btn-primary" %>
+    <%= link_to t(:document_new_btn), 
+                new_project_document_path, 
+                class: "btn btn-primary" %>
   </div>
 
   <div id="documents-list">
     <% if @documents.empty? %>
-      <p><%= t(:documents_empty_state) %></p>
+      <div class="text-muted">
+        <%= t(:documents_empty_state) %>
+      </div>
     <% else %>
       <table class="table table-hover">
         <thead>

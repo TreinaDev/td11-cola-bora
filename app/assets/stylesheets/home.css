@@ -1,0 +1,30 @@
+.logo {
+  width: 150px;
+}
+ nav a {
+  color:  #13795b!important;
+  text-decoration: none!important;
+}
+ nav a:hover {
+  color: #10674d!important;
+}
+
+/* .btn.btn-primary {
+  background-color: #4f8471;
+  border: 0;
+  color: rgb(226, 226, 226)!important;
+}
+.btn.btn-secondary {
+  background-color: #6c757d;
+  border: 0;
+  color: rgb(226, 226, 226)!important;
+}
+.btn.btn-primary:hover {
+  background-color:#8dcbbb;
+  border: 0;
+}
+.btn.btn-primary:active {
+  background-color:#8dcbbb!important;
+  border: 0;
+}
+ */

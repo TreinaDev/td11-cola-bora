@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Visitante acessa página de criação de conta' do
   it 'e cria uma conta com sucesso' do
     visit root_path
-    click_on 'Entrar'
+    within 'nav' do
+      click_on 'Entrar'
+    end
     click_on 'Criar conta'
     fill_in 'CPF', with: '803.750.960-51'
     fill_in 'E-mail', with: 'usuario@email.com'

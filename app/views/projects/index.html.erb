@@ -1,25 +1,25 @@
 <h1><%= Project.model_name.human(count: 2) %></h1>
 <div class="nav-scroller py-1 mb-3 border-bottom">
   <nav class="nav nav-underline">
-    <%= link_to 'Todos os Projetos', projects_path, class: "nav-item nav-link link-body-emphasis" %>
-    <%= link_to 'Meus Projetos', my_projects_projects_path, class: "nav-item nav-link link-body-emphasis" %>
+    <%= link_to t(:my_projects), projects_path, class: "nav-item nav-link link-body-emphasis active" %>
   </nav>
 </div>
-<% if @projects.any? %>
-  <% @projects.each do |project| %>
-    <p>
-      <strong><%= Project.human_attribute_name :title %>: </strong>
-      <%= link_to project.title, project_path(project) %>
-    </p>
-    <p>
-      <strong><%= Project.human_attribute_name :description %>: </strong>
-      <%= project.description %>
-    </p>
-    <p>
-      <strong><%= Project.human_attribute_name :category %>: </strong>
-      <%= project.category %>
-    </p>
-  <% end %>
-<% else %>
-  <h3>Não existem projetos cadastrados.</h3>
-<% end %>
+<div class="container">
+  <div class="row">
+    <% if @projects.any? %>
+      <% @projects.each do |project| %>
+        <div class="col-sm-6 mb-3">
+          <div class="card" style="height: 100%">
+            <div class="card-body">
+              <h4 class="card-title"><%= link_to project.title, project_path(project) %></h4>
+              <h6 class="card-subtitle mb-2 text-muted "><%= Project.human_attribute_name :category %>: <%= project.category %></h6>
+              <p class="card-text"><%= project.description %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h3><%= t(:projects_empty_state) %></h3>
+    <% end %>
+  </div>
+</div>

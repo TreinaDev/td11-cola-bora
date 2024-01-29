@@ -7,17 +7,14 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
   </head>
   <body>
     <div class="container">
-
-      <%= render partial: 'layouts/navbar' %>
-
-      <div>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+      <div class="mb-3">
+        <%= render partial: 'layouts/navbar' %>
       </div>
-
+      <%= render partial: 'layouts/flash' %>
       <%= yield %>
     </div>
   </body>
