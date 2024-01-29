@@ -46,7 +46,7 @@ class InvitationsController < ApplicationController
   end
 
   def invitation_error
-    return t('.fail') if @invitation.expiration_days.negative?
+    return t('.fail') if @invitation.expiration_days&.negative?
 
     t('.pending_invitation')
   end

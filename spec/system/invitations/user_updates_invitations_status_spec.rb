@@ -51,7 +51,7 @@ describe 'Atualiza status para expirado' do
       login_as(user)
       visit project_portfoliorrr_profile_path(project, invitation.profile_id)
 
-      expect(invitation.reload.expired?).to be_truthy
+      expect(invitation.reload.expired?).to eq true
     end
   end
 end

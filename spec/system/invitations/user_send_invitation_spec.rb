@@ -31,10 +31,8 @@ describe 'Usuário quer enviar convite' do
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
-    fill_in 'Prazo de validade (em dias)', with: 10
-    click_on 'Enviar convite'
 
-    expect(page).to have_content 'Esse usuário possui convite pendente'
-    expect(project.invitations.count).to eq 1
+    expect(page).to have_button 'Cancelar convite'
+    expect(page).not_to have_button 'Enviar convite'
   end
 end

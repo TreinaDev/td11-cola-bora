@@ -1,6 +1,6 @@
 class PortfoliorrrProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %i[search show]
   before_action :set_project, only: %i[search show]
+  before_action :authorize_user, only: %i[search]
 
   def show
     @portfoliorrr_profile_id = params[:id].to_i
@@ -15,10 +15,14 @@ class PortfoliorrrProfilesController < ApplicationController
 
   def search
     @query = params[:q]
-    @portifoliorrr_profiles = @query ? PortifoliorrrProfile.find(@query) : PortifoliorrrProfile.all
+    @portfoliorrr_profiles = @query ? PortfoliorrrProfile.find(@query) : PortfoliorrrProfile.all
   end
 
   private
+
+  def authorize_user
+    redirect_to root_path, alert: t('unauthorized') unless @project.leader?(current_user)
+  end
 
   def set_project
     @project = Project.find(params[:project_id])

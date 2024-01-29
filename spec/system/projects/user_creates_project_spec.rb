@@ -9,7 +9,7 @@ describe 'Usuário cria um projeto' do
   end
 
   it 'a partir da home com sucesso' do
-    user = create :user
+    user = create :user, email: 'usuario@email.com'
     create(:profile, user:)
 
     login_as(user)
@@ -25,6 +25,8 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_content 'Um projeto para criar o pokémon mais poderoso.'
     expect(page).to have_content 'Jogo'
     expect(page).to have_content 'Projeto criado com sucesso.'
+    author = Project.last.user_roles.first
+    expect(author.leader?).to be true
   end
 
   it 'com campos vazios' do

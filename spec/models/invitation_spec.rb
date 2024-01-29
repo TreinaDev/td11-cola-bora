@@ -18,7 +18,7 @@ RSpec.describe Invitation, type: :model do
 
       invitation.cancelled!
 
-      expect(invitation.cancelled?).to be_truthy
+      expect(invitation.cancelled?).to eq true
     end
 
     it 'retorna falso se tentar mudar de accepted para cancelled' do
@@ -26,7 +26,7 @@ RSpec.describe Invitation, type: :model do
 
       invitation.cancelled!
 
-      expect(invitation.cancelled?).to be_falsy
+      expect(invitation.cancelled?).to eq false
     end
 
     it 'retorna falso se tentar mudar de expired para cancelled' do
@@ -34,7 +34,7 @@ RSpec.describe Invitation, type: :model do
 
       invitation.cancelled!
 
-      expect(invitation.cancelled?).to be_falsy
+      expect(invitation.cancelled?).to eq false
     end
 
     context 'retorna verdadeiro se tentar mudar de cancelled para qualquer outro' do
@@ -43,7 +43,7 @@ RSpec.describe Invitation, type: :model do
 
         invitation.pending!
 
-        expect(invitation.cancelled?).to be_truthy
+        expect(invitation.cancelled?).to eq true
       end
 
       it 'de cancelled para expired' do
@@ -51,7 +51,7 @@ RSpec.describe Invitation, type: :model do
 
         invitation.expired!
 
-        expect(invitation.cancelled?).to be_truthy
+        expect(invitation.cancelled?).to eq true
       end
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe Invitation, type: :model do
 
         invitation.pending!
 
-        expect(invitation.expired?).to be_truthy
+        expect(invitation.expired?).to eq true
       end
 
       it 'de expired para cancelled' do
@@ -71,7 +71,7 @@ RSpec.describe Invitation, type: :model do
 
         invitation.cancelled!
 
-        expect(invitation.expired?).to be_truthy
+        expect(invitation.expired?).to eq true
       end
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Invitation, type: :model do
       travel_to 8.days.from_now do
         invitation.validate_expiration_days
 
-        expect(invitation.reload.expired?).to be_truthy
+        expect(invitation.reload.expired?).to eq true
       end
     end
   end

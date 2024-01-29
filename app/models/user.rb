@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :user_roles, dependent: :destroy
   has_many :authored_tasks, foreign_key: 'author_id', dependent: :nullify, inverse_of: :task
   has_many :assigned_tasks, foreign_key: 'assigned_id', dependent: :nullify, inverse_of: :task
+  has_many :documents, dependent: :destroy
 
   validates :cpf, presence: true
   validates :cpf, uniqueness: true
@@ -13,6 +14,11 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def can_edit?(meeting)
+    user_role = UserRole.get_user_role(meeting.project, self)
+    meeting.user_role.user == self || user_role.leader? || user_role.admin?
+  end
 
   private
 
