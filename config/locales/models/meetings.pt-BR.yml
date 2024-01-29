@@ -32,4 +32,4 @@ pt-BR:
     date: Data
     time: Horário
     empty_state: Sem reuniões registradas
-
+    duration_placeholder: em minutos

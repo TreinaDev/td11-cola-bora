@@ -24,7 +24,9 @@
   </div>
   <div class="mb-3">
     <%= f.label :duration, class: 'form-label' %>
-    <%= f.number_field :duration, class: 'form-control' %>
+    <%= f.number_field :duration, 
+                        class: 'form-control', 
+                        placeholder: t('meetings.duration_placeholder') %>
   </div>
   <div class="mb-3">
     <%= f.label :address, class: 'form-label' %>

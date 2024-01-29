@@ -6,12 +6,6 @@
               class: 'btn btn-primary' %>
 </div>
 
-<% if @project.leader?(current_user) %>
-  <div>
-    <%= link_to t(:search_users_btn), search_project_portfoliorrr_profiles_path(@project) %>
-  </div>
-<% end %>
-
 <p>
   <strong><%= Project.human_attribute_name :user %>: </strong>
   <%= @project.user.email %>
