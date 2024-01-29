@@ -17,7 +17,7 @@ class Project < ApplicationRecord
   end
 
   def leader?(user)
-    user_roles.find_by(user:).leader?
+    member?(user) && user_roles.find_by(user:).leader?
   end
 
   private

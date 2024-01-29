@@ -1,7 +1,6 @@
 class PortfoliorrrProfilesController < ApplicationController
   before_action :authenticate_user!, only: %i[search show]
   before_action :set_project, only: %i[search show]
-  before_action :member?, only: %i[search show]
   before_action :leader?, only: %i[search show]
 
   def search
@@ -14,10 +13,6 @@ class PortfoliorrrProfilesController < ApplicationController
   end
 
   private
-
-  def member?
-    redirect_to root_path, alert: t('unauthorized') unless @project.member?(current_user)
-  end
 
   def leader?
     redirect_to root_path, alert: t('unauthorized') unless @project.leader?(current_user)
