@@ -46,6 +46,16 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.cancelled?).to eq true
       end
 
+      it 'de cancelled para pending com outro convite pendente' do
+        project = create(:project)
+        first_invitation = create(:invitation, profile_id: 1, status: :cancelled, project:)
+        create(:invitation, profile_id: 1, status: :pending, project:)
+
+        first_invitation.pending!
+
+        expect(first_invitation.cancelled?).to eq true
+      end
+
       it 'de cancelled para expired' do
         invitation = build(:invitation, status: :cancelled)
 

@@ -1,7 +1,7 @@
 class Invitation < ApplicationRecord
   belongs_to :project
 
-  validate :pending_invitation_for_current_project, on: :create
+  validate :check_pending_invitation, on: :create
   validates :expiration_days, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
@@ -22,7 +22,7 @@ class Invitation < ApplicationRecord
 
   private
 
-  def pending_invitation_for_current_project
+  def check_pending_invitation
     return unless Invitation.exists?(project:, profile_id:, status: :pending)
 
     errors.add(:base, I18n.t('invitations.create.pending_invitation'))
