@@ -88,7 +88,9 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       visit root_path
       click_on 'Projetos'
       click_on 'Projeto Top'
-      click_on 'Procurar usuários'
+      within '#project-navbar' do
+        click_on 'Procurar usuários'
+      end
 
       expect(current_path).to eq search_project_portfoliorrr_profiles_path project
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'

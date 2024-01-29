@@ -3,7 +3,7 @@
 </div>
 
 <div class="nav-scroller py-1 mb-3 border-bottom">
-  <nav class="nav nav-underline">
+  <nav id="project-navbar" class="nav nav-underline">
     <%= link_to I18n.t(:details), 
                 project_path(project), 
                 class: "nav-item nav-link link-body-emphasis 
@@ -22,9 +22,9 @@
                         #{'active' if request.path.include?('/documents')}" %>
     <% if project.leader?(current_user) %>
       <%= link_to t(:search_users_btn), 
-                  search_project_portifoliorrr_profiles_path(project), 
+                  search_project_portfoliorrr_profiles_path(project), 
                   class: "nav-item nav-link link-body-emphasis 
-                          #{'active' if current_page?(search_project_portifoliorrr_profiles_path(project))}" %>
+                          #{'active' if current_page?(search_project_portfoliorrr_profiles_path(project))}" %>
     <% end %>
   </nav>
 </div>
