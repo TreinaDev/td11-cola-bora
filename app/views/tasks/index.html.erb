@@ -1,13 +1,37 @@
 <%= render 'shared/project_header', project: @project %>
 
-<%= link_to I18n.t('tasks.new_task'), 
-            new_project_task_path(@project),
-            class: 'btn btn-primary' %>
-<br>
-<br>
-<ul>
-  <% @tasks.each do |task| %>
-    <li><h4><%= link_to task.title, task_path(task) %>
-    <span style="font-size: small;"><%= I18n.l task.due_date if task.due_date %></span></h4></li>
-  <% end %>
-</ul>
+<section>
+  <div class="mb-3 mt-3">
+    <%= link_to I18n.t('tasks.new_task'), 
+                new_project_task_path(@project),
+                class: 'btn btn-primary' %>
+  </div>
+
+<div id="task-list">
+    <% if @tasks.empty? %>
+      <p><%= t(:task_empty_state) %></p>
+    <% else %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= Task.human_attribute_name :title %></th>
+            <th><%= Task.human_attribute_name :assigned %></th>
+            <th><%= Task.human_attribute_name :due_date %></th>
+            <th><%= Task.human_attribute_name :status %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @tasks.each do |task| %>
+            <tr>
+              <td><%= link_to task.title, task_path(task) %></td>
+              <td><%= task.assigned ? task.assigned.email : t('tasks.no_assigned') %></td>
+              <td><%= task.due_date ? task.due_date : t('tasks.no_due_date') %></td>
+              <td><%= t(task.status) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</section>

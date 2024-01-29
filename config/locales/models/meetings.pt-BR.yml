@@ -29,4 +29,7 @@ pt-BR:
     save: Salvar
     no_meetings: Sem reuniões registradas
     not_contributor: Você não é um colaborador desse projeto
+    date: Data
+    time: Horário
+    empty_state: Sem reuniões registradas
 
