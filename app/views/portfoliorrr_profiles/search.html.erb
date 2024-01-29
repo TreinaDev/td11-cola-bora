@@ -1,6 +1,7 @@
 <%= link_to t('back'), project_path(@project), class: 'btn btn-secondary' %>
 
-<h1><%= t('available_users') %></h1>
+<h1><%= t('profile_search_title', project_title: @project.title) %></h1>
+<h2><%= t('available_users') %></h2>
 
 <% if @query.present? %>
   <h3><%= t('results_to') %>: <%= @query %></h3>

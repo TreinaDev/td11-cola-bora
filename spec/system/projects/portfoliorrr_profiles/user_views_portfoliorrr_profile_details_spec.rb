@@ -74,6 +74,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       click_on 'Rodolfo'
 
       expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id
+      expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Perfil de Rodolfo'
       expect(page).to have_content "Nome\nRodolfo"
       expect(page).to have_content "E-mail\nrodolfo@email.com"

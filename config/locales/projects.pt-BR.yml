@@ -25,3 +25,4 @@ pt-BR:
   edit_project_btn: Editar Projeto
   delete_project_btn: Deletar
   delete_confirm_message: Deletar projeto?
+  profile_search_title: '%{project_title} - Recrutamento de colaboradores'

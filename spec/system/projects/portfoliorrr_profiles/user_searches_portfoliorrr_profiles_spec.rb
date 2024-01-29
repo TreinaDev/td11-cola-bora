@@ -92,6 +92,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
 
       expect(current_path).to eq search_project_portfoliorrr_profiles_path project
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'
+      expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Usuários disponíveis'
       expect(page).to have_content 'Lucas'
       expect(page).to have_content 'Desenvolvedor'
