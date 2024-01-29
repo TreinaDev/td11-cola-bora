@@ -1,0 +1,3 @@
+<h1><%= @profile.name %></h1>
+
+<%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation, invitation: @invitation, profile: @profile, project: @project } %>
