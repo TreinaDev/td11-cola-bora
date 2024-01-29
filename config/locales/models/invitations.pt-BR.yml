@@ -1,0 +1,23 @@
+pt-BR:
+  sending_invitation: Envio de Convite
+  activerecord:
+    models:
+      invitation:
+        one: Convite
+        other: Convites
+    attributes:
+      invitation:
+        expiration_days: Prazo de validade (em dias)
+        project_id: Projetos
+        profile_id: Perfil
+        status: Status
+  invitations:
+    create:
+      success: Convite enviado com sucesso!
+      fail: Prazo de validade não pode ser negativo
+      pending_invitation: Esse usuário possui convite pendente
+    cancel:
+      success: Convite cancelado!
+    send_invitation: Enviar convite
+    pending_invitation: Esse usuário possui convite pendente
+    cancel_button: Cancelar convite

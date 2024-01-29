@@ -49,9 +49,11 @@
             <div class="card-body text-center">
               <h5 class="my-3"><%= t('portfoliorrr_profile.attributes.cover_letter') %></h5>
               <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
-              <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary d-none" disabled>Convidar</button>
-              </div>
+            </div>
+          </div>        
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation, invitation: @invitation, profile: @portfoliorrr_profile, project: @project } %>
             </div>
           </div>        
         </div>
@@ -62,3 +64,4 @@
   <h3><%= t('profile_not_available') %></h3>
   <h3><%= t('try_again_later') %></h3>
 <% end %>
+

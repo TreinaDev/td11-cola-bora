@@ -4,7 +4,7 @@ RSpec.describe PortfoliorrrProfile, type: :model do
   context '#all' do
     it 'API retorna todos os resultados' do
       url = 'http://localhost:8000/api/v1/users'
-      json = File.read(Rails.root.join('spec/support/portfoliorrr_profiles_data.json'))
+      json = File.read(Rails.root.join('spec/support/json/portfoliorrr_profiles_data.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
@@ -55,7 +55,7 @@ RSpec.describe PortfoliorrrProfile, type: :model do
   context '#search' do
     it 'e retorna os resultados filtrados' do
       url = 'http://localhost:8000/api/v1/users?search=video'
-      json = File.read(Rails.root.join('spec/support/portfoliorrr_profiles_data_filtered.json'))
+      json = File.read(Rails.root.join('spec/support/json/portfoliorrr_profiles_data_filtered.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
@@ -70,7 +70,7 @@ RSpec.describe PortfoliorrrProfile, type: :model do
   context '#find' do
     it 'API retorna resultado' do
       url = 'http://localhost:8000/api/v1/users/3'
-      json = File.read(Rails.root.join('spec/support/portfoliorrr_profile_details_data.json'))
+      json = File.read(Rails.root.join('spec/support/json/portfoliorrr_profile_details_data.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
