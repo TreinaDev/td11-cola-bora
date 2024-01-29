@@ -40,23 +40,6 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe '#member?' do
-    it 'retorna true se usuário é colaborador do projeto' do
-      project = create(:project)
-      member = create(:user, cpf: '551.838.230-81', email: 'member@email.com')
-      project.user_roles.create(user: member)
-
-      expect(project.member?(member)).to be true
-    end
-
-    it 'retorna false se usuário não é colaborador do projeto' do
-      project = create(:project)
-      non_member = create(:user, cpf: '551.838.230-81', email: 'non_member@email.com')
-
-      expect(project.member?(non_member)).to be false
-    end
-  end
-
   context '#leader?' do
     it 'retorna true se Usuário for lider' do
       user = create :user
@@ -80,6 +63,42 @@ RSpec.describe Project, type: :model do
       project.user_roles.find_by(user:).update(role: :admin)
 
       expect(project.leader?(user)).to eq false
+    end
+
+    it 'retorna false se Usuário for líder de outro projeto' do
+      leader = create :user
+      project = create :project, user: leader
+      other_leader = create :user, cpf: '149.759.780-32'
+      create :project, user: other_leader, title: 'Outro Projeto'
+
+      expect(project.leader?(other_leader)).to eq false
+    end
+  end
+
+  context '#member?' do
+    it 'retorna true se Usuário tem vínculo com o projeto' do
+      user = create :user, cpf: '149.759.780-32'
+      project = create(:project)
+      create :user_role, user:, project:, role: :contributor
+
+      expect(project.member?(user)).to eq true
+    end
+
+    it 'retorna false se Usuário não tem vínculo com o projeto' do
+      user = create :user, cpf: '149.759.780-32'
+      project = create(:project)
+
+      expect(project.member?(user)).to eq false
+    end
+
+    it 'retorna false se usuário é membro apenas de outro projeto' do
+      leader = create :user
+      project = create :project, user: leader
+      other_project = create :project, user: leader, title: 'Outro Projeto'
+      user = create :user, cpf: '149.759.780-32'
+      create :user_role, project: other_project, user:, role: :contributor
+
+      expect(project.member?(user)).to eq false
     end
   end
 

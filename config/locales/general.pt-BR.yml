@@ -4,3 +4,11 @@ pt-BR:
   log_in: Entrar
   log_out: Sair
   unauthorized: Você não tem acesso a esse recurso
+  results_to: Resultados para
+  search: Busca
+  to_search: Buscar
+  available_users: Usuários disponíveis
+  no_users_to_display: Não há usuários a serem exibidos
+  try_again_later: Tente novamente mais tarde
+  profile: Perfil de %{name}
+  profile_not_available: Perfil não disponível

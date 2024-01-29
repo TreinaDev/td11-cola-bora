@@ -1,0 +1,13 @@
+{ 
+  "data": [
+    {
+      "id": 3,
+      "name": "Rodolfo",
+      "job_categories": [
+        {
+          "name": "Editor de Video"
+        }
+      ]
+    }
+  ] 
+}

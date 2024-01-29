@@ -1,0 +1,11 @@
+pt-BR:
+  portfoliorrr_profile:
+    model:
+      one: Perfil
+      other: Perfis
+    attributes:
+      name: Nome
+      job_category: Tipo de Serviço
+      job_categories: Tipos de Serviços
+      email: E-mail
+      cover_letter: Sobre mim

@@ -9,8 +9,14 @@ Rails.application.routes.draw do
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]
 
-    resources :portifoliorrr_profiles, only: %i[show] do
+    resources :portfoliorrr_profiles, only: %i[show] do
       get 'search', on: :collection
+
+      resources :invitations, shallow: true, only: %i[create] do
+        member do
+          patch 'cancel', to: 'invitations#cancel'
+        end
+      end
     end
   end
 
@@ -29,6 +35,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index]
+      resources :invitations, only: %i[index]
     end
   end
 end
