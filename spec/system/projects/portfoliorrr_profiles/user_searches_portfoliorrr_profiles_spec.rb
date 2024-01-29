@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
+describe 'Usuário pesquisa por perfis da Portfoliorrr' do
   it 'e deve estar autenticado' do
     project = create :project
 
@@ -60,30 +60,19 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
     end
   end
 
-  it 'e precisa ter vinculo com o projeto' do
+  it 'e é lider apenas de outro projeto' do
     project = create :project
-    user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+    other_leader = create :user, email: 'otherleader@email.com', cpf: '149.759.780-32'
+    create :project, user: other_leader, title: 'Outro Projeto'
 
-    login_as user
+    login_as other_leader
     visit search_project_portfoliorrr_profiles_path project
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não tem acesso a esse recurso'
   end
 
-  it 'e não há colaboradores a serem exibidos' do
-    user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
-    project = create(:project, user:)
-    project.user_roles.find_by(user:).update(role: :leader)
-    allow(PortfoliorrrProfile).to receive(:all).and_return([])
-
-    login_as user
-    visit search_project_portfoliorrr_profiles_path project
-
-    expect(page).to have_content 'Não há usuários a serem exibidos.'
-  end
-
-  context 'com sucesso a partir da home' do
+  context 'com sucesso sendo líder do projeto' do
     it 'buscando por todos' do
       user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
       project = create :project, user:, title: 'Projeto Top'
@@ -111,6 +100,18 @@ describe 'Líder de projeto pesquisa por perfis da Portfoliorrr' do
       expect(page).to have_content 'Rodolfo'
       expect(page).to have_content 'Editor de Video'
       expect(page).to have_selector('table tbody tr', count: 3)
+    end
+
+    it 'e não há colaboradores a serem exibidos' do
+      user = create :user, email: 'user@email.com', cpf: '149.759.780-32'
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
+      allow(PortfoliorrrProfile).to receive(:all).and_return([])
+
+      login_as user
+      visit search_project_portfoliorrr_profiles_path project
+
+      expect(page).to have_content 'Não há usuários a serem exibidos.'
     end
 
     context 'buscando por termo' do
