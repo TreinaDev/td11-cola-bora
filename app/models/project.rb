@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   after_create :set_leader_on_create
 
   def member?(user)
-    UserRole.find_by(user:, project: self).present?
+    user_roles.find_by(user:).present?
   end
 
   def future_meetings
@@ -19,7 +19,7 @@ class Project < ApplicationRecord
   end
 
   def leader?(user)
-    user_roles.find_by(user:).leader?
+    member?(user) && user_roles.find_by(user:).leader?
   end
 
   private

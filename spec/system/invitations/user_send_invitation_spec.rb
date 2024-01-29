@@ -6,7 +6,8 @@ describe 'Usuário quer enviar convite' do
     project = create(:project, user:, title: 'Meu novo projeto')
     create(:project, user:, title: 'Segundo projeto')
 
-    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
@@ -23,7 +24,8 @@ describe 'Usuário quer enviar convite' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu novo projeto')
 
-    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
@@ -41,7 +43,8 @@ describe 'Usuário quer enviar convite' do
     user_two = create(:user, cpf: '69734049011')
 
     project = create(:project, user: user_one)
-    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
     create(:invitation, project:, profile_id: joao.id)
 
     login_as user_two
@@ -52,7 +55,8 @@ describe 'Usuário quer enviar convite' do
 
   it 'não está autenticado' do
     project = create(:project)
-    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos', job_category: 'Desenvolvimento')
+    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
     create(:invitation, project:, profile_id: joao.id)
 
     visit project_portfoliorrr_profile_path(project, joao.id)
