@@ -19,6 +19,15 @@
   <%= @project.category %>
 </p>
 
+<div>
+  <strong><%= ProjectJobCategory.model_name.human(count: @project_job_categories.count) %></strong>
+  <ul>
+    <% @project_job_categories.each do |project_job_category| %>
+      <li><%= project_job_category.name %></li>
+    <% end %>
+  </ul>
+</div>
+
 <hr>
 
 <%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>

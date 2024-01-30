@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit destroy]
   before_action :check_contributor, only: %i[show edit destroy]
+  before_action :set_project_job_categories, only: %i[show]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -34,6 +35,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_project_job_categories
+    @project_job_categories = @project.project_job_categories
+  end
 
   def set_project
     @project = Project.find(params[:id])

@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      project_job_category:
+        one: Categoria de trabalho
+        other: Categorias de trabalho
+    attributes:
+      name: Nome
+      project_id: Projeto
