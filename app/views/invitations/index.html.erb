@@ -1,0 +1,29 @@
+<h1><%= Invitation.model_name.human(count: 2) %></h1>
+<div class="container">
+  <div class="row">
+    <% if @invitations.any? %>
+      <% @invitations.each do |invitation| %>
+        <div class="col-sm-6 mb-3" >
+          <div class="card" style="height: 100%">
+            <div class="card-body">
+              <h4 class="card-title">
+                  <%= link_to invitation.project.title, root_path %>
+              </h4>
+              <h6 class="card-subtitle mb-2 text-muted ">
+                <%= Project.human_attribute_name :category %>: <%= invitation.project.category %>
+              </h6>
+              <p class="card-text">
+                <%= invitation.message %>
+              </p>
+              <p class="card-text">
+                <%= Invitation.human_attribute_name :expiration_date %>: <%= I18n.l(invitation.expiration_date) %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h3><%= t(:invitations_empty_state) %></h3>
+    <% end %>
+  </div>
+</div>

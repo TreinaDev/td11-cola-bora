@@ -1,19 +1,21 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create cancel]
+  before_action :authenticate_user!, only: %i[create cancel index]
   before_action :set_invitation, only: %i[cancel]
   before_action :set_project, only: %i[create cancel]
   before_action :authorize_user, only: %i[create cancel]
   before_action :authorize_cancel, only: %i[cancel]
 
+  def index
+    @invitations = Invitation.where(profile_email: current_user.email).pending
+  end
+
   def create
     create_invitation
-    if @invitation.save
-      return redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
-                         notice: t('.success')
-    end
 
-    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
-                alert: invitation_error
+    flash[:alert] = invitation_error unless @invitation.save
+    flash[:notice] = t('.success') if @invitation.save
+
+    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id)
   end
 
   def cancel

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :invitations, only: %i[index]
+
   resources :tasks, only: %i[show edit update] do
     member do
       post 'start'
