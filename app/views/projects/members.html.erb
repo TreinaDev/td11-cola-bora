@@ -6,7 +6,9 @@
       <th><%= t(:full_name) %></th>
       <th><%= User.human_attribute_name :email %></th>
       <th><%= UserRole.human_attribute_name :role %></th>
-      <th><%= t(:actions) %></th>
+      <% if @project.leader? current_user %>
+        <th><%= t(:actions) %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +23,9 @@
         <td><%= admin.user.profile.full_name %></td>
         <td><%= admin.user.email %></td>
         <td><%= UserRole.human_attribute_name 'role.admin' %></td>
-        <td><%= link_to I18n.t('.manage_member_btn'), root_path %></td>
+        <% if @project.leader? current_user %>
+          <td><%= link_to I18n.t('.manage_member_btn'), root_path %></td>
+        <% end %>
       </tr>
     <% end %>
 
@@ -30,7 +34,9 @@
         <td><%= contributor.user.profile.full_name %></td>
         <td><%= contributor.user.email %></td>
         <td><%= UserRole.human_attribute_name 'role.contributor' %></td>
-        <td><%= link_to I18n.t('.manage_member_btn'), root_path %></td>
+        <% if @project.leader? current_user %>
+          <td><%= link_to I18n.t('.manage_member_btn'), root_path %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
