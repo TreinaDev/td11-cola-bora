@@ -26,13 +26,15 @@ describe 'Invitation search API' do
       expect(json_response.first['invitation_id']).to eq invitation_one.id
       expect(json_response.first['project_id']).to eq project_one.id
       expect(json_response.first['project_title']).to eq 'Primeiro projeto do mundo'
-      expect(json_response.first['expiration_days']).to eq 15
+      expect(json_response.first['expiration_date']).to eq 15.days.from_now.to_date.strftime('%Y-%m-%d')
+      expect(json_response.first.keys).not_to include 'created_at'
       expect(json_response.first.keys).not_to include 'updated_at'
 
       expect(json_response.second['invitation_id']).to eq invitation_two.id
       expect(json_response.second['project_id']).to eq project_two.id
       expect(json_response.second['project_title']).to eq 'Segundo melhor projeto'
-      expect(json_response.second['expiration_days']).to eq 30
+      expect(json_response.second['expiration_date']).to eq 30.days.from_now.to_date.strftime('%Y-%m-%d')
+      expect(json_response.second.keys).not_to include 'created_at'
       expect(json_response.second.keys).not_to include 'updated_at'
     end
 
