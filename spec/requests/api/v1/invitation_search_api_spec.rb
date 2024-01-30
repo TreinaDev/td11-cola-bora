@@ -10,8 +10,10 @@ describe 'Invitation search API' do
       project_two = create(:project, title: 'Segundo melhor projeto', user: user_one)
       project_three = create(:project, title: 'Terceiro projeto', user: user_two)
 
-      invitation_one = create(:invitation, project: project_one, profile_id: 1, status: :pending, expiration_days: 15)
-      invitation_two = create(:invitation, project: project_two, profile_id: 1, status: :pending, expiration_days: 30)
+      invitation_one = create(:invitation, project: project_one, profile_id: 1, status: :pending, expiration_days: 15,
+                                           message: 'Acho que seu perfil combina com o nosso projeto, vem fazer parte')
+      invitation_two = create(:invitation, project: project_two, profile_id: 1, status: :pending, expiration_days: 30,
+                                           message: 'Vamos trabalhar juntos')
       create(:invitation, project: project_three, profile_id: 1, status: :accepted)
       create(:invitation, project: project_three, profile_id: 15, status: :pending)
 
@@ -27,6 +29,7 @@ describe 'Invitation search API' do
       expect(json_response.first['project_id']).to eq project_one.id
       expect(json_response.first['project_title']).to eq 'Primeiro projeto do mundo'
       expect(json_response.first['expiration_date']).to eq 15.days.from_now.to_date.strftime('%Y-%m-%d')
+      expect(json_response.first['message']).to eq 'Acho que seu perfil combina com o nosso projeto, vem fazer parte'
       expect(json_response.first.keys).not_to include 'created_at'
       expect(json_response.first.keys).not_to include 'updated_at'
 
@@ -34,6 +37,7 @@ describe 'Invitation search API' do
       expect(json_response.second['project_id']).to eq project_two.id
       expect(json_response.second['project_title']).to eq 'Segundo melhor projeto'
       expect(json_response.second['expiration_date']).to eq 30.days.from_now.to_date.strftime('%Y-%m-%d')
+      expect(json_response.second['message']).to eq 'Vamos trabalhar juntos'
       expect(json_response.second.keys).not_to include 'created_at'
       expect(json_response.second.keys).not_to include 'updated_at'
     end

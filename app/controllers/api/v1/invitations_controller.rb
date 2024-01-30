@@ -14,7 +14,8 @@ module Api
             invitation_id: invitation.id,
             expiration_date: invitation.expiration_date,
             project_id: invitation.project.id,
-            project_title: invitation.project.title
+            project_title: invitation.project.title,
+            message: invitation.message
           }
         end
       end
