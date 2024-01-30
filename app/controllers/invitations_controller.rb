@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!, only: %i[create cancel index]
-  before_action :set_invitation, only: %i[cancel]
+  before_action :set_invitation, only: %i[cancel show]
   before_action :set_project, only: %i[create cancel]
   before_action :authorize_user, only: %i[create cancel]
   before_action :authorize_cancel, only: %i[cancel]
@@ -8,6 +8,8 @@ class InvitationsController < ApplicationController
   def index
     @invitations = Invitation.where(profile_email: current_user.email).pending
   end
+
+  def show; end
 
   def create
     create_invitation

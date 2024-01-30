@@ -7,7 +7,7 @@
           <div class="card" style="height: 100%">
             <div class="card-body">
               <h4 class="card-title">
-                  <%= link_to invitation.project.title, root_path %>
+                  <%= link_to invitation.project.title, invitation_path(invitation) %>
               </h4>
               <h6 class="card-subtitle mb-2 text-muted ">
                 <%= Project.human_attribute_name :category %>: <%= invitation.project.category %>
@@ -23,7 +23,7 @@
         </div>
       <% end %>
     <% else %>
-      <h3><%= t(:invitations_empty_state) %></h3>
+      <h3><%= t('invitations.empty_state') %></h3>
     <% end %>
   </div>
 </div>

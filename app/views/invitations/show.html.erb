@@ -1,0 +1,16 @@
+<p>
+  <strong><%= @invitation.project.title %>: </strong>
+  <%= @invitation.project.description %>
+</p>
+<p>
+  <strong><%= Project.human_attribute_name :category %>: </strong>
+  <%= @invitation.project.category %>
+</p>
+<p>
+  <strong><%= Invitation.human_attribute_name :message %>: </strong>
+  <%= @invitation.message %>
+</p>
+<p>
+  <strong><%= Invitation.human_attribute_name :expiration_date %>: </strong>
+  <%= l(@invitation.expiration_date) %>
+</p>

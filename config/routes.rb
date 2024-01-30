@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :invitations, only: %i[index]
+  resources :invitations, only: %i[index show]
 
   resources :tasks, only: %i[show edit update] do
     member do
