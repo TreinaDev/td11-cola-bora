@@ -9,12 +9,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project_job_categories = ProjectJobCategory.all
+    @job_categories = JobCategory.all
     @project = current_user.projects.build
   end
 
   def create
-    @project = current_user.projects.build(project_params)
+    create_project
 
     if @project.save
       redirect_to project_path(@project), notice: t('.success')
@@ -37,6 +37,12 @@ class ProjectsController < ApplicationController
 
   private
 
+  def create_job_category(category_ids)
+    category_ids.each do |category_id|
+      @project.project_job_categories.new(job_category_id: category_id.to_i)
+    end
+  end
+
   def set_project_job_categories
     @project_job_categories = @project.project_job_categories
   end
@@ -46,10 +52,19 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :category, job_categories_attributes: %i[name _destroy])
+    params.require(:project).permit(:title, :description, :category,
+                                    project_job_category_ids: [])
   end
 
   def check_contributor
     redirect_to root_path, alert: t('.not_contributor') unless @project.member?(current_user)
+  end
+
+  def create_project
+    @project = current_user.projects.build(title: project_params[:title],
+                                           description: project_params[:description],
+                                           category: project_params[:category])
+
+    create_job_category(project_params[:project_job_category_ids])
   end
 end

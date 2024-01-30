@@ -11,11 +11,9 @@ describe 'Usuário cria um projeto' do
   it 'a partir da home com sucesso' do
     user = create :user, email: 'usuario@email.com'
     create(:profile, user:)
-
-    job_categories = [JobCategory.new(name: 'Editor de Video'),
-                      JobCategory.new(name: 'Editor de Imagem'),
-                      JobCategory.new(name: 'Desenvolvedor'),
-                      JobCategory.new(name: 'Designer')]
+    job_categories = [JobCategory.new(id: 1, name: 'Editor de Video'),
+                      JobCategory.new(id: 2, name: 'Editor de Imagem'),
+                      JobCategory.new(id: 3, name: 'Desenvolvedor')]
 
     allow(JobCategory).to receive(:all).and_return(job_categories)
 
@@ -26,8 +24,8 @@ describe 'Usuário cria um projeto' do
     fill_in 'Descrição', with: 'Um projeto para criar o pokémon mais poderoso.'
     fill_in 'Categoria', with: 'Jogo'
     within '#project_job_category' do
-      check 'Desenvolvedor'
-      check 'Designer'
+      check 'Editor de Video'
+      check 'Editor de Imagem'
     end
     click_on 'Salvar Projeto'
 
@@ -35,8 +33,9 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_content "Autor: #{user.email}"
     expect(page).to have_content 'Um projeto para criar o pokémon mais poderoso.'
     expect(page).to have_content 'Jogo'
-    expect(page).to have_content 'Desenvolvedor'
-    expect(page).to have_content 'Designer'
+    expect(page).to have_content 'Editor de Video'
+    expect(page).to have_content 'Editor de Imagem'
+    expect(page).not_to have_content 'Desenvolvedor'
     expect(page).to have_content 'Projeto criado com sucesso.'
     project = Project.last
     author = project.user_roles.first

@@ -7,8 +7,6 @@ class Project < ApplicationRecord
   has_many :meetings, dependent: :destroy
   has_many :project_job_categories, dependent: :destroy
 
-  accepts_nested_attributes_for :job_categories
-
   validates :title, :description, :category, presence: true
 
   after_create :set_leader_on_create
