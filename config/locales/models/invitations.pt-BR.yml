@@ -8,6 +8,8 @@ pt-BR:
     attributes:
       invitation:
         expiration_days: Prazo de validade (em dias)
+        expiration_date: Prazo de validade
+        message: Mensagem
         project_id: Projetos
         profile_id: Perfil
         status: Status

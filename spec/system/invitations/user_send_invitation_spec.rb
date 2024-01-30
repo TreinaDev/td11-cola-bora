@@ -8,15 +8,19 @@ describe 'Usuário quer enviar convite' do
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
-
+    joao.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
     fill_in 'Prazo de validade (em dias)', with: 10
+    fill_in 'Mensagem', with: 'Adoraria que fizesse parte do meu projeto'
     click_on 'Enviar convite'
 
     expect(page).to have_content 'Convite enviado com sucesso!'
+    expect(page).to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
+    expect(page).to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
+    expect(project.invitations.last.profile_email).to eq 'joao@email.com'
     expect(project.invitations.last.pending?).to eq true
   end
 
