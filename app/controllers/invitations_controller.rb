@@ -1,7 +1,6 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create cancel index accept]
-  before_action :set_invitation, only: %i[cancel show accept]
-  before_action :set_project, only: %i[create cancel accept]
+  before_action :set_invitation, only: %i[cancel show accept decline]
+  before_action :set_project, only: %i[create cancel accept decline]
   before_action :authorize_user, only: %i[create cancel]
   before_action :authorize_cancel, only: %i[cancel]
 
@@ -30,8 +29,13 @@ class InvitationsController < ApplicationController
     @invitation.accepted!
 
     @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
-    # @project.add_user(User.find_by(@invitation.profile_email))
     redirect_to project_path(@project), notice: t('.success')
+  end
+
+  def decline
+    @invitation.declined!
+
+    redirect_to invitations_path, notice: t('.success')
   end
 
   private

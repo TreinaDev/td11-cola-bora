@@ -22,7 +22,10 @@ pt-BR:
       success: Convite cancelado!
     accept: 
       success: Parabéns, você agora faz parte deste projeto!
+    decline: 
+      success: Você recusou o convite
     accept_btn: Aceitar
+    decline_btn: Recusar
     send_invitation: Enviar convite
     pending_invitation: Esse usuário possui convite pendente
     cancel_button: Cancelar convite
