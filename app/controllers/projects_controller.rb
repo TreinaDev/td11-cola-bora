@@ -33,7 +33,13 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: t('.success')
   end
 
-  def members; end
+  def members
+    query = params[:query]
+
+    @leader = @project.leader if query.blank? || query == 'leader'
+    @admins = @project.admins if query.blank? || query == 'admin'
+    @contributors = @project.contributors if query.blank? || query == 'contributor'
+  end
 
   private
 

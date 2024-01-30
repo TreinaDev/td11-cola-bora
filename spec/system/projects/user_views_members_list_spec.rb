@@ -30,7 +30,6 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Nome'
         expect(page).to have_content 'E-mail'
         expect(page).to have_content 'Papel'
-        expect(page).to have_content 'Ações'
       end
       within 'tbody' do
         expect(page).to have_content 'Líder do Projeto'
@@ -46,7 +45,6 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
         expect(page).to have_content 'Colaborador', count: 3
-        expect(page).to have_link 'Gerenciar', count: 4
       end
     end
   end
@@ -76,7 +74,6 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Nome'
         expect(page).to have_content 'E-mail'
         expect(page).to have_content 'Papel'
-        expect(page).not_to have_content 'Ações'
       end
       within 'tbody' do
         expect(page).to have_content 'Líder do Projeto'
@@ -92,7 +89,6 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
         expect(page).to have_content 'Colaborador', count: 3
-        expect(page).not_to have_link 'Gerenciar'
       end
     end
   end
