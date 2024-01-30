@@ -29,11 +29,10 @@
           <%= form.text_area :message, class: 'form-control' %>
           <%= form.hidden_field :profile_email, value: profile.email %>
         </div>
+        <div class="d-flex justify-content-center mb-2">
+          <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
+        </div>
       </div>
-    </div>
-
-    <div class="d-flex justify-content-center mb-2">
-      <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
-    </div>
+    </div>   
   <% end %>
 <% end %>
