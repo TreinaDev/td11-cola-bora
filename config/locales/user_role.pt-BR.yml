@@ -9,4 +9,8 @@ pt-BR:
         role: 'Papel'
         user: 'Usuário'
         project: 'Projeto'
+      user_role/role:
+        leader: Líder
+        admin: Administrador
+        contributor: Colaborador
   one_leader: 'aceita apenas 1 líder'

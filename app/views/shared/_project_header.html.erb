@@ -20,6 +20,9 @@
                 project_documents_path(project), 
                 class: "nav-item nav-link link-body-emphasis 
                         #{'active' if request.path.include?('/documents')}" %>
+    <%= link_to t(:members), members_project_path(project),
+                class: "nav-item nav-link link-body-emphasis 
+                #{'active' if request.path.include?('/members')}" %>
     <% if project.leader?(current_user) %>
       <%= link_to t(:search_users_btn), 
                   search_project_portfoliorrr_profiles_path(project), 
