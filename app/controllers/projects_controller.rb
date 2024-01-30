@@ -33,11 +33,7 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: t('.success')
   end
 
-  def members
-    @leader = @project.user
-    @admins = @project.user_roles.where(role: :admin)
-    @contributors = @project.user_roles.where(role: :contributor)
-  end
+  def members; end
 
   private
 

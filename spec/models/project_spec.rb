@@ -117,4 +117,8 @@ RSpec.describe Project, type: :model do
       expect(project.user_roles.last.user).to eq contributor
     end
   end
+
+  pending '#leader'
+  pending '#admins'
+  pending '#contributors'
 end

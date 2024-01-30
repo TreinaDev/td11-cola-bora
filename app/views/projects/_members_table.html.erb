@@ -1,0 +1,55 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= t(:full_name) %></th>
+      <th><%= User.human_attribute_name :email %></th>
+      <th><%= UserRole.human_attribute_name :role %></th>
+      <% if project.leader? current_user %>
+        <th><%= t(:actions) %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr id="leader_row" class="table-success">
+      <td><%= project.leader.full_name %></td>
+      <td><%= project.leader.email %></td>
+      <td>
+        <div class="">
+          <%= UserRole.human_attribute_name 'role.leader' %>
+        </div>
+      </td>
+      <% if project.leader? current_user %>
+        <td></td>
+      <% end %>
+    </tr>
+
+    <% project.admins.each do |admin| %>
+      <tr class="table-secondary">
+        <td><%= admin.full_name %></td>
+        <td><%= admin.email %></td>
+        <td>
+          <%= UserRole.human_attribute_name 'role.admin' %>
+        </td>
+        <% if project.leader? current_user %>
+          <td><%= link_to I18n.t('.manage_member_btn'), 
+                          root_path,
+                          class: "btn btn-sm btn-outline-primary" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+
+    <% project.contributors.each do |contributor| %>
+      <tr class="table-light">
+        <td><%= contributor.full_name %></td>
+        <td><%= contributor.email %></td>
+        <td><%= UserRole.human_attribute_name 'role.contributor' %></td>
+        <% if project.leader? current_user %>
+          <td><%= link_to I18n.t('.manage_member_btn'), 
+                          root_path,
+                          class: "btn btn-sm btn-outline-primary" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
