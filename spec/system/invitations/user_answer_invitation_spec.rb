@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Usuário vê detalhes de um convites' do
-  it 'a partir da página inicial' do
+describe 'Usuário reponde convite' do
+  it 'positivamente' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
@@ -18,11 +18,12 @@ describe 'Usuário vê detalhes de um convites' do
     visit root_path
     click_on 'Convites'
     click_on 'Projeto Master'
+    click_on 'Aceitar'
 
-    expect(current_path).to eq invitation_path invitation
-    expect(page).to have_content 'Projeto Master: Um projeto sobre masterizar tudo que é possível'
-    expect(page).to have_content 'Mensagem: Por favor aceite'
-    expect(page).to have_content 'Categoria: Aplicação WEB'
-    expect(page).to have_content "Validade: #{I18n.l 5.days.from_now.to_date}"
+    expect(second_project.member?(user)).to eq true
+    expect(invitation.reload.status).to eq 'accepted'
+    expect(page).to have_content 'Parabéns, você agora faz parte deste projeto!'
+    expect(page).to have_content 'Projeto Master'
+    expect(current_path).to eq project_path second_project
   end
 end

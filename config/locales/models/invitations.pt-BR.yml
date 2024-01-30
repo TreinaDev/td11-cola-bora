@@ -20,6 +20,9 @@ pt-BR:
       pending_invitation: Esse usuário possui convite pendente
     cancel:
       success: Convite cancelado!
+    accept: 
+      success: Parabéns, você agora faz parte deste projeto!
+    accept_btn: Aceitar
     send_invitation: Enviar convite
     pending_invitation: Esse usuário possui convite pendente
     cancel_button: Cancelar convite
