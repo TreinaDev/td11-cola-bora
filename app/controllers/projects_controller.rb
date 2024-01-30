@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit destroy members]
-  before_action :check_contributor, only: %i[show edit destroy]
+  before_action :check_contributor, only: %i[show edit destroy members]
 
   def index
     @projects = Project.where(user_id: current_user)
