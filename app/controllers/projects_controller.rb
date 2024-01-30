@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @project_job_categories = ProjectJobCategory.all
     @project = current_user.projects.build
   end
 
@@ -45,7 +46,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :category)
+    params.require(:project).permit(:title, :description, :category, job_categories_attributes: %i[name _destroy])
   end
 
   def check_contributor

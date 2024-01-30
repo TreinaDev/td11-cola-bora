@@ -12,21 +12,36 @@ describe 'Usuário cria um projeto' do
     user = create :user, email: 'usuario@email.com'
     create(:profile, user:)
 
+    job_categories = [JobCategory.new(name: 'Editor de Video'),
+                      JobCategory.new(name: 'Editor de Imagem'),
+                      JobCategory.new(name: 'Desenvolvedor'),
+                      JobCategory.new(name: 'Designer')]
+
+    allow(JobCategory).to receive(:all).and_return(job_categories)
+
     login_as(user)
     visit(root_path)
     click_on 'Criar Projeto'
     fill_in 'Título', with: 'Mewtwo'
     fill_in 'Descrição', with: 'Um projeto para criar o pokémon mais poderoso.'
     fill_in 'Categoria', with: 'Jogo'
+    within '#project_job_category' do
+      check 'Desenvolvedor'
+      check 'Designer'
+    end
     click_on 'Salvar Projeto'
 
     expect(page).to have_content 'Projeto: Mewtwo'
     expect(page).to have_content "Autor: #{user.email}"
     expect(page).to have_content 'Um projeto para criar o pokémon mais poderoso.'
     expect(page).to have_content 'Jogo'
+    expect(page).to have_content 'Desenvolvedor'
+    expect(page).to have_content 'Designer'
     expect(page).to have_content 'Projeto criado com sucesso.'
-    author = Project.last.user_roles.first
+    project = Project.last
+    author = project.user_roles.first
     expect(author.leader?).to be true
+    expect(project.project_job_categories.count).to eq 2
   end
 
   it 'com campos vazios' do

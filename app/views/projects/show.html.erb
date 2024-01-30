@@ -19,7 +19,7 @@
   <%= @project.category %>
 </p>
 
-<div>
+<div id="project_job_category">
   <strong><%= ProjectJobCategory.model_name.human(count: @project_job_categories.count) %></strong>
   <ul>
     <% @project_job_categories.each do |project_job_category| %>

@@ -59,8 +59,8 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
                                                 job_categories: [JobCategory.new(name: 'Designer')]
       allow(PortfoliorrrProfile).to receive(:all).and_return([rodolfo_profile])
       rodolfo_profile.job_categories = [
-        JobCategory.new(name: 'Editor de Video', description: 'Canal do Youtube'),
-        JobCategory.new(name: 'Editor de Imagem', description: 'Photoshop')
+        JobCategory.new(name: 'Editor de Video'),
+        JobCategory.new(name: 'Editor de Imagem')
       ]
       rodolfo_profile.email = 'rodolfo@email.com'
       rodolfo_profile.cover_letter = 'Sou editor de vídeos em um canal do Youtube.'
@@ -80,8 +80,8 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       expect(page).to have_content 'Perfil de Rodolfo'
       expect(page).to have_content "Nome\nRodolfo"
       expect(page).to have_content "E-mail\nrodolfo@email.com"
-      expect(page).to have_content "Editor de Video\nCanal do Youtube"
-      expect(page).to have_content "Editor de Imagem\nPhotoshop"
+      expect(page).to have_content 'Editor de Video'
+      expect(page).to have_content 'Editor de Imagem'
       expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
     end
 

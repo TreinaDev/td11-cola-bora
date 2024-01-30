@@ -45,7 +45,7 @@ describe 'Usuário vê detalhes do projeto' do
     project = create :project, user: deco, title: 'Padrão', description: 'Descrição de um projeto padrão para testes',
                                category: 'Teste'
 
-    first_category = create(:project_job_category, name: 'Desenvolvedor', project:)
+    create(:project_job_category, name: 'Desenvolvedor', project:)
 
     visit project_path(project)
 
