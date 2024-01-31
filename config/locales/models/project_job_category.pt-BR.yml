@@ -7,3 +7,6 @@ pt-BR:
     attributes:
       name: Nome
       project_id: Projeto
+  project_job_categories:
+    no_have: Ainda não há categoria de trabalho
+    not_found: Categoria de projetos está indisponível temporariamente

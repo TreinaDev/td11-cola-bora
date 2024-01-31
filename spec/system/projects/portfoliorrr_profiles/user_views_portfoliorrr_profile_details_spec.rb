@@ -56,11 +56,11 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo',
-                                                job_categories: [JobCategory.new(name: 'Designer')]
+                                                job_categories: [JobCategory.new(id: 1, name: 'Designer')]
       allow(PortfoliorrrProfile).to receive(:all).and_return([rodolfo_profile])
       rodolfo_profile.job_categories = [
-        JobCategory.new(name: 'Editor de Video'),
-        JobCategory.new(name: 'Editor de Imagem')
+        JobCategory.new(id: 1, name: 'Editor de Video'),
+        JobCategory.new(id: 2, name: 'Editor de Imagem')
       ]
       rodolfo_profile.email = 'rodolfo@email.com'
       rodolfo_profile.cover_letter = 'Sou editor de vídeos em um canal do Youtube.'

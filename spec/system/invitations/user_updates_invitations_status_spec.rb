@@ -6,7 +6,7 @@ describe 'Lider revoga convite' do
     project = create(:project, user:, title: 'Meu novo projeto')
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
@@ -26,7 +26,7 @@ describe 'Lider revoga convite' do
     project = create(:project, user:, title: 'Meu novo projeto')
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 

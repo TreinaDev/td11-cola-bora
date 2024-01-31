@@ -9,8 +9,18 @@ describe 'Usuário vê detalhes do projeto' do
                                description: 'Esse projeto é sobre a criação de um website para a cidade',
                                category: 'Webdesign', user: deco
 
-    first_category = create(:project_job_category, name: 'Desenvolvedor', project:)
-    second_category = create(:project_job_category, name: 'RH', project:)
+    job_categories = [JobCategory.new(id: 1, name: 'Desenvolvedor'),
+                      JobCategory.new(id: 2, name: 'RH')]
+
+    allow(JobCategory).to receive(:all).and_return(job_categories)
+
+    allow(JobCategory).to receive(:find).and_return(job_categories[0], job_categories[1])
+
+    create(:project_job_category, name: 'Desenvolvedor', job_category_id: 1, project:)
+    create(:project_job_category, name: 'RH', job_category_id: 2, project:)
+
+    create(:project_job_category, project:, job_category_id: 1)
+    create(:project_job_category, project:, job_category_id: 2)
 
     login_as deco
     visit root_path
@@ -24,20 +34,51 @@ describe 'Usuário vê detalhes do projeto' do
     expect(page).not_to have_content 'Título: Padrão'
     expect(page).not_to have_content 'Descrição: Descrição de um projeto padrão para testes'
     expect(page).not_to have_content 'Categoria: Teste'
-    expect(page).to have_content "Categorias de trabalho\n#{first_category.name}\n#{second_category.name}"
+    expect(page).to have_content "Categorias de trabalho\nDesenvolvedor\nRH"
     expect(current_path).to eq project_path(project)
   end
 
   it 'e projeto tem apenas uma categoria de trabalho' do
-    job_category = create(:project_job_category, name: 'Desenvolvedor')
+    job_category = create(:project_job_category, job_category_id: 1)
     user = job_category.project.user
     project = job_category.project
+
+    job_categories = [JobCategory.new(id: 1, name: 'Desenvolvedor'),
+                      JobCategory.new(id: 2, name: 'RH')]
+
+    allow(JobCategory).to receive(:all).and_return(job_categories)
+
+    allow(JobCategory).to receive(:find).and_return(job_categories[0], job_categories[1])
 
     login_as user, scope: :user
     visit project_path(project)
 
     expect(page).to have_content 'Categoria de trabalho'
     expect(page).to have_content 'Desenvolvedor'
+  end
+
+  it 'e não tem nenhuma categoria de trabalho' do
+    user = create :user
+    project = create(:project, user:)
+
+    login_as user, scope: :user
+    visit project_path(project)
+
+    expect(page).not_to have_content 'Categoria de trabalho'
+    expect(page).not_to have_content 'Categorias de trabalho'
+    expect(page).to have_content 'Ainda não há categoria de trabalho'
+  end
+
+  it 'e não encontra a api' do
+    job_category = create(:project_job_category, job_category_id: 1)
+    user = job_category.project.user
+    project = job_category.project
+
+    login_as user, scope: :user
+    visit project_path(project)
+
+    expect(page).to have_content 'Categoria de projetos está indisponível temporariamente'
+    expect(page).to have_current_path project_path(project)
   end
 
   it 'e deve estar autenticado' do

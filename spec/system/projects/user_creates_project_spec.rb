@@ -17,6 +17,8 @@ describe 'Usuário cria um projeto' do
 
     allow(JobCategory).to receive(:all).and_return(job_categories)
 
+    allow(JobCategory).to receive(:find).and_return(job_categories[0], job_categories[1])
+
     login_as(user)
     visit(root_path)
     click_on 'Criar Projeto'
@@ -60,5 +62,14 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'Categoria não pode ficar em branco'
+  end
+
+  xit 'e não há retorno de categorias de trabalho da api' do
+    user = create :user, email: 'usuario@email.com'
+
+    login_as(user)
+    visit(new_project_path)
+
+    expect(page).to have_content 'Sem categorias de trabalho para adicionar, retorne depois.'
   end
 end

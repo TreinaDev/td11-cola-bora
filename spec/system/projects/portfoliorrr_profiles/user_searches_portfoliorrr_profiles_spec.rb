@@ -78,9 +78,10 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       portfoliorrr_profiles = [
-        PortfoliorrrProfile.new(id: 1, name: 'Lucas', job_categories: [JobCategory.new(name: 'Desenvolvedor')]),
-        PortfoliorrrProfile.new(id: 2, name: 'Mateus', job_categories: [JobCategory.new(name: 'Designer')]),
-        PortfoliorrrProfile.new(id: 3, name: 'Rodolfo', job_categories: [JobCategory.new(name: 'Editor de Video')])
+        PortfoliorrrProfile.new(id: 1, name: 'Lucas', job_categories: [JobCategory.new(id: 1, name: 'Desenvolvedor')]),
+        PortfoliorrrProfile.new(id: 2, name: 'Mateus', job_categories: [JobCategory.new(id: 2, name: 'Designer')]),
+        PortfoliorrrProfile.new(id: 3, name: 'Rodolfo',
+                                job_categories: [JobCategory.new(id: 3, name: 'Editor de Video')])
       ]
       allow(PortfoliorrrProfile).to receive(:all).and_return(portfoliorrr_profiles)
 
@@ -92,7 +93,6 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
         click_on 'Procurar usuários'
       end
 
-      expect(current_path).to eq search_project_portfoliorrr_profiles_path project
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'
       expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Usuários disponíveis'
@@ -103,6 +103,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       expect(page).to have_content 'Rodolfo'
       expect(page).to have_content 'Editor de Video'
       expect(page).to have_selector('table tbody tr', count: 3)
+      expect(current_path).to eq search_project_portfoliorrr_profiles_path project
     end
 
     it 'e não há colaboradores a serem exibidos' do
@@ -124,8 +125,8 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
         project.user_roles.find_by(user:).update(role: :leader)
         rodolfo_profile = PortfoliorrrProfile.new id: 3, name: 'Rodolfo',
                                                   job_categories: [
-                                                    JobCategory.new(name: 'Editor de Video'),
-                                                    JobCategory.new(name: 'Editor de Imagem')
+                                                    JobCategory.new(id: 1, name: 'Editor de Video'),
+                                                    JobCategory.new(id: 2, name: 'Editor de Imagem')
                                                   ]
         allow(PortfoliorrrProfile).to receive(:search).with('video').and_return([rodolfo_profile])
 

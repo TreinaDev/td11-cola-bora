@@ -9,7 +9,10 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @job_categories = JobCategory.all
+    # @job_categories = JobCategory.all
+    @job_categories = [JobCategory.new(id: 1, name: 'Editor de Video'),
+                        JobCategory.new(id: 2, name: 'Editor de Imagem'),
+                        JobCategory.new(id: 3, name: 'Desenvolvedor')]
     @project = current_user.projects.build
   end
 
@@ -24,7 +27,12 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @job_categories = []
+    @project_job_categories.each do |project_job_category|
+      @job_categories << JobCategory.find(project_job_category.job_category_id)
+    end
+  end
 
   def edit; end
 
@@ -38,7 +46,7 @@ class ProjectsController < ApplicationController
   private
 
   def create_job_category(category_ids)
-    category_ids.each do |category_id|
+    category_ids&.each do |category_id|
       @project.project_job_categories.new(job_category_id: category_id.to_i)
     end
   end
