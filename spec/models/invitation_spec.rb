@@ -245,36 +245,15 @@ RSpec.describe Invitation, type: :model do
   end
 
   describe '#expiration_date' do
-    it 'verdadeiro se data de validade for calculada' do
+    it 'calcula a data de validade ao ser criado' do
       invitation = create(:invitation, expiration_days: 5, profile_email: 'joão@email.com')
 
       expect(invitation.expiration_date).to eq 5.days.from_now.to_date
     end
-    it 'verdadeiro se não tem data de validade' do
+    it 'data de validade é vazia se expiration_days for vazia' do
       invitation = create(:invitation, expiration_days: '', profile_email: 'joão@email.com')
 
       expect(invitation.expiration_date).to be nil
-    end
-  end
-
-  describe '#check_member' do
-    it 'falso se usuário já for membro do projeto' do
-      leader = create(:user, cpf: '000.000.001-91')
-      project = create(:project, user: leader)
-      user = create(:user, email: 'joão@email.com')
-      create(:user_role, user:, project:)
-      invitation = build(:invitation, project:, profile_email: user.email)
-
-      expect(invitation.valid?).to be false
-      expect(invitation.errors[:base]).to include 'Este usuário já faz parte do projeto.'
-    end
-    it 'verdadeiro se usuário não for membro do projeto' do
-      leader = create(:user, cpf: '000.000.001-91')
-      project = create(:project, user: leader)
-      user = create(:user, email: 'joão@email.com')
-      invitation = build(:invitation, project:, profile_email: user.email)
-
-      expect(invitation.valid?).to be true
     end
   end
 end

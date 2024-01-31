@@ -14,8 +14,8 @@ misty.profile.update(first_name: 'Mysty', last_name: '',
                             work_experience: 'Treinadora Pokemon de agua', education: 'Escola Pokemon')
 
 
-ash_project = FactoryBot.create(:project, user: ash)
-ash_project2 = FactoryBot.create(:project, user: ash)
+ash_project = FactoryBot.create(:project, user: ash, title: 'Pousadaria', category: 'Aplicação WEB')
+ash_project2 = FactoryBot.create(:project, user: ash, title: 'Portfoliorr', category: 'Aplicação WEB')
 pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio',
                                     description: 'Me tornar líder do estádio de pedra.',
                                     category: 'Auto Ajuda')
