@@ -25,3 +25,5 @@
                   class: 'btn btn-danger me-2' %>
   </div>
 <% end %>
+
+<%= @invitation.expired? ? 'Convite ja expirado' : 'Convite ja foi respondido' %>

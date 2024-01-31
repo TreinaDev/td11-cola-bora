@@ -19,6 +19,14 @@ class Invitation < ApplicationRecord
     super if pending?
   end
 
+  def accepted!
+    super if pending?
+  end
+
+  def declined!
+    super if pending?
+  end
+
   def validate_expiration_days
     return unless expiration_date
 

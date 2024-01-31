@@ -1,14 +1,16 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: %i[cancel show accept decline]
   before_action :set_project, only: %i[create cancel accept decline]
-  before_action :authorize_user, only: %i[create cancel]
-  before_action :authorize_cancel, only: %i[cancel]
+  before_action :authorize_leader, only: %i[create cancel]
+  before_action :authorize_invited, only: %i[show accept decline]
 
   def index
     @invitations = Invitation.where(profile_email: current_user.email).pending
   end
 
-  def show; end
+  def show
+    @invitation.validate_expiration_days
+  end
 
   def create
     create_invitation
@@ -19,22 +21,28 @@ class InvitationsController < ApplicationController
   end
 
   def cancel
-    @invitation.cancelled!
-
-    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
+    if @invitation.cancelled!
+      redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
+    else
+      redirect_to root_path, notice: t('.fail')
+    end
   end
 
   def accept
-    @invitation.accepted!
-
-    @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
-    redirect_to project_path(@project), notice: t('.success')
+    if @invitation.accepted!
+      @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
+      redirect_to project_path(@project), notice: t('.success')
+    else
+      redirect_to root_path, notice: t('.fail')
+    end
   end
 
   def decline
-    @invitation.declined!
-
-    redirect_to invitations_path, notice: t('.success')
+    if @invitation.declined!
+      redirect_to invitations_path, notice: t('.success')
+    else
+      redirect_to root_path, notice: t('.fail')
+    end
   end
 
   private
@@ -61,12 +69,12 @@ class InvitationsController < ApplicationController
                end
   end
 
-  def authorize_user
+  def authorize_leader
     redirect_to root_path unless @project.leader?(current_user)
   end
 
-  def authorize_cancel
-    redirect_to root_path unless @invitation.pending?
+  def authorize_invited
+    redirect_to root_path unless @invitation.profile_email == current_user.email
   end
 
   def invitation_error
