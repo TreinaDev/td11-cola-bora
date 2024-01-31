@@ -26,6 +26,12 @@
   </thead>
 
   <tbody class= "table-group-divider">
+    <% if @leader.blank? && @admins.blank? && @contributors.blank? %>
+      <tr class="table-warning text-center">
+        <td colspan="3" class="fw-semibold"><%= t(:no_results) %></td>
+      </tr>
+    <% end %>
+
     <% if @leader.present? %>
       <tr id="leader_row" class="table-success">
         <td><%= @leader.full_name %></td>
