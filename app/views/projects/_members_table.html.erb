@@ -1,9 +1,15 @@
-<%= form_with url: members_project_path(project), class: "d-flex row justify-content-end mb-3", method: :get do |f| %>
+<%= form_with url: members_project_path(project),
+              class: "d-flex row justify-content-end mb-3", 
+              id: "filter-form",
+              method: :get do |f| %>
   <div class="d-flex col-3 gap-2">
     <%= f.label :query, 
                 'Filtro',
                 class: 'd-none' %>
-    <%= f.select :query, [['Líder', 'leader'], ['Administradores', 'admin'], ['Colaboradores', 'contributor']], { prompt: 'Todos' }, { class: 'form-select form-select-sm' } %>
+    <%= f.select :query, 
+                 [['Líder', 'leader'], ['Administradores', 'admin'], ['Colaboradores', 'contributor']], 
+                 { include_blank: 'Todos', selected: params[:query] }, 
+                 { class: 'form-select form-select-sm' } %>
     <%= f.submit 'Filtrar', 
                   class: 'btn btn-sm btn-outline-secondary' %>
   </div>
