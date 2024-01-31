@@ -9,10 +9,8 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    # @job_categories = JobCategory.all
-    @job_categories = [JobCategory.new(id: 1, name: 'Editor de Video'),
-                        JobCategory.new(id: 2, name: 'Editor de Imagem'),
-                        JobCategory.new(id: 3, name: 'Desenvolvedor')]
+    @job_categories = JobCategory.all
+
     @project = current_user.projects.build
   end
 
@@ -28,10 +26,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @job_categories = []
-    @project_job_categories.each do |project_job_category|
-      @job_categories << JobCategory.find(project_job_category.job_category_id)
-    end
+    @job_categories = JobCategory.fetch_job_categories_by_project(@project_job_categories)
   end
 
   def edit; end

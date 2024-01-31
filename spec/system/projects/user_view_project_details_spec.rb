@@ -16,8 +16,8 @@ describe 'Usuário vê detalhes do projeto' do
 
     allow(JobCategory).to receive(:find).and_return(job_categories[0], job_categories[1])
 
-    create(:project_job_category, name: 'Desenvolvedor', job_category_id: 1, project:)
-    create(:project_job_category, name: 'RH', job_category_id: 2, project:)
+    create(:project_job_category, job_category_id: 1, project:)
+    create(:project_job_category, job_category_id: 2, project:)
 
     create(:project_job_category, project:, job_category_id: 1)
     create(:project_job_category, project:, job_category_id: 2)
@@ -86,7 +86,7 @@ describe 'Usuário vê detalhes do projeto' do
     project = create :project, user: deco, title: 'Padrão', description: 'Descrição de um projeto padrão para testes',
                                category: 'Teste'
 
-    create(:project_job_category, name: 'Desenvolvedor', project:)
+    create(:project_job_category, project:)
 
     visit project_path(project)
 

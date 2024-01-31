@@ -1,14 +1,24 @@
 class JobCategory
-  attr_accessor :id, :name
+  attr_accessor :id, :name, :description
 
-  def initialize(id:, name:)
+  def initialize(id:, name:, description: nil)
     @id = id
     @name = name
+    @description = description
   end
 
   def self.all
     url = 'http://localhost:8000/api/v1/job_categories'
     fetch_job_categories(url)
+  end
+
+  def self.fetch_job_categories_by_project(project_job_categories)
+    job_categories = []
+    project_job_categories.each do |project_job_category|
+      job_categories << JobCategory.find(project_job_category.job_category_id)
+    end
+
+    job_categories
   end
 
   def self.find(id)
@@ -18,8 +28,7 @@ class JobCategory
     return {} unless response.success?
 
     job_category_json = JSON.parse(response.body, symbolize_names: true)[:data]
-    job_category = new_job_category(job_category_json)
-    job_category.build_categories(job_category_json)
+    new_job_category(job_category_json)
   rescue Faraday::ConnectionFailed
     {}
   end
@@ -42,7 +51,7 @@ class JobCategory
 
   def self.build_categories(job_categories_json)
     job_categories_json.map do |category|
-      new(id: category[:id], name: category[:name])
+      new(id: category[:id], name: category[:name], description: category[:description])
     end
   end
 

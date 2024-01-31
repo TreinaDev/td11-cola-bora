@@ -79,6 +79,7 @@ RSpec.describe PortfoliorrrProfile, type: :model do
       expect(portfoliorrr_profile.name).to eq 'Rodolfo'
       expect(portfoliorrr_profile.email).to eq 'rodolfo@email.com'
       expect(portfoliorrr_profile.job_categories[0].name).to eq 'Editor de Video'
+      expect(portfoliorrr_profile.job_categories[0].description).to eq 'Canal do Youtube'
       expect(portfoliorrr_profile.cover_letter).to eq 'Sou editor de vídeos em um canal do Youtube.'
     end
 
