@@ -13,8 +13,8 @@ describe 'Colaborador filtra lista de membros' do
       contributor = create(:user, cpf: '979.612.040-24', email: 'colaborador@email.com')
       contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
       project.user_roles.create([{ user: admin1, role: :admin },
-                                { user: admin2, role: :admin },
-                                { user: contributor }])
+                                 { user: admin2, role: :admin },
+                                 { user: contributor }])
 
       login_as contributor, scope: :user
       visit members_project_path(project)
@@ -66,8 +66,8 @@ describe 'Colaborador filtra lista de membros' do
       contributor2 = create(:user, cpf: '996.596.510-23', email: 'colaborador2@email.com')
       contributor2.profile.update!(first_name: 'Maria', last_name: 'Costa')
       project.user_roles.create([{ user: admin, role: :admin },
-                                { user: contributor },
-                                { user: contributor2 }])
+                                 { user: contributor },
+                                 { user: contributor2 }])
 
       login_as admin, scope: :user
       visit members_project_path project
