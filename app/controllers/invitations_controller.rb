@@ -79,7 +79,7 @@ class InvitationsController < ApplicationController
 
   def invitation_error
     return t('.fail') if @invitation.expiration_days&.negative?
-    return t('.already_member') if @invitation.project.member?(current_user)
+    return t('.already_member') if @invitation.project.member?(@invitation.invitation_user)
 
     t('.pending_invitation')
   end

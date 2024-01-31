@@ -33,6 +33,10 @@ class Invitation < ApplicationRecord
     expired! if pending? && (Time.zone.today.after? expiration_date)
   end
 
+  def invitation_user
+    User.find_by(email: profile_email)
+  end
+
   private
 
   def days_to_date
@@ -49,9 +53,5 @@ class Invitation < ApplicationRecord
     return unless project.member?(invitation_user)
 
     errors.add(:base, I18n.t('invitations.already_member'))
-  end
-
-  def invitation_user
-    User.find_by(email: profile_email)
   end
 end
