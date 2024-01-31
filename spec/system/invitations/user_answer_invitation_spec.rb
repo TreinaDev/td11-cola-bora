@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário reponde convite' do
-  it 'positivamente' do
+  it 'como aceito' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
@@ -29,7 +29,7 @@ describe 'Usuário reponde convite' do
     expect(current_path).to eq project_path second_project
   end
 
-  it 'negativamente' do
+  it 'como recusado' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',

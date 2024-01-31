@@ -12,7 +12,6 @@ class InvitationsController < ApplicationController
 
   def create
     create_invitation
-
     flash[:alert] = invitation_error unless @invitation.save
     flash[:notice] = t('.success') if @invitation.save
 
@@ -72,6 +71,7 @@ class InvitationsController < ApplicationController
 
   def invitation_error
     return t('.fail') if @invitation.expiration_days&.negative?
+    return t('.already_member') if @invitation.project.member?(current_user)
 
     t('.pending_invitation')
   end

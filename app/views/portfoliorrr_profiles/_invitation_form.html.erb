@@ -13,8 +13,16 @@
 
 <% if current_invitation.present? %>
   <p><%= I18n.t('invitations.create.pending_invitation') %></p>
-  <p><%= Invitation.human_attribute_name :message %>: <%= current_invitation.message  %></p>
-  <p><%= Invitation.human_attribute_name :expiration_date %>: <%= I18n.l(current_invitation.expiration_date)  %></p>
+  
+  <% unless current_invitation.message.blank? %>
+    <p><%= Invitation.human_attribute_name :message %>: <%= current_invitation.message  %></p>
+  <% end %>
+
+  <p>
+    <%= Invitation.human_attribute_name :expiration_date %>: 
+    <%= current_invitation.expiration_date ? l(current_invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
+  </p>
+
   <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id), method: :patch, class: 'btn btn-danger' %>
 <% else %>
   <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
