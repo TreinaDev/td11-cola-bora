@@ -27,7 +27,7 @@ describe 'Lider revoga convite' do
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
-
+    joao.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
     create(:invitation, project:, profile_id: joao.id, status: :cancelled)

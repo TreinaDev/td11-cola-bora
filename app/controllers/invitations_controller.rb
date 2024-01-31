@@ -1,11 +1,12 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!, only: %i[create cancel]
-  before_action :create_invitation, only: %i[create]
   before_action :set_invitation, only: %i[cancel]
+  before_action :set_project, only: %i[create cancel]
   before_action :authorize_user, only: %i[create cancel]
   before_action :authorize_cancel, only: %i[cancel]
 
   def create
+    create_invitation
     if @invitation.save
       return redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
                          notice: t('.success')
@@ -24,7 +25,7 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.require(:invitation).permit(:expiration_days)
+    params.require(:invitation).permit(:expiration_days, :message, :profile_email)
   end
 
   def create_invitation
@@ -37,8 +38,16 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find(params[:id])
   end
 
+  def set_project
+    @project = if params[:project_id]
+                 Project.find(params[:project_id])
+               else
+                 @invitation.project
+               end
+  end
+
   def authorize_user
-    redirect_to root_path unless current_user == @invitation.project.user
+    redirect_to root_path unless @project.leader?(current_user)
   end
 
   def authorize_cancel

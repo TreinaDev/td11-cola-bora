@@ -10,6 +10,16 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.errors[:expiration_days]).to include 'deve ser maior ou igual a 0'
       end
     end
+
+    context 'presence' do
+      it 'Email não pode ficar em branco' do
+        invitation = FactoryBot.build(:invitation, profile_email: '')
+
+        invitation.valid?
+
+        expect(invitation.errors[:profile_email]).to include 'não pode ficar em branco'
+      end
+    end
   end
 
   describe '#cancelled?' do
