@@ -17,7 +17,7 @@ describe 'Colaborador filtra lista de membros' do
 
     login_as contributor, scope: :user
     visit members_project_path(project)
-    select 'Administradores', from: 'Filtro'
+    select 'Administradores', from: :query
     click_on 'Filtrar'
 
     within 'table' do
@@ -34,7 +34,7 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).not_to have_content 'Colaborador'
     end
     within '#filter-form' do
-      expect(page).to have_select 'Filtro', selected: 'Administradores'
+      expect(page).to have_select :query, selected: 'Administradores'
     end
   end
 
@@ -54,7 +54,7 @@ describe 'Colaborador filtra lista de membros' do
 
     login_as admin, scope: :user
     visit members_project_path project
-    select 'Colaboradores', from: 'Filtro'
+    select 'Colaboradores', from: :query
     click_on 'Filtrar'
 
     within 'table' do
@@ -71,7 +71,7 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).not_to have_content 'Administrador'
     end
     within '#filter-form' do
-      expect(page).to have_select 'Filtro', selected: 'Colaboradores'
+      expect(page).to have_select :query, selected: 'Colaboradores'
     end
   end
 
@@ -91,7 +91,7 @@ describe 'Colaborador filtra lista de membros' do
 
     login_as contributor, scope: :user
     visit members_project_path project
-    select 'Líder', from: 'Filtro'
+    select 'Líder', from: :query
     click_on 'Filtrar'
 
     within 'table' do
@@ -108,7 +108,7 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).not_to have_content 'Administrador'
     end
     within '#filter-form' do
-      expect(page).to have_select 'Filtro', selected: 'Líder'
+      expect(page).to have_select :query, selected: 'Líder'
     end
   end
 
@@ -128,9 +128,9 @@ describe 'Colaborador filtra lista de membros' do
 
     login_as contributor, scope: :user
     visit members_project_path project
-    select 'Administradores', from: 'Filtro'
+    select 'Administradores', from: :query
     click_on 'Filtrar'
-    select 'Todos', from: 'Filtro'
+    select 'Todos', from: :query
     click_on 'Filtrar'
 
     within 'table' do
@@ -147,7 +147,7 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).to have_content 'Colaborador'
     end
     within '#filter-form' do
-      expect(page).to have_select 'Filtro', selected: 'Todos'
+      expect(page).to have_select :query, selected: 'Todos'
     end
   end
 end

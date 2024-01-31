@@ -11,6 +11,10 @@ pt-BR:
         project: 'Projeto'
       user_role/role:
         leader: Líder
-        admin: Administrador
-        contributor: Colaborador
+        admin:
+          one: Administrador
+          other: Administradores
+        contributor:
+          one: Colaborador
+          other: Colaboradores
   one_leader: 'aceita apenas 1 líder'

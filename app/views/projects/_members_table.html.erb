@@ -3,14 +3,15 @@
               id: "filter-form",
               method: :get do |f| %>
   <div class="d-flex col-3 gap-2">
-    <%= f.label :query, 
-                'Filtro',
+    <%= f.label :query,
                 class: 'd-none' %>
     <%= f.select :query, 
-                 [['Líder', 'leader'], ['Administradores', 'admin'], ['Colaboradores', 'contributor']], 
-                 { include_blank: 'Todos', selected: params[:query] }, 
+                 [[UserRole.human_attribute_name('role.leader'), :leader],
+                  [UserRole.human_attribute_name('role.admin', count: 2), :admin],
+                  [UserRole.human_attribute_name('role.contributor', count: 2), :contributor]], 
+                 { include_blank: t(:all), selected: params[:query] }, 
                  { class: 'form-select form-select-sm' } %>
-    <%= f.submit 'Filtrar', 
+    <%= f.submit t(:filter_btn), 
                   class: 'btn btn-sm btn-outline-secondary' %>
   </div>
 <% end %>

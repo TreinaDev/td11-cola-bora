@@ -119,4 +119,13 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
       expect(page).to have_content 'Você não é um colaborador desse projeto'
     end
   end
+
+  it 'e não está autenticado' do
+    project = create :project
+
+    visit members_project_path(project)
+
+    expect(page).to have_current_path new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
 end
