@@ -14,7 +14,8 @@ misty.profile.update(first_name: 'Mysty', last_name: '',
                             work_experience: 'Treinadora Pokemon de agua', education: 'Escola Pokemon')
 
 
-FactoryBot.create(:project, user: ash)
+ash_project = FactoryBot.create(:project, user: ash)
+ash_project2 = FactoryBot.create(:project, user: ash)
 pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio',
                                     description: 'Me tornar líder do estádio de pedra.',
                                     category: 'Auto Ajuda')
@@ -72,3 +73,7 @@ FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_b
 FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_by(user: brock, project: pokemon_project),
                             title:'Daily', description:'', datetime: 5.days.from_now, duration: 15,
                             address: 'https://meet.google.com/')
+
+FactoryBot.create(:invitation, project: ash_project, profile_email: brock.email)
+
+FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email)

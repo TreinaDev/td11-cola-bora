@@ -26,4 +26,6 @@
   </div>
 <% end %>
 
-<%= @invitation.expired? ? 'Convite ja expirado' : 'Convite ja foi respondido' %>
+<%= 'Convite ja expirado' if @invitation.expired? %>
+<%= 'Convite aceito'  if @invitation.accepted? %>
+<%= 'Convite recusado'  if @invitation.declined? %>
