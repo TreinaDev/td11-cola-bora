@@ -23,7 +23,8 @@
     <%= current_invitation.expiration_date ? l(current_invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
   </p>
 
-  <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id), method: :patch, class: 'btn btn-danger' %>
+  <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
+                method: :patch, class: 'btn btn-danger' %>
 <% else %>
   <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
     <div class="mb-3">

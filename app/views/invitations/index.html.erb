@@ -16,7 +16,8 @@
                 <%= invitation.message %>
               </p>
               <p class="card-text">
-                <%= Invitation.human_attribute_name :expiration_date %>: <%= I18n.l(invitation.expiration_date) %>
+                <%= Invitation.human_attribute_name :expiration_date %>: 
+                <%= invitation.expiration_date ? l(invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
               </p>
             </div>
           </div>

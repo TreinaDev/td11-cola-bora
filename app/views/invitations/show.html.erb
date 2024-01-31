@@ -7,12 +7,14 @@
   <%= @invitation.project.category %>
 </p>
 <p>
+  <% unless @invitation.message.blank? %>
   <strong><%= Invitation.human_attribute_name :message %>: </strong>
   <%= @invitation.message %>
+  <% end %>
 </p>
 <p>
   <strong><%= Invitation.human_attribute_name :expiration_date %>: </strong>
-  <%= l(@invitation.expiration_date) %>
+  <%= @invitation.expiration_date ? l(@invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
 </p>
 
 <% if @invitation.pending? %>

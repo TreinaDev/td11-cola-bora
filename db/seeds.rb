@@ -74,6 +74,8 @@ FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_b
                             title:'Daily', description:'', datetime: 5.days.from_now, duration: 15,
                             address: 'https://meet.google.com/')
 
-FactoryBot.create(:invitation, project: ash_project, profile_email: brock.email)
+FactoryBot.create(:invitation, project: ash_project, profile_email: brock.email,
+                               message: 'Adoraria que fizesse parte da minha equipe')
 
-FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email)
+FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email,
+                               expiration_days: '')
