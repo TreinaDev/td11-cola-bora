@@ -5,7 +5,8 @@ class UserRolesController < ApplicationController
   def edit; end
 
   def update
-    @user_role.admin!
+    return unless @user_role.update(role: params[:user_role][:role])
+
     redirect_to members_project_path(@project), notice: t('.success')
   end
 

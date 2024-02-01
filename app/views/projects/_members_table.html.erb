@@ -50,8 +50,8 @@
         <td><%= admin.user.email %></td>
         <td><%= UserRole.human_attribute_name 'role.admin' %></td>
         <% if project.leader? current_user %>
-          <td><%= link_to t(:manage_member_btn), 
-                          root_path, 
+          <td><%= link_to t(:manage_member_btn),
+                          edit_project_user_role_path(project, admin),
                           class: 'btn btn-sm btn-outline-primary' %></td>
         <% end %>
       </tr>
