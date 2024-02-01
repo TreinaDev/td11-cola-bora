@@ -18,13 +18,29 @@ Retorna a lista de todos os projetos cadastradas. (Status: 200):
     "id": 1,
     "title": "Projeto Master",
     "description": "Principal projeto criado",
-    "category": "Video"
+    "category": "Video",
+    "project_job_categories": [
+      {
+        "job_category_id": 1
+      },
+      {
+        "job_category_id": 2
+      }
+    ]
   },
   {
     "id": 2,
     "title": "Projeto Website",
     "description": "Um site de jogos",
-    "category": "Programação"
+    "category": "Programação",
+    "project_job_categories": [
+      {
+        "job_category_id": 1
+      },
+      {
+        "job_category_id": 2
+      }
+    ]
   }
 ]
 ```
