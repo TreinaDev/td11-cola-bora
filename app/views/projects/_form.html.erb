@@ -23,12 +23,18 @@
     <%= f.text_field :category, class: 'form-control' %>
   </div>
   <div class="mb-3" id="project_job_category"> 
+    <p><%= ProjectJobCategory.model_name.human(count: 2) %></p>
     <% if @job_categories&.any? %>
       <% @job_categories.each do |job_category| %>
-        <%= f.check_box :project_job_category_ids, { multiple: true },job_category.id, nil %>
-        <%= f.label "project_job_category_ids_#{job_category.id}", job_category.name %>
+        <p>
+          <%= f.check_box :project_job_category_ids, { multiple: true },job_category.id, nil %>
+          <%= f.label "project_job_category_ids_#{job_category.id}", job_category.name %>
+        </p>
       <% end %>
     <% else %>
+      <div style="font-size: 14px;">
+        <%= t('project_job_categories.is_empty') %>
+      </div>
     <% end %>
   </div>
 

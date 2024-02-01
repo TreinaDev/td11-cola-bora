@@ -33,6 +33,12 @@ class JobCategory
     {}
   end
 
+  def self.build_categories(job_categories_json)
+    job_categories_json.map do |category|
+      new(id: category[:id], name: category[:name], description: category[:description])
+    end
+  end
+
   def self.new_job_category(job_category_json)
     new(id: job_category_json[:id],
         name: job_category_json[:name])
@@ -47,12 +53,6 @@ class JobCategory
     json.map { |job_category| new_job_category(job_category) }
   rescue Faraday::ConnectionFailed
     []
-  end
-
-  def self.build_categories(job_categories_json)
-    job_categories_json.map do |category|
-      new(id: category[:id], name: category[:name], description: category[:description])
-    end
   end
 
   private_class_method :fetch_job_categories, :new_job_category

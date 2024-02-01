@@ -10,7 +10,6 @@ describe 'Usuário cria um projeto' do
 
   it 'a partir da home com sucesso' do
     user = create :user, email: 'usuario@email.com'
-    create(:profile, user:)
     job_categories = [JobCategory.new(id: 1, name: 'Editor de Video'),
                       JobCategory.new(id: 2, name: 'Editor de Imagem'),
                       JobCategory.new(id: 3, name: 'Desenvolvedor')]
@@ -45,9 +44,27 @@ describe 'Usuário cria um projeto' do
     expect(project.project_job_categories.count).to eq 2
   end
 
+  it 'a partir da home com sucesso sem marcar nenhum checkbox' do
+    user = create :user, email: 'usuario@email.com'
+    create(:profile, user:)
+
+    login_as(user)
+    visit(root_path)
+    click_on 'Criar Projeto'
+    fill_in 'Título', with: 'Mewtwo'
+    fill_in 'Descrição', with: 'Um projeto para criar o pokémon mais poderoso.'
+    fill_in 'Categoria', with: 'Jogo'
+    click_on 'Salvar Projeto'
+
+    expect(page).to have_content 'Projeto: Mewtwo'
+    expect(page).to have_content 'Ainda não há categoria de trabalho'
+    expect(page).to have_content 'Projeto criado com sucesso.'
+    project = Project.last
+    expect(project.project_job_categories.count).to eq 0
+  end
+
   it 'com campos vazios' do
     user = create :user
-    create(:profile, user:)
 
     login_as(user)
     visit(new_project_path)
@@ -64,12 +81,18 @@ describe 'Usuário cria um projeto' do
     expect(page).to have_content 'Categoria não pode ficar em branco'
   end
 
-  xit 'e não há retorno de categorias de trabalho da api' do
+  it 'e não há retorno de categorias de trabalho da api' do
     user = create :user, email: 'usuario@email.com'
+
+    job_categories = []
+
+    allow(JobCategory).to receive(:all).and_return(job_categories)
+
+    allow(JobCategory).to receive(:find).and_return('')
 
     login_as(user)
     visit(new_project_path)
 
-    expect(page).to have_content 'Sem categorias de trabalho para adicionar, retorne depois.'
+    expect(page).to have_content 'Sem categorias de trabalho para adicionar'
   end
 end
