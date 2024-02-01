@@ -8,8 +8,8 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
       project = create(:project, title: 'Projeto de listagem', user: leader)
       admin = create(:user, cpf: '040.363.060-65', email: 'admin@email.com')
       admin.profile.update!(first_name: 'Admin', last_name: 'Silva')
-      member1 = create(:user, cpf: '367.767.000-44', email: 'contribuidor@email.com')
-      member1.profile.update!(first_name: 'Contribuidor', last_name: 'Um')
+      member1 = create(:user, cpf: '367.767.000-44', email: 'nome_aleatorio@email.com')
+      member1.profile.update!(first_name: 'Nome', last_name: 'Aleatório')
       member2 = create(:user, cpf: '434.508.190-46', email: 'membro@email.com')
       member2.profile.update!(first_name: 'Membro', last_name: 'Dois')
       member3 = create(:user, cpf: '527.181.910-82', email: 'email_como_nome@email.com')
@@ -38,13 +38,13 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Admin Silva'
         expect(page).to have_content 'admin@email.com'
         expect(page).to have_content 'Administrador'
-        expect(page).to have_content 'Contribuidor Um'
-        expect(page).to have_content 'contribuidor@email.com'
+        expect(page).to have_content 'Nome Aleatório'
+        expect(page).to have_content 'nome_aleatorio@email.com'
         expect(page).to have_content 'Membro Dois'
         expect(page).to have_content 'membro@email.com'
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
-        expect(page).to have_content 'Colaborador', count: 3
+        expect(page).to have_content 'Contribuidor', count: 3
       end
     end
   end
@@ -56,8 +56,8 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
       project = create(:project, title: 'Projeto de listagem', user: leader)
       admin = create(:user, cpf: '040.363.060-65', email: 'admin@email.com')
       admin.profile.update!(first_name: 'Admin', last_name: 'Silva')
-      member1 = create(:user, cpf: '367.767.000-44', email: 'contribuidor@email.com')
-      member1.profile.update!(first_name: 'Contribuidor', last_name: 'Um')
+      member1 = create(:user, cpf: '367.767.000-44', email: 'nome_aleatorio@email.com')
+      member1.profile.update!(first_name: 'Nome', last_name: 'Aleatório')
       member2 = create(:user, cpf: '434.508.190-46', email: 'membro@email.com')
       member2.profile.update!(first_name: 'Membro', last_name: 'Dois')
       member3 = create(:user, cpf: '527.181.910-82', email: 'email_como_nome@email.com')
@@ -82,13 +82,13 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Admin Silva'
         expect(page).to have_content 'admin@email.com'
         expect(page).to have_content 'Administrador'
-        expect(page).to have_content 'Contribuidor Um'
-        expect(page).to have_content 'contribuidor@email.com'
+        expect(page).to have_content 'Nome Aleatório'
+        expect(page).to have_content 'nome_aleatorio@email.com'
         expect(page).to have_content 'Membro Dois'
         expect(page).to have_content 'membro@email.com'
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
-        expect(page).to have_content 'Colaborador', count: 3
+        expect(page).to have_content 'Contribuidor', count: 3
       end
     end
   end

@@ -10,7 +10,7 @@ describe 'Colaborador filtra lista de membros' do
       admin1.profile.update!(first_name: 'João', last_name: 'Silva')
       admin2 = create(:user, cpf: '996.596.510-23', email: 'admin2@email.com')
       admin2.profile.update!(first_name: 'Maria', last_name: 'Costa')
-      contributor = create(:user, cpf: '979.612.040-24', email: 'colaborador@email.com')
+      contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
       contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
       project.user_roles.create([{ user: admin1, role: :admin },
                                  { user: admin2, role: :admin },
@@ -30,9 +30,9 @@ describe 'Colaborador filtra lista de membros' do
         expect(page).not_to have_content 'PH Meneses'
         expect(page).not_to have_content 'leader@email.com'
         expect(page).not_to have_content 'Mateus Cavedini'
-        expect(page).not_to have_content 'colaborador@email.com'
+        expect(page).not_to have_content 'contribuidor@email.com'
         expect(page).not_to have_content 'Líder'
-        expect(page).not_to have_content 'Colaborador'
+        expect(page).not_to have_content 'Contribuidor'
       end
       within '#filter-form' do
         expect(page).to have_select :query, selected: 'Administradores'
@@ -54,16 +54,16 @@ describe 'Colaborador filtra lista de membros' do
     end
   end
 
-  context 'por colaboradores' do
-    it 'e vê os colaboradores do projeto' do
+  context 'por contribuidores' do
+    it 'e vê os contribuidores do projeto' do
       leader = create(:user, cpf: '515.185.620-00', email: 'leader@email.com')
       leader.profile.update!(first_name: 'PH', last_name: 'Meneses')
       project = create(:project, user: leader)
       admin = create(:user, cpf: '485.836.250-77', email: 'admin@email.com')
       admin.profile.update!(first_name: 'João', last_name: 'Silva')
-      contributor = create(:user, cpf: '979.612.040-24', email: 'colaborador@email.com')
+      contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
       contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
-      contributor2 = create(:user, cpf: '996.596.510-23', email: 'colaborador2@email.com')
+      contributor2 = create(:user, cpf: '996.596.510-23', email: 'contribuidor2@email.com')
       contributor2.profile.update!(first_name: 'Maria', last_name: 'Costa')
       project.user_roles.create([{ user: admin, role: :admin },
                                  { user: contributor },
@@ -71,15 +71,15 @@ describe 'Colaborador filtra lista de membros' do
 
       login_as admin, scope: :user
       visit members_project_path project
-      select 'Colaboradores', from: :query
+      select 'Contribuidores', from: :query
       click_on 'Filtrar'
 
       within 'table' do
         expect(page).to have_content 'Mateus Cavedini'
-        expect(page).to have_content 'colaborador@email.com'
+        expect(page).to have_content 'contribuidor@email.com'
         expect(page).to have_content 'Maria Costa'
-        expect(page).to have_content 'colaborador2@email.com'
-        expect(page).to have_content 'Colaborador', count: 2
+        expect(page).to have_content 'contribuidor2@email.com'
+        expect(page).to have_content 'Contribuidor', count: 2
         expect(page).not_to have_content 'João Silva'
         expect(page).not_to have_content 'admin@email.com'
         expect(page).not_to have_content 'PH Meneses'
@@ -88,11 +88,11 @@ describe 'Colaborador filtra lista de membros' do
         expect(page).not_to have_content 'Administrador'
       end
       within '#filter-form' do
-        expect(page).to have_select :query, selected: 'Colaboradores'
+        expect(page).to have_select :query, selected: 'Contribuidores'
       end
     end
 
-    it 'e não existem colaboradores no projeto' do
+    it 'e não existem contribuidores no projeto' do
       leader = create(:user)
       project = create(:project, user: leader)
       admin = create(:user, cpf: '979.612.040-24')
@@ -100,7 +100,7 @@ describe 'Colaborador filtra lista de membros' do
 
       login_as admin, scope: :user
       visit members_project_path(project)
-      select 'Colaboradores', from: :query
+      select 'Contribuidores', from: :query
       click_on 'Filtrar'
 
       expect(page).to have_content 'Nenhum resultado encontrado'
@@ -113,9 +113,9 @@ describe 'Colaborador filtra lista de membros' do
     project = create(:project, user: leader)
     admin = create(:user, cpf: '485.836.250-77', email: 'admin@email.com')
     admin.profile.update!(first_name: 'João', last_name: 'Silva')
-    contributor = create(:user, cpf: '979.612.040-24', email: 'colaborador@email.com')
+    contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
     contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
-    contributor2 = create(:user, cpf: '996.596.510-23', email: 'colaborador2@email.com')
+    contributor2 = create(:user, cpf: '996.596.510-23', email: 'contribuidor2@email.com')
     contributor2.profile.update!(first_name: 'Maria', last_name: 'Costa')
     project.user_roles.create([{ user: admin, role: :admin },
                                { user: contributor },
@@ -133,10 +133,10 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).not_to have_content 'João Silva'
       expect(page).not_to have_content 'admin@email.com'
       expect(page).not_to have_content 'Mateus Cavedini'
-      expect(page).not_to have_content 'colaborador@email.com'
+      expect(page).not_to have_content 'contribuidor@email.com'
       expect(page).not_to have_content 'Maria Costa'
-      expect(page).not_to have_content 'colaborador2@email.com'
-      expect(page).not_to have_content 'Colaborador'
+      expect(page).not_to have_content 'contribuidor2@email.com'
+      expect(page).not_to have_content 'Contribuidor'
       expect(page).not_to have_content 'Administrador'
     end
     within '#filter-form' do
@@ -152,7 +152,7 @@ describe 'Colaborador filtra lista de membros' do
     admin1.profile.update!(first_name: 'João', last_name: 'Silva')
     admin2 = create(:user, cpf: '996.596.510-23', email: 'admin2@email.com')
     admin2.profile.update!(first_name: 'Maria', last_name: 'Costa')
-    contributor = create(:user, cpf: '979.612.040-24', email: 'colaborador@email.com')
+    contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
     contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
     project.user_roles.create([{ user: admin1, role: :admin },
                                { user: admin2, role: :admin },
@@ -173,10 +173,10 @@ describe 'Colaborador filtra lista de membros' do
       expect(page).to have_content 'Maria Costa'
       expect(page).to have_content 'admin2@email.com'
       expect(page).to have_content 'Mateus Cavedini'
-      expect(page).to have_content 'colaborador@email.com'
+      expect(page).to have_content 'contribuidor@email.com'
       expect(page).to have_content 'Líder'
       expect(page).to have_content 'Administrador', count: 2
-      expect(page).to have_content 'Colaborador'
+      expect(page).to have_content 'Contribuidor'
     end
     within '#filter-form' do
       expect(page).to have_select :query, selected: 'Todos'

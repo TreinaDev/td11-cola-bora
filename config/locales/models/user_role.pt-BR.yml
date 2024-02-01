@@ -15,6 +15,6 @@ pt-BR:
           one: Administrador
           other: Administradores
         contributor:
-          one: Colaborador
-          other: Colaboradores
+          one: Contribuidor
+          other: Contribuidores
   one_leader: 'aceita apenas 1 líder'
