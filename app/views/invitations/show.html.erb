@@ -28,6 +28,7 @@
   </div>
 <% end %>
 
-<%= 'Convite ja expirado' if @invitation.expired? %>
-<%= 'Convite aceito'  if @invitation.accepted? %>
-<%= 'Convite recusado'  if @invitation.declined? %>
+<%= t('invitations.cancelled') if @invitation.cancelled? %>
+<%= t('invitations.expired') if @invitation.expired? %>
+<%= t('invitations.accepted')  if @invitation.accepted? %>
+<%= t('invitations.declined')  if @invitation.declined? %>

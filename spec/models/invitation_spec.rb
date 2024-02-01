@@ -12,7 +12,7 @@ RSpec.describe Invitation, type: :model do
     end
 
     context 'presence' do
-      it 'Email não pode ficar em branco' do
+      it 'email não pode ficar em branco' do
         invitation = FactoryBot.build(:invitation, profile_email: '')
 
         invitation.valid?
@@ -21,7 +21,7 @@ RSpec.describe Invitation, type: :model do
       end
     end
 
-    context 'check_pending_invitation' do
+    context '#check_pending_invitation' do
       it 'retorna false se a combinação ja existe' do
         project = create :project
         profile_id = 123
@@ -48,7 +48,7 @@ RSpec.describe Invitation, type: :model do
       end
     end
 
-    context 'check_member' do
+    context '#check_member' do
       it 'falso se usuário já for membro do projeto' do
         leader = create(:user, cpf: '000.000.001-91')
         project = create(:project, user: leader)
@@ -62,7 +62,7 @@ RSpec.describe Invitation, type: :model do
       it 'verdadeiro se usuário não for membro do projeto' do
         leader = create(:user, cpf: '000.000.001-91')
         project = create(:project, user: leader)
-        second_project = create(:project, user: leader, title:'Second Project')
+        second_project = create(:project, user: leader, title: 'Second Project')
         user = create(:user, email: 'joão@email.com')
         create(:invitation, project: second_project, profile_email: user.email)
 

@@ -23,7 +23,7 @@ describe 'Usuário responde a um convite' do
     patch(accept_invitation_path(invitation))
 
     expect(invitation.reload.status).to eq 'cancelled'
-    expect(flash[:notice]).to eq 'Não foi possível aceitar o convite'
+    expect(flash[:alert]).to eq 'Não foi possível aceitar o convite'
     expect(response).to redirect_to root_path
   end
 
@@ -36,7 +36,7 @@ describe 'Usuário responde a um convite' do
     patch(decline_invitation_path(invitation))
 
     expect(invitation.reload.status).to eq 'cancelled'
-    expect(flash[:notice]).to eq 'Não foi possível recusar o convite'
+    expect(flash[:alert]).to eq 'Não foi possível recusar o convite'
     expect(response).to redirect_to root_path
   end
 end

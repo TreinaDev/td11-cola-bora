@@ -24,7 +24,7 @@ class InvitationsController < ApplicationController
     if @invitation.cancelled!
       redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
     else
-      redirect_to root_path, notice: t('.fail')
+      redirect_to root_path, alert: t('.fail')
     end
   end
 
@@ -33,7 +33,7 @@ class InvitationsController < ApplicationController
       @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
       redirect_to project_path(@project), notice: t('.success')
     else
-      redirect_to root_path, notice: t('.fail')
+      redirect_to root_path, alert: t('.fail')
     end
   end
 
@@ -41,7 +41,7 @@ class InvitationsController < ApplicationController
     if @invitation.declined!
       redirect_to invitations_path, notice: t('.success')
     else
-      redirect_to root_path, notice: t('.fail')
+      redirect_to root_path, alert: t('.fail')
     end
   end
 

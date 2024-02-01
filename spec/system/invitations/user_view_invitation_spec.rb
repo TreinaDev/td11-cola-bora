@@ -27,6 +27,7 @@ describe 'Usuário vê convites' do
     expect(page).to have_content 'Aplicação WEB'
     expect(page).to have_content "Validade: #{I18n.l 5.days.from_now.to_date}"
   end
+
   it 'e não tem nenhum convite' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'

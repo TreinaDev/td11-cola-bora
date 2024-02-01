@@ -6,7 +6,6 @@ describe 'Usuário reponde convite' do
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
                                       description: 'Um projeto sobre masterizar tudo que é possível'
-    create :project, user: owner, title: 'Projeto'
     user = create :user, cpf: '000.000.001-91'
     profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
     invitation = create :invitation, profile_id: profile.id, project:, profile_email: user.email,
@@ -34,7 +33,6 @@ describe 'Usuário reponde convite' do
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
                                       description: 'Um projeto sobre masterizar tudo que é possível'
-    create :project, user: owner, title: 'Projeto'
     user = create :user, cpf: '000.000.001-91'
     profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
     invitation = create :invitation, profile_id: profile.id, project:, profile_email: user.email,
