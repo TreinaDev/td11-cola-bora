@@ -34,8 +34,8 @@ describe 'Usuário quer enviar convite' do
                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     create(:invitation, project:, profile_id: joao.id, profile_email: joao.email,
-                                  message: 'Adoraria que fizesse parte do meu projeto',
-                                  expiration_days: 10, status: :pending)
+                        message: 'Adoraria que fizesse parte do meu projeto',
+                        expiration_days: 10, status: :pending)
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
     login_as user
@@ -117,6 +117,9 @@ describe 'Usuário quer enviar convite' do
   end
 
   it 'e não preenche nada' do
+    json = { data: { id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    allow(Faraday).to receive(:post).and_return(fake_response)
     owner = create(:user)
     project = create(:project, user: owner, title: 'Meu novo projeto')
     random_user_id = 123
@@ -134,7 +137,7 @@ describe 'Usuário quer enviar convite' do
 
     expect(page).to have_content 'Convite em processamento!'
     expect(project.invitations.last.profile_email).to eq 'joao@email.com'
-    expect(project.invitations.last.processing?).to eq true
+    expect(project.invitations.last.pending?).to eq true
   end
 
   it 'e não preenche nada' do
@@ -143,10 +146,10 @@ describe 'Usuário quer enviar convite' do
     random_user_id = 123
     create(:invitation, project:, profile_id: random_user_id, profile_email: 'random@email.com')
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                      job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     create(:invitation, project:, profile_id: joao.id, profile_email: joao.email,
-                                  message: '', expiration_days: '', status: :pending)
+                        message: '', expiration_days: '', status: :pending)
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
     login_as owner

@@ -27,11 +27,12 @@ describe 'Usuário tenta atualizar status do convite' do
       expect(response).to redirect_to root_path
       expect(invitation.reload.status).to eq 'expired'
     end
-    it 'de pendente para cancelado' do
+
+    it 'de processando para cancelado' do
       leader = create(:user)
       project = create(:project, user: leader)
       invited = create(:user, cpf: '942.275.100-40')
-      invitation = create(:invitation, status: :pending, profile_email: invited.email, project:)
+      invitation = create(:invitation, status: :processing, profile_email: invited.email, project:)
 
       login_as(leader)
       patch cancel_invitation_path(invitation.id)
@@ -40,6 +41,7 @@ describe 'Usuário tenta atualizar status do convite' do
       expect(response).to redirect_to project_portfoliorrr_profile_path(invitation.project, invitation.profile_id)
     end
   end
+
   it 'para cancelado, mas não é o lider do projeto' do
     leader = create(:user)
     project = create(:project, user: leader)

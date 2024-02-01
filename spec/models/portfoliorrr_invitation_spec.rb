@@ -2,18 +2,51 @@ require 'rails_helper'
 
 RSpec.describe PortfoliorrrInvitation, type: :model do
   context '#post_invitation' do
-    xit 'retorna 200 e o id do convite na portfoliorrr' do
-      invitation_spy = spy(PortfoliorrrInvitation)
-      stub_const('PortfoliorrrInvitation', invitation_spy)    
-      expect(invitation_spy).to have_received(:post_invitation)
-      #chama o método com o mock
-      #espera ele retornar um dado'
+    it 'com sucesso atualiza o status e o portfoliorrr_invitation_id' do
+      json = { data: { id: 3 } }
+      fake_response = double('faraday_response', status: 200, body: json, success?: true)
+      allow(Faraday).to receive(:post).and_return(fake_response)
+      invitation = create(:invitation)
+      portfoliorrr_invitation = PortfoliorrrInvitation.new(invitation)
+
+      portfoliorrr_invitation.post_invitation
+
+      expect(invitation.reload.portfoliorrr_invitation_id).to eq 3
+      expect(invitation.reload.status).to eq 'pending'
     end
 
-    xit 'bad request e convite é cancelado'
+    it 'bad request e convite é cancelado' do
+      fake_response = double('faraday_response', status: 404, success?: false)
+      allow(Faraday).to receive(:post).and_return(fake_response)
+      invitation = create(:invitation)
+      portfoliorrr_invitation = PortfoliorrrInvitation.new(invitation)
 
-    xit 'server error e convite é cancelado'
+      portfoliorrr_invitation.post_invitation
 
-    xit 'não consegue se conectar com a API'
+      expect(invitation.reload.portfoliorrr_invitation_id).to eq nil
+      expect(invitation.reload.status).to eq 'cancelled'
+    end
+
+    it 'server error e convite é cancelado' do
+      fake_response = double('faraday_response', status: 500, success?: false)
+      allow(Faraday).to receive(:post).and_return(fake_response)
+      invitation = create(:invitation)
+      portfoliorrr_invitation = PortfoliorrrInvitation.new(invitation)
+
+      portfoliorrr_invitation.post_invitation
+
+      expect(invitation.reload.portfoliorrr_invitation_id).to eq nil
+      expect(invitation.reload.status).to eq 'cancelled'
+    end
+
+    it 'não consegue se conectar com a API' do
+      invitation = create(:invitation)
+      portfoliorrr_invitation = PortfoliorrrInvitation.new(invitation)
+
+      portfoliorrr_invitation.post_invitation
+
+      expect(invitation.reload.portfoliorrr_invitation_id).to eq nil
+      expect(invitation.reload.status).to eq 'cancelled'
+    end
   end
 end

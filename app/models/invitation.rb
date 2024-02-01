@@ -6,14 +6,19 @@ class Invitation < ApplicationRecord
   validate :check_pending_invitation, on: :create
   validate :check_member, on: :create
   validate :days_to_date, on: :create
-  validate :post_invitation, on: :create
 
   enum status: { processing: 0, pending: 1, accepted: 2, declined: 3, cancelled: 4, expired: 5 }
 
-  def pending!; end
+  def pending!
+    super if processing?
+  end
+
+  def processing!
+    super if pending?
+  end
 
   def cancelled!
-    super if pending?
+    super if processing?
   end
 
   def expired!
@@ -39,10 +44,6 @@ class Invitation < ApplicationRecord
   end
 
   private
-
-  def post_invitation
-    PortfoliorrrInvitation.new(self).post_invitation
-  end
 
   def days_to_date
     self.expiration_date = expiration_days.days.from_now.to_date if expiration_days

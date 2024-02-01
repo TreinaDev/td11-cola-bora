@@ -9,9 +9,9 @@ describe 'Usuário vê detalhes de um convite' do
     user = create :user, cpf: '000.000.001-91'
     profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
     create :invitation, profile_id: profile.id, project:, profile_email: user.email,
-                        message: 'Gostaria de te convidar', expiration_days: 8
+                        message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
     invitation = create :invitation, profile_id: profile.id, project: second_project, profile_email: user.email,
-                                     message: 'Por favor aceite', expiration_days: 5
+                                     message: 'Por favor aceite', expiration_days: 5, status: :pending
 
     login_as user
     visit root_path
@@ -66,7 +66,7 @@ describe 'Usuário vê detalhes de um convite' do
     user = create :user, cpf: '000.000.001-91'
     profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
     invitation = create :invitation, profile_id: profile.id, project:, profile_email: user.email,
-                                     message: 'Gostaria de te convidar', expiration_days: 8
+                                     message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
 
     travel_to(9.days.from_now) do
       login_as user

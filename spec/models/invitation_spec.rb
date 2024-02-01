@@ -74,25 +74,9 @@ RSpec.describe Invitation, type: :model do
     end
   end
 
-  describe '#post_invitation' do
-    xit 'é chamado na criação do objeto' do
-      invitation_spy = spy(Invitation)
-      stub_const('Invitation', invitation_spy)        
-      user = create(:user)
-      project = create(:project, user:, title: 'Meu novo projeto')
-      joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
-      joao.email = 'joao@email.com'
-      debugger
-      invitation = create(:invitation, project:, profile_email: joao.email)
-
-      expect(invitation_spy).to have_received(:post_invitation)
-    end
-  end
-
   describe '#cancelled?' do
-    it 'retorna verdadeiro se tentar mudar de pending para cancelled' do
-      invitation = build(:invitation, status: :pending)
+    it 'retorna verdadeiro se tentar mudar de processing para cancelled' do
+      invitation = build(:invitation, status: :processing)
 
       invitation.cancelled!
 
@@ -146,8 +130,8 @@ RSpec.describe Invitation, type: :model do
   end
 
   describe '#expired?' do
-    context 'retorna verdadeiro se tentar mudar de expired para qualquer outro' do
-      it 'de expired para pending' do
+    context 'retorna verdadeiro se tentar mudar de expired' do
+      it 'para pending' do
         invitation = build(:invitation, status: :expired)
 
         invitation.pending!
@@ -155,7 +139,7 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.expired?).to eq true
       end
 
-      it 'de expired para cancelled' do
+      it 'para cancelled' do
         invitation = build(:invitation, status: :expired)
 
         invitation.cancelled!
@@ -258,6 +242,90 @@ RSpec.describe Invitation, type: :model do
       invitation.declined!
 
       expect(invitation.declined?).to eq false
+    end
+  end
+
+  describe '#pending?' do
+    it 'altera status se estiver processing' do
+      invitation = build(:invitation, status: :processing)
+
+      invitation.pending!
+
+      expect(invitation.pending?).to eq true
+    end
+
+    it 'não altera status se estiver accepted' do
+      invitation = build(:invitation, status: :accepted)
+
+      invitation.pending!
+
+      expect(invitation.pending?).to eq false
+    end
+
+    it 'não altera status se estiver declined' do
+      invitation = build(:invitation, status: :declined)
+
+      invitation.pending!
+
+      expect(invitation.pending?).to eq false
+    end
+
+    it 'não altera status se estiver cancelled' do
+      invitation = build(:invitation, status: :cancelled)
+
+      invitation.pending!
+
+      expect(invitation.pending?).to eq false
+    end
+
+    it 'não altera status se estiver expired' do
+      invitation = build(:invitation, status: :expired)
+
+      invitation.pending!
+
+      expect(invitation.pending?).to eq false
+    end
+
+    describe '#processing?' do
+      it 'altera status se estiver pending' do
+        invitation = build(:invitation, status: :pending)
+
+        invitation.processing!
+
+        expect(invitation.processing?).to eq true
+      end
+
+      it 'não altera status se estiver cancelled' do
+        invitation = build(:invitation, status: :cancelled)
+
+        invitation.processing!
+
+        expect(invitation.processing?).to eq false
+      end
+
+      it 'não altera status se estiver accepted' do
+        invitation = build(:invitation, status: :accepted)
+
+        invitation.processing!
+
+        expect(invitation.processing?).to eq false
+      end
+
+      it 'não altera status se estiver declined' do
+        invitation = build(:invitation, status: :declined)
+
+        invitation.processing!
+
+        expect(invitation.processing?).to eq false
+      end
+
+      it 'não altera status se estiver expired' do
+        invitation = build(:invitation, status: :expired)
+
+        invitation.processing!
+
+        expect(invitation.processing?).to eq false
+      end
     end
   end
 
