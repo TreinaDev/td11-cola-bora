@@ -128,21 +128,20 @@ RSpec.describe Project, type: :model do
   end
 
   context '#admins' do
-    it 'retorna os usuários com papel de administrador' do
+    it 'retorna os administradores do projeto como UserRole' do
       leader = create :user
       admin1 = create :user, cpf: '355.203.830-22'
       admin2 = create :user, cpf: '634.329.380-98'
       contributor = create :user, cpf: '440.882.180-27'
       project = create :project, user: leader
-      project.user_roles.create!([{ user: admin1, role: :admin },
-                                  { user: admin2, role: :admin },
-                                  { user: contributor }])
+      admin_1_role = create(:user_role, user: admin1, role: :admin, project:)
+      admin_2_role = create(:user_role, user: admin2, role: :admin, project:)
+      contributor_role = create(:user_role, user: contributor, project:)
 
       expect(project.admins.count).to eq 2
-      expect(project.admins).to include admin1
-      expect(project.admins).to include admin2
-      expect(project.admins).not_to include leader
-      expect(project.admins).not_to include contributor
+      expect(project.admins).to include admin_1_role
+      expect(project.admins).to include admin_2_role
+      expect(project.admins).not_to include contributor_role
     end
 
     it 'retorna um array vazio se não houver admins no projeto' do
@@ -159,15 +158,14 @@ RSpec.describe Project, type: :model do
       admin = create :user, cpf: '355.203.830-22'
       contributor1 = create :user, cpf: '634.329.380-98'
       contributor2 = create :user, cpf: '440.882.180-27'
-      project.user_roles.create!([{ user: admin, role: :admin },
-                                  { user: contributor1 },
-                                  { user: contributor2 }])
+      admin_role = create(:user_role, user: admin, role: :admin, project:)
+      contributor_1_role = create(:user_role, user: contributor1, project:)
+      contributor_2_role = create(:user_role, user: contributor2, project:)
 
       expect(project.contributors.count).to eq 2
-      expect(project.contributors).to include contributor1
-      expect(project.contributors).to include contributor2
-      expect(project.contributors).not_to include leader
-      expect(project.contributors).not_to include admin
+      expect(project.contributors).to include contributor_1_role
+      expect(project.contributors).to include contributor_2_role
+      expect(project.contributors).not_to include admin_role
     end
 
     it 'retorna um array vazio se não houver colaboradores no projeto' do

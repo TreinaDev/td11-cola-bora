@@ -6,7 +6,7 @@ class UserRolesController < ApplicationController
 
   def update
     @user_role.admin!
-    redirect_to members_project_path(@project), notice: 'Colaborador atualizado com sucesso'
+    redirect_to members_project_path(@project), notice: t('.success')
   end
 
   private
