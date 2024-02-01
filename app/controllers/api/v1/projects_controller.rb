@@ -4,10 +4,8 @@ module Api
       def index
         response = Project.all.as_json(
           only: %i[id title description category],
-            include: {
-              project_job_categories: { only: [:job_category_id] }
-            }
-          )
+          include: { project_job_categories: { only: [:job_category_id] } }
+        )
 
         response = { message: 'Nenhum projeto encontrado.' } if response.empty?
 
