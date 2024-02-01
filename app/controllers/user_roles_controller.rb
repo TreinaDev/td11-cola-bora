@@ -1,12 +1,11 @@
 class UserRolesController < ApplicationController
   before_action :set_project, only: %i[edit update]
   before_action :set_user_role, only: %i[edit update]
+  before_action :authorize_leader, only: %i[edit update]
 
   def edit; end
 
   def update
-    return redirect_to root_path, alert: t('.fail') unless @project.leader? current_user
-
     if sanitized_role && @user_role.update(role: sanitized_role)
       redirect_to members_project_path(@project), notice: t('.success')
     else
@@ -31,5 +30,9 @@ class UserRolesController < ApplicationController
   def sanitized_role
     role = params[:user_role][:role]
     role if %w[admin contributor].include?(role)
+  end
+
+  def authorize_leader
+    redirect_to root_path, alert: t('.fail') unless @project.leader? current_user
   end
 end

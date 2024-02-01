@@ -9,7 +9,7 @@ describe 'Usuário gerencia papel de projeto' do
       future_contributor_role = create(:user_role, user: future_contributor, project:, role: :admin)
       params = { user_role: { role: :contributor } }
 
-      login_as leader
+      login_as leader, scope: :user
       patch(project_user_role_path(project, future_contributor_role), params:)
 
       expect(response).to redirect_to members_project_path(project)
@@ -23,7 +23,7 @@ describe 'Usuário gerencia papel de projeto' do
       future_admin_role = create(:user_role, user: future_admin, project:)
       params = { user_role: { role: :admin } }
 
-      login_as leader
+      login_as leader, scope: :user
       patch(project_user_role_path(project, future_admin_role), params:)
 
       expect(response).to redirect_to members_project_path(project)
@@ -37,7 +37,7 @@ describe 'Usuário gerencia papel de projeto' do
       admin_role = create(:user_role, user: admin, project:, role: :admin)
       params = { user_role: { role: 'foo' } }
 
-      login_as leader
+      login_as leader, scope: :user
       patch(project_user_role_path(project, admin_role), params:)
 
       expect(response).to have_http_status :unprocessable_entity
@@ -52,7 +52,7 @@ describe 'Usuário gerencia papel de projeto' do
       contributor_role = create(:user_role, user: contributor, project:)
       params = { user_role: { role: 'leader' } }
 
-      login_as leader
+      login_as leader, scope: :user
       patch(project_user_role_path(project, contributor_role), params:)
 
       expect(response).to have_http_status :unprocessable_entity
@@ -66,7 +66,7 @@ describe 'Usuário gerencia papel de projeto' do
       leader_role = UserRole.last
       params = { user_role: { role: :contributor } }
 
-      login_as leader
+      login_as leader, scope: :user
       patch(project_user_role_path(project, leader_role), params:)
 
       expect(response).to redirect_to root_path
@@ -83,7 +83,7 @@ describe 'Usuário gerencia papel de projeto' do
       contributor_role = create(:user_role, user: contributor, project:, role: :contributor)
       params = { user_role: { role: :admin } }
 
-      login_as admin
+      login_as admin, scope: :user
       patch(project_user_role_path(project, contributor_role), params:)
 
       expect(response).to redirect_to root_path
@@ -101,7 +101,7 @@ describe 'Usuário gerencia papel de projeto' do
       admin_role = create(:user_role, user: admin, project:, role: :admin)
       params = { user_role: { role: :contributor } }
 
-      login_as contributor
+      login_as contributor, scope: :user
       patch(project_user_role_path(project, admin_role), params:)
 
       expect(response).to redirect_to root_path
@@ -118,7 +118,7 @@ describe 'Usuário gerencia papel de projeto' do
       non_member = create :user, cpf: '390.698.050-22'
       params = { user_role: { role: :admin } }
 
-      login_as non_member
+      login_as non_member, scope: :user
       patch(project_user_role_path(project, contributor_role), params:)
 
       expect(response).to redirect_to root_path
