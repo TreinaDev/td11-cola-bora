@@ -21,3 +21,4 @@ pt-BR:
   user_roles:
     update:
       success: Colaborador atualizado com sucesso
+      fail: Não foi possível completar a requisição

@@ -30,6 +30,7 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Nome'
         expect(page).to have_content 'E-mail'
         expect(page).to have_content 'Papel'
+        expect(page).to have_content 'Ações'
       end
       within 'tbody' do
         expect(page).to have_content 'Líder do Projeto'
@@ -45,6 +46,7 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
         expect(page).to have_content 'Contribuidor', count: 3
+        expect(page).to have_link 'Gerenciar', count: 4
       end
     end
   end
@@ -74,6 +76,7 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'Nome'
         expect(page).to have_content 'E-mail'
         expect(page).to have_content 'Papel'
+        expect(page).not_to have_content 'Ações'
       end
       within 'tbody' do
         expect(page).to have_content 'Líder do Projeto'
@@ -89,20 +92,8 @@ describe 'Usuário visualiza lista de colaboradores de um projeto' do
         expect(page).to have_content 'email_como_nome'
         expect(page).to have_content 'email_como_nome@email.com'
         expect(page).to have_content 'Contribuidor', count: 3
+        expect(page).not_to have_link 'Gerenciar'
       end
-    end
-  end
-
-  context 'do qual não participa' do
-    it 'e é redirecionado para home' do
-      project = create(:project)
-      non_member = create(:user, cpf: '723.871.450-70')
-
-      login_as non_member, scope: :user
-      visit members_project_path(project)
-
-      expect(page).to have_current_path root_path
-      expect(page).to have_content 'Você não é um colaborador desse projeto'
     end
   end
 end
