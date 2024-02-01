@@ -60,8 +60,7 @@ encrenca_project.user_roles.create!([{ user: jessie, role: :admin }])
 ash_project = FactoryBot.create(:project, user: ash, title: 'Pousadaria', category: 'Aplicação WEB')
 ash_project2 = FactoryBot.create(:project, user: ash, title: 'Portfoliorr', category: 'Aplicação WEB')
 pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio',
-                                    description: 'Me tornar líder do estádio de pedra.',
-                                    category: 'Auto Ajuda')
+                                    description: 'Me tornar líder do estádio de pedra.')
 
 
 FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude',

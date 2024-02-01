@@ -7,8 +7,9 @@ describe 'Usuário quer enviar convite' do
     create(:project, user:, title: 'Segundo projeto')
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
+
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
     login_as user
@@ -29,7 +30,7 @@ describe 'Usuário quer enviar convite' do
     project = create(:project, user:, title: 'Meu novo projeto')
 
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
@@ -48,7 +49,7 @@ describe 'Usuário quer enviar convite' do
 
     project = create(:project, user: user_one)
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     create(:invitation, project:, profile_id: joao.id)
 
     login_as user_two
@@ -60,7 +61,7 @@ describe 'Usuário quer enviar convite' do
   it 'não está autenticado' do
     project = create(:project)
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     create(:invitation, project:, profile_id: joao.id)
 
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -74,7 +75,7 @@ describe 'Usuário quer enviar convite' do
     random_user_id = 123
     create(:invitation, project:, profile_id: random_user_id, profile_email: 'random@email.com')
     profile = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                      job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                      job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     profile.email = 'joao@email.com'
     user = create :user, cpf: '000.000.001-91', email: profile.email
     create :user_role, project:, user:, role: :contributor
@@ -99,7 +100,7 @@ describe 'Usuário quer enviar convite' do
     random_user_id = 123
     create(:invitation, project:, profile_id: random_user_id, profile_email: 'random@email.com')
     profile = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                      job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                      job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     profile.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(profile)
 
