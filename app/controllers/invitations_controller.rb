@@ -1,25 +1,48 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create cancel]
-  before_action :set_invitation, only: %i[cancel]
-  before_action :set_project, only: %i[create cancel]
-  before_action :authorize_user, only: %i[create cancel]
-  before_action :authorize_cancel, only: %i[cancel]
+  before_action :set_invitation, only: %i[cancel show accept decline]
+  before_action :set_project, only: %i[create cancel accept decline]
+  before_action :authorize_leader, only: %i[create cancel]
+  before_action :authorize_invited, only: %i[show accept decline]
+
+  def index
+    @invitations = Invitation.where(profile_email: current_user.email).pending
+  end
+
+  def show
+    @invitation.validate_expiration_days
+  end
 
   def create
     create_invitation
-    if @invitation.save
-      return redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
-                         notice: t('.success')
-    end
+    flash[:alert] = invitation_error unless @invitation.save
+    flash[:notice] = t('.success') if @invitation.save
 
-    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id),
-                alert: invitation_error
+    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id)
   end
 
   def cancel
-    @invitation.cancelled!
+    if @invitation.cancelled!
+      redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
+    else
+      redirect_to root_path, alert: t('.fail')
+    end
+  end
 
-    redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
+  def accept
+    if @invitation.accepted!
+      @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
+      redirect_to project_path(@project), notice: t('.success')
+    else
+      redirect_to root_path, alert: t('.fail')
+    end
+  end
+
+  def decline
+    if @invitation.declined!
+      redirect_to invitations_path, notice: t('.success')
+    else
+      redirect_to root_path, alert: t('.fail')
+    end
   end
 
   private
@@ -46,16 +69,17 @@ class InvitationsController < ApplicationController
                end
   end
 
-  def authorize_user
+  def authorize_leader
     redirect_to root_path unless @project.leader?(current_user)
   end
 
-  def authorize_cancel
-    redirect_to root_path unless @invitation.pending?
+  def authorize_invited
+    redirect_to root_path unless @invitation.profile_email == current_user.email
   end
 
   def invitation_error
     return t('.fail') if @invitation.expiration_days&.negative?
+    return t('.already_member') if @invitation.project.member?(@invitation.invitation_user)
 
     t('.pending_invitation')
   end

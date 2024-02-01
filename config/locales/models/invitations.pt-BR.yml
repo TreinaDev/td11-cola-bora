@@ -16,10 +16,26 @@ pt-BR:
   invitations:
     create:
       success: Convite enviado com sucesso!
-      fail: Prazo de validade não pode ser negativo
+      fail: Não foi possível convidar o usuário
       pending_invitation: Esse usuário possui convite pendente
     cancel:
       success: Convite cancelado!
+      fail: Não foi possível cancelar o convite
+    accept: 
+      success: Parabéns, você agora faz parte deste projeto!
+      fail: Não foi possível aceitar o convite
+    decline: 
+      success: Você recusou o convite
+      fail: Não foi possível recusar o convite
+    expired: Convite expirado
+    cancelled: Convite cancelado
+    accepted: Convite aceito
+    declined: Convite recusado
+    accept_btn: Aceitar
+    decline_btn: Recusar
     send_invitation: Enviar convite
     pending_invitation: Esse usuário possui convite pendente
     cancel_button: Cancelar convite
+    empty_state: Não há convites registrados
+    already_member: Este usuário já faz parte do projeto.
+    no_expiration_date: Sem prazo de validade

@@ -57,6 +57,11 @@ encrenca_project = FactoryBot.create(:project, user: james, title: 'Encrenca em 
                                                category: 'Secreta')
 encrenca_project.user_roles.create!([{ user: jessie, role: :admin }])
 
+ash_project = FactoryBot.create(:project, user: ash, title: 'Pousadaria', category: 'Aplicação WEB')
+ash_project2 = FactoryBot.create(:project, user: ash, title: 'Portfoliorr', category: 'Aplicação WEB')
+pokemon_project = FactoryBot.create(:project, user: brock, title: 'Líder de Ginásio',
+                                    description: 'Me tornar líder do estádio de pedra.',
+                                    category: 'Auto Ajuda')
 
 
 FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude',
@@ -112,3 +117,9 @@ FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_b
 FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_by(user: brock, project: pokemon_project),
                             title:'Daily', description:'', datetime: 5.days.from_now, duration: 15,
                             address: 'https://meet.google.com/')
+
+FactoryBot.create(:invitation, project: ash_project, profile_email: brock.email,
+                               message: 'Adoraria que fizesse parte da minha equipe')
+
+FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email,
+                               expiration_days: '')
