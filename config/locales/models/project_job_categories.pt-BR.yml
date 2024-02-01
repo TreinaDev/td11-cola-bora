@@ -10,5 +10,5 @@ pt-BR:
         job_category_id: Categoria de trabalho
   project_job_categories:
     no_have: Ainda não há categoria de trabalho
-    not_found: Categoria de projetos está indisponível temporariamente
+    not_found: Categoria de trabalho está indisponível temporariamente
     is_empty: Sem categorias de trabalho para adicionar
