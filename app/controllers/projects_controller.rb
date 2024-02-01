@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit destroy]
-  before_action :check_contributor, only: %i[show edit destroy]
+  before_action :set_project, only: %i[show edit destroy members]
+  before_action :check_contributor, only: %i[show edit destroy members]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -31,6 +31,14 @@ class ProjectsController < ApplicationController
 
     @project.destroy
     redirect_to projects_path, notice: t('.success')
+  end
+
+  def members
+    query = params[:query]
+
+    @leader = @project.leader if query.blank? || query == 'leader'
+    @admins = @project.admins if query.blank? || query == 'admin'
+    @contributors = @project.contributors if query.blank? || query == 'contributor'
   end
 
   private
