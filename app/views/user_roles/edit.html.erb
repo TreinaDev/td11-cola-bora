@@ -1,0 +1,10 @@
+<h1>Gerenciamento de Colaborador</h1>
+
+<%= form_with model: [@project, @user_role] do |f| %>
+  <div>
+    <%= @user_role.user.full_name %> <%= @user_role.user.email %>
+  </div>  
+  <%= f.label :role %>
+  <%= f.select :role, [['Administrador', :admin], ['Contribuidor', :contributor]] %>
+  <%= f.submit 'Salvar' %>
+<% end %>

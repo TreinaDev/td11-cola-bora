@@ -29,13 +29,11 @@ class Project < ApplicationRecord
   def admins
     user_roles.where(role: :admin)
               .includes(:user)
-              .map(&:user)
   end
 
   def contributors
     user_roles.where(role: :contributor)
               .includes(:user)
-              .map(&:user)
   end
 
   private
