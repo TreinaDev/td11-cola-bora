@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'Usuário vê detalhes de um convite' do
-  include ActiveSupport::Testing::TimeHelpers
-
   it 'a partir da página inicial' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'

@@ -59,6 +59,7 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.valid?).to be false
         expect(invitation.errors[:base]).to include 'Este usuário já faz parte do projeto.'
       end
+
       it 'verdadeiro se usuário não for membro do projeto' do
         leader = create(:user, cpf: '000.000.001-91')
         project = create(:project, user: leader)
@@ -250,6 +251,7 @@ RSpec.describe Invitation, type: :model do
 
       expect(invitation.expiration_date).to eq 5.days.from_now.to_date
     end
+
     it 'data de validade é vazia se expiration_days for vazia' do
       invitation = create(:invitation, expiration_days: '', profile_email: 'joão@email.com')
 
