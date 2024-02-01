@@ -74,6 +74,22 @@ RSpec.describe Invitation, type: :model do
     end
   end
 
+  describe '#post_invitation' do
+    xit 'é chamado na criação do objeto' do
+      invitation_spy = spy(Invitation)
+      stub_const('Invitation', invitation_spy)        
+      user = create(:user)
+      project = create(:project, user:, title: 'Meu novo projeto')
+      joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+      joao.email = 'joao@email.com'
+      debugger
+      invitation = create(:invitation, project:, profile_email: joao.email)
+
+      expect(invitation_spy).to have_received(:post_invitation)
+    end
+  end
+
   describe '#cancelled?' do
     it 'retorna verdadeiro se tentar mudar de pending para cancelled' do
       invitation = build(:invitation, status: :pending)
@@ -194,8 +210,8 @@ RSpec.describe Invitation, type: :model do
       expect(invitation.accepted?).to eq false
     end
 
-    it 'não altera status se estiver removed' do
-      invitation = build(:invitation, status: :removed)
+    it 'não altera status se estiver processing' do
+      invitation = build(:invitation, status: :processing)
 
       invitation.accepted!
 
@@ -236,8 +252,8 @@ RSpec.describe Invitation, type: :model do
       expect(invitation.declined?).to eq false
     end
 
-    it 'não altera status se estiver removed' do
-      invitation = build(:invitation, status: :removed)
+    it 'não altera status se estiver processing' do
+      invitation = build(:invitation, status: :processing)
 
       invitation.declined!
 

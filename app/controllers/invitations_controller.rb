@@ -15,11 +15,8 @@ class InvitationsController < ApplicationController
   def create
     create_invitation
     flash[:alert] = invitation_error unless @invitation.save
+    flash[:notice] = t('.success') if @invitation.save
 
-    if @invitation.save
-      PortfoliorrrInvitation.new(@invitation).post_invitation
-      flash[:notice] = t('.success')
-    end
     redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id)
   end
 
