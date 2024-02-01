@@ -31,3 +31,9 @@ pt-BR:
   my_projects: Meus Projetos
   projects_empty_state: Não existem projetos cadastrados.
   profile_search_title: '%{project_title} - Recrutamento de colaboradores'
+  manage_member_btn: Gerenciar
+  members: Colaboradores
+  actions: Ações
+  filter_btn: Filtrar
+  all: Todos
+  no_results: Nenhum resultado encontrado

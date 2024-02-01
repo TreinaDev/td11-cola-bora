@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :tasks, only: %i[index new create]
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]
+    get 'members', on: :member, to: 'projects#members'
 
     resources :portfoliorrr_profiles, only: %i[show] do
       get 'search', on: :collection

@@ -1,0 +1,59 @@
+<%= form_with url: members_project_path(project),
+              class: "d-flex row justify-content-end mb-3", 
+              id: "filter-form",
+              method: :get do |f| %>
+  <div class="d-flex col-3 gap-2">
+    <%= f.label :query,
+                class: 'd-none' %>
+    <%= f.select :query, 
+                 [[UserRole.human_attribute_name('role.leader'), :leader],
+                  [UserRole.human_attribute_name('role.admin', count: 2), :admin],
+                  [UserRole.human_attribute_name('role.contributor', count: 2), :contributor]], 
+                 { include_blank: t(:all), selected: params[:query] }, 
+                 { class: 'form-select form-select-sm' } %>
+    <%= f.submit t(:filter_btn), 
+                  class: 'btn btn-sm btn-outline-secondary' %>
+  </div>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= t(:full_name) %></th>
+      <th><%= User.human_attribute_name :email %></th>
+      <th><%= UserRole.human_attribute_name :role %></th>
+    </tr>
+  </thead>
+
+  <tbody class= "table-group-divider">
+    <% if @leader.blank? && @admins.blank? && @contributors.blank? %>
+      <tr class="table-warning text-center">
+        <td colspan="3" class="fw-semibold"><%= t(:no_results) %></td>
+      </tr>
+    <% end %>
+
+    <% if @leader.present? %>
+      <tr id="leader_row" class="table-success">
+        <td><%= @leader.full_name %></td>
+        <td><%= @leader.email %></td>
+        <td><%= UserRole.human_attribute_name 'role.leader' %></td>
+      </tr>
+    <% end %>
+
+    <% @admins&.each do |admin| %>
+      <tr class="table-secondary">
+        <td><%= admin.full_name %></td>
+        <td><%= admin.email %></td>
+        <td><%= UserRole.human_attribute_name 'role.admin' %></td>
+      </tr>
+    <% end %>
+
+    <% @contributors&.each do |contributor| %>
+      <tr class="table-light">
+        <td><%= contributor.full_name %></td>
+        <td><%= contributor.email %></td>
+        <td><%= UserRole.human_attribute_name 'role.contributor' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

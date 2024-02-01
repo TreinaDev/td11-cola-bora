@@ -9,4 +9,12 @@ pt-BR:
         role: 'Papel'
         user: 'Usuário'
         project: 'Projeto'
+      user_role/role:
+        leader: Líder
+        admin:
+          one: Administrador
+          other: Administradores
+        contributor:
+          one: Contribuidor
+          other: Contribuidores
   one_leader: 'aceita apenas 1 líder'

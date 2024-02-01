@@ -67,6 +67,12 @@ RSpec.describe Profile, type: :model do
         expect(user.profile.full_name).not_to eq ' Pereira'
         expect(user.profile.full_name).to eq 'Pereira'
       end
+
+      it 'com nome extraído do e-mail' do
+        user = create(:user, email: 'user_email@email.com')
+
+        expect(user.profile.full_name).to eq 'user_email'
+      end
     end
   end
 end
