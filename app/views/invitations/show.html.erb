@@ -1,0 +1,34 @@
+<p>
+  <strong><%= @invitation.project.title %>: </strong>
+  <%= @invitation.project.description %>
+</p>
+<p>
+  <strong><%= Project.human_attribute_name :category %>: </strong>
+  <%= @invitation.project.category %>
+</p>
+<p>
+  <% unless @invitation.message.blank? %>
+  <strong><%= Invitation.human_attribute_name :message %>: </strong>
+  <%= @invitation.message %>
+  <% end %>
+</p>
+<p>
+  <strong><%= Invitation.human_attribute_name :expiration_date %>: </strong>
+  <%= @invitation.expiration_date ? l(@invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
+</p>
+
+<% if @invitation.pending? %>
+  <div class="d-flex mb-3">
+    <%= button_to I18n.t('invitations.accept_btn'),
+                  accept_invitation_path(@invitation), method: :patch,
+                  class: 'btn btn-success me-2' %>
+    <%= button_to I18n.t('invitations.decline_btn'),
+                  decline_invitation_path(@invitation), method: :patch,
+                  class: 'btn btn-danger me-2' %>
+  </div>
+<% end %>
+
+<%= t('invitations.cancelled') if @invitation.cancelled? %>
+<%= t('invitations.expired') if @invitation.expired? %>
+<%= t('invitations.accepted')  if @invitation.accepted? %>
+<%= t('invitations.declined')  if @invitation.declined? %>

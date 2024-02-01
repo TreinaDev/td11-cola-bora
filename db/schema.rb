@@ -52,12 +52,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_123256) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.integer "expiration_days"
     t.integer "project_id", null: false
     t.integer "profile_id", null: false
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "expiration_date"
+    t.string "profile_email"
+    t.text "message"
+    t.integer "expiration_days"
     t.index ["project_id"], name: "index_invitations_on_project_id"
   end
 

@@ -74,7 +74,7 @@ describe 'Usuário vê detalhes do projeto' do
     login_as user, scope: :user
     visit project_path(project)
 
-    expect(page).to have_content 'Categoria de projetos está indisponível temporariamente'
+    expect(page).to have_content 'Categoria de trabalho está indisponível temporariamente'
     expect(page).to have_current_path project_path(project)
   end
 

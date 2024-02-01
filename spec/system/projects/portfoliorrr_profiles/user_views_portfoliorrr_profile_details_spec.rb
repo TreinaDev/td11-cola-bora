@@ -75,7 +75,6 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       end
       click_on 'Rodolfo'
 
-      expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id
       expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Perfil de Rodolfo'
       expect(page).to have_content "Nome\nRodolfo"
@@ -83,6 +82,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       expect(page).to have_content "Editor de Video\nCanal do Youtube"
       expect(page).to have_content "Editor de Imagem\nPhotoshop"
       expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
+      expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id
     end
 
     it 'e também é lider de outro projeto' do

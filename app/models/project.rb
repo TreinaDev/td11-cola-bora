@@ -23,6 +23,22 @@ class Project < ApplicationRecord
     member?(user) && user_roles.find_by(user:).leader?
   end
 
+  def leader
+    user_roles.find_by(role: :leader).user
+  end
+
+  def admins
+    user_roles.where(role: :admin)
+              .includes(:user)
+              .map(&:user)
+  end
+
+  def contributors
+    user_roles.where(role: :contributor)
+              .includes(:user)
+              .map(&:user)
+  end
+
   private
 
   def set_leader_on_create

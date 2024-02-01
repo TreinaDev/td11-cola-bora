@@ -12,10 +12,10 @@ module Api
         @invitations.map do |invitation|
           {
             invitation_id: invitation.id,
-            expiration_days: invitation.expiration_days,
+            expiration_date: invitation.expiration_date,
             project_id: invitation.project.id,
             project_title: invitation.project.title,
-            created_at: invitation.created_at.to_s
+            message: invitation.message
           }
         end
       end
