@@ -10,6 +10,8 @@ describe 'Usuário quer enviar convite' do
                                    job_categories: [JobCategory.new(name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+    invitation_spy = spy(PortfoliorrrInvitation)
+    stub_const('PortfoliorrrInvitation', invitation_spy)
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -22,6 +24,7 @@ describe 'Usuário quer enviar convite' do
     expect(page).to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
     expect(project.invitations.last.profile_email).to eq 'joao@email.com'
     expect(project.invitations.last.pending?).to eq true
+    expect(invitation_spy).to have_received(:post_invitation)
   end
 
   it 'mas o usuário da Portfoliorrr já foi convidado para o projeto' do
