@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe PortfoliorrrInvitationService do
-  context '#post_invitation' do
+RSpec.describe InvitationService::PortfoliorrrPost do
+  context '.send' do
     it 'sucesso atualiza o status e o portfoliorrr_invitation_id' do
       json = { data: { id: 3 } }
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:post).and_return(fake_response)
       invitation = create(:invitation)
 
-      response = PortfoliorrrInvitationService.send(invitation)
+      response = InvitationService::PortfoliorrrPost.send(invitation)
 
       expect(response).to eq true
       expect(Invitation.count).to eq 1
@@ -22,7 +22,7 @@ RSpec.describe PortfoliorrrInvitationService do
         allow(Faraday).to receive(:post).and_return(fake_response)
         invitation = create(:invitation)
 
-        response = PortfoliorrrInvitationService.send(invitation)
+        response = InvitationService::PortfoliorrrPost.send(invitation)
 
         expect(response).to eq false
         expect(Invitation.count).to eq 0
@@ -33,7 +33,7 @@ RSpec.describe PortfoliorrrInvitationService do
         allow(Faraday).to receive(:post).and_return(fake_response)
         invitation = create(:invitation)
 
-        response = PortfoliorrrInvitationService.send(invitation)
+        response = InvitationService::PortfoliorrrPost.send(invitation)
 
         expect(response).to eq false
         expect(Invitation.count).to eq 0
@@ -42,7 +42,7 @@ RSpec.describe PortfoliorrrInvitationService do
       it 'se não conseguir se conectar com a API' do
         invitation = create(:invitation)
 
-        response = PortfoliorrrInvitationService.send(invitation)
+        response = InvitationService::PortfoliorrrPost.send(invitation)
 
         expect(response).to eq false
         expect(Invitation.count).to eq 0

@@ -64,7 +64,7 @@ class InvitationsController < ApplicationController
   end
 
   def post_portfoliorrr_invitation
-    return flash[:notice] = t('.success') if PortfoliorrrInvitationService.send(@invitation)
+    return flash[:notice] = t('.success') if InvitationService::PortfoliorrrPost.send(@invitation)
 
     flash[:alert] = t('.fail')
   end
