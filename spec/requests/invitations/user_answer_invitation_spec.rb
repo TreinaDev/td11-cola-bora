@@ -5,7 +5,7 @@ describe 'Usuário responde a um convite' do
     project = create(:project)
     invited = create(:user, cpf: '000.000.001-91')
     not_invited = create(:user, cpf: '942.275.100-40')
-    invitation = create(:invitation, profile_email: invited.email, project:)
+    invitation = create(:invitation, profile_email: invited.email, project:, status: :pending)
 
     login_as(not_invited)
     patch(accept_invitation_path(invitation))

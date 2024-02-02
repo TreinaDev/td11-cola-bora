@@ -14,16 +14,22 @@ class InvitationsController < ApplicationController
 
   def create
     create_invitation
-    flash[:alert] = invitation_error unless @invitation.save
-    flash[:notice] = t('.success') if @invitation.save
 
+    if @invitation.save
+      flash[:notice] = t('.process')
+      post_portfoliorrr_invitation
+    else
+      flash[:alert] = invitation_error
+    end
     redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id)
   end
 
   def cancel
+    @invitation.processing!
     if @invitation.cancelled!
       redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
     else
+      @invitation.pending!
       redirect_to root_path, alert: t('.fail')
     end
   end
@@ -55,6 +61,12 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     @invitation.project = Project.find(params[:project_id])
     @invitation.profile_id = params[:portfoliorrr_profile_id]
+  end
+
+  def post_portfoliorrr_invitation
+    return flash[:notice] = t('.success') if InvitationService::PortfoliorrrPost.send(@invitation)
+
+    flash[:alert] = t('.fail')
   end
 
   def set_invitation

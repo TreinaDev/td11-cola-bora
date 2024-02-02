@@ -16,6 +16,7 @@ pt-BR:
   invitations:
     create:
       success: Convite enviado com sucesso!
+      process: Convite em processamento!
       fail: Não foi possível convidar o usuário
       pending_invitation: Esse usuário possui convite pendente
     cancel:

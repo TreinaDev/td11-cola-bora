@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário quer enviar convite' do
-  it 'a partir do perfil do usuário da Portfoliorrr' do
+  it 'com sucesso a partir do perfil do usuário da Portfoliorrr' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu novo projeto')
     create(:project, user:, title: 'Segundo projeto')
@@ -9,8 +9,10 @@ describe 'Usuário quer enviar convite' do
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
-
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+    json = { data: { id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -34,7 +36,7 @@ describe 'Usuário quer enviar convite' do
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
-    create(:invitation, project:, profile_id: 1)
+    create(:invitation, project:, profile_id: 1, status: :pending)
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -50,7 +52,7 @@ describe 'Usuário quer enviar convite' do
     project = create(:project, user: user_one)
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
-    create(:invitation, project:, profile_id: joao.id)
+    create(:invitation, project:, profile_id: joao.id, status: :pending)
 
     login_as user_two
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -94,7 +96,7 @@ describe 'Usuário quer enviar convite' do
     expect(current_path).to eq project_portfoliorrr_profile_path(project, profile.id)
   end
 
-  it 'e não preenche nada' do
+  it 'e não preenche nada e convite é criado com sucesso' do
     owner = create(:user)
     project = create(:project, user: owner, title: 'Meu novo projeto')
     random_user_id = 123
@@ -103,6 +105,9 @@ describe 'Usuário quer enviar convite' do
                                       job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     profile.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(profile)
+    json = { data: { id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as owner
     visit project_portfoliorrr_profile_path(project, profile.id)

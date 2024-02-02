@@ -3,6 +3,6 @@ FactoryBot.define do
     expiration_days { 10 }
     project
     sequence(:profile_id) { |n| n }
-    sequence(:profile_email) { |n| "usuario#{n}@email.com" }
+    sequence(:profile_email) { |_n| 'invited@email.com' }
   end
 end
