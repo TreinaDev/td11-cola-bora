@@ -17,7 +17,7 @@ class InvitationsController < ApplicationController
 
     if @invitation.save
       flash[:notice] = t('.process')
-      post_invitation
+      post_portfoliorrr_invitation
     else
       flash[:alert] = invitation_error
     end
@@ -63,8 +63,8 @@ class InvitationsController < ApplicationController
     @invitation.profile_id = params[:portfoliorrr_profile_id]
   end
 
-  def post_invitation
-    return flash[:notice] = t('.success') if PortfoliorrrInvitation.new(@invitation).post_invitation
+  def post_portfoliorrr_invitation
+    return flash[:notice] = t('.success') if PortfoliorrrInvitationService.send(@invitation)
 
     flash[:alert] = t('.fail')
   end
