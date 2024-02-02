@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy members]
   before_action :check_contributor, only: %i[show edit destroy members]
   before_action :set_all_job_categories, only: %i[new edit update]
+  before_action :check_leader, only: %i[edit update]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -78,6 +79,10 @@ class ProjectsController < ApplicationController
 
   def check_contributor
     redirect_to root_path, alert: t('.not_contributor') unless @project.member?(current_user)
+  end
+
+  def check_leader
+    redirect_to project_path(@project), alert: t('.not_leader') unless @project.leader?(current_user)
   end
 
   def create_project
