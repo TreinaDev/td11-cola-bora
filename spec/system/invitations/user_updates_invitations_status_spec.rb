@@ -46,8 +46,8 @@ describe 'Lider revoga convite' do
   end
 
   it 'e envia novo convite' do
-    json = { data: { id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
     allow(Faraday).to receive(:post).and_return(fake_response)
 
     user = create(:user)

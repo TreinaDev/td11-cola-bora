@@ -10,8 +10,8 @@ describe 'Usuário quer enviar convite' do
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
-    json = { data: { id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
     allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as user
@@ -105,8 +105,8 @@ describe 'Usuário quer enviar convite' do
                                       job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     profile.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(profile)
-    json = { data: { id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
     allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as owner
