@@ -1,7 +1,7 @@
 class UserRolesController < ApplicationController
   before_action :set_project, only: %i[edit update]
   before_action :set_user_role, only: %i[edit update remove]
-  before_action :redirect_if_role_is_leader, only: %i[edit update]
+  before_action :redirect_if_role_is_leader, only: %i[edit update remove]
   before_action :authorize_leader, only: %i[edit update]
 
   def edit; end
@@ -16,9 +16,12 @@ class UserRolesController < ApplicationController
   end
 
   def remove
-    @user_role.update active: false
-
-    redirect_to members_project_path(@user_role.project), notice: t('.success')
+    if @user_role.project.leader? current_user
+      @user_role.update active: false
+      redirect_to members_project_path(@user_role.project), notice: t('.success')
+    else
+      redirect_to root_path, alert: t('.fail')
+    end
   end
 
   private
