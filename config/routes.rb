@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     resources :user_roles, only: %i[edit update]
   end
 
+  resources :user_roles, only: [] do
+    patch :remove, on: :member
+  end
+
   resources :invitations, only: %i[index show] do
     patch 'accept', on: :member
     patch 'decline', on: :member

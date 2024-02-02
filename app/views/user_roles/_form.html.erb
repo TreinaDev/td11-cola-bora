@@ -1,6 +1,6 @@
-<%= form_with model: [@project, @user_role] do |f| %>
-  <div class="container mt-3 px-0">
-    <div class="d-flex align-items-center justify-content-start gap-5">
+<div class="container mt-3 px-0 row align-items-center">
+  <%= form_with model: [@project, @user_role], class: 'col-10' do |f| %>
+    <div class="d-flex align-items-center justify-content-between gap-5">
       <div class="text-start">
         <span class="display-6 fs-4">
           <%= @user_role.user.full_name %>
@@ -17,11 +17,18 @@
           <%= f.select :role,
                        [['Administrador', :admin], ['Contribuidor', :contributor]],
                        {}, { class: 'form-select' } %>
-          <div>
+          <div >
             <%= f.submit t(:save), class: 'btn btn-primary ms-2' %>
           </div>
         </div>
       </div>
     </div>
+  <% end %>
+  <div class="col-2 px-0">
+    <%= button_to t(:remove_member_btn),
+                  remove_user_role_path(@user_role),
+                  method: :patch,
+                  data: { turbo_confirm: t(:remove_member_confirmation) },
+                  class: 'btn btn-danger' %>
   </div>
-<% end %>
+</div>
