@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :profiles, only: %i[edit update show]
-  resources :projects, only: %i[new create show index edit destroy] do
+  resources :projects, only: %i[new create show index edit update destroy] do
     resources :tasks, only: %i[index new create]
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]

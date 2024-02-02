@@ -15,6 +15,9 @@ pt-BR:
     create:
       success: Projeto criado com sucesso.
       fail: Não foi possível criar o projeto.
+    update:
+      success: Projeto editado com sucesso!
+      fail: Não foi possível editar o projeto.
     show:
       not_found: Projeto não encontrado.
     destroy:
@@ -22,8 +25,9 @@ pt-BR:
       fail: Não foi possível completar a sua requisição
     not_contributor: Você não é um colaborador desse projeto
 
+  new_project: Novo Projeto
   create_project_link: Criar Projeto
-  edit_project_btn: Editar Projeto
+  edit_project: Editar Projeto
   delete_project_btn: Deletar
   delete_confirm_message: Deletar projeto?
   search_users_btn: Procurar usuários

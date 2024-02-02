@@ -1,14 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit destroy members]
+  before_action :set_project, only: %i[show edit update destroy members]
   before_action :check_contributor, only: %i[show edit destroy members]
+  before_action :set_all_job_categories, only: %i[new edit]
 
   def index
     @projects = Project.where(user_id: current_user)
   end
 
   def new
-    @job_categories = JobCategory.all
     @project = current_user.projects.build
   end
 
@@ -30,6 +30,15 @@ class ProjectsController < ApplicationController
 
   def edit; end
 
+  def update
+    if @project.update(project_params)
+      redirect_to project_path(@project), notice: t('.success')
+    else
+      flash.now[:alert] = t('.fail')
+      render :edit
+    end
+  end
+
   def destroy
     return redirect_to root_path, alert: t('.fail') unless current_user == @project.user
 
@@ -46,6 +55,11 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_all_job_categories
+    @job_categories = [JobCategory.new(id: 1, name: 'Desenvolvedor'),
+    JobCategory.new(id: 2, name: 'RH')]
+  end
 
   def create_job_category(category_ids)
     category_ids&.each do |category_id|
