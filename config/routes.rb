@@ -23,6 +23,11 @@ Rails.application.routes.draw do
     resources :user_roles, only: %i[edit update]
   end
 
+  resources :invitations, only: %i[index show] do
+    patch 'accept', on: :member
+    patch 'decline', on: :member
+  end
+
   resources :tasks, only: %i[show edit update] do
     member do
       post 'start'

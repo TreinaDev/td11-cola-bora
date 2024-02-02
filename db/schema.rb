@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_134826) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_183656) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_134826) do
     t.string "profile_email"
     t.text "message"
     t.integer "expiration_days"
+    t.integer "portfoliorrr_invitation_id"
     t.index ["project_id"], name: "index_invitations_on_project_id"
   end
 
@@ -104,13 +105,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_134826) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "project_job_categories", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "job_category_id", null: false
+    t.index ["project_id", "job_category_id"], name: "index_project_job_categories_on_project_id_and_job_category_id", unique: true
+    t.index ["project_id"], name: "index_project_job_categories_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
     t.text "description", null: false
-    t.string "category", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -161,6 +171,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_134826) do
   add_foreign_key "meetings", "projects"
   add_foreign_key "meetings", "user_roles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "project_job_categories", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assigned_id"

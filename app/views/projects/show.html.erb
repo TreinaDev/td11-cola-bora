@@ -19,6 +19,24 @@
   <%= @project.category %>
 </p>
 
+
+<div id="project_job_category">
+<% if @project_job_categories.any? %>
+    <strong><%= ProjectJobCategory.model_name.human(count: @project_job_categories.count) %></strong>
+      <% if @job_categories.any? { |category| category.blank? } %>
+        <%= t('project_job_categories.not_found') %>
+      <% else %>
+        <ul>
+        <% @job_categories.each do |job_category| %>
+          <li><%= job_category.name %></li>
+        <% end %>
+        </ul>
+      <% end %>
+<% else %>
+  <%= t('project_job_categories.no_have') %>
+<% end %>
+</div>
+
 <hr>
 
 <%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>

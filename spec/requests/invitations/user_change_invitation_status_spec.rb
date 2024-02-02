@@ -1,46 +1,56 @@
 require 'rails_helper'
 
 describe 'Usuário tenta atualizar status do convite' do
-  it 'de aceito para cancelado' do
-    invitation = create(:invitation, status: :accepted)
+  context 'como líder' do
+    it 'de aceito para cancelado' do
+      leader = create(:user)
+      project = create(:project, user: leader)
+      invited = create(:user, cpf: '942.275.100-40')
+      invitation = create(:invitation, status: :accepted, profile_email: invited.email, project:)
 
-    login_as(invitation.project.user)
-    patch cancel_invitation_path(invitation.id)
+      login_as(leader)
+      patch cancel_invitation_path(invitation.id)
 
-    expect(response).to redirect_to root_path
-    expect(invitation.reload.status).to eq 'accepted'
-  end
+      expect(response).to redirect_to root_path
+      expect(invitation.reload.status).to eq 'accepted'
+    end
 
-  it 'de vencido para cancelado' do
-    invitation = create(:invitation, status: :expired)
+    it 'de vencido para cancelado' do
+      leader = create(:user)
+      project = create(:project, user: leader)
+      invited = create(:user, cpf: '942.275.100-40')
+      invitation = create(:invitation, status: :expired, profile_email: invited.email, project:)
 
-    login_as(invitation.project.user)
-    patch cancel_invitation_path(invitation.id)
+      login_as(leader)
+      patch cancel_invitation_path(invitation.id)
 
-    expect(response).to redirect_to root_path
-    expect(invitation.reload.status).to eq 'expired'
-  end
+      expect(response).to redirect_to root_path
+      expect(invitation.reload.status).to eq 'expired'
+    end
 
-  it 'de pendente para cancelado' do
-    invitation = create(:invitation, status: :pending)
+    it 'de processando para cancelado' do
+      leader = create(:user)
+      project = create(:project, user: leader)
+      invited = create(:user, cpf: '942.275.100-40')
+      invitation = create(:invitation, status: :processing, profile_email: invited.email, project:)
 
-    login_as(invitation.project.user)
-    patch cancel_invitation_path(invitation.id)
+      login_as(leader)
+      patch cancel_invitation_path(invitation.id)
 
-    expect(invitation.reload.status).to eq 'cancelled'
-    expect(response).to redirect_to project_portfoliorrr_profile_path(invitation.project, invitation.profile_id)
+      expect(invitation.reload.status).to eq 'cancelled'
+      expect(response).to redirect_to project_portfoliorrr_profile_path(invitation.project, invitation.profile_id)
+    end
   end
 
   it 'para cancelado, mas não é o lider do projeto' do
-    user = create(:user)
-    other_user = create(:user, cpf: '11859924050')
+    leader = create(:user)
+    project = create(:project, user: leader)
+    leader2 = create(:user, cpf: '11859924050')
+    create(:project, user: leader2)
+    invited = create(:user, cpf: '942.275.100-40')
+    invitation = create(:invitation, status: :pending, profile_email: invited.email, project:)
 
-    project = create(:project, user:)
-    create(:project, user: other_user)
-
-    invitation = create(:invitation, status: :pending, project:)
-
-    login_as(other_user)
+    login_as(leader2)
     patch cancel_invitation_path(invitation.id)
 
     expect(invitation.reload.status).to eq 'pending'

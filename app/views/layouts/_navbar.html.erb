@@ -26,6 +26,11 @@
                         class:"nav-link" %>
           </li>
           <li class="nav-item">
+            <%= link_to Invitation.model_name.human(count: 2), 
+                        invitations_path, 
+                        class:"nav-link" %>
+          </li>
+          <li class="nav-item">
             <%= link_to t(:my_profile), 
                         profile_path(current_user.profile), 
                         class: 'nav-link' %>

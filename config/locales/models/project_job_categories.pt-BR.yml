@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      project_job_category:
+        one: Categoria de trabalho
+        other: Categorias de trabalho
+    attributes:
+      project_job_category:
+        project_id: Projeto
+        job_category_id: Categoria de trabalho
+  project_job_categories:
+    no_have: Ainda não há categoria de trabalho
+    not_found: Categoria de trabalho está indisponível temporariamente
+    is_empty: Sem categorias de trabalho para adicionar

@@ -4,10 +4,13 @@ describe 'Project API' do
   context 'GET /api/v1/projects' do
     it 'com sucesso' do
       project_owner = create(:user)
-      create(:project, user: project_owner, title: 'Primeiro Projeto',
-                       description: 'Esse é o primeiro projeto', category: 'Site')
+      project = create(:project, user: project_owner, title: 'Primeiro Projeto',
+                                 description: 'Esse é o primeiro projeto', category: 'Site')
       create(:project, user: project_owner, title: 'Segundo Projeto',
                        description: 'Projeto de edição', category: 'Video')
+
+      create(:project_job_category, project:, job_category_id: 1)
+      create(:project_job_category, project:, job_category_id: 2)
 
       get '/api/v1/projects'
 
@@ -19,10 +22,13 @@ describe 'Project API' do
       expect(json_response[0]['title']).to eq 'Primeiro Projeto'
       expect(json_response[0]['description']).to eq 'Esse é o primeiro projeto'
       expect(json_response[0]['category']).to eq 'Site'
+      expect(json_response[0]['project_job_categories'][0]['job_category_id']).to eq 1
+      expect(json_response[0]['project_job_categories'][1]['job_category_id']).to eq 2
       expect(json_response[1]['id']).to eq 2
       expect(json_response[1]['title']).to eq 'Segundo Projeto'
       expect(json_response[1]['description']).to eq 'Projeto de edição'
       expect(json_response[1]['category']).to eq 'Video'
+      expect(json_response[1]['project_job_categories'].any?).to eq false
     end
 
     it 'e não tem nenhum projeto' do
