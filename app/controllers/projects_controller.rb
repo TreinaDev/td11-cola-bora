@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy members]
   before_action :check_contributor, only: %i[show edit destroy members]
-  before_action :set_all_job_categories, only: %i[new edit]
+  before_action :set_all_job_categories, only: %i[new edit update]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
       redirect_to project_path(@project), notice: t('.success')
     else
       flash.now[:alert] = t('.fail')
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -57,8 +57,7 @@ class ProjectsController < ApplicationController
   private
 
   def set_all_job_categories
-    @job_categories = [JobCategory.new(id: 1, name: 'Desenvolvedor'),
-    JobCategory.new(id: 2, name: 'RH')]
+    @job_categories = JobCategory.all
   end
 
   def create_job_category(category_ids)
