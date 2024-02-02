@@ -67,7 +67,7 @@ describe 'Usuário edita perfil' do
       visit edit_profile_path user.profile
       click_on 'Pular etapa'
 
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path
     end
 
     it 'e já tem informação registrada' do
@@ -79,7 +79,7 @@ describe 'Usuário edita perfil' do
       visit edit_profile_path user.profile
       click_on 'Voltar'
 
-      expect(current_path).to eq profile_path user.profile
+      expect(page).to have_current_path profile_path user.profile
     end
   end
 
