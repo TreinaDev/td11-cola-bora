@@ -3,21 +3,21 @@ require 'rails_helper'
 describe 'Colaborador filtra lista de membros' do
   context 'por admins' do
     it 'e vê os administradores do projeto' do
-      leader = create(:user, cpf: '515.185.620-00', email: 'leader@email.com')
-      leader.profile.update!(first_name: 'PH', last_name: 'Meneses')
-      project = create(:project, user: leader)
-      admin1 = create(:user, cpf: '485.836.250-77', email: 'admin1@email.com')
-      admin1.profile.update!(first_name: 'João', last_name: 'Silva')
-      admin2 = create(:user, cpf: '996.596.510-23', email: 'admin2@email.com')
-      admin2.profile.update!(first_name: 'Maria', last_name: 'Costa')
-      contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
-      contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
+      leader = create :user, cpf: '515.185.620-00', email: 'leader@email.com'
+      leader.profile.update! first_name: 'PH', last_name: 'Meneses'
+      project = create :project, user: leader
+      admin1 = create :user, cpf: '485.836.250-77', email: 'admin1@email.com'
+      admin1.profile.update! first_name: 'João', last_name: 'Silva'
+      admin2 = create :user, cpf: '996.596.510-23', email: 'admin2@email.com'
+      admin2.profile.update! first_name: 'Maria', last_name: 'Costa'
+      contributor = create :user, cpf: '979.612.040-24', email: 'contribuidor@email.com'
+      contributor.profile.update! first_name: 'Mateus', last_name: 'Cavedini'
       project.user_roles.create([{ user: admin1, role: :admin },
                                  { user: admin2, role: :admin },
                                  { user: contributor }])
 
       login_as contributor, scope: :user
-      visit members_project_path(project)
+      visit members_project_path project
       select 'Administradores', from: :query
       click_on 'Filtrar'
 
@@ -40,9 +40,9 @@ describe 'Colaborador filtra lista de membros' do
     end
 
     it 'e não existem administradores no projeto' do
-      leader = create(:user)
-      project = create(:project, user: leader)
-      contributor = create(:user, cpf: '979.612.040-24')
+      leader = create :user
+      project = create :project, user: leader
+      contributor = create :user, cpf: '979.612.040-24'
       project.user_roles.create!({ user: contributor })
 
       login_as contributor, scope: :user
@@ -50,21 +50,23 @@ describe 'Colaborador filtra lista de membros' do
       select 'Administradores', from: :query
       click_on 'Filtrar'
 
-      expect(page).to have_content 'Nenhum resultado encontrado'
+      within 'table' do
+        expect(page).to have_content 'Nenhum resultado encontrado'
+      end
     end
   end
 
   context 'por contribuidores' do
     it 'e vê os contribuidores do projeto' do
-      leader = create(:user, cpf: '515.185.620-00', email: 'leader@email.com')
-      leader.profile.update!(first_name: 'PH', last_name: 'Meneses')
-      project = create(:project, user: leader)
-      admin = create(:user, cpf: '485.836.250-77', email: 'admin@email.com')
-      admin.profile.update!(first_name: 'João', last_name: 'Silva')
-      contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
-      contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
-      contributor2 = create(:user, cpf: '996.596.510-23', email: 'contribuidor2@email.com')
-      contributor2.profile.update!(first_name: 'Maria', last_name: 'Costa')
+      leader = create :user, cpf: '515.185.620-00', email: 'leader@email.com'
+      leader.profile.update! first_name: 'PH', last_name: 'Meneses'
+      project = create :project, user: leader
+      admin = create :user, cpf: '485.836.250-77', email: 'admin@email.com'
+      admin.profile.update! first_name: 'João', last_name: 'Silva'
+      contributor = create :user, cpf: '979.612.040-24', email: 'contribuidor@email.com'
+      contributor.profile.update! first_name: 'Mateus', last_name: 'Cavedini'
+      contributor2 = create :user, cpf: '996.596.510-23', email: 'contribuidor2@email.com'
+      contributor2.profile.update! first_name: 'Maria', last_name: 'Costa'
       project.user_roles.create([{ user: admin, role: :admin },
                                  { user: contributor },
                                  { user: contributor2 }])
@@ -93,9 +95,9 @@ describe 'Colaborador filtra lista de membros' do
     end
 
     it 'e não existem contribuidores no projeto' do
-      leader = create(:user)
-      project = create(:project, user: leader)
-      admin = create(:user, cpf: '979.612.040-24')
+      leader = create :user
+      project = create :project, user: leader
+      admin = create :user, cpf: '979.612.040-24'
       project.user_roles.create!({ user: admin, role: :admin })
 
       login_as admin, scope: :user
@@ -103,20 +105,22 @@ describe 'Colaborador filtra lista de membros' do
       select 'Contribuidores', from: :query
       click_on 'Filtrar'
 
-      expect(page).to have_content 'Nenhum resultado encontrado'
+      within 'table' do
+        expect(page).to have_content 'Nenhum resultado encontrado'
+      end
     end
   end
 
   it 'por líder' do
-    leader = create(:user, cpf: '515.185.620-00', email: 'leader@email.com')
-    leader.profile.update!(first_name: 'PH', last_name: 'Meneses')
-    project = create(:project, user: leader)
-    admin = create(:user, cpf: '485.836.250-77', email: 'admin@email.com')
-    admin.profile.update!(first_name: 'João', last_name: 'Silva')
-    contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
-    contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
-    contributor2 = create(:user, cpf: '996.596.510-23', email: 'contribuidor2@email.com')
-    contributor2.profile.update!(first_name: 'Maria', last_name: 'Costa')
+    leader = create :user, cpf: '515.185.620-00', email: 'leader@email.com'
+    leader.profile.update! first_name: 'PH', last_name: 'Meneses'
+    project = create :project, user: leader
+    admin = create :user, cpf: '485.836.250-77', email: 'admin@email.com'
+    admin.profile.update! first_name: 'João', last_name: 'Silva'
+    contributor = create :user, cpf: '979.612.040-24', email: 'contribuidor@email.com'
+    contributor.profile.update! first_name: 'Mateus', last_name: 'Cavedini'
+    contributor2 = create :user, cpf: '996.596.510-23', email: 'contribuidor2@email.com'
+    contributor2.profile.update! first_name: 'Maria', last_name: 'Costa'
     project.user_roles.create([{ user: admin, role: :admin },
                                { user: contributor },
                                { user: contributor2 }])
@@ -144,16 +148,16 @@ describe 'Colaborador filtra lista de membros' do
     end
   end
 
-  it 'e retorna para todos os membros' do
-    leader = create(:user, cpf: '515.185.620-00', email: 'leader@email.com')
-    leader.profile.update!(first_name: 'PH', last_name: 'Meneses')
-    project = create(:project, user: leader)
-    admin1 = create(:user, cpf: '485.836.250-77', email: 'admin1@email.com')
-    admin1.profile.update!(first_name: 'João', last_name: 'Silva')
-    admin2 = create(:user, cpf: '996.596.510-23', email: 'admin2@email.com')
-    admin2.profile.update!(first_name: 'Maria', last_name: 'Costa')
-    contributor = create(:user, cpf: '979.612.040-24', email: 'contribuidor@email.com')
-    contributor.profile.update!(first_name: 'Mateus', last_name: 'Cavedini')
+  it 'e filtra por todos os membros' do
+    leader = create :user, cpf: '515.185.620-00', email: 'leader@email.com'
+    leader.profile.update! first_name: 'PH', last_name: 'Meneses'
+    project = create :project, user: leader
+    admin1 = create :user, cpf: '485.836.250-77', email: 'admin1@email.com'
+    admin1.profile.update! first_name: 'João', last_name: 'Silva'
+    admin2 = create :user, cpf: '996.596.510-23', email: 'admin2@email.com'
+    admin2.profile.update! first_name: 'Maria', last_name: 'Costa'
+    contributor = create :user, cpf: '979.612.040-24', email: 'contribuidor@email.com'
+    contributor.profile.update! first_name: 'Mateus', last_name: 'Cavedini'
     project.user_roles.create([{ user: admin1, role: :admin },
                                { user: admin2, role: :admin },
                                { user: contributor }])

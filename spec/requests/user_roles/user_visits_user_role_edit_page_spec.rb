@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visita página de edição de papel de um projeto' do
+describe 'Usuário visita página de gerenciamento de papel de um projeto' do
   context 'do qual é líder' do
     it 'com sucesso' do
       leader = create :user
@@ -12,6 +12,17 @@ describe 'Usuário visita página de edição de papel de um projeto' do
       get edit_project_user_role_path(project, admin_role)
 
       expect(response).to have_http_status :ok
+    end
+
+    it 'mas não consegue acessar gerenciamento do líder' do
+      leader = create :user
+      project = create :project, user: leader
+      leader_role = UserRole.last
+
+      login_as leader, scope: :user
+      get edit_project_user_role_path project, leader_role
+
+      expect(response).to redirect_to root_path
     end
   end
 
@@ -55,6 +66,18 @@ describe 'Usuário visita página de edição de papel de um projeto' do
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Não foi possível completar a requisição'
+    end
+  end
+
+  context 'mas não está autenticado' do
+    it 'sem sucesso' do
+      project = create :project
+      contributor = create :user, cpf: '461.560.280-48'
+      contributor_role = create :user_role, project:, user: contributor
+
+      get edit_project_user_role_path project, contributor_role
+
+      expect(response).to redirect_to new_user_session_path
     end
   end
 end

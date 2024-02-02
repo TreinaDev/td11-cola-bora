@@ -1,6 +1,7 @@
 class UserRolesController < ApplicationController
   before_action :set_project, only: %i[edit update]
   before_action :set_user_role, only: %i[edit update]
+  before_action :redirect_if_role_is_leader, only: %i[edit update]
   before_action :authorize_leader, only: %i[edit update]
 
   def edit; end
@@ -22,17 +23,18 @@ class UserRolesController < ApplicationController
 
   def set_user_role
     @user_role = UserRole.find(params[:id])
-    return redirect_to root_path if @user_role.leader?
+  end
 
-    @user_role
+  def redirect_if_role_is_leader
+    redirect_to root_path if @user_role.leader?
+  end
+
+  def authorize_leader
+    redirect_to root_path, alert: t('.fail') unless @project.leader? current_user
   end
 
   def sanitized_role
     role = params[:user_role][:role]
     role if %w[admin contributor].include?(role)
-  end
-
-  def authorize_leader
-    redirect_to root_path, alert: t('.fail') unless @project.leader? current_user
   end
 end
