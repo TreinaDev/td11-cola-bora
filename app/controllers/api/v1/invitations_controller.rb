@@ -6,6 +6,14 @@ module Api
         render status: :ok, json: set_json
       end
 
+      def update
+        @invitation = Invitation.find(params[:id])
+        return render status: :conflict, json: { message: [I18n.t('invitation.conflict')] } unless @invitation.pending?
+
+        @invitation.declined!
+        render status: :ok, json: {}
+      end
+
       private
 
       def set_json

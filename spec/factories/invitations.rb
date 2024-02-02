@@ -4,5 +4,6 @@ FactoryBot.define do
     project
     sequence(:profile_id) { |n| n }
     sequence(:profile_email) { |_n| 'invited@email.com' }
+    status { 'pending' }
   end
 end

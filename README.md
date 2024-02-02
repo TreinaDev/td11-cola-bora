@@ -34,6 +34,8 @@ rake spec
 
 ## API
 
+- [Documentação da API](api_doc.md)
+
 
 ## Time de desenvolvimento
 
