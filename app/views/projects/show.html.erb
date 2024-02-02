@@ -40,4 +40,7 @@
 <hr>
 
 <%= link_to t(:back), projects_path, class: 'btn btn-secondary' %>
-<%= link_to t(:edit_project), edit_project_path(@project), class: 'btn btn-primary' %>
+
+<% if @project.leader?(current_user) %>
+  <%= link_to t(:edit_project), edit_project_path(@project), class: 'btn btn-primary' %>
+<% end %>

@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project_job_categories = @project.project_job_categories
+
     @job_categories = JobCategory.fetch_job_categories_by_project(@project_job_categories)
   end
 

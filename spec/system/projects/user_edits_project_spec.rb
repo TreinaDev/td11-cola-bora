@@ -109,5 +109,15 @@ describe 'Usuário edita projeto' do
   end
 
   it 'e não é o lider do projeto' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Projeto Original', description: 'Projeto para testar a edição.')
+
+    other_user = create(:user, cpf: '32823816038')
+    create(:user_role, project:, role: :admin, user: other_user)
+
+    login_as other_user
+    visit project_path(project)
+
+    expect(page).not_to have_link 'Editar Projeto'
   end
 end
