@@ -39,6 +39,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_183656) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "project_id", null: false
@@ -90,13 +105,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_183656) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "project_job_categories", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "job_category_id", null: false
+    t.index ["project_id", "job_category_id"], name: "index_project_job_categories_on_project_id_and_job_category_id", unique: true
+    t.index ["project_id"], name: "index_project_job_categories_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
     t.text "description", null: false
-    t.string "category", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -147,6 +171,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_183656) do
   add_foreign_key "meetings", "projects"
   add_foreign_key "meetings", "user_roles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "project_job_categories", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assigned_id"

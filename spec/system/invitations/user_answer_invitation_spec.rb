@@ -7,7 +7,7 @@ describe 'Usuário reponde convite' do
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
                                       description: 'Um projeto sobre masterizar tudo que é possível'
     user = create :user, cpf: '000.000.001-91'
-    profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
+    profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(id: 1, name: 'Designer')])
     invitation = create :invitation, profile_id: profile.id, project:, profile_email: user.email,
                                      message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
     second_invitation = create :invitation, profile_id: profile.id, project: second_project, profile_email: user.email,
@@ -34,7 +34,7 @@ describe 'Usuário reponde convite' do
     second_project = create :project, user: owner, title: 'Projeto Master', category: 'Aplicação WEB',
                                       description: 'Um projeto sobre masterizar tudo que é possível'
     user = create :user, cpf: '000.000.001-91'
-    profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(name: 'Designer')])
+    profile = PortfoliorrrProfile.new(id: 92, name: 'Pedro', job_categories: [JobCategory.new(id: 1, name: 'Designer')])
     invitation = create :invitation, profile_id: profile.id, project:, profile_email: user.email,
                                      message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
     second_invitation = create :invitation, profile_id: profile.id, project: second_project, profile_email: user.email,

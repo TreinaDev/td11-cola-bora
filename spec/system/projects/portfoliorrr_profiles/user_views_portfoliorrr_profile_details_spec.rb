@@ -56,11 +56,11 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       project = create :project, user:, title: 'Projeto Top'
       project.user_roles.find_by(user:).update(role: :leader)
       rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo',
-                                                job_categories: [JobCategory.new(name: 'Designer')]
+                                                job_categories: [JobCategory.new(id: 1, name: 'Designer')]
       allow(PortfoliorrrProfile).to receive(:all).and_return([rodolfo_profile])
       rodolfo_profile.job_categories = [
-        JobCategory.new(name: 'Editor de Video', description: 'Canal do Youtube'),
-        JobCategory.new(name: 'Editor de Imagem', description: 'Photoshop')
+        JobCategory.new(id: 1, name: 'Editor de Video', description: 'Canal do Youtube'),
+        JobCategory.new(id: 2, name: 'Editor de Imagem', description: 'Photoshop')
       ]
       rodolfo_profile.email = 'rodolfo@email.com'
       rodolfo_profile.cover_letter = 'Sou editor de vídeos em um canal do Youtube.'
@@ -75,7 +75,6 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       end
       click_on 'Rodolfo'
 
-      expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id
       expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Perfil de Rodolfo'
       expect(page).to have_content "Nome\nRodolfo"
@@ -83,6 +82,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       expect(page).to have_content "Editor de Video\nCanal do Youtube"
       expect(page).to have_content "Editor de Imagem\nPhotoshop"
       expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
+      expect(current_path).to eq project_portfoliorrr_profile_path project, rodolfo_profile.id
     end
 
     it 'e também é lider de outro projeto' do

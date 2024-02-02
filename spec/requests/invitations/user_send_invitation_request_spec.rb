@@ -6,7 +6,7 @@ describe 'Usuário envia um convite sendo lider' do
     project = create(:project, user:, title: 'Meu novo projeto')
     create(:project, user:, title: 'Segundo projeto')
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(name: 'Desenvolvimento')])
+                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     create :invitation, project:, profile_id: joao.id, status: :pending, profile_email: joao.email
 
