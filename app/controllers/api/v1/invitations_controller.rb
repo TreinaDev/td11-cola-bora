@@ -2,7 +2,7 @@ module Api
   module V1
     class InvitationsController < Api::V1::ApiController
       def index
-        @invitations = Invitation.pending.where(profile_id: params[:id])
+        @invitations = Invitation.pending.where(profile_id: params[:profile_id])
         render status: :ok, json: set_json
       end
 
