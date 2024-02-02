@@ -94,7 +94,7 @@ Erro para objeto não encontrado (Status: 404)
 
 ```json
 { 
-  "errors": ["Não é possível alterar convite que não está pendente."]
+  "errors": ["Erro, não encontrado."]
 }
 ```
 
