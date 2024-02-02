@@ -40,7 +40,9 @@
         <td><%= @leader.full_name %></td>
         <td><%= @leader.email %></td>
         <td><%= UserRole.human_attribute_name 'role.leader' %></td>
-        <td></td>
+        <% if project.leader? current_user %>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
 

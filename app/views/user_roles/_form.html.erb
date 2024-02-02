@@ -1,0 +1,28 @@
+<%= form_with model: [@project, @user_role] do |f| %>
+  <div class="container mt-3 px-0">
+    <div class="d-flex align-items-center justify-content-start gap-5">
+      <div class="text-start">
+        <span class="display-6 fs-4">
+          <%= @user_role.user.full_name %>
+        </span>
+        <br>
+        <span class="text-muted m-0">
+          <%= @user_role.user.email %>
+        </span>
+      </div>
+      <div>
+        <%= f.label :role, 
+                    class: 'd-none' %>
+        <div class="d-flex justify-content-start">
+          <%= f.select :role,
+                       [['Administrador', :admin], ['Contribuidor', :contributor]],
+                       {}, { class: 'form-select' } %>
+          <div>
+            <%= f.submit 'Salvar',
+                          class: 'btn btn-primary ms-2' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -22,3 +22,5 @@ pt-BR:
     update:
       success: Colaborador atualizado com sucesso
     fail: Não foi possível completar a requisição
+    
+  member_managing: Gerenciamento de Colaborador

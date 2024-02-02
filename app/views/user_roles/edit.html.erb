@@ -1,20 +1,13 @@
 <%= render 'shared/project_header', project: @project %>
 
 <section>
-  <h2>Gerenciamento de Colaborador</h2>
+  <%= render 'form' %>
 
-  <%= form_with model: [@project, @user_role] do |f| %>
-    <div>
-      <%= @user_role.user.full_name %> <%= @user_role.user.email %>
-    </div>
-    <%= f.label :role %>
-    <%= f.select :role, [['Administrador', :admin], ['Contribuidor', :contributor]] %>
-    <%= f.submit 'Salvar' %>
-  <% end %>
+<hr class="text-secondary">
 
   <div class="mt-3">
     <%= link_to t(:back),
                 members_project_path(@project),
-                class: 'btn btn-secondary' %>
+                class: 'btn btn-sm btn-secondary' %>
   </div>
 </section>
