@@ -46,7 +46,7 @@
       </tr>
     <% end %>
 
-    <% @admins&.each do |admin| %>
+    <% @admin_roles&.each do |admin| %>
       <tr id="<%= dom_id admin %>_row" class="table-secondary">
         <td><%= admin.user.full_name %></td>
         <td><%= admin.user.email %></td>
@@ -59,7 +59,7 @@
       </tr>
     <% end %>
 
-    <% @contributors&.each do |contributor| %>
+    <% @contributor_roles&.each do |contributor| %>
       <tr id="<%= dom_id contributor %>_row" class="table-light">
         <td><%= contributor.user.full_name %></td>
         <td><%= contributor.user.email %></td>

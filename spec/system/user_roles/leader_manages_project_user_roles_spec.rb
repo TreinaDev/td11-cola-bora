@@ -28,10 +28,10 @@ describe 'Líder gerencia papel de usuário' do
       within "#user_role_#{contributor_role.id}_row" do
         expect(page).to have_content 'Contribuidor'
       end
-      expect(project.reload.admins).to include future_admin_role
-      expect(project.admins).not_to include contributor_role
-      expect(project.contributors).not_to include future_admin_role
-      expect(project.contributors).to include contributor_role
+      expect(project.reload.member_roles(:admin)).to include future_admin_role
+      expect(project.member_roles(:admin)).not_to include contributor_role
+      expect(project.member_roles(:contributor)).not_to include future_admin_role
+      expect(project.member_roles(:contributor)).to include contributor_role
     end
 
     it 'de administrador para contribuidor' do
@@ -60,10 +60,10 @@ describe 'Líder gerencia papel de usuário' do
       within "#user_role_#{admin_role.id}_row" do
         expect(page).to have_content 'Administrador'
       end
-      expect(project.reload.contributors).to include future_contributor_role
-      expect(project.contributors).not_to include admin_role
-      expect(project.admins).not_to include future_contributor_role
-      expect(project.admins).to include admin_role
+      expect(project.reload.member_roles(:contributor)).to include future_contributor_role
+      expect(project.member_roles(:contributor)).not_to include admin_role
+      expect(project.member_roles(:admin)).not_to include future_contributor_role
+      expect(project.member_roles(:admin)).to include admin_role
     end
   end
 end

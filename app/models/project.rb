@@ -22,18 +22,10 @@ class Project < ApplicationRecord
     member?(user) && user_roles.find_by(user:).leader?
   end
 
-  def leader
-    user_roles.find_by(role: :leader).user
-  end
+  def member_roles(role)
+    return unless UserRole.roles.keys.include? role.to_s
 
-  def admins
-    user_roles.where(role: :admin)
-              .includes(:user)
-  end
-
-  def contributors
-    user_roles.where(role: :contributor)
-              .includes(:user)
+    user_roles.where(role:).includes(:user)
   end
 
   private
