@@ -33,7 +33,9 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def update
-    if @project.update(project_params)
+    update_project_job_categories
+
+    if @project.update(project_params.except(:project_job_category_ids))
       redirect_to project_path(@project), notice: t('.success')
     else
       flash.now[:alert] = t('.fail')
@@ -57,6 +59,14 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def update_project_job_categories
+    @project.project_job_categories.where.not(id: project_params[:project_job_category_ids]).destroy_all
+
+    project_params[:project_job_category_ids]&.each do |category_id|
+      @project.project_job_categories.find_or_create_by(job_category_id: category_id.to_i)
+    end
+  end
 
   def set_all_job_categories
     @job_categories = JobCategory.all
