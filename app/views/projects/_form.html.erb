@@ -27,7 +27,7 @@
     <% if @job_categories&.any? %>
       <% @job_categories.each do |job_category| %>
         <p>
-          <%= f.check_box :project_job_category_ids, { multiple: true },job_category.id, nil %>
+          <%= f.check_box :project_job_category_ids, {multiple: true, checked: (@project.project_job_categories.exists?(job_category_id: job_category.id))}, job_category.id, nil %>
           <%= f.label "project_job_category_ids_#{job_category.id}", job_category.name %>
         </p>
       <% end %>

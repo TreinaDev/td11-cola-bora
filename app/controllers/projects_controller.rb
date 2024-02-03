@@ -2,8 +2,9 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy members]
   before_action :check_contributor, only: %i[show edit destroy members]
-  before_action :set_all_job_categories, only: %i[new edit update]
   before_action :check_leader, only: %i[edit update]
+  before_action :set_all_job_categories, only: %i[new create edit update]
+  before_action :set_project_job_categories, only: %i[show]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -25,8 +26,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project_job_categories = @project.project_job_categories
-
     @job_categories = JobCategory.fetch_job_categories_by_project(@project_job_categories)
   end
 
@@ -61,11 +60,15 @@ class ProjectsController < ApplicationController
   private
 
   def update_project_job_categories
-    @project.project_job_categories.where.not(id: project_params[:project_job_category_ids]).destroy_all
+    @project.project_job_categories.where.not(job_category_id: project_params[:project_job_category_ids]).destroy_all
 
     project_params[:project_job_category_ids]&.each do |category_id|
       @project.project_job_categories.find_or_create_by(job_category_id: category_id.to_i)
     end
+  end
+
+  def set_project_job_categories
+    @project_job_categories = @project.project_job_categories
   end
 
   def set_all_job_categories
