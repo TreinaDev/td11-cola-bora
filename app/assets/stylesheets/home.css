@@ -6,5 +6,11 @@
   text-decoration: none!important;
 }
  nav a:hover {
-  color: #10674d!important;
+  color: #0c4e3a!important;
 }
+ a {
+  color: #13795b!important;
+}
+ a:hover {
+  color: #0c4e3a!important;
+ }
