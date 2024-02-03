@@ -15,8 +15,11 @@
                     class: 'd-none' %>
         <div class="d-flex justify-content-start">
           <%= f.select :role,
-                       [['Administrador', :admin], ['Contribuidor', :contributor]],
-                       {}, { class: 'form-select' } %>
+                       [[UserRole.human_attribute_name('role.admin'), :admin], 
+                        [UserRole.human_attribute_name('role.contributor'), :contributor]],
+                        {}, { class: 'form-select' } %>
+
+                        
           <div >
             <%= f.submit t(:save), class: 'btn btn-primary ms-2' %>
           </div>
