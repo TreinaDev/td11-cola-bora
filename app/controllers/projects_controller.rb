@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :check_contributor, only: %i[show edit destroy members]
   before_action :check_leader, only: %i[edit update]
   before_action :set_all_job_categories, only: %i[new create edit update]
-  before_action :set_project_job_categories, only: %i[show]
+  before_action :set_project_job_categories, only: %i[show edit]
 
   def index
     @projects = Project.where(user_id: current_user)
@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = current_user.projects.build
+    @project_job_categories = []
   end
 
   def create
@@ -20,6 +21,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to project_path(@project), notice: t('.success')
     else
+      set_project_job_categories
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity
     end
@@ -32,11 +34,11 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def update
-    update_project_job_categories
-
     if @project.update(project_params.except(:project_job_category_ids))
+      update_project_job_categories
       redirect_to project_path(@project), notice: t('.success')
     else
+      set_update_project_job_categories
       flash.now[:alert] = t('.fail')
       render :edit, status: :unprocessable_entity
     end
@@ -67,18 +69,19 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def set_update_project_job_categories
+    @project_job_categories = []
+    project_params[:project_job_category_ids]&.each do |category_id|
+      @project_job_categories << ProjectJobCategory.new(job_category_id: category_id.to_i)
+    end
+  end
+
   def set_project_job_categories
     @project_job_categories = @project.project_job_categories
   end
 
   def set_all_job_categories
     @job_categories = JobCategory.all
-  end
-
-  def create_job_category(category_ids)
-    category_ids&.each do |category_id|
-      @project.project_job_categories.new(job_category_id: category_id.to_i)
-    end
   end
 
   def set_project
@@ -104,5 +107,11 @@ class ProjectsController < ApplicationController
                                            category: project_params[:category])
 
     create_job_category(project_params[:project_job_category_ids])
+  end
+
+  def create_job_category(category_ids)
+    category_ids&.each do |category_id|
+      @project.project_job_categories.new(job_category_id: category_id.to_i)
+    end
   end
 end
