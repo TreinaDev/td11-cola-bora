@@ -12,4 +12,5 @@ pt-BR:
   try_again_later: Tente novamente mais tarde
   profile: Perfil de %{name}
   profile_not_available: Perfil não disponível
+  save: Salvar
   model_description: Descrição do %{model}

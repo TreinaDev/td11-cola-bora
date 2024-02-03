@@ -1,17 +1,17 @@
 <%= form_with url: members_project_path(project),
-              class: "d-flex row justify-content-end mb-3", 
+              class: "d-flex row justify-content-end mb-3",
               id: "filter-form",
               method: :get do |f| %>
   <div class="d-flex col-3 gap-2">
     <%= f.label :query,
                 class: 'd-none' %>
-    <%= f.select :query, 
+    <%= f.select :query,
                  [[UserRole.human_attribute_name('role.leader'), :leader],
                   [UserRole.human_attribute_name('role.admin', count: 2), :admin],
-                  [UserRole.human_attribute_name('role.contributor', count: 2), :contributor]], 
-                 { include_blank: t(:all), selected: params[:query] }, 
+                  [UserRole.human_attribute_name('role.contributor', count: 2), :contributor]],
+                 { include_blank: t(:all), selected: params[:query] },
                  { class: 'form-select form-select-sm' } %>
-    <%= f.submit t(:filter_btn), 
+    <%= f.submit t(:filter_btn),
                   class: 'btn btn-sm btn-outline-secondary' %>
   </div>
 <% end %>
@@ -22,6 +22,9 @@
       <th><%= t(:full_name) %></th>
       <th><%= User.human_attribute_name :email %></th>
       <th><%= UserRole.human_attribute_name :role %></th>
+      <% if project.leader? current_user %>
+        <th><%= t(:actions) %></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -37,22 +40,35 @@
         <td><%= @leader.full_name %></td>
         <td><%= @leader.email %></td>
         <td><%= UserRole.human_attribute_name 'role.leader' %></td>
+        <% if project.leader? current_user %>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
 
-    <% @admins&.each do |admin| %>
-      <tr class="table-secondary">
-        <td><%= admin.full_name %></td>
-        <td><%= admin.email %></td>
+    <% @admin_roles&.each do |admin| %>
+      <tr id="<%= dom_id admin %>_row" class="table-secondary">
+        <td><%= admin.user.full_name %></td>
+        <td><%= admin.user.email %></td>
         <td><%= UserRole.human_attribute_name 'role.admin' %></td>
+        <% if project.leader? current_user %>
+          <td><%= link_to t(:manage_member_btn),
+                          edit_project_user_role_path(project, admin),
+                          class: 'btn btn-sm btn-outline-primary' %></td>
+        <% end %>
       </tr>
     <% end %>
 
-    <% @contributors&.each do |contributor| %>
-      <tr class="table-light">
-        <td><%= contributor.full_name %></td>
-        <td><%= contributor.email %></td>
+    <% @contributor_roles&.each do |contributor| %>
+      <tr id="<%= dom_id contributor %>_row" class="table-light">
+        <td><%= contributor.user.full_name %></td>
+        <td><%= contributor.user.email %></td>
         <td><%= UserRole.human_attribute_name 'role.contributor' %></td>
+        <% if project.leader? current_user %>
+          <td><%= link_to t(:manage_member_btn),
+                          edit_project_user_role_path(project, contributor),
+                          class: 'btn btn-sm btn-outline-primary' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

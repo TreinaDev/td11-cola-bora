@@ -1,0 +1,13 @@
+<%= render 'shared/project_header', project: @project %>
+
+<section>
+  <%= render 'form' %>
+
+<hr class="text-secondary">
+
+  <div class="mt-3">
+    <%= link_to t(:back),
+                members_project_path(@project),
+                class: 'btn btn-sm btn-secondary' %>
+  </div>
+</section>

@@ -18,3 +18,9 @@ pt-BR:
           one: Contribuidor
           other: Contribuidores
   one_leader: 'aceita apenas 1 líder'
+  user_roles:
+    update:
+      success: Colaborador atualizado com sucesso
+    fail: Não foi possível completar a requisição
+    
+  member_managing: Gerenciamento de Colaborador

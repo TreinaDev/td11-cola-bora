@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :user_roles, only: %i[edit update]
   end
 
   resources :invitations, only: %i[index show] do
