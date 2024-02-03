@@ -1,9 +1,13 @@
 @import "app_theme.scss";
 
 $primary: $colaBoraGreen;
+$link-color: $colaBoraGreen;
+$link-hover-color: $colaBoraGreenHover;
 
 $theme-colors: map-merge($theme-colors, (
   "primary": $primary,
+  "link-color": $link-color,
+  "link-hover-color": $link-hover-color
   ));
 
 @import 'bootstrap/scss/bootstrap';
