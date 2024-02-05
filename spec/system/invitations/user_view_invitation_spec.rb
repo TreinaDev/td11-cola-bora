@@ -17,7 +17,7 @@ describe 'Usuário vê convites' do
     visit root_path
     click_on 'Convites'
 
-    expect(current_path).to eq invitations_path
+    expect(page).to have_current_path invitations_path
     expect(page).to have_content 'Projeto Top'
     expect(page).to have_content 'Gostaria de te convidar'
     expect(page).to have_content 'Categoria: Video'

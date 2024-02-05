@@ -27,7 +27,8 @@
     <% if @job_categories&.any? %>
       <% @job_categories.each do |job_category| %>
         <p>
-          <%= f.check_box :project_job_category_ids, { multiple: true },job_category.id, nil %>
+          <% checked_value = @project_job_categories&.any? { |pjc| pjc.job_category_id == job_category.id } %>
+          <%= f.check_box :project_job_category_ids, {multiple: true, checked: checked_value}, job_category.id, nil %>
           <%= f.label "project_job_category_ids_#{job_category.id}", job_category.name %>
         </p>
       <% end %>
@@ -39,6 +40,6 @@
   </div>
 
   <div>
-    <%= f.submit 'Salvar Projeto', class: 'btn btn-primary'%>
+    <%= f.submit t('save_project'), class: 'btn btn-primary'%>
   </div>
 <% end %>
