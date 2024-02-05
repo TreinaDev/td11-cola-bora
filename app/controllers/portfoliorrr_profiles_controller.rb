@@ -5,7 +5,8 @@ class PortfoliorrrProfilesController < ApplicationController
 
   def show
     @portfoliorrr_profile_id = params[:id].to_i
-    @current_invitation = @project.invitations.find_by(profile_id: @portfoliorrr_profile_id, status: :pending)
+    @current_invitation = @project.invitations.find_by(profile_id: @portfoliorrr_profile_id,
+                                                       status: %i[pending processing])
     @current_invitation&.validate_expiration_days
     @portfoliorrr_profile = PortfoliorrrProfile.find(@portfoliorrr_profile_id)
 

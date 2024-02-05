@@ -1,4 +1,6 @@
 module InvitationService
+  PORTFOLIORRR_BASE_URL = 'http://localhost:3002'.freeze
+  PORTFOLIORRR_INVITATION_URL = '/api/v1/invitations/'.freeze
   class PortfoliorrrPost
     def self.send(invitation)
       @invitation = invitation
@@ -28,13 +30,14 @@ module InvitationService
 
       def post_connection
         headers = { 'Content-Type': 'application/json' }
-        url = 'http://localhost:8000/invitations'
+        url = "#{PORTFOLIORRR_BASE_URL}#{PORTFOLIORRR_INVITATION_URL}"
 
-        @response = Faraday.post(url, set_json, headers)
+        @response = Faraday.post(url, set_json.to_json, headers)
       end
 
       def post_success
-        @invitation.portfoliorrr_invitation_id = @response.body[:data][:id]
+        response_body = JSON.parse(@response.body, symbolize_names: true)
+        @invitation.portfoliorrr_invitation_id = response_body[:data][:invitation_id]
         @invitation.pending!
         @invitation.save
       end
@@ -42,6 +45,22 @@ module InvitationService
       def post_fail
         false if @invitation.delete
       end
+    end
+  end
+
+  class PortfoliorrrPatch
+    def self.send(invitation, status)
+      headers = { 'Content-Type': 'application/json' }
+      url = "#{PORTFOLIORRR_BASE_URL}#{PORTFOLIORRR_INVITATION_URL}#{invitation.portfoliorrr_invitation_id}"
+      json = { data: { invitation: { status: } } }
+
+      response = Faraday.patch(url, json.to_json, headers)
+
+      return false unless response.success?
+
+      true
+    rescue Faraday::ConnectionFailed
+      false
     end
   end
 end

@@ -2,6 +2,9 @@ require 'rails_helper'
 
 describe 'Lider revoga convite' do
   it 'e status muda de pendente para cancelado' do
+    invitation_spy = spy(InvitationService::PortfoliorrrPatch)
+    stub_const('InvitationService::PortfoliorrrPatch', invitation_spy)
+    allow(invitation_spy).to receive(:send)
     user = create(:user)
     project = create(:project, user:, title: 'Meu novo projeto')
 
@@ -19,6 +22,7 @@ describe 'Lider revoga convite' do
     expect(page).to have_content 'Convite cancelado!'
     expect(current_path).to eq project_portfoliorrr_profile_path(project, joao.id)
     expect(Invitation.last.cancelled?).to eq true
+    expect(invitation_spy).to have_received(:send)
   end
 
   it 'e vê página com o convite cancelado' do
@@ -42,8 +46,8 @@ describe 'Lider revoga convite' do
   end
 
   it 'e envia novo convite' do
-    json = { data: { id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json, success?: true)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
     allow(Faraday).to receive(:post).and_return(fake_response)
 
     user = create(:user)

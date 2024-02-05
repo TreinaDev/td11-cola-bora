@@ -27,6 +27,7 @@ class InvitationsController < ApplicationController
   def cancel
     @invitation.processing!
     if @invitation.cancelled!
+      InvitationService::PortfoliorrrPatch.send(@invitation, @invitation.status)
       redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
     else
       @invitation.pending!
@@ -66,6 +67,7 @@ class InvitationsController < ApplicationController
   def post_portfoliorrr_invitation
     return flash[:notice] = t('.success') if InvitationService::PortfoliorrrPost.send(@invitation)
 
+    flash.discard
     flash[:alert] = t('.fail')
   end
 
