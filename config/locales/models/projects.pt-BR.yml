@@ -30,6 +30,7 @@ pt-BR:
   details: Detalhes
   my_projects: Meus projetos
   projects_empty_state: Nenhum projeto.
+  contributing_projects: Projetos que colaboro.
   profile_search_title: '%{project_title} - Recrutamento de colaboradores'
   manage_member_btn: Gerenciar
   members: Colaboradores

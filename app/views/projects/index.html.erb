@@ -3,7 +3,7 @@
   <nav class="d-flex nav nav-underline">
     <%= link_to t('all'), projects_path, class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter].blank? }" %>
     <%= link_to t('my_projects'), projects_path(params: { filter: 'my_projects' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'my_projects'}" %>
-    <%= link_to 'Projetos que colaboro', projects_path(params: { filter: 'contributing_projects' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'contributing_projects'}" %>
+    <%= link_to t('contributing_projects'), projects_path(params: { filter: 'contributing_projects' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'contributing_projects'}" %>
   </nav>
 </div>
 <div class="container">

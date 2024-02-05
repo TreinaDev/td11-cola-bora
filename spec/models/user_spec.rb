@@ -107,4 +107,90 @@ RSpec.describe User, type: :model do
       expect(contributor.can_edit?(meeting)).to eq false
     end
   end
+
+  context '#all_projects' do
+    it 'retorna todos os projetos de um usuário' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_leader = create(:project, user:)
+      project_contributor = create(:project, user: other_user)
+      project_non_contributor = create(:project, user: other_user)
+      create(:user_role, user:, project: project_contributor, role: :contributor)
+
+      response = user.all_projects
+
+      expect(response).to include project_leader
+      expect(response).to include project_contributor
+      expect(response).not_to include project_non_contributor
+    end
+    it 'retorna vazio se não tiver projetos' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_non_contributor = create(:project, user: other_user)
+
+      response = user.all_projects
+
+      expect(response).to eq []
+      expect(response).not_to include project_non_contributor
+    end
+  end
+
+  context '#my_projects' do
+    it 'retorna todos os projetos de um usuário' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_leader = create(:project, user:)
+      project_contributor = create(:project, user: other_user)
+      project_non_contributor = create(:project, user: other_user)
+      create(:user_role, user:, project: project_contributor, role: :contributor)
+
+      response = user.my_projects
+
+      expect(response).to include project_leader
+      expect(response).not_to include project_contributor
+      expect(response).not_to include project_non_contributor
+    end
+    it 'retorna vazio se não tiver projetos' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_contributor = create(:project, user: other_user)
+      project_non_contributor = create(:project, user: other_user)
+      create(:user_role, user:, project: project_contributor, role: :contributor)
+
+      response = user.my_projects
+
+      expect(response).to eq []
+      expect(response).not_to include project_contributor
+      expect(response).not_to include project_non_contributor
+    end
+  end
+
+  context '#contributing_projects' do
+    it 'retorna todos os projetos que é colaborador' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_leader = create(:project, user:)
+      project_contributor = create(:project, user: other_user)
+      project_non_contributor = create(:project, user: other_user)
+      create(:user_role, user:, project: project_contributor, role: :contributor)
+
+      response = user.contributing_projects
+
+      expect(response).to include project_contributor
+      expect(response).not_to include project_leader
+      expect(response).not_to include project_non_contributor
+    end
+    it 'retorna vazio se não tiver projetos' do
+      user = create(:user)
+      other_user = create(:user, cpf: '000.000.001-91')
+      project_leader = create(:project, user:)
+      project_non_contributor = create(:project, user: other_user)
+
+      response = user.contributing_projects
+
+      expect(response).to eq []
+      expect(response).not_to include project_leader
+      expect(response).not_to include project_non_contributor
+    end
+  end
 end
