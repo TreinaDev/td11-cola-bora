@@ -7,7 +7,7 @@ describe 'Invitation decline API' do
 
       patch api_v1_invitation_path(invitation.id)
 
-      expect(response.status).to eq 200
+      expect(response).to have_http_status :ok
       expect(invitation.reload.status).to eq 'declined'
     end
 
@@ -16,7 +16,7 @@ describe 'Invitation decline API' do
 
       patch api_v1_invitation_path(9)
 
-      expect(response.status).to eq 404
+      expect(response).to have_http_status :not_found
       expect(invitation.reload.status).to eq 'pending'
     end
 
@@ -25,7 +25,7 @@ describe 'Invitation decline API' do
 
       patch api_v1_invitation_path(invitation.id)
 
-      expect(response.status).to eq 409
+      expect(response).to have_http_status :conflict
       expect(invitation.reload.status).to eq 'cancelled'
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
@@ -38,7 +38,7 @@ describe 'Invitation decline API' do
 
       patch api_v1_invitation_path(1)
 
-      expect(response.status).to eq 500
+      expect(response).to have_http_status :internal_server_error
       expect(invitation.reload.status).to eq 'pending'
     end
   end
