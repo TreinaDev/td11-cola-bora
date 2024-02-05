@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = current_user.projects.build
-    @project_job_categories = []
   end
 
   def create
