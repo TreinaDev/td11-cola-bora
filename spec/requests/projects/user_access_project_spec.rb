@@ -51,4 +51,20 @@ describe 'Usuário acessa projeto' do
       expect(response).to redirect_to root_path
     end
   end
+
+  context 'após ser removido' do
+    it 'sem sucesso' do
+      project = create :project
+      contributor = create :user, cpf: '000.000.001-91'
+      project.user_roles.create({ project:,
+                                  user: contributor,
+                                  active: false,
+                                  role: :contributor })
+
+      login_as contributor
+      get(project_path(project))
+
+      expect(response).to redirect_to root_path
+    end
+  end
 end

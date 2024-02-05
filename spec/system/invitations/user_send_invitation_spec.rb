@@ -1,28 +1,51 @@
 require 'rails_helper'
 
 describe 'Usuário quer enviar convite' do
-  it 'a partir do perfil do usuário da Portfoliorrr' do
-    user = create(:user)
-    project = create(:project, user:, title: 'Meu novo projeto')
-    create(:project, user:, title: 'Segundo projeto')
+  context 'com sucesso' do
+    it 'a partir do perfil do usuário da Portfoliorrr' do
+      user = create(:user)
+      project = create(:project, user:, title: 'Meu novo projeto')
+      create(:project, user:, title: 'Segundo projeto')
 
-    joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                   job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
-    joao.email = 'joao@email.com'
+      joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                     job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
+      joao.email = 'joao@email.com'
+      allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+      json = { data: { invitation_id: 3 } }
+      fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
+      allow(Faraday).to receive(:post).and_return(fake_response)
 
-    allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+      login_as user
+      visit project_portfoliorrr_profile_path(project, joao.id)
+      fill_in 'Prazo de validade (em dias)', with: 10
+      fill_in 'Mensagem', with: 'Adoraria que fizesse parte do meu projeto'
+      click_on 'Enviar convite'
 
-    login_as user
-    visit project_portfoliorrr_profile_path(project, joao.id)
-    fill_in 'Prazo de validade (em dias)', with: 10
-    fill_in 'Mensagem', with: 'Adoraria que fizesse parte do meu projeto'
-    click_on 'Enviar convite'
+      expect(page).to have_content 'Convite enviado com sucesso!'
+      expect(page).to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
+      expect(page).to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
+      expect(project.invitations.last.profile_email).to eq 'joao@email.com'
+      expect(project.invitations.last.pending?).to eq true
+    end
 
-    expect(page).to have_content 'Convite enviado com sucesso!'
-    expect(page).to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
-    expect(page).to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
-    expect(project.invitations.last.profile_email).to eq 'joao@email.com'
-    expect(project.invitations.last.pending?).to eq true
+    it 'e vê mensagem de convite em processamento' do
+      user =  create(:user)
+      project = create(:project, user:, title: 'Meu novo projeto')
+      joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
+                                     job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
+      allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
+      create(:invitation, project:, profile_id: joao.id, status: :processing)
+
+      login_as user
+      visit project_portfoliorrr_profile_path(project, joao.id)
+
+      expect(page).to have_content 'Convite em processamento.'
+      expect(page).not_to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
+      expect(page).not_to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
+      expect(page).not_to have_field 'Prazo de validade (em dias)'
+      expect(page).not_to have_field 'Mensagem'
+      expect(project.invitations.last.processing?).to eq true
+    end
   end
 
   it 'mas o usuário da Portfoliorrr já foi convidado para o projeto' do
@@ -34,7 +57,7 @@ describe 'Usuário quer enviar convite' do
 
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
 
-    create(:invitation, project:, profile_id: 1)
+    create(:invitation, project:, profile_id: 1, status: :pending)
 
     login_as user
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -50,7 +73,7 @@ describe 'Usuário quer enviar convite' do
     project = create(:project, user: user_one)
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
-    create(:invitation, project:, profile_id: joao.id)
+    create(:invitation, project:, profile_id: joao.id, status: :pending)
 
     login_as user_two
     visit project_portfoliorrr_profile_path(project, joao.id)
@@ -94,7 +117,7 @@ describe 'Usuário quer enviar convite' do
     expect(current_path).to eq project_portfoliorrr_profile_path(project, profile.id)
   end
 
-  it 'e não preenche nada' do
+  it 'e não preenche nada e convite é criado com sucesso' do
     owner = create(:user)
     project = create(:project, user: owner, title: 'Meu novo projeto')
     random_user_id = 123
@@ -103,6 +126,9 @@ describe 'Usuário quer enviar convite' do
                                       job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     profile.email = 'joao@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(profile)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
+    allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as owner
     visit project_portfoliorrr_profile_path(project, profile.id)

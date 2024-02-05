@@ -7,12 +7,18 @@ class Invitation < ApplicationRecord
   validate :check_member, on: :create
   validate :days_to_date, on: :create
 
-  enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
+  enum status: { processing: 0, pending: 1, accepted: 2, declined: 3, cancelled: 4, expired: 5 }
 
-  def pending!; end
+  def pending!
+    super if processing?
+  end
+
+  def processing!
+    super if pending?
+  end
 
   def cancelled!
-    super if pending?
+    super if processing?
   end
 
   def expired!

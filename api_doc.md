@@ -65,6 +65,41 @@ Retorno esperado:
 }
 ```
 
+---
+
+## 1. Mudar status de um convite para cancelado
+
+### Endpoint
+
+```shell
+PATCH /api/v1/invitations/:id
+```
+<br>
+
+Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
+
+<br>
+
+Retorno caso o convite não esteja mais pendente. (Status: 409)
+
+```json
+{ 
+  "message": ["Não é possível alterar convite que não está pendente."]
+}
+```
+
+  ### Erros tratados
+
+Erro para objeto não encontrado (Status: 404)
+
+```json
+{ 
+  "errors": ["Erro, não encontrado."]
+}
+```
+
+---
+
 ## Observações Gerais
 - Todos os endpoints retornam dados no formato JSON.
 - Em caso de sucesso, a resposta terá o código 200. 

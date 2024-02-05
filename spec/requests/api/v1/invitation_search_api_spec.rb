@@ -17,7 +17,7 @@ describe 'Invitation search API' do
       create(:invitation, project: project_three, profile_id: 1, status: :accepted)
       create(:invitation, project: project_three, profile_id: 15, status: :pending)
 
-      get api_v1_invitations_path(params: { id: 1 })
+      get api_v1_invitations_path(params: { profile_id: 1 })
 
       expect(response).to have_http_status :ok
       expect(response.content_type).to include('application/json')
@@ -43,7 +43,7 @@ describe 'Invitation search API' do
     end
 
     it 'retorna vazio quando não existem convites para o usuário' do
-      get api_v1_invitations_path(params: { id: 1 })
+      get api_v1_invitations_path(params: { profile_id: 1 })
 
       expect(response).to have_http_status :ok
       expect(response.content_type).to include 'application/json'
@@ -54,7 +54,7 @@ describe 'Invitation search API' do
     it 'falha quando ocorre erro interno' do
       allow(Invitation).to receive(:pending).and_raise(ActiveRecord::QueryCanceled)
 
-      get api_v1_invitations_path(params: { id: 1 })
+      get api_v1_invitations_path(params: { profile_id: 1 })
 
       expect(response).to have_http_status(:internal_server_error)
     end

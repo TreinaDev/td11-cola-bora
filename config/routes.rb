@@ -19,6 +19,12 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :user_roles, only: %i[edit update]
+  end
+
+  resources :user_roles, only: [] do
+    patch :remove, on: :member
   end
 
   resources :invitations, only: %i[index show] do
@@ -41,7 +47,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index]
-      resources :invitations, only: %i[index]
+      resources :invitations, only: %i[index update]
     end
   end
 end
