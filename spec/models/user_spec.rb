@@ -117,21 +117,21 @@ RSpec.describe User, type: :model do
       project_non_contributor = create(:project, user: other_user)
       create(:user_role, user:, project: project_contributor, role: :contributor)
 
-      response = user.all_projects
+      result = user.all_projects
 
-      expect(response).to include project_leader
-      expect(response).to include project_contributor
-      expect(response).not_to include project_non_contributor
+      expect(result).to include project_leader
+      expect(result).to include project_contributor
+      expect(result).not_to include project_non_contributor
     end
     it 'retorna vazio se não tiver projetos' do
       user = create(:user)
       other_user = create(:user, cpf: '000.000.001-91')
       project_non_contributor = create(:project, user: other_user)
 
-      response = user.all_projects
+      result = user.all_projects
 
-      expect(response).to eq []
-      expect(response).not_to include project_non_contributor
+      expect(result).to eq []
+      expect(result).not_to include project_non_contributor
     end
   end
 
@@ -144,11 +144,11 @@ RSpec.describe User, type: :model do
       project_non_contributor = create(:project, user: other_user)
       create(:user_role, user:, project: project_contributor, role: :contributor)
 
-      response = user.my_projects
+      result = user.my_projects
 
-      expect(response).to include project_leader
-      expect(response).not_to include project_contributor
-      expect(response).not_to include project_non_contributor
+      expect(result).to include project_leader
+      expect(result).not_to include project_contributor
+      expect(result).not_to include project_non_contributor
     end
     it 'retorna vazio se não tiver projetos' do
       user = create(:user)
@@ -157,11 +157,11 @@ RSpec.describe User, type: :model do
       project_non_contributor = create(:project, user: other_user)
       create(:user_role, user:, project: project_contributor, role: :contributor)
 
-      response = user.my_projects
+      result = user.my_projects
 
-      expect(response).to eq []
-      expect(response).not_to include project_contributor
-      expect(response).not_to include project_non_contributor
+      expect(result).to eq []
+      expect(result).not_to include project_contributor
+      expect(result).not_to include project_non_contributor
     end
   end
 
@@ -174,23 +174,24 @@ RSpec.describe User, type: :model do
       project_non_contributor = create(:project, user: other_user)
       create(:user_role, user:, project: project_contributor, role: :contributor)
 
-      response = user.contributing_projects
+      result = user.contributing_projects
 
-      expect(response).to include project_contributor
-      expect(response).not_to include project_leader
-      expect(response).not_to include project_non_contributor
+      expect(result).to include project_contributor
+      expect(result).not_to include project_leader
+      expect(result).not_to include project_non_contributor
     end
+
     it 'retorna vazio se não tiver projetos' do
       user = create(:user)
       other_user = create(:user, cpf: '000.000.001-91')
       project_leader = create(:project, user:)
       project_non_contributor = create(:project, user: other_user)
 
-      response = user.contributing_projects
+      result = user.contributing_projects
 
-      expect(response).to eq []
-      expect(response).not_to include project_leader
-      expect(response).not_to include project_non_contributor
+      expect(result).to eq []
+      expect(result).not_to include project_leader
+      expect(result).not_to include project_non_contributor
     end
   end
 end

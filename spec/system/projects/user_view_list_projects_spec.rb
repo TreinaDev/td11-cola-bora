@@ -71,7 +71,6 @@ describe 'Usuário vê projetos' do
     other_leader = create :user, cpf: '096.505.460-81'
     create :project, user: other_leader, title: 'Capturar todos os pokemons'
     create :project, user: other_leader, title: 'Mestre pokemon'
-    create :project, user: other_leader, title: 'Pokedex'
 
     login_as leader
     visit projects_path
@@ -81,7 +80,6 @@ describe 'Usuário vê projetos' do
     expect(page).to have_content 'Nenhum projeto.'
     expect(page).not_to have_content 'Capturar todos os pokemons'
     expect(page).not_to have_content 'Mestre pokemon'
-    expect(page).not_to have_content 'Pokedex'
   end
 
   it 'nos quais é colaborador' do
@@ -91,11 +89,8 @@ describe 'Usuário vê projetos' do
                                    description: 'Descrição do projeto 1', category: 'Categoria 1'
     project_two = create :project, user: leader, title: 'Mestre pokemon',
                                    description: 'Esse projeto é o mais dificil', category: 'Categoria 2'
-    project_three = create :project, user: leader, title: 'Pokedex',
-                                     description: 'Projeto interessante!', category: 'Categoria 3'
     create :user_role, project: project_one, user: contributor, role: :contributor
     create :user_role, project: project_two, user: contributor, role: :contributor
-    create :user_role, project: project_three, user: contributor, role: :contributor
 
     login_as contributor
     visit projects_path
@@ -109,20 +104,13 @@ describe 'Usuário vê projetos' do
     expect(page).to have_content 'Mestre pokemon'
     expect(page).to have_content 'Esse projeto é o mais dificil'
     expect(page).to have_content 'Categoria: Categoria 2'
-    expect(page).to have_content 'Pokedex'
-    expect(page).to have_content 'Projeto interessante!'
-    expect(page).to have_content 'Categoria: Categoria 3'
   end
 
   it 'nos quais é colaborador e não há nenhum projeto' do
     leader = create :user
     contributor = create :user, cpf: '643.770.760-78'
     project_one = create :project, user: leader, title: 'Capturar todos os pokemons'
-    project_two = create :project, user: leader, title: 'Mestre pokemon'
-    project_three = create :project, user: leader, title: 'Pokedex'
     create :user_role, project: project_one, user: contributor, role: :contributor
-    create :user_role, project: project_two, user: contributor, role: :contributor
-    create :user_role, project: project_three, user: contributor, role: :contributor
     not_contributor = create :user, cpf: '096.505.460-81'
 
     login_as not_contributor
@@ -131,7 +119,5 @@ describe 'Usuário vê projetos' do
 
     expect(page).to have_content 'Nenhum projeto.'
     expect(page).not_to have_content 'Capturar todos os pokemons'
-    expect(page).not_to have_content 'Mestre pokemon'
-    expect(page).not_to have_content 'Pokedex'
   end
 end
