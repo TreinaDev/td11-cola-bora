@@ -172,7 +172,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       visit search_project_portfoliorrr_profiles_path project
       click_on 'Voltar'
 
-      expect(current_path).to eq project_path project
+      expect(page).to have_current_path project_path(project)
     end
   end
 end
