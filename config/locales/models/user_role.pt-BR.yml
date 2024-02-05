@@ -22,5 +22,9 @@ pt-BR:
     update:
       success: Colaborador atualizado com sucesso
     fail: Não foi possível completar a requisição
+    remove:
+      success: Colaborador removido com sucesso
     
   member_managing: Gerenciamento de Colaborador
+  remove_member_btn: Remover
+  remove_member_confirmation: Deseja remover este colaborador?
