@@ -1,0 +1,15 @@
+@import "app_theme.scss";
+
+.logo {
+  width: 150px;
+}
+ nav {
+  a {
+    color: $colaBoraGreen!important;
+    text-decoration: none!important;
+  }
+  
+  a:hover {
+    color: $colaBoraGreenHover!important;
+  }
+}
