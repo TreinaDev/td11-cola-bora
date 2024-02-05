@@ -28,8 +28,8 @@ pt-BR:
   delete_confirm_message: Deletar projeto?
   search_users_btn: Procurar usuários
   details: Detalhes
-  my_projects: Meus Projetos
-  projects_empty_state: Não existem projetos cadastrados.
+  my_projects: Meus projetos
+  projects_empty_state: Nenhum projeto.
   profile_search_title: '%{project_title} - Recrutamento de colaboradores'
   manage_member_btn: Gerenciar
   members: Colaboradores

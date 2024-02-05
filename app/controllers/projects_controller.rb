@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   before_action :check_contributor, only: %i[show edit destroy members]
 
   def index
-    @projects = Project.where(user_id: current_user)
+    return @projects = current_user.contributing_projects if params[:filter] == 'contributing_projects'
+    return @projects = current_user.my_projects if params[:filter] == 'my_projects'
+
+    @projects = current_user.all_projects
   end
 
   def new
