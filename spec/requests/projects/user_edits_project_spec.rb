@@ -49,9 +49,9 @@ describe 'Usuário edita projeto' do
     login_as not_member, scope: :user
     patch(project_path(project), params: { project: { title: 'Projeto Port' } })
 
-    expect(response).to redirect_to project_path(project)
+    expect(response).to redirect_to root_path
     expect(project.reload.title).to eq 'Projeto Math'
-    expect(flash[:alert]).to eq 'Você não possui permissão para prosseguir'
+    expect(flash[:alert]).to eq 'Você não é um colaborador desse projeto'
   end
 
   it 'e não está autenticado' do
