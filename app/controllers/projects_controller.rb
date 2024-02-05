@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy members]
   before_action :check_contributor, only: %i[show edit destroy members]
   before_action :check_leader, only: %i[edit update]
