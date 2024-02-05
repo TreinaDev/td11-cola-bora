@@ -6,7 +6,10 @@ class ProjectsController < ApplicationController
   before_action :set_project_job_categories, only: %i[show edit]
 
   def index
-    @projects = Project.where(user_id: current_user)
+    return @projects = current_user.contributing_projects if params[:filter] == 'contributing_projects'
+    return @projects = current_user.my_projects if params[:filter] == 'my_projects'
+
+    @projects = current_user.all_projects
   end
 
   def new

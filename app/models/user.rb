@@ -22,6 +22,18 @@ class User < ApplicationRecord
     meeting.user_role.user == self || user_role.leader? || user_role.admin?
   end
 
+  def all_projects
+    user_roles.map(&:project)
+  end
+
+  def my_projects
+    user_roles.select { |user_role| user_role.project if user_role.role == 'leader' }.map(&:project)
+  end
+
+  def contributing_projects
+    user_roles.select { |user_role| user_role.project unless user_role.role == 'leader' }.map(&:project)
+  end
+
   private
 
   def create_profile

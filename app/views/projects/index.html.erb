@@ -1,12 +1,14 @@
 <h1><%= Project.model_name.human(count: 2) %></h1>
-<div class="nav-scroller py-1 mb-3 border-bottom">
-  <nav class="nav nav-underline">
-    <%= link_to t(:my_projects), projects_path, class: "nav-item nav-link link-body-emphasis active" %>
+<div class="nav-scroller border-bottom mb-4">
+  <nav class="d-flex nav nav-underline">
+    <%= link_to t('all'), projects_path, class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter].blank? }" %>
+    <%= link_to t('my_projects'), projects_path(params: { filter: 'my_projects' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'my_projects'}" %>
+    <%= link_to t('contributing_projects'), projects_path(params: { filter: 'contributing_projects' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'contributing_projects'}" %>
   </nav>
 </div>
 <div class="container">
   <div class="row">
-    <% if @projects.any? %>
+    <% if @projects.present? %>
       <% @projects.each do |project| %>
         <div class="col-sm-6 mb-3">
           <div class="card" style="height: 100%">
