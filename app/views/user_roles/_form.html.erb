@@ -1,5 +1,5 @@
 <div class="container mt-3 px-0 row align-items-center">
-  <%= form_with model: [@project, @user_role], class: 'col-10' do |f| %>
+  <%= form_with model: [@project, @user_role], class: 'col-9' do |f| %>
     <div class="d-flex align-items-center justify-content-between gap-5">
       <div class="text-start">
         <span class="display-6 fs-4">
@@ -20,12 +20,11 @@
                         {}, { class: 'form-select' } %>
 
             <%= f.submit t(:save), class: 'btn btn-primary ms-2' %>
-          </div>
         </div>
       </div>
     </div>
   <% end %>
-  <div class="col-2 px-0">
+  <div class="col-3 px-0">
     <%= button_to t(:remove_member_btn),
                   remove_user_role_path(@user_role),
                   method: :patch,

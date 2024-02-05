@@ -35,7 +35,7 @@ describe 'Usuário remove um colaborador de um projeto' do
       admin = create :user, cpf: '111.863.720-87'
       create :user_role, project:, user: admin, role: :admin
       contributor = create :user, cpf: '281.754.920-15'
-      contributor_role = create :user_role, project:, user: contributor, role: :contributor
+      contributor_role = create :user_role, project:, user: contributor, role: :contributor, active: true
 
       login_as admin
       patch remove_user_role_path(contributor_role)
@@ -52,7 +52,7 @@ describe 'Usuário remove um colaborador de um projeto' do
       admin = create :user, cpf: '111.863.720-87'
       admin_role = create :user_role, project:, user: admin, role: :admin
       contributor = create :user, cpf: '281.754.920-15'
-      create :user_role, project:, user: contributor, role: :contributor
+      create :user_role, project:, user: contributor, role: :contributor, active: true
 
       login_as contributor
       patch remove_user_role_path(admin_role)
@@ -68,7 +68,7 @@ describe 'Usuário remove um colaborador de um projeto' do
       non_member = create :user, cpf: '281.754.920-15'
       project = create :project
       admin = create :user, cpf: '111.863.720-87'
-      admin_role = create :user_role, user: admin, project:, role: :admin
+      admin_role = create :user_role, user: admin, project:, role: :admin, active: true
 
       login_as non_member
       patch remove_user_role_path(admin_role)
@@ -82,7 +82,7 @@ describe 'Usuário remove um colaborador de um projeto' do
   it 'sem estar autenticado' do
     project = create :project
     admin = create :user, cpf: '111.863.720-87'
-    admin_role = create :user_role, project:, user: admin, role: :admin
+    admin_role = create :user_role, project:, user: admin, role: :admin, active: true
 
     patch remove_user_role_path(admin_role)
 
