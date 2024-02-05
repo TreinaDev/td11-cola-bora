@@ -41,8 +41,8 @@ class ProjectsController < ApplicationController
     query = params[:query]
 
     @leader = @project.member_roles(:leader).first.user if query.blank? || query == 'leader'
-    @admin_roles = @project.member_roles(:admin) if query.blank? || query == 'admin'
-    @contributor_roles = @project.member_roles(:contributor) if query.blank? || query == 'contributor'
+    @admins = @project.member_roles(:admin) if query.blank? || query == 'admin'
+    @contributors = @project.member_roles(:contributor) if query.blank? || query == 'contributor'
   end
 
   private

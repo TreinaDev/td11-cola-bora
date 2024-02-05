@@ -33,6 +33,7 @@ describe 'Colaborador filtra lista de membros' do
         expect(page).not_to have_content 'contribuidor@email.com'
         expect(page).not_to have_content 'Líder'
         expect(page).not_to have_content 'Contribuidor'
+        expect(page).not_to have_content 'Nenhum resultado encontrado'
       end
       within '#filter-form' do
         expect(page).to have_select :query, selected: 'Administradores'
@@ -88,6 +89,7 @@ describe 'Colaborador filtra lista de membros' do
         expect(page).not_to have_content 'leader@email.com'
         expect(page).not_to have_content 'Líder'
         expect(page).not_to have_content 'Administrador'
+        expect(page).not_to have_content 'Nenhum resultado encontrado'
       end
       within '#filter-form' do
         expect(page).to have_select :query, selected: 'Contribuidores'
