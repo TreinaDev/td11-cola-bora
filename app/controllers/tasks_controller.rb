@@ -74,6 +74,6 @@ class TasksController < ApplicationController
 
   def check_user
     redirect_to root_path, alert: t('.fail') \
-      unless @task.author == current_user || @task.assigned == current_user || @task.project.user == current_user
+      unless @task.user_role.user == current_user || @task.assigned == current_user || @task.project.user == current_user
   end
 end

@@ -1,23 +1,18 @@
 <%= render 'shared/project_header', project: @task.project %>
-
 <h1><%= Task.model_name.human %>: <%= @task.title %></h1>
 <dl>
   <dt><%= Task.human_attribute_name :description %></dt>
   <dd><%= @task.description %></dd>
-
-  <dt><%= Task.human_attribute_name :author %></dt>
-  <dd><%= @task.author.email %></dd>
-
+  <dt><%= Task.human_attribute_name :user_role %></dt>
+  <dd><%= @task.user_role.user.email %></dd>
   <dt><%= Task.human_attribute_name :status %></dt>
   <dd><%= I18n.t(@task.status) %></dd>
-
   <dt><%= Task.human_attribute_name :assigned %></dt>
   <% if @task.assigned %>
     <dd><%= @task.assigned.email %></dd>
   <% else %>
     <dd><%= I18n.t('tasks.no_assigned') %></dd>
   <% end %>
-
   <dt><%= Task.human_attribute_name :due_date %></dt>
   <% if @task.due_date %>
     <dd><%= I18n.l @task.due_date %></dd>
@@ -25,7 +20,6 @@
     <dd><%= I18n.t('tasks.no_due_date') %></dd>
   <% end %>
 </dl>
-
 <br>
 <div class="d-flex mb-3">
   <%= button_to I18n.t('tasks.start_task'), 
@@ -42,7 +36,6 @@
               edit_task_path(@task),
               class: 'btn btn-secondary' unless @task.finished? || @task.cancelled? %>
 </div>
-
 <div>
   <%= link_to I18n.t('.back'), 
               project_tasks_path(@task.project),
