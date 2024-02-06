@@ -9,6 +9,14 @@ class Task < ApplicationRecord
 
   validate :due_date_is_future
 
+  def start_time
+    due_date.to_datetime if due_date.presence
+  end
+
+  def end_time
+    due_date.to_datetime.end_of_day if due_date.presence
+  end
+
   private
 
   def due_date_is_future

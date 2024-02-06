@@ -1,0 +1,147 @@
+require 'rails_helper'
+
+describe 'Usuário vê calendário do projeto' do
+  it 'de reuniões' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu Projeto')
+
+    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+      first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
+      second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
+      third_daily = create(:meeting, project:, title: 'Daily 3', datetime: 11.days.from_now)
+      task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
+
+      login_as user
+      visit root_path
+      click_on 'Projetos'
+      click_on 'Meu Projeto'
+      within '#project-navbar' do
+        click_on 'Calendário'
+      end
+      select 'Reuniões', from: :filter
+      click_on 'Filtrar'
+
+      within "#day-#{first_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 1'
+      end
+      within "#day-#{second_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 2'
+      end
+      within "#day-#{third_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 3'
+      end
+      within "#day-#{task.start_time.to_date}" do
+        expect(page).not_to have_content 'Tarefa 1'
+      end
+    end
+  end
+
+  it 'de tarefas' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu Projeto')
+
+    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
+      third_task = create(:task, title: 'Tarefa 3', project:, due_date: 7.days.from_now)
+      daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
+
+      login_as user
+      visit project_calendars_path project
+      select 'Tarefas', from: :filter
+      click_on 'Filtrar'
+
+      within "#day-#{first_task.start_time.to_date}" do
+        expect(page).to have_content 'Tarefa 1'
+      end
+      within "#day-#{second_task.start_time.to_date}" do
+        expect(page).to have_content 'Tarefa 2'
+      end
+      within "#day-#{third_task.start_time.to_date}" do
+        expect(page).to have_content 'Tarefa 3'
+      end
+      within "#day-#{daily.start_time.to_date}" do
+        expect(page).not_to have_content 'Daily 1'
+      end
+    end
+  end
+
+  it 'completo' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu Projeto')
+
+    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+      first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
+      create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
+
+      second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
+      create(:task, title: 'Tarefa 2', project:, due_date: 10.days.from_now)
+
+      login_as user
+      visit project_calendars_path project
+
+      within "#day-#{first_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 1'
+        expect(page).to have_content 'Tarefa 1'
+      end
+      within "#day-#{second_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 2'
+        expect(page).to have_content 'Tarefa 2'
+      end
+    end
+  end
+
+  it 'e não vê eventos de outro projeto' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu Projeto')
+    other_project = create(:project, user:, title: 'Outro Projeto')
+
+    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+      first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
+      create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
+
+      second_daily = create(:meeting, project: other_project, title: 'Daily 2', datetime: 10.days.from_now)
+      create(:task, title: 'Tarefa 2', project: other_project, due_date: 10.days.from_now)
+
+      login_as user
+      visit project_calendars_path project
+
+      within "#day-#{first_daily.start_time.to_date}" do
+        expect(page).to have_content 'Daily 1'
+        expect(page).to have_content 'Tarefa 1'
+      end
+      within "#day-#{second_daily.start_time.to_date}" do
+        expect(page).not_to have_content 'Daily 2'
+        expect(page).not_to have_content 'Tarefa 2'
+      end
+    end
+  end
+
+  it 'de tarefas e volta para todos' do
+    user = create(:user)
+    project = create(:project, user:, title: 'Meu Projeto')
+
+    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
+      create(:meeting, project:, title: 'Daily 1', datetime: 5.days.from_now)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
+      create(:meeting, project:, title: 'Daily 2', datetime: 6.days.from_now)
+
+      login_as user
+      visit project_calendars_path project
+      select 'Tarefas', from: :filter
+      click_on 'Filtrar'
+      select 'Todos', from: :filter
+      click_on 'Filtrar'
+
+      within "#day-#{first_task.start_time.to_date}" do
+        expect(page).to have_content 'Tarefa 1'
+        expect(page).to have_content 'Daily 1'
+      end
+      within "#day-#{second_task.start_time.to_date}" do
+        expect(page).to have_content 'Tarefa 2'
+        expect(page).to have_content 'Daily 2'
+      end
+    end
+  end
+end
