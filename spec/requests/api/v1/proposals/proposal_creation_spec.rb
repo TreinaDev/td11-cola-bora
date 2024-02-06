@@ -25,6 +25,30 @@ describe 'Criação de requisição de participação em projeto' do
     end
 
     context 'sem sucesso' do
+      it 'se usuário já faz parte do projeto' do
+        project = create :project
+        contributor = create :user, cpf: '795.780.710-00', email: 'contributor@email.com'
+        contributor_portfoliorrr_profile_id = 99
+        create :invitation, status: :accepted,
+                            project:,
+                            profile_id: contributor_portfoliorrr_profile_id,
+                            profile_email: 'contributor@email.com'
+        project.user_roles.create! project:, user: contributor, active: true
+        params = { proposal: {
+          project_id: project.id,
+          profile_id: contributor_portfoliorrr_profile_id
+        } }
+
+        post(api_v1_proposals_path, params:)
+
+        expect(Proposal.count).to eq 0
+        json_response = JSON.parse(response.body)
+        expect(response).to have_http_status :bad_request
+        expect(json_response['errors']).to eq ['Usuário já faz parte deste projeto']
+      end
+
+      it 'se já existe uma solicitação pendente'
+
       it 'se projeto não existe' do
         params = { proposal: {
           profile_id: 1,
