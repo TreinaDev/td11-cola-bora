@@ -35,7 +35,7 @@ describe 'Usuário vê tarefas' do
     expect(page).to have_content "Descrição\nFazer item 8 do backlog"
     expect(page).to have_content "Prazo\nSem prazo"
     expect(page).to have_content "Responsável\nSem responsável"
-    expect(current_path).to eq task_path(task)
+    expect(current_path).to eq project_task_path(project, task)
   end
 
   it 'e volta para a página do projeto' do

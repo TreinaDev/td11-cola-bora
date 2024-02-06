@@ -5,7 +5,13 @@ Rails.application.routes.draw do
 
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit update destroy] do
-    resources :tasks, only: %i[index new create]
+    resources :tasks, only: %i[index new create show edit update] do
+      member do
+        post 'start'
+        post 'finish'
+        post 'cancel'
+      end
+    end
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]
     get 'members', on: :member, to: 'projects#members'
@@ -30,14 +36,6 @@ Rails.application.routes.draw do
   resources :invitations, only: %i[index show] do
     patch 'accept', on: :member
     patch 'decline', on: :member
-  end
-
-  resources :tasks, only: %i[show edit update] do
-    member do
-      post 'start'
-      post 'finish'
-      post 'cancel'
-    end
   end
 
   resources :documents, only: %i[show] do

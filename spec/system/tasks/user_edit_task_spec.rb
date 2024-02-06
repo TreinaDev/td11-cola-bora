@@ -7,7 +7,7 @@ describe 'Usuário edita tarefa' do
     task = create(:task, project:)
 
     login_as(author)
-    visit task_path(task)
+    visit project_task_path(project, task)
     click_on 'Editar Tarefa'
     fill_in 'Título', with: 'Conserta a tarefa'
     fill_in 'Descrição', with: 'Essa edição conserta a tarefa'
@@ -24,7 +24,7 @@ describe 'Usuário edita tarefa' do
     task = create(:task, project:)
 
     login_as(author)
-    visit task_path(task)
+    visit project_task_path(project, task)
     click_on 'Editar Tarefa'
     fill_in 'Título', with: ''
     click_on 'Salvar'
