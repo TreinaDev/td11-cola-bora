@@ -7,3 +7,5 @@ pt-BR:
     attributes:
       proposal:
         profile_id: ID de Perfil
+        project: Projeto
+        
