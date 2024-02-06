@@ -23,7 +23,7 @@ describe 'Usuário envia um convite sendo lider' do
     expect(response).to redirect_to project_portfoliorrr_profile_path(project, joao.id)
   end
 
-  it 'e falha' do
+  it 'para alguem que ja tem convite aceito' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu novo projeto')
     create(:project, user:, title: 'Segundo projeto')
