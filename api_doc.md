@@ -105,7 +105,7 @@ Erro para objeto não encontrado (Status: 404)
 ### Endpoint
 
 ```shell
-GET /api/v1/proposals
+POST /api/v1/proposals
 ```
 
 #### Corpo da requisição:
