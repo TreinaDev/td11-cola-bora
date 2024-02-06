@@ -8,10 +8,6 @@ class UserRole < ApplicationRecord
 
   default_scope { where(active: true) }
 
-  def self.get_user_role(project, user)
-    UserRole.find_by(user:, project:)
-  end
-
   private
 
   def only_one_leader_per_project
