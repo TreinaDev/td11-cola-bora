@@ -1,14 +1,28 @@
 module Api
   module V1
     class ProposalsController < Api::V1::ApiController
-      def create
-        project = Project.find(params[:proposal][:project_id])
-        proposal = project.proposals.new(
-          params.require(:proposal).permit(:profile_id, :message)
-        )
+      before_action :set_project, only: %i[create]
 
-        proposal.save
-        render json: { data: { proposal_id: proposal.id } }, status: :created
+      def create
+        proposal = @project.proposals.new(proposal_params)
+
+        if proposal.save
+          render json: { data: { proposal_id: proposal.id } }, status: :created
+        else
+          render json: { errors: proposal.errors.full_messages }, status: :bad_request
+        end
+      end
+
+      private
+
+      def set_project
+        @project = Project.find(params[:proposal][:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { errors: I18n.t('.missing_project') }, status: :not_found
+      end
+
+      def proposal_params
+        params.require(:proposal).permit(:profile_id, :message)
       end
     end
   end

@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    model:
+      proposal:
+        one: Solicitação
+        other: Solicitações
+    attributes:
+      proposal:
+        profile_id: ID de Perfil

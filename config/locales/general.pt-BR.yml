@@ -14,3 +14,4 @@ pt-BR:
   profile_not_available: Perfil não disponível
   save: Salvar
   model_description: Descrição do %{model}
+  missing_project: Projeto não encontrado
