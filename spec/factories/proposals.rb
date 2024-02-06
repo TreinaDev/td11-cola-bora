@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :proposal do
-    project { nil }
-    status { 1 }
-    message { 'MyString' }
-    portfoliorrr_user_id { 1 }
+    project
+    status { :pending }
+    message { 'Mensagem padrão' }
+    sequence(:profile_id) { |n| n }
   end
 end

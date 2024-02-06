@@ -67,7 +67,7 @@ Retorno esperado:
 
 ---
 
-## 1. Mudar status de um convite para cancelado
+## 2. Mudar status de um convite para cancelado
 
 ### Endpoint
 
@@ -95,6 +95,82 @@ Erro para objeto não encontrado (Status: 404)
 ```json
 { 
   "errors": ["Erro, não encontrado."]
+}
+```
+
+---
+
+## 3 Criar solicitação para participação em projetos
+
+### Endpoint
+
+```shell
+GET /api/v1/proposals
+```
+
+#### Corpo da requisição:
+
+A requisição requer o ID de um projeto existente na plataforma Cola?Bora!, o ID válido de um perfil da Portfoliorrr e uma mensagem opcional.
+
+```json
+{ 
+  "proposal": 
+    {
+      "project_id": 1,
+      "profile_id": 3,
+      "message": "Gostaria de participar do projeto!"
+    }
+}
+```
+
+<br>
+
+Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
+
+```json
+{ 
+  "data": 
+    {
+      "proposal_id": 1
+    }
+}
+```
+
+<br>
+
+
+
+  ### Erros tratados
+
+Retorno caso o projeto não exista na plataforma Cola?Bora!. (Status: 404)
+
+```json
+{ 
+  "errors": ["Projeto não encontrado"]
+}
+```
+
+Erros de ID de Perfil (Status: 400)
+
+```json
+// ID de perfil em branco
+{ 
+  "errors": ["ID de perfil não pode ficar em branco", "ID de Perfil não é um número"]
+}
+
+// ID de perfil menor ou igual a zero
+{
+  "errors": ["ID de Perfil deve ser maior ou igual a 1"]
+}
+```
+
+Erro interno de servidor (Status: 500)
+
+Retorno esperado:
+
+```json
+{ 
+  "errors": ["Erro interno de servidor."]
 }
 ```
 
