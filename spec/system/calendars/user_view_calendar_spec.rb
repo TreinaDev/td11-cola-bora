@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Usuário vê calendário do projeto' do
-  it 'de reuniões' do
+  it 'somente com reuniões' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
 
-    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+    travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
       second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
       third_daily = create(:meeting, project:, title: 'Daily 3', datetime: 11.days.from_now)
@@ -36,11 +36,11 @@ describe 'Usuário vê calendário do projeto' do
     end
   end
 
-  it 'de tarefas' do
+  it 'somente com tarefas' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
 
-    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+    travel_to Time.zone.now.beginning_of_month do
       first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
       second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
       third_task = create(:task, title: 'Tarefa 3', project:, due_date: 7.days.from_now)
@@ -66,11 +66,11 @@ describe 'Usuário vê calendário do projeto' do
     end
   end
 
-  it 'completo' do
+  it 'com reuniões e tarefas' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
 
-    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+    travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
       first_task = create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
 
@@ -96,7 +96,7 @@ describe 'Usuário vê calendário do projeto' do
     project = create(:project, user:, title: 'Meu Projeto')
     other_project = create(:project, user:, title: 'Outro Projeto')
 
-    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+    travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
       create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
 
@@ -117,11 +117,11 @@ describe 'Usuário vê calendário do projeto' do
     end
   end
 
-  it 'de tarefas e volta para todos' do
+  it 'somente com tarefas e volta para todos' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
 
-    travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
+    travel_to Time.zone.now.beginning_of_month do
       first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
       create(:meeting, project:, title: 'Daily 1', datetime: 5.days.from_now)
       second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
