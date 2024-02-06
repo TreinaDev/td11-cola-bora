@@ -1,23 +1,101 @@
+.simple-calendar { 
+
+  .calendar-heading {
+    color: #3b3b3b;
+    text-align: center;
+  }
+
+  .calendar-heading time {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .calendar-heading nav {
+    letter-spacing: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 20px;
+  }
+
+  thead tr th {
+    color: #3b3b3b;
+    text-align: center;
+    text-transform: uppercase;
+    border: #ccc 1px solid;
+  }
+
+  .day {
+    color: #3b3b3b;
+    width: 100px;
+    height: 150px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  .day .event-meeting {
+    letter-spacing: 1px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #fff;
+    padding-left: 4px;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .day .event-task {
+    letter-spacing: 1px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #fff;
+    padding-left: 4px;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .wday-0, .wday-1, .wday-2, .wday-3, .wday-4, .wday-5, .wday-6 {
+    background-color: #fff;
+  }
+
+
+  .today {
+    background-color: rgb(253, 255, 187);
+  }
+
+  .prev-month {
+    background-color: #e2e2e2;
+  }
+
+
+  .next-month {
+    background-color: #e2e2e2;
+  }
+
+}
+
 .simple-calendar {
-  .day {}
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba($primary, 0.5);
+  font-size: 20px;
+}
 
-  .wday-0 {}
-  .wday-1 {}
-  .wday-2 {}
-  .wday-3 {}
-  .wday-4 {}
-  .wday-5 {}
-  .wday-6 {}
+.btn-purple {
+  background-color: #9400d3;
+  color: white;
+}
 
-  .today {}
-  .past {}
-  .future {}
+.btn-green {
+  background-color: #08ad11;
+  color: white;
+}
 
-  .start-date {}
+.btn-purple:hover {
+  background-color: #7e00b4;
+}
 
-  .prev-month {}
-  .next-month { }
-  .current-month {}
-
-  .has-events {}
+.btn-green:hover {
+  background-color: #06880d;
 }

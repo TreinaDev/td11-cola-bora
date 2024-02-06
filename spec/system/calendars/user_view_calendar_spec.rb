@@ -22,16 +22,16 @@ describe 'Usuário vê calendário do projeto' do
       click_on 'Filtrar'
 
       within "#day-#{first_daily.start_time.to_date}" do
-        expect(page).to have_content 'Daily 1'
+        expect(page).to have_link 'Daily 1', href: project_meeting_path(project, first_daily)
       end
       within "#day-#{second_daily.start_time.to_date}" do
-        expect(page).to have_content 'Daily 2'
+        expect(page).to have_link 'Daily 2', href: project_meeting_path(project, second_daily)
       end
       within "#day-#{third_daily.start_time.to_date}" do
-        expect(page).to have_content 'Daily 3'
+        expect(page).to have_link 'Daily 3', href: project_meeting_path(project, third_daily)
       end
       within "#day-#{task.start_time.to_date}" do
-        expect(page).not_to have_content 'Tarefa 1'
+        expect(page).not_to have_link 'Tarefa 1'
       end
     end
   end
@@ -52,16 +52,16 @@ describe 'Usuário vê calendário do projeto' do
       click_on 'Filtrar'
 
       within "#day-#{first_task.start_time.to_date}" do
-        expect(page).to have_content 'Tarefa 1'
+        expect(page).to have_link 'Tarefa 1', href: task_path(first_task)
       end
       within "#day-#{second_task.start_time.to_date}" do
-        expect(page).to have_content 'Tarefa 2'
+        expect(page).to have_link 'Tarefa 2', href: task_path(second_task)
       end
       within "#day-#{third_task.start_time.to_date}" do
-        expect(page).to have_content 'Tarefa 3'
+        expect(page).to have_link 'Tarefa 3', href: task_path(third_task)
       end
       within "#day-#{daily.start_time.to_date}" do
-        expect(page).not_to have_content 'Daily 1'
+        expect(page).not_to have_link 'Daily 1'
       end
     end
   end
@@ -72,21 +72,21 @@ describe 'Usuário vê calendário do projeto' do
 
     travel_to Time.zone.local(2024, 2, 1, 12, 0, 0) do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
-      create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
 
       second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
-      create(:task, title: 'Tarefa 2', project:, due_date: 10.days.from_now)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 10.days.from_now)
 
       login_as user
       visit project_calendars_path project
 
       within "#day-#{first_daily.start_time.to_date}" do
-        expect(page).to have_content 'Daily 1'
-        expect(page).to have_content 'Tarefa 1'
+        expect(page).to have_link 'Daily 1', href: project_meeting_path(project, first_daily)
+        expect(page).to have_link 'Tarefa 1', href: task_path(first_task)
       end
       within "#day-#{second_daily.start_time.to_date}" do
-        expect(page).to have_content 'Daily 2'
-        expect(page).to have_content 'Tarefa 2'
+        expect(page).to have_link 'Daily 2', href: project_meeting_path(project, second_daily)
+        expect(page).to have_link 'Tarefa 2', href: task_path(second_task)
       end
     end
   end

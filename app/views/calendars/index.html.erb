@@ -22,7 +22,13 @@
     <%= date.day %>
 
     <% events.each do |event| %>
-      <div><%= event.title %></div>
+      <div class="event-<%= event.class.to_s.underscore %>">
+        <% if event.is_a? Meeting %>
+          <%= link_to event.title, project_meeting_path(@project, event), class: 'btn btn-sm btn-purple' %>
+        <% elsif event.is_a? Task %>
+          <%= link_to event.title, task_path(event), class: 'btn btn-sm btn-green' %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
