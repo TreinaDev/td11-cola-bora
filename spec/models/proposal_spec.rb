@@ -18,6 +18,14 @@ RSpec.describe Proposal, type: :model do
       expect(proposal.errors.full_messages).to include 'Projeto é obrigatório(a)'
     end
 
+    it 'falso se email for vazio' do
+      proposal = Proposal.new(email: '')
+
+      expect(proposal).not_to be_valid
+      expect(proposal.errors).to include :email
+      expect(proposal.errors.full_messages).to include 'E-mail não pode ficar em branco'
+    end
+
     it 'falso se id de perfil for vazio' do
       proposal = Proposal.new(profile_id: '')
 
@@ -44,7 +52,12 @@ RSpec.describe Proposal, type: :model do
 
     it 'verdadeiro se os parâmetros são válidos' do
       project = create :project
-      proposal = Proposal.new(profile_id: 5, project:, message: 'Me aceita')
+      proposal = Proposal.new(
+        profile_id: 5,
+        project:,
+        message: 'Me aceita',
+        email: 'proposal@email.com'
+      )
 
       expect(proposal).to be_valid
     end

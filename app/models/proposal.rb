@@ -1,7 +1,7 @@
 class Proposal < ApplicationRecord
   belongs_to :project
 
-  validates :profile_id, presence: true
+  validates :profile_id, :email, presence: true
   validates :profile_id, numericality: { greater_than_or_equal_to: 1 }
   validate :validate_participation, :validate_pending_proposal
 

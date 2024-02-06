@@ -7,7 +7,8 @@ describe 'Criação de requisição de participação em projeto' do
       params = { proposal: {
         profile_id: 1,
         project_id: project.id,
-        message: 'Gostaria de participar!'
+        message: 'Gostaria de participar!',
+        email: 'proposer@email.com'
       } }
 
       post(api_v1_proposals_path, params:)
@@ -21,6 +22,7 @@ describe 'Criação de requisição de participação em projeto' do
       expect(Proposal.last.profile_id).to eq 1
       expect(Proposal.last.project).to eq project
       expect(Proposal.last.message).to eq 'Gostaria de participar!'
+      expect(Proposal.last.email).to eq 'proposer@email.com'
       expect(Proposal.last.status).to eq 'pending'
     end
 
@@ -36,7 +38,8 @@ describe 'Criação de requisição de participação em projeto' do
         project.user_roles.create! project:, user: contributor, active: true
         params = { proposal: {
           project_id: project.id,
-          profile_id: contributor_portfoliorrr_profile_id
+          profile_id: contributor_portfoliorrr_profile_id,
+          email: 'contributor@email.com'
         } }
 
         post(api_v1_proposals_path, params:)
@@ -50,10 +53,15 @@ describe 'Criação de requisição de participação em projeto' do
       it 'se já existe uma solicitação pendente' do
         project = create :project
         profile_id = 123
-        create :proposal, project:, profile_id:, status: :pending
+        create :proposal,
+               project:,
+               profile_id:,
+               status: :pending,
+               email: 'proposal@email.com'
         params = { proposal: {
           project_id: project.id,
-          profile_id:
+          profile_id:,
+          email: 'proposer@email.com'
         } }
 
         post(api_v1_proposals_path, params:)
@@ -68,7 +76,8 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: 1,
           project_id: 999,
-          message: ''
+          message: '',
+          email: 'proposal@email.com'
         } }
 
         post(api_v1_proposals_path, params:)
@@ -83,7 +92,8 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '',
           project_id: project.id,
-          message: ''
+          message: '',
+          email: 'proposal@email.com'
         } }
 
         post(api_v1_proposals_path, params:)
@@ -99,7 +109,8 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '1',
           project_id: project.id,
-          message: ''
+          message: '',
+          email: 'proposal@email.com'
         } }
 
         allow(Proposal).to receive(:new).and_raise(ActiveRecord::ActiveRecordError)

@@ -4,5 +4,6 @@ FactoryBot.define do
     status { :pending }
     message { 'Mensagem padrão' }
     sequence(:profile_id) { |n| n }
+    # sequence(:email) { |n| "proposer#{n}@email.com" }
   end
 end
