@@ -12,6 +12,10 @@ class Project < ApplicationRecord
 
   after_create :set_leader_on_create
 
+  def admin?(user)
+    member?(user) && user_roles.find_by(user:).admin?
+  end
+
   def member?(user)
     user_roles.find_by(user:).present?
   end

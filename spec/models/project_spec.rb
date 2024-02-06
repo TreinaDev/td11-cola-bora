@@ -75,6 +75,41 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  context '#admin?' do
+    it 'retorna true se Usuário for admin' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :admin)
+
+      expect(project.admin?(user)).to eq true
+    end
+
+    it 'retorna false se Usuário for colaborador' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :contributor)
+
+      expect(project.admin?(user)).to eq false
+    end
+
+    it 'retorna false se Usuário for líder' do
+      user = create :user
+      project = create(:project, user:)
+      project.user_roles.find_by(user:).update(role: :leader)
+
+      expect(project.admin?(user)).to eq false
+    end
+
+    it 'retorna false se Usuário for admin de outro projeto' do
+      admin = create :user
+      project = create :project, user: admin
+      other_admin = create :user, cpf: '149.759.780-32'
+      create :project, user: other_admin, title: 'Outro Projeto'
+
+      expect(project.admin?(other_admin)).to eq false
+    end
+  end
+
   context '#member?' do
     it 'retorna true se Usuário tem vínculo com o projeto' do
       user = create :user, cpf: '149.759.780-32'
