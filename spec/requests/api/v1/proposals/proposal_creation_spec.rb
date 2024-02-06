@@ -47,7 +47,22 @@ describe 'Criação de requisição de participação em projeto' do
         expect(json_response['errors']).to eq ['Usuário já faz parte deste projeto']
       end
 
-      it 'se já existe uma solicitação pendente'
+      it 'se já existe uma solicitação pendente' do
+        project = create :project
+        profile_id = 123
+        create :proposal, project:, profile_id:, status: :pending
+        params = { proposal: {
+          project_id: project.id,
+          profile_id:
+        } }
+
+        post(api_v1_proposals_path, params:)
+
+        expect(Proposal.count).to eq 1
+        json_response = JSON.parse(response.body)
+        expect(response).to have_http_status :bad_request
+        expect(json_response['errors']).to eq ['Usuário já tem solicitação pendente para o projeto']
+      end
 
       it 'se projeto não existe' do
         params = { proposal: {

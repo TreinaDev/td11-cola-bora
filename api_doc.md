@@ -118,7 +118,7 @@ A requisição requer o ID de um projeto existente na plataforma Cola?Bora!, o I
     {
       "project_id": 1,
       "profile_id": 3,
-      "message": "Gostaria de participar do projeto!"
+      "message": "Gostaria de participar do projeto!",
     }
 }
 ```
