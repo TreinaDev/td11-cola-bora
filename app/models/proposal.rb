@@ -15,14 +15,9 @@ class Proposal < ApplicationRecord
   private
 
   def validate_participation
-    invitation = Invitation.find_by(profile_id:, project_id:)
+    participation = UserRole.joins(:user).find_by(user: { email: }, project_id:)&.active
 
-    return unless invitation&.accepted?
-
-    user = User.find_by(email: invitation.profile_email)
-    user_role = UserRole.find_by(user:, project_id:).active
-
-    errors.add :base, I18n.t(:user_already_member_error) unless user_role.nil?
+    errors.add :base, I18n.t(:user_already_member_error) unless participation.nil?
   end
 
   def validate_pending_proposal

@@ -118,6 +118,7 @@ A requisição requer o ID de um projeto existente na plataforma Cola?Bora!, o I
     {
       "project_id": 1,
       "profile_id": 3,
+      "email": "user@email.com",
       "message": "Gostaria de participar do projeto!",
     }
 }
@@ -150,7 +151,7 @@ Retorno caso o projeto não exista na plataforma Cola?Bora!. (Status: 404)
 }
 ```
 
-Erros de ID de Perfil (Status: 400)
+Erros de ID de Perfil (Status: 409)
 
 ```json
 // ID de perfil em branco
@@ -161,6 +162,20 @@ Erros de ID de Perfil (Status: 400)
 // ID de perfil menor ou igual a zero
 {
   "errors": ["ID de Perfil deve ser maior ou igual a 1"]
+}
+```
+
+Erros de Solicitação (Status: 409)
+
+```json
+// Usuário já tem solicitação pendente para o projeto
+{ 
+  "errors": ["Usuário já tem solicitação pendente para o projeto"]
+}
+
+// Usuário já é colaborador do projeto
+{
+  "errors": ["Usuário já faz parte deste projeto"]
 }
 ```
 

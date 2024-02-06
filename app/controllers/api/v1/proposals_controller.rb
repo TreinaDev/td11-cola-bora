@@ -8,7 +8,7 @@ module Api
 
         return render json: { data: { proposal_id: proposal.id } }, status: :created if proposal.save
 
-        render json: { errors: proposal.errors.full_messages }, status: :bad_request
+        render json: { errors: proposal.errors.full_messages }, status: :conflict
       end
 
       private

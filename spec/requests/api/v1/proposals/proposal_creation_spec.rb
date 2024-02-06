@@ -31,10 +31,6 @@ describe 'Criação de requisição de participação em projeto' do
         project = create :project
         contributor = create :user, cpf: '795.780.710-00', email: 'contributor@email.com'
         contributor_portfoliorrr_profile_id = 99
-        create :invitation, status: :accepted,
-                            project:,
-                            profile_id: contributor_portfoliorrr_profile_id,
-                            profile_email: 'contributor@email.com'
         project.user_roles.create! project:, user: contributor, active: true
         params = { proposal: {
           project_id: project.id,
@@ -46,18 +42,15 @@ describe 'Criação de requisição de participação em projeto' do
 
         expect(Proposal.count).to eq 0
         json_response = JSON.parse(response.body)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :conflict
         expect(json_response['errors']).to eq ['Usuário já faz parte deste projeto']
       end
 
       it 'se já existe uma solicitação pendente' do
         project = create :project
         profile_id = 123
-        create :proposal,
-               project:,
-               profile_id:,
-               status: :pending,
-               email: 'proposal@email.com'
+        create :proposal, project:, profile_id:, status: :pending,
+                          email: 'proposer@email.com'
         params = { proposal: {
           project_id: project.id,
           profile_id:,
@@ -68,7 +61,7 @@ describe 'Criação de requisição de participação em projeto' do
 
         expect(Proposal.count).to eq 1
         json_response = JSON.parse(response.body)
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :conflict
         expect(json_response['errors']).to eq ['Usuário já tem solicitação pendente para o projeto']
       end
 
@@ -98,7 +91,7 @@ describe 'Criação de requisição de participação em projeto' do
 
         post(api_v1_proposals_path, params:)
 
-        expect(response).to have_http_status :bad_request
+        expect(response).to have_http_status :conflict
         json_response = JSON.parse(response.body)
         expect(json_response['errors']).to include 'ID de Perfil não pode ficar em branco'
         expect(json_response['errors']).to include 'ID de Perfil não é um número'
