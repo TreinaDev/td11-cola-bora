@@ -8,11 +8,11 @@
     <%= f.label :filter,
                 class: 'd-none' %>
     <%= f.select :filter,
-                 [['Reuniões', :meetings],
-                  ['Tarefas', :tasks]],
-                 { include_blank: 'Todos', selected: params[:filter] },
+                 [[Meeting.model_name.human(count: 2), :meetings],
+                  [Task.model_name.human(count: 2), :tasks]],
+                 { include_blank: t(:all), selected: params[:filter] },
                  { class: 'form-select form-select-sm' } %>
-    <%= f.submit 'Filtrar',
+    <%= f.submit t(:filter_btn),
                   class: 'btn btn-sm btn-outline-secondary' %>
   </div>
 <% end %>
