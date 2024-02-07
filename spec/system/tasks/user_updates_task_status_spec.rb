@@ -4,7 +4,8 @@ describe 'Usuário atualiza o status da tarefa' do
   it 'de não iniciada para em andamento' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:)
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, user_role: author_role)
 
     login_as(author)
     visit project_task_path(project, task)
@@ -20,7 +21,8 @@ describe 'Usuário atualiza o status da tarefa' do
   it 'de em andamento para finalizada' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:, status: 'in_progress')
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, status: 'in_progress', user_role: author_role)
 
     login_as(author)
     visit project_task_path(project, task)
@@ -37,7 +39,8 @@ describe 'Usuário atualiza o status da tarefa' do
   it 'de não iniciada para cancelada' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:, status: 'uninitialized')
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, status: 'uninitialized', user_role: author_role)
 
     login_as(author)
     visit project_task_path(project, task)
@@ -54,7 +57,8 @@ describe 'Usuário atualiza o status da tarefa' do
   it 'de em andamento para cancelada' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:, status: 'in_progress')
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, status: 'in_progress', user_role: author_role)
 
     login_as(author)
     visit project_task_path(project, task)

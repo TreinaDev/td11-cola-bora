@@ -3,10 +3,12 @@ require 'rails_helper'
 describe 'Usuário vê tarefas' do
   it 'em um index' do
     project = create(:project)
-    create(:task, title: 'Tarefa 1', project:)
-    create(:task, title: 'Tarefa 2', project:)
-    create(:task, title: 'Tarefa 3', project:)
-    create(:task, title: 'Tarefa 4', project:)
+    author = project.user
+    author_role = create(:user_role, user: author, project:)
+    create(:task, title: 'Tarefa 1', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 2', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 3', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 4', project:, user_role: author_role)
 
     login_as(project.user)
     visit project_path(project)
@@ -22,9 +24,11 @@ describe 'Usuário vê tarefas' do
 
   it 'à partir do index' do
     project = create(:project)
-    create(:task, title: 'Tarefa 1', project:)
+    author = project.user
+    author_role = create(:user_role, user: author, project:)
+    create(:task, title: 'Tarefa 1', project:, user_role: author_role)
     task = create(:task, title: 'Tarefa 2', project:, description: 'Fazer item 8 do backlog',
-                         due_date: nil, assigned: nil)
+                         due_date: nil, assigned: nil, user_role: author_role)
 
     login_as(project.user)
     visit project_path(project)
@@ -40,10 +44,12 @@ describe 'Usuário vê tarefas' do
 
   it 'e volta para a página do projeto' do
     project = create(:project, title: 'Projeto Secreto', description: 'Esse projeto é secreto')
-    create(:task, title: 'Tarefa 1', project:)
-    create(:task, title: 'Tarefa 2', project:)
-    create(:task, title: 'Tarefa 3', project:)
-    create(:task, title: 'Tarefa 4', project:)
+    author = project.user
+    author_role = create(:user_role, user: author, project:)
+    create(:task, title: 'Tarefa 1', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 2', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 3', project:, user_role: author_role)
+    create(:task, title: 'Tarefa 4', project:, user_role: author_role)
 
     login_as(project.user)
     visit project_path(project)
