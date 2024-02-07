@@ -6,13 +6,13 @@ describe 'Usuário edita Tarefa' do
     project = create(:project, user: leader)
     contributor = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
     contributor_role = project.user_roles.create!(user: contributor)
-    task = create(:task, project:, user_role: contributor_role, title: 'tarefa blabla')
+    task = create(:task, project:, user_role: contributor_role, title: 'Tarefa de capturar 150 Pokémons')
 
     login_as contributor, scope: :user
-    patch(project_task_path(project, task), params: { task: { title: 'tarefa do Rock in rio' } })
+    patch(project_task_path(project, task), params: { task: { title: 'Tarefa sair de casa com 10 anos' } })
 
     expect(response).to redirect_to project_task_path(project, task)
-    expect(task.reload.title).to eq 'tarefa do Rock in rio'
+    expect(task.reload.title).to eq 'Tarefa sair de casa com 10 anos'
   end
 
   it 'e é contribuinte do projeto não autor da tarefa' do

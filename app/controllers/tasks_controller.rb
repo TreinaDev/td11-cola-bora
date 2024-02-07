@@ -14,8 +14,7 @@ class TasksController < ApplicationController
 
   def create
     @task = @project.tasks.build(task_params)
-    user_role = UserRole.find_by(user: current_user, project: @project)
-    @task.user_role = user_role
+    @task.user_role = UserRole.find_by(user: current_user, project: @project)
 
     if @task.save
       redirect_to [@project, @task], notice: t('.success')
