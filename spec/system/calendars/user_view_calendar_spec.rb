@@ -4,12 +4,13 @@ describe 'Usuário vê calendário do projeto' do
   it 'somente com reuniões' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
+    user_role = project.user_roles.first
 
     travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
       second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
       third_daily = create(:meeting, project:, title: 'Daily 3', datetime: 11.days.from_now)
-      task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
+      task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now, user_role:)
 
       login_as user
       visit root_path
@@ -39,12 +40,13 @@ describe 'Usuário vê calendário do projeto' do
   it 'somente com tarefas' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
+    user_role = project.user_roles.first
 
     travel_to Time.zone.now.beginning_of_month do
-      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
-      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
-      third_task = create(:task, title: 'Tarefa 3', project:, due_date: 7.days.from_now)
-      daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now, user_role:)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now, user_role:)
+      third_task = create(:task, title: 'Tarefa 3', project:, due_date: 7.days.from_now, user_role:)
+      daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now, user_role:)
 
       login_as user
       visit project_calendars_path project
@@ -52,13 +54,13 @@ describe 'Usuário vê calendário do projeto' do
       click_on 'Filtrar'
 
       within "#day-#{first_task.start_time.to_date}" do
-        expect(page).to have_link 'Tarefa 1', href: task_path(first_task)
+        expect(page).to have_link 'Tarefa 1', href: project_task_path(project, first_task)
       end
       within "#day-#{second_task.start_time.to_date}" do
-        expect(page).to have_link 'Tarefa 2', href: task_path(second_task)
+        expect(page).to have_link 'Tarefa 2', href: project_task_path(project, second_task)
       end
       within "#day-#{third_task.start_time.to_date}" do
-        expect(page).to have_link 'Tarefa 3', href: task_path(third_task)
+        expect(page).to have_link 'Tarefa 3', href: project_task_path(project, third_task)
       end
       within "#day-#{daily.start_time.to_date}" do
         expect(page).not_to have_link 'Daily 1'
@@ -69,24 +71,25 @@ describe 'Usuário vê calendário do projeto' do
   it 'com reuniões e tarefas' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
+    user_role = project.user_roles.first
 
     travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
-      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now, user_role:)
 
       second_daily = create(:meeting, project:, title: 'Daily 2', datetime: 10.days.from_now)
-      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 10.days.from_now)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 10.days.from_now, user_role:)
 
       login_as user
       visit project_calendars_path project
 
       within "#day-#{first_daily.start_time.to_date}" do
         expect(page).to have_link 'Daily 1', href: project_meeting_path(project, first_daily)
-        expect(page).to have_link 'Tarefa 1', href: task_path(first_task)
+        expect(page).to have_link 'Tarefa 1', href: project_task_path(project, first_task)
       end
       within "#day-#{second_daily.start_time.to_date}" do
         expect(page).to have_link 'Daily 2', href: project_meeting_path(project, second_daily)
-        expect(page).to have_link 'Tarefa 2', href: task_path(second_task)
+        expect(page).to have_link 'Tarefa 2', href: project_task_path(project, second_task)
       end
     end
   end
@@ -95,13 +98,14 @@ describe 'Usuário vê calendário do projeto' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
     other_project = create(:project, user:, title: 'Outro Projeto')
+    user_role = project.user_roles.first
 
     travel_to Time.zone.now.beginning_of_month do
       first_daily = create(:meeting, project:, title: 'Daily 1', datetime: 9.days.from_now)
-      create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now)
+      create(:task, title: 'Tarefa 1', project:, due_date: 9.days.from_now, user_role:)
 
       second_daily = create(:meeting, project: other_project, title: 'Daily 2', datetime: 10.days.from_now)
-      create(:task, title: 'Tarefa 2', project: other_project, due_date: 10.days.from_now)
+      create(:task, title: 'Tarefa 2', project: other_project, due_date: 10.days.from_now, user_role:)
 
       login_as user
       visit project_calendars_path project
@@ -120,11 +124,12 @@ describe 'Usuário vê calendário do projeto' do
   it 'somente com tarefas e volta para todos' do
     user = create(:user)
     project = create(:project, user:, title: 'Meu Projeto')
+    user_role = project.user_roles.first
 
     travel_to Time.zone.now.beginning_of_month do
-      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now)
+      first_task = create(:task, title: 'Tarefa 1', project:, due_date: 5.days.from_now, user_role:)
       create(:meeting, project:, title: 'Daily 1', datetime: 5.days.from_now)
-      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now)
+      second_task = create(:task, title: 'Tarefa 2', project:, due_date: 6.days.from_now, user_role:)
       create(:meeting, project:, title: 'Daily 2', datetime: 6.days.from_now)
 
       login_as user
