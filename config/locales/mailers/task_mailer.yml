@@ -1,0 +1,4 @@
+pt-BR:
+  task_mailer:
+    notify_leader_finish_task:
+      subject: A tarefa foi finalizada.
