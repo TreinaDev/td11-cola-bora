@@ -144,4 +144,28 @@ describe 'Usuário vê calendário do projeto' do
       end
     end
   end
+
+  context 'e navega para o mês' do
+    it 'seguinte' do
+      user = create(:user)
+      project = create(:project, user:, title: 'Meu Projeto')
+
+      login_as user
+      visit project_calendars_path project
+      click_on '>>'
+
+      expect(page).to have_content I18n.t('date.month_names')[Time.zone.today.next_month.month].capitalize
+    end
+
+    it 'anterior' do
+      user = create(:user)
+      project = create(:project, user:, title: 'Meu Projeto')
+
+      login_as user
+      visit project_calendars_path project
+      click_on '<<'
+
+      expect(page).to have_content I18n.t('date.month_names')[Time.zone.today.prev_month.month].capitalize
+    end
+  end
 end

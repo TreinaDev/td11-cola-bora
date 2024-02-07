@@ -32,18 +32,7 @@
     font-size: 14px;
   }
 
-  .day .event-meeting {
-    letter-spacing: 1px;
-    font-size: 16px;
-    border-radius: 5px;
-    color: #fff;
-    padding-left: 4px;
-    margin-top: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .day .event-task {
+  .day .event-meeting, .day .event-task {
     letter-spacing: 1px;
     font-size: 16px;
     border-radius: 5px;
@@ -85,11 +74,13 @@
 .btn-purple {
   background-color: #9400d3;
   color: white;
+  font-weight: bold;
 }
 
 .btn-green {
   background-color: #08ad11;
   color: white;
+  font-weight: bold;
 }
 
 .btn-purple:hover {

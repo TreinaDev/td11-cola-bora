@@ -10,10 +10,6 @@ class Meeting < ApplicationRecord
     datetime
   end
 
-  def end_time
-    datetime + duration.minutes
-  end
-
   private
 
   def datetime_is_future
