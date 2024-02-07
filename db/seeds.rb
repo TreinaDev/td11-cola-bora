@@ -121,7 +121,7 @@ FactoryBot.create(:meeting, project: pokemon_project, user_role: UserRole.find_b
                             title:'Daily', description:'', datetime: 5.days.from_now, duration: 15,
                             address: 'https://meet.google.com/')
 
-                            
+
 FactoryBot.create(:invitation, project: pokemon_project, profile_id: 1,
                                expiration_days: 10, status: :pending)
 
@@ -130,7 +130,20 @@ FactoryBot.create(:invitation, project: ash_project, profile_email: brock.email,
 
 FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email,
                                expiration_days: '', status: :pending)
-                               
+
 FactoryBot.create(:invitation, project: ash_project3, profile_email: brock.email,
                                expiration_days: '', status: :processing)
 
+
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :pending,
+                             email: 'gary@email.com,',
+                             message: 'Olá! Gostaria de fazer parte de seu projeto')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :accepted,
+                             email: 'misty2@email.com',
+                             message: 'Me aceita!!!')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :declined,
+                             email: 'jessie_rocket@email.com',
+                             message: 'Eu prometo que não quero roubar o Pikachu')

@@ -1,6 +1,6 @@
 <%= render 'shared/project_header', project: @project %>
 
-<div class="d-flex row justify-content-end mb-3">
+<div class="d-flex justify-content-start row mb-3">
   <div class="d-flex col-3 gap-2">
     <div class="btn-group" 
          role="group" 
@@ -10,24 +10,39 @@
                   class: "btn btn-outline-primary #{'active' if params[:status].blank?}" %>
       <%= link_to Proposal.human_attribute_name('status.pending', count: 2), 
                   project_proposals_path(@project, params: { status: :pending }), 
-                  class: "btn btn-outline-primary #{'active' if params[:status] == 'pending'}" %>
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'pending' }" %>
+      <%= link_to Proposal.human_attribute_name('status.accepted', count: 2), 
+                  project_proposals_path(@project, params: { status: :accepted }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'accepted' }" %>
+      <%= link_to Proposal.human_attribute_name('status.declined', count: 2), 
+                  project_proposals_path(@project, params: { status: :declined }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'declined' }" %>
+      <%= link_to Proposal.human_attribute_name('status.cancelled', count: 2), 
+                  project_proposals_path(@project, params: { status: :cancelled }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'cancelled' }" %>
     </div>
   </div>
 </div>
 
-<% @proposals.each do |proposal| %>
-  <div class="card">
-    <div class="card-header bg-light bg-gradient">
-      <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
+<section id="proposals-list">  
+  <% @proposals.each do |proposal| %>
+    <div class="card">
+      <div class="card-header bg-light bg-gradient">
+        <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= proposal.email %></h5>
+        <p class="card-text">
+          <%= proposal.message %>
+        </p>
+      </div>
+      <div class="card-footer text-muted">
+        <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
+      </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title"><%= proposal.email %></h5>
-      <p class="card-text">
-        <%= proposal.message %>
-      </p>
-    </div>
-    <div class="card-footer text-muted">
-      <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+  
+  <% if @proposals.empty? %>
+    <p>Nenhuma solicitação encontrada.</p>
+  <% end %>
+</section>
