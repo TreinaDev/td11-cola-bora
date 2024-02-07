@@ -1,9 +1,8 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, only: %i[show edit update start finish cancel]
   before_action :check_contributor
-  before_action :can_edit_task?, only: %i[edit update]
+  before_action :can_edit_task, only: %i[edit update]
 
   def index
     @tasks = @project.tasks
@@ -72,7 +71,7 @@ class TasksController < ApplicationController
     redirect_to root_path, alert: t('.not_contributor') unless @project.member?(current_user)
   end
 
-  def can_edit_task?
+  def can_edit_task
     redirect_to project_task_path(@project, @task), alert: t('.fail') unless current_user.can_edit?(@task)
   end
 end
