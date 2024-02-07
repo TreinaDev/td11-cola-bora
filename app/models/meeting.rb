@@ -7,6 +7,10 @@ class Meeting < ApplicationRecord
 
   validate :datetime_is_future
 
+  def start_time
+    datetime
+  end
+
   private
 
   def datetime_is_future
