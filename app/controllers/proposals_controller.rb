@@ -2,7 +2,11 @@ class ProposalsController < ApplicationController
   before_action :set_project, only: %i[index]
 
   def index
-    @proposals = @project.proposals.pending
+    status = params[:status]
+
+    return @proposals = @project.proposals if status.blank?
+
+    @proposals = @project.proposals.where(status:)
   end
 
   private
