@@ -77,11 +77,10 @@ RSpec.describe Project, type: :model do
 
   context '#admin?' do
     it 'retorna true se Usuário for admin' do
-      user = create :user
-      project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :admin)
-
-      expect(project.admin?(user)).to eq true
+      project = create(:project)
+      admin = create(:user, cpf: '401.029.680-12')
+      create(:user_role, project:, user: admin, role: :admin)
+      expect(project.admin?(admin)).to eq true
     end
 
     it 'retorna false se Usuário for colaborador' do
@@ -95,7 +94,6 @@ RSpec.describe Project, type: :model do
     it 'retorna false se Usuário for líder' do
       user = create :user
       project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :leader)
 
       expect(project.admin?(user)).to eq false
     end
