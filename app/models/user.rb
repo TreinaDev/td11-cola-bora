@@ -17,9 +17,8 @@ class User < ApplicationRecord
 
   delegate :full_name, to: :profile
 
-  def can_edit?(meeting)
-    user_role = UserRole.get_user_role(meeting.project, self)
-    meeting.user_role.user == self || user_role.leader? || user_role.admin?
+  def can_edit?(item)
+    item.user == self || item.project.leader?(self) || item.project.admin?(self)
   end
 
   def all_projects

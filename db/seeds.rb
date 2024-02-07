@@ -74,15 +74,15 @@ third_project_job_category = FactoryBot.create(:project_job_category, project: e
 
 FactoryBot.create(:task, project: pokemon_project, title:'Pegar um geodude',
                                   description:'Para completar o meu time de pedra, preciso de um geodude, vamos captura-lo',
-                                  assigned: brock, due_date: 2.months.from_now.to_date, author: brock)
+                                  assigned: brock, due_date: 2.months.from_now.to_date, user_role: ginasio_project.user_roles.first)
 
 FactoryBot.create(:task, project: pokemon_project, title:'Parar a equipe rocket',
                          description:'A equipe rocket está aprontando novamente, temos que para-los',
-                         assigned: ash, due_date: Time.zone.tomorrow, author: ash)
+                         assigned: ash, due_date: Time.zone.tomorrow, user_role: ginasio_project.user_roles.first)
 
 FactoryBot.create(:task, project: pokemon_project, title:'Derrotar um Charmander',
                          description: 'Lutar contra outro treinador com um Charmander.',
-                         assigned: ash, due_date: 1.week.from_now, author: ash)
+                         assigned: ash, due_date: 1.week.from_now, user_role: ginasio_project.user_roles.first)
 
 
 

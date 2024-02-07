@@ -4,10 +4,11 @@ describe 'Usuário edita tarefa' do
   it 'a partir da página de tarefa com sucesso' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:)
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, user_role: author_role)
 
     login_as(author)
-    visit task_path(task)
+    visit project_task_path(project, task)
     click_on 'Editar Tarefa'
     fill_in 'Título', with: 'Conserta a tarefa'
     fill_in 'Descrição', with: 'Essa edição conserta a tarefa'
@@ -21,10 +22,11 @@ describe 'Usuário edita tarefa' do
   it 'e falha porque um campo obrigatório ficou em branco' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    task = create(:task, project:)
+    author_role = create(:user_role, user: author, project:)
+    task = create(:task, project:, user_role: author_role)
 
     login_as(author)
-    visit task_path(task)
+    visit project_task_path(project, task)
     click_on 'Editar Tarefa'
     fill_in 'Título', with: ''
     click_on 'Salvar'
