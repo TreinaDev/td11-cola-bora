@@ -24,9 +24,9 @@ describe 'Usuário envia um convite sendo lider' do
   end
 
   it 'para alguem que ja tem convite aceito' do
-    user = create(:user)
-    project = create(:project, user:, title: 'Meu novo projeto')
-    create(:project, user:, title: 'Segundo projeto')
+    user = create :user
+    project = create :project, user:, title: 'Meu novo projeto'
+    create :project, user:, title: 'Segundo projeto'
     joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
