@@ -7,6 +7,7 @@ class Project < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :project_job_categories, dependent: :destroy
+  has_many :proposals, dependent: :destroy
 
   validates :title, :description, :category, presence: true
 

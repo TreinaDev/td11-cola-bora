@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_05_203530) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_194424) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -109,6 +109,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_203530) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "proposals", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "status", default: 1
+    t.text "message"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", null: false
+    t.index ["project_id"], name: "index_proposals_on_project_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -159,6 +170,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_203530) do
   add_foreign_key "profiles", "users"
   add_foreign_key "project_job_categories", "projects"
   add_foreign_key "projects", "users"
+  add_foreign_key "proposals", "projects"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "user_roles"
   add_foreign_key "tasks", "users", column: "assigned_id"
