@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe 'Usuário cria reunião' do
   it 'e não é colaborador do projeto' do
-    project_owner = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
-    project = create(:project, user: project_owner)
-    other_project_owner = create(:user_role)
+    project = create(:project)
+    other_user = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
+    other_project = create(:project, user: other_user)
+    other_project_owner = create(:user_role, user: other_user, project: other_project)
 
     login_as other_project_owner.user, scope: :user
     post(project_meetings_path(project), params: { meeting: { title: 'Reunião do Rock in rio',

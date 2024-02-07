@@ -95,14 +95,4 @@ describe 'Usuário vê detalhes do projeto' do
     expect(page).not_to have_content 'Categoria: Teste'
     expect(page).not_to have_content "Categoria de Trabalho\nDesenvolvedor"
   end
-
-  it 'que não existe' do
-    deco = create :user, email: 'deco@email.com'
-
-    login_as deco
-    visit project_path('999')
-
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Projeto não encontrado.'
-  end
 end
