@@ -206,7 +206,7 @@ describe 'Usuário vê solicitações de um projeto' do
     create :user_role, project:, user: admin, role: :admin
 
     login_as admin, scope: :user
-    visit project_proposals_path project
+    visit project_path project
 
     within '#project-navbar' do
       expect(page).not_to have_link 'Solicitações'
@@ -219,7 +219,7 @@ describe 'Usuário vê solicitações de um projeto' do
     create :user_role, project:, user: contributor, role: :contributor
 
     login_as contributor, scope: :user
-    visit project_proposals_path project
+    visit project_path project
 
     within '#project-navbar' do
       expect(page).not_to have_link 'Solicitações'
