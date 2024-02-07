@@ -29,6 +29,10 @@
                   search_project_portfoliorrr_profiles_path(project),
                   class: "nav-item nav-link link-body-emphasis
                           #{'active' if current_page?(search_project_portfoliorrr_profiles_path(project))}" %>
+      <%= link_to Proposal.model_name.human(count: 2), 
+                  project_proposals_path(project),
+                  class: "nav-item nav-link link-body-emphasis
+                         #{'active' if request.path.include?('/proposals')}" %>
     <% end %>
   </nav>
 </div>

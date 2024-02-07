@@ -1,0 +1,18 @@
+<%= render 'shared/project_header', project: @project %>
+
+<% @proposals.each do |proposal| %>
+  <div class="card">
+    <div class="card-header bg-light bg-gradient">
+      <%= Proposal.human_attribute_name('status.pending') %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= proposal.email %></h5>
+      <p class="card-text">
+        <%= proposal.message %>
+      </p>
+    </div>
+    <div class="card-footer text-muted">
+      <%= time_ago_in_words proposal.created_at %> atrás
+    </div>
+  </div>
+<% end %>

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
 
     resources :user_roles, only: %i[edit update]
+
+    resources :proposals, only: %i[index]
   end
 
   resources :user_roles, only: [] do
