@@ -6,5 +6,6 @@ FactoryBot.define do
     author { User.last }
     assigned { User.last }
     due_date { 10.days.from_now.to_date }
+    status { 'uninitialized' }
   end
 end
