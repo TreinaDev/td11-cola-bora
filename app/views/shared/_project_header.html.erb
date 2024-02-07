@@ -20,6 +20,10 @@
                 project_documents_path(project),
                 class: "nav-item nav-link link-body-emphasis
                         #{'active' if request.path.include?('/documents')}" %>
+    <%= link_to 'Calendário',
+                project_calendars_path(project),
+                class: "nav-item nav-link link-body-emphasis
+                        #{'active' if request.path.include?('/calendars')}" %>
     <%= link_to t(:members), members_project_path(project),
                 class: "nav-item nav-link link-body-emphasis
                 #{'active' if request.path.include?('/members') ||

@@ -20,11 +20,11 @@ RSpec.describe Task, type: :model do
       end
 
       it 'falso quando autor está vazio' do
-        task = FactoryBot.build(:task, author_id: '')
+        task = FactoryBot.build(:task, user_role_id: '')
 
         task.valid?
 
-        expect(task.errors[:author]).to include 'é obrigatório(a)'
+        expect(task.errors[:user_role]).to include 'é obrigatório(a)'
       end
     end
 

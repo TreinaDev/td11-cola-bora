@@ -1,10 +1,15 @@
 class Meeting < ApplicationRecord
   belongs_to :user_role
+  delegate :user, to: :user_role
   belongs_to :project
 
   validates :title, :datetime, :duration, :address, presence: true
 
   validate :datetime_is_future
+
+  def start_time
+    datetime
+  end
 
   private
 

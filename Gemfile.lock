@@ -177,9 +177,9 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0-arm64-darwin)
+    nokogiri (1.16.2-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.0-x86_64-linux)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.24.0)
@@ -279,6 +279,8 @@ GEM
       rubocop-ast (>= 1.30.0, < 2.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    simple_calendar (3.0.2)
+      rails (>= 6.1)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -338,6 +340,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-rails
+  simple_calendar
   simplecov
   sprockets-rails
   sqlite3 (~> 1.4)

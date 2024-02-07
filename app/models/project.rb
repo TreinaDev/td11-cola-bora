@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :user
   has_many :user_roles, dependent: :destroy
+  has_many :users, through: :user_roles
   has_many :tasks, dependent: :destroy
   has_many :invitations, dependent: :destroy
   has_many :documents, dependent: :destroy
@@ -11,6 +12,10 @@ class Project < ApplicationRecord
   validates :title, :description, :category, presence: true
 
   after_create :set_leader_on_create
+
+  def admin?(user)
+    member?(user) && user_roles.find_by(user:).admin?
+  end
 
   def member?(user)
     user_roles.find_by(user:).present?
