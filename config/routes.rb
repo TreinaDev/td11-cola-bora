@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create show index edit update destroy] do
     resources :tasks, only: %i[index new create show edit update] do
       member do
-        post 'start'
-        post 'finish'
-        post 'cancel'
+        patch 'start'
+        patch 'finish'
+        patch 'cancel'
       end
     end
     resources :documents, only: %i[index new create]
