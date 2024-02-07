@@ -1,15 +1,9 @@
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Uma tarefa foi finalizada, <%= @leader.full_name %></h1>
-    <p>
-      A tarefa <%= @task.title %> do projeto <%= @project.title %> foi finalizada por <%= @task.user.full_name %>.<br>
-    </p>
-    <p>
-      Para ver a tarefa pronta, acesse: <%= @url %>.
-    </p>
-    <p>Obrigado e tenha um bom dia!</p>
-  </body>
-</html>
+    
+<h1>Uma tarefa foi finalizada, <%= @leader.full_name %></h1>
+<p>
+  A tarefa <%= @task.title %> do projeto <%= @project.title %> foi finalizada por <%= @task.user.full_name %>.<br>
+</p>
+<p>
+  Para ver a tarefa pronta, acesse: <%= @url %>.
+</p>
+<p>Obrigado e tenha um bom dia!</p>

@@ -8,8 +8,9 @@ RSpec.describe TaskMailer, type: :mailer do
       create(:profile, first_name: 'Giovanni', last_name: '', user: contributor)
       contributor_role = create(:user_role, project:, user: contributor)
       task = create(:task, title: 'Captura 150 pokemons', user_role: contributor_role, project:)
+      url = project_task_path(project, task)
 
-      mail = TaskMailer.with(task:).notify_leader_finish_task(task, project_task_path(project, task))
+      mail = TaskMailer.with(task:, url:).notify_leader_finish_task
 
       expect(mail.body.encoded).to include 'A tarefa Captura 150 pokemons do projeto Mestre Pokémon'
       expect(mail.body.encoded).to include 'foi finalizada por Giovanni.<br>'
