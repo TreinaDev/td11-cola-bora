@@ -1,0 +1,31 @@
+<%= render 'shared/project_header', project: @project %>
+<%= form_with url: project_calendars_path(@project),
+              class: "d-flex row justify-content-end mb-3",
+              id: "filter-form",
+              method: :get do |f| %>
+  <div class="d-flex col-3 gap-2">
+    <%= f.label :filter,
+                class: 'd-none' %>
+    <%= f.select :filter,
+                 [[Meeting.model_name.human(count: 2), :meetings],
+                  [Task.model_name.human(count: 2), :tasks]],
+                 { include_blank: t(:all), selected: params[:filter] },
+                 { class: 'form-select form-select-sm' } %>
+    <%= f.submit t(:filter_btn),
+                  class: 'btn btn-sm btn-outline-secondary' %>
+  </div>
+<% end %>
+<%= month_calendar(events: @events) do |date, events| %>
+  <div id="day-<%= date %>">
+    <%= date.day %>
+    <% events.each do |event| %>
+      <div class="event-<%= event.class.to_s.underscore %>">
+        <% if event.is_a? Meeting %>
+          <%= link_to event.title, project_meeting_path(@project, event), class: 'btn btn-sm btn-purple' %>
+        <% elsif event.is_a? Task %>
+          <%= link_to event.title, project_task_path(@project, event), class: 'btn btn-sm btn-green' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
