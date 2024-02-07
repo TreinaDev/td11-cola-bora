@@ -5,7 +5,7 @@
   <body>
     <h1>Uma tarefa foi finalizada, <%= @leader_name %></h1>
     <p>
-      A tarefa <%= @task.title %> do projeto <%= @project.title %> foi finalizada.<br>
+      A tarefa <%= @task.title %> do projeto <%= @project.title %> foi finalizada por <%= @task.user.full_name %>.<br>
     </p>
     <p>
       Para ver a tarefa pronta, acesse: <%#= @url %>.
