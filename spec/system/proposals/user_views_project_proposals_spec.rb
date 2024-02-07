@@ -194,7 +194,7 @@ describe 'Usuário vê solicitações de um projeto' do
       project = create :project, user: leader
 
       login_as leader, scope: :user
-      visit project_proposals_path(project)
+      visit project_proposals_path project
 
       expect(page).to have_content 'Nenhuma solicitação encontrada'
     end

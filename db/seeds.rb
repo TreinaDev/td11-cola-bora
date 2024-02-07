@@ -147,3 +147,23 @@ FactoryBot.create(:proposal, project: pikachu_project,
                              status: :declined,
                              email: 'jessie_rocket@email.com',
                              message: 'Eu prometo que não quero roubar o Pikachu')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :pending,
+                             email: 'ash_ketchum@email.com',
+                             message: 'Oi! Estou super interessado no seu projeto, posso ajudar?')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :accepted,
+                             email: 'brock_rock@email.com',
+                             message: 'Por favor, aceite minha proposta. Estou pronto para começar a trabalhar!')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :cancelled,
+                             email: 'professor_oak@email.com',
+                             message: 'Infelizmente não posso participar neste momento. Boa sorte com o projeto!')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :pending,
+                             email: 'team_rocket@email.com',
+                             message: 'Preparem-se para se render, ou enfrentem a nossa ira!')
+FactoryBot.create(:proposal, project: pikachu_project,
+                             status: :accepted,
+                             email: 'giovanni_boss@email.com',
+                             message: 'Aceite minha proposta e sua jornada será bem recompensada!')

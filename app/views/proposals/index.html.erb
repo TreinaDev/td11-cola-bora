@@ -1,6 +1,6 @@
 <%= render 'shared/project_header', project: @project %>
 
-<div class="d-flex justify-content-start row mb-3">
+<div class="d-flex justify-content-start row mb-4">
   <div class="d-flex col-3 gap-2">
     <div class="btn-group" 
          role="group" 
@@ -24,25 +24,33 @@
   </div>
 </div>
 
-<section id="proposals-list">  
-  <% @proposals.each do |proposal| %>
-    <div class="card">
-      <div class="card-header bg-light bg-gradient">
-        <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= proposal.email %></h5>
-        <p class="card-text">
-          <%= proposal.message %>
-        </p>
-      </div>
-      <div class="card-footer text-muted">
-        <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
-      </div>
+<section id="proposals-list">
+  <div class="container">
+    <div class="row">
+      <% @proposals.each do |proposal| %>
+        <div class="col-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header border-bottom border-3 border-<%= proposal_card_color(proposal.status) %> text-<%= proposal_card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
+              <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
+            </div>
+            <div class="card-body bg-light bg-gradient">
+              <h5 class="card-title"><%= proposal.email %></h5>
+              <p class="card-text">
+                <%= proposal.message.truncate(@max_characters, separator: ' ') %>
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @proposals.empty? %>
+        <div class="text-muted text-center mt-5 display-6 fs-5">
+          <%= t(:proposals_empty_state) %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-  
-  <% if @proposals.empty? %>
-    <p>Nenhuma solicitação encontrada.</p>
-  <% end %>
+  </div>
 </section>
