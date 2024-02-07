@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   belongs_to :author, class_name: 'User'
   belongs_to :assigned, class_name: 'User', optional: true
   after_create :expire_task
+  after_update :expire_task
 
   enum status: { uninitialized: 0, in_progress: 3, finished: 5, expired: 7, cancelled: 9 }
 
