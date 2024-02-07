@@ -2,3 +2,7 @@ pt-BR:
   task_mailer:
     notify_leader_finish_task:
       subject: A tarefa foi finalizada.
+      hello_the_task_was_finished: Olá %{leader_name}. Uma tarefa foi finalizada!
+      the_task_from_project_was_finished_by: A tarefa %{task_title} do projeto %{project_title} foi finalizada por %{author_name}.
+      to_view_the_task_access: Para ver a tarefa pronta, acesse
+      thanks_have_a_nice_day: Obrigado e tenha um bom dia!
