@@ -3,7 +3,7 @@ class Proposal < ApplicationRecord
 
   validates :profile_id, :email, presence: true
   validates :profile_id, numericality: { greater_than_or_equal_to: 1 }
-  validate :validate_participation, :validate_pending_proposal
+  validate :validate_participation, :validate_pending_proposal, on: :create
 
   enum status: {
     pending: 1,
@@ -11,6 +11,8 @@ class Proposal < ApplicationRecord
     declined: 10,
     cancelled: 15
   }
+
+  MAXIMUM_MESSAGE_CHARACTERS = 140
 
   private
 

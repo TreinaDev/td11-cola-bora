@@ -1,0 +1,56 @@
+<%= render 'shared/project_header', project: @project %>
+
+<div class="d-flex justify-content-start row mb-4">
+  <div class="d-flex col-3 gap-2">
+    <div class="btn-group" 
+         role="group" 
+         aria-label="Basic radio toggle button group">
+      <%= link_to t('proposal.all'), 
+                  project_proposals_path(@project), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].blank?}" %>
+      <%= link_to Proposal.human_attribute_name('status.pending', count: 2), 
+                  project_proposals_path(@project, params: { status: :pending }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'pending' }" %>
+      <%= link_to Proposal.human_attribute_name('status.accepted', count: 2), 
+                  project_proposals_path(@project, params: { status: :accepted }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'accepted' }" %>
+      <%= link_to Proposal.human_attribute_name('status.declined', count: 2), 
+                  project_proposals_path(@project, params: { status: :declined }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'declined' }" %>
+      <%= link_to Proposal.human_attribute_name('status.cancelled', count: 2), 
+                  project_proposals_path(@project, params: { status: :cancelled }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'cancelled' }" %>
+    </div>
+  </div>
+</div>
+
+<section id="proposals-list">
+  <div class="container">
+    <div class="row">
+      <% @proposals.each do |proposal| %>
+        <div class="col-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header border-bottom border-3 border-<%= proposal_card_color(proposal.status) %> text-<%= proposal_card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
+              <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
+            </div>
+            <div class="card-body bg-light bg-gradient">
+              <h5 class="card-title"><%= proposal.email %></h5>
+              <p class="card-text">
+                <%= proposal.message.truncate(@max_characters, separator: ' ') %>
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @proposals.empty? %>
+        <div class="text-muted text-center mt-5 display-6 fs-5">
+          <%= t(:proposals_empty_state) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
