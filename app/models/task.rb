@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :project
-  belongs_to :author, class_name: 'User'
+  belongs_to :user_role
+  delegate :user, to: :user_role
   belongs_to :assigned, class_name: 'User', optional: true
   after_create :expire_task
   after_update :expire_task

@@ -109,6 +109,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_133014) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "proposals", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "status", default: 1
+    t.text "message"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", null: false
+    t.index ["project_id"], name: "index_proposals_on_project_id"
+  end
+
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.integer "job_id", null: false
     t.string "queue_name", null: false
@@ -210,12 +221,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_133014) do
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "author_id"
     t.integer "assigned_id"
     t.integer "status", default: 0
+    t.integer "user_role_id", null: false
     t.index ["assigned_id"], name: "index_tasks_on_assigned_id"
-    t.index ["author_id"], name: "index_tasks_on_author_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_role_id"], name: "index_tasks_on_user_role_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -253,14 +264,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_133014) do
   add_foreign_key "profiles", "users"
   add_foreign_key "project_job_categories", "projects"
   add_foreign_key "projects", "users"
+  add_foreign_key "proposals", "projects"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "user_roles"
   add_foreign_key "tasks", "users", column: "assigned_id"
-  add_foreign_key "tasks", "users", column: "author_id"
   add_foreign_key "user_roles", "projects"
   add_foreign_key "user_roles", "users"
 end

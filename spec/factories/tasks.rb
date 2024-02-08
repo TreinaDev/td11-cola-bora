@@ -3,8 +3,8 @@ FactoryBot.define do
     title { 'Bugfix' }
     description { 'Fix de um bug' }
     project
-    author { User.last }
-    assigned { User.last }
+    user_role { nil }
+    assigned { nil }
     due_date { 10.days.from_now.to_date }
     status { 'uninitialized' }
   end

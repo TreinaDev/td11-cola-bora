@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'Usuário cria tarefa' do
   it 'á partir da pagina princial do projeto' do
     author = create(:user, email: 'joão@email.com', password: 'password')
-    create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
+    valeria = create(:user, email: 'valeria@email.com', password: 'password', cpf: '000.000.001-91')
     project = create(:project, user: author)
+    create(:user_role, project:, user: valeria, role: :contributor)
 
     login_as(author)
     visit project_path(project)

@@ -5,7 +5,13 @@ Rails.application.routes.draw do
 
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit update destroy] do
-    resources :tasks, only: %i[index new create]
+    resources :tasks, only: %i[index new create show edit update] do
+      member do
+        patch 'start'
+        patch 'finish'
+        patch 'cancel'
+      end
+    end
     resources :documents, only: %i[index new create]
     resources :meetings, only: %i[index new create show edit update]
     get 'members', on: :member, to: 'projects#members'
@@ -33,14 +39,6 @@ Rails.application.routes.draw do
     patch 'decline', on: :member
   end
 
-  resources :tasks, only: %i[show edit update] do
-    member do
-      post 'start'
-      post 'finish'
-      post 'cancel'
-    end
-  end
-
   resources :documents, only: %i[show] do
     patch 'archive', on: :member
   end
@@ -49,6 +47,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index]
       resources :invitations, only: %i[index update]
+      resources :proposals, only: %i[create]
     end
   end
 end
