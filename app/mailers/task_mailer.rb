@@ -5,7 +5,6 @@ class TaskMailer < ApplicationMailer
     @task = params[:task]
     @project = @task.project
     @leader = @project.user
-    @url = params[:url]
     mail(to: @leader.email, subject: t('.subject'))
   end
 end
