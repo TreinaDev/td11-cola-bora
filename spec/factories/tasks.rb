@@ -6,5 +6,6 @@ FactoryBot.define do
     user_role { nil }
     assigned { nil }
     due_date { 10.days.from_now.to_date }
+    status { 'uninitialized' }
   end
 end
