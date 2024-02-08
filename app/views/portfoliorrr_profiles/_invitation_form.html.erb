@@ -78,6 +78,11 @@
           </div>
         </div>
       <% end %>
+      <% if current_proposal %>
+        <%= button_to 'Recusar',
+                      decline_proposal_path(current_proposal),
+                      method: :patch %>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -5,7 +5,7 @@
     <div class="btn-group" 
          role="group" 
          aria-label="Basic radio toggle button group">
-      <%= link_to t('proposal.all'), 
+      <%= link_to t('proposals.all'), 
                   project_proposals_path(@project), 
                   class: "btn btn-outline-primary #{'active' if params[:status].blank?}" %>
       <%= link_to Proposal.human_attribute_name('status.pending', count: 2), 

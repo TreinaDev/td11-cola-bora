@@ -40,6 +40,10 @@ Rails.application.routes.draw do
     patch 'decline', on: :member
   end
 
+  resources :proposals, only: [] do
+    patch :decline, on: :member
+  end
+
   resources :documents, only: %i[show] do
     patch 'archive', on: :member
   end

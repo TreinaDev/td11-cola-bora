@@ -39,7 +39,6 @@ module InvitationService
         response_body = JSON.parse(@response.body, symbolize_names: true)
         @invitation.portfoliorrr_invitation_id = response_body[:data][:invitation_id]
         @invitation.pending!
-        @invitation.accept_proposal
         @invitation.save
       end
 

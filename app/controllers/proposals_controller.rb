@@ -12,6 +12,13 @@ class ProposalsController < ApplicationController
     @proposals = @project.proposals.where(status:).order(:created_at)
   end
 
+  def decline
+    proposal = Proposal.find(params[:id])
+    proposal.declined!
+    redirect_to project_portfoliorrr_profile_path(proposal.project_id, proposal.profile_id),
+                notice: t('.success')
+  end
+
   private
 
   def set_project
