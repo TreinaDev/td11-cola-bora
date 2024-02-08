@@ -1,0 +1,8 @@
+<h1>Olá, <%= @participant.full_name %>.</h1>
+<p>
+  A reunião <%= @meeting.title %>, marcada para <%= @meeting.datetime.strftime('%d/%m/%y às %H:%M horas') %>, começa em 5 minutos.
+</p>
+<p>
+  <%= link_to 'Clique aqui para ver os detalhes da reunião.', @url %>
+</p>
+<p><%= t('.thanks_have_a_nice_day') %></p>
