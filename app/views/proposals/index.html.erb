@@ -38,7 +38,9 @@
               <p class="card-text">
                 <%= proposal.message.truncate(@max_characters, separator: ' ') %>
               </p>
-              <%= link_to 'Visualizar', project_portfoliorrr_profile_path(@project, proposal.profile_id)%>
+              <%= link_to t(:view), 
+                          project_portfoliorrr_profile_path(@project, proposal.profile_id),
+                          class: 'btn btn-sm btn-outline-secondary' if proposal.pending? %>
             </div>
             <div class="card-footer text-muted">
               <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>

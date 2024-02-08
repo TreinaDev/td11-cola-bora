@@ -51,15 +51,11 @@
               <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
             </div>
           </div>
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation,
-                                                              invitation: @invitation,
-                                                              profile: @portfoliorrr_profile,
-                                                              project: @project,
-                                                              current_proposal: @current_proposal } %>
-            </div>
-          </div>
+          <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation,
+                                                          invitation: @invitation,
+                                                          profile: @portfoliorrr_profile,
+                                                          project: @project,
+                                                          current_proposal: @current_proposal } %>
         </div>
       </div>
     </div>

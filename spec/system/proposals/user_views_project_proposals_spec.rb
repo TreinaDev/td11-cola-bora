@@ -69,6 +69,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'pending@email.com'
         expect(page).to have_content 'Solicitação pendente!'
         expect(page).to have_content "#{time_ago_in_words pending_proposal.created_at} atrás"
+        expect(page).to have_link 'Visualizar'
         expect(page).not_to have_content 'accepted@email.com'
         expect(page).not_to have_content 'Solicitação aceita!'
         expect(page).not_to have_content 'declined@email.com'
@@ -103,6 +104,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'accepted@email.com'
         expect(page).to have_content 'Solicitação aceita'
         expect(page).to have_content "#{time_ago_in_words accepted_proposal.created_at} atrás"
+        expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Pendente'
         expect(page).not_to have_content 'pending@email.com'
         expect(page).not_to have_content 'Solicitação pendente'
@@ -140,6 +142,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'declined@email.com'
         expect(page).to have_content 'Solicitação recusada'
         expect(page).to have_content "#{time_ago_in_words declined_proposal.created_at} atrás"
+        expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Aceita'
         expect(page).not_to have_content 'accepted@email.com'
         expect(page).not_to have_content 'Solicitação aceita'
@@ -177,6 +180,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'cancelled@email.com'
         expect(page).to have_content 'Solicitação cancelada'
         expect(page).to have_content "#{time_ago_in_words cancelled_proposal.created_at} atrás"
+        expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Recusada'
         expect(page).not_to have_content 'declined@email.com'
         expect(page).not_to have_content 'Solicitação recusada'

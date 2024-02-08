@@ -16,7 +16,7 @@ describe 'Líder visualiza solicitação' do
     click_on 'Visualizar'
 
     expect(page).to have_current_path project_portfoliorrr_profile_path(project, id)
-    expect(page).to have_content 'Solicitação pendente'
+    expect(page).to have_content 'Nova Solicitação!'
     expect(page).to have_content 'Quero participar do projeto!'
     expect(page).to have_field 'Mensagem'
     expect(page).to have_field 'Prazo de validade (em dias)'
