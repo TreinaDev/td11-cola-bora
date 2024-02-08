@@ -5,15 +5,11 @@ class MeetingParticipantsController < ApplicationController
   end
 
   def create
-    # @participants = []
-    participants_params.each do |participant|
-      @participants = @meeting.meeting_participants.create(user_role_id: participant)
+    @participants = []
+    participants_params[:meeting_participant_ids].each do |participant|
+      @participants << @meeting.meeting_participants.create(user_role_id: participant)
     end
     redirect_to project_meeting_path(@project, @meeting)
-    # end
-    # if @participants.save_all
-    #   redirect_to project_meeting_path(@project, @meeting)
-    # end
   end
 
   private

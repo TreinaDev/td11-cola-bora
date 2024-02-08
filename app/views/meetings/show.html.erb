@@ -26,7 +26,7 @@
 <div>
   <h3>Lista de Participantes</h3>
   <%= @participants.each do |participant| %>
-    <% participant.user_role.user.full_name %>
+    <%= participant.user_role.user.full_name %>
   <% end %>
 </div>
 
