@@ -7,6 +7,6 @@ class MeetingMailer < ApplicationMailer
     @project = @meeting.project
     @participant = params[:participant]
     @address = link_to_address(@meeting.address)
-    mail(to: @participant.email, subject: 'Sua reunião já vai começar.')
+    mail(to: @participant.email, subject: t '.subject')
   end
 end
