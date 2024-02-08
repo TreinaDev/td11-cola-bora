@@ -14,8 +14,8 @@ RSpec.describe TaskMailer, type: :mailer do
       mail = TaskMailer.with(task:, url:).notify_leader_finish_task
 
       expect(mail.body.encoded).to include 'Olá Ash Ketchum. Uma tarefa foi finalizada!'
-      expect(mail.body.encoded).to include 'A tarefa Captura 150 pokemons do projeto Mestre Pokémon'
-      expect(mail.body.encoded).to include 'foi finalizada por Giovanni.'
+      expect(mail.body.encoded).to include 'A tarefa Captura 150 pokemons, do projeto Mestre Pokémon e '
+      expect(mail.body.encoded).to include 'criada por Giovanni foi finalizada.'
       expect(mail.subject).to include 'A tarefa foi finalizada.'
       link = '<a href="http://127.0.0.1/projects/1/tasks/1">Para ver a tarefa pronta, acesse</a>'
       expect(mail.body.encoded).to include link
@@ -32,8 +32,8 @@ RSpec.describe TaskMailer, type: :mailer do
       mail = TaskMailer.with(task:, url:).notify_leader_finish_task
 
       expect(mail.body.encoded).to include 'Olá Ash Ketchum. Uma tarefa foi finalizada!'
-      expect(mail.body.encoded).to include 'A tarefa Captura 150 pokemons do projeto Mestre Pokémon'
-      expect(mail.body.encoded).to include 'foi finalizada por você.'
+      expect(mail.body.encoded).to include 'A tarefa Captura 150 pokemons, do projeto Mestre Pokémon e '
+      expect(mail.body.encoded).to include 'criada por você foi finalizada'
       expect(mail.subject).to include 'A tarefa foi finalizada.'
       link = '<a href="http://127.0.0.1/projects/1/tasks/1">Para ver a tarefa pronta, acesse</a>'
       expect(mail.body.encoded).to include link
