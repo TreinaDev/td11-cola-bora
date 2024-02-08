@@ -1,4 +1,10 @@
-<h3 class="mb-3"><%= t('sending_invitation')%></h3>
+<h3 class="mb-3">
+  <% if current_proposal %>
+    Solicitação pendente
+  <% else %>
+    <%= t('sending_invitation')%>
+  <% end %>
+</h3>
 
 <% if invitation.errors.any? %>
   <div class='text-danger'>
@@ -11,7 +17,7 @@
   </div>
 <% end %>
 
-<% if current_invitation.present? && current_invitation.pending? %>
+<% if current_invitation&.pending? %>
   <p><%= I18n.t('invitations.create.pending_invitation') %></p>
   
   <% unless current_invitation.message.blank? %>
@@ -25,11 +31,10 @@
 
   <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
                 method: :patch, class: 'btn btn-danger' %>
-<% elsif current_invitation.present? && current_invitation.processing? %>
+<% elsif current_invitation&.processing? %>
   <p><%= I18n.t('invitations.create.process') %></p>
 <% else %>
   <% if current_proposal %>
-    <p>Solicitação pendente</p>
     <%= current_proposal.message %>
   <% end %>
 

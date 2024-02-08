@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Líder aceita solicitação' do
+describe 'Líder visualiza solicitação' do
   it 'com sucesso' do
     leader = create :user
     project = create :project, user: leader
@@ -10,9 +10,6 @@ describe 'Líder aceita solicitação' do
                       message: 'Quero participar do projeto!',
                       profile_id: id, email: 'rodolfo@email.com'
     allow(PortfoliorrrProfile).to receive(:find).with(id).and_return(proposal_profile)
-    json = { data: { invitation_id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
-    allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as leader, scope: :user
     visit project_proposals_path project
@@ -25,5 +22,27 @@ describe 'Líder aceita solicitação' do
     expect(page).to have_field 'Prazo de validade (em dias)'
     expect(page).to have_button 'Aceitar'
     expect(page).not_to have_button 'Enviar convite'
+  end
+
+  it 'e aceita' do
+    leader = create :user
+    project = create :project, user: leader
+    id = 38
+    proposal_profile = PortfoliorrrProfile.new(id:, name: 'Rodolfo', job_categories: [])
+    proposal_profile.email = 'rodolfo@email.com'
+    proposal = create :proposal, project:, status: :pending,
+                                 profile_id: id, email: proposal_profile.email
+    allow(PortfoliorrrProfile).to receive(:find).with(id).and_return(proposal_profile)
+    json = { data: { invitation_id: 3 } }
+    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
+    allow(Faraday).to receive(:post).and_return(fake_response)
+
+    login_as leader, scope: :user
+    visit project_portfoliorrr_profile_path project, id
+    click_on 'Aceitar'
+
+    expect(page).to have_current_path project_portfoliorrr_profile_path(project, id)
+    expect(page).to have_content 'Convite enviado com sucesso!'
+    expect(proposal.reload.status).to eq 'accepted'
   end
 end
