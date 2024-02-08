@@ -1,0 +1,11 @@
+<h1><%= t('.hello_the_task_was_finished', leader_name: @leader.full_name) %>!</h1>
+<p>
+  <%= t('.the_task_from_project_was_finished_by', 
+                                              task_title: @task.title, 
+                                              project_title: @project.title, 
+                                              author_name: @task.user != @leader ? @task.user.full_name : 'você' ) %><br>
+</p>
+<p>
+  <%= link_to( t('.to_view_the_task_access'), @url) %>
+</p>
+<p><%= t('.thanks_have_a_nice_day') %></p>

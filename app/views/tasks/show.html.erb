@@ -26,13 +26,13 @@
                 start_project_task_path(@project, @task), method: :patch,
                 class: 'btn btn-primary me-2' if @task.uninitialized? %>
   <%= button_to I18n.t('tasks.finish_task'), 
-                finish_project_task_path(@task), method: :patch, 
+                finish_project_task_path(@project, @task), method: :patch, 
                 class: 'btn btn-primary me-2' if @task.in_progress? %>
-  <%= button_to I18n.t('tasks.cancel_task'), 
-                cancel_project_task_path(@project, @task), method: :patch, 
+  <%= button_to I18n.t('tasks.cancel_task'),
+                cancel_project_task_path(@project, @task), method: :patch,
                 data: { turbo_confirm: t(:task_cancel_confirmation) },
                 class: 'btn btn-danger me-2' if @task.uninitialized? || @task.in_progress? %>
-  <%= link_to I18n.t('tasks.edit_task'), 
+  <%= link_to I18n.t('tasks.edit_task'),
               edit_project_task_path(@project, @task),
               class: 'btn btn-secondary' unless @task.finished? || @task.cancelled? %>
 </div>
