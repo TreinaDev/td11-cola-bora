@@ -9,7 +9,7 @@ RSpec.describe ExpireTaskJob, type: :job do
         user_role = create :user_role, project:, user: contributor, role: :contributor
         task = create :task, due_date: 5.days.from_now, user_role:, project:, status: :uninitialized
 
-        travel_to 5.days.from_now do
+        travel_to 6.days.from_now do
           ExpireTaskJob.perform_now task
 
           expect(task.reload.status).to eq 'expired'
@@ -22,7 +22,7 @@ RSpec.describe ExpireTaskJob, type: :job do
         user_role = create :user_role, project:, user: contributor, role: :contributor
         task = create :task, due_date: 5.days.from_now, user_role:, project:, status: :in_progress
 
-        travel_to 5.days.from_now do
+        travel_to 6.days.from_now do
           ExpireTaskJob.perform_now task
 
           expect(task.reload.status).to eq 'expired'
@@ -42,7 +42,7 @@ RSpec.describe ExpireTaskJob, type: :job do
           expect(task.reload.expired?).to eq false
         end
 
-        travel_to 2.days.from_now do
+        travel_to 3.days.from_now do
           ExpireTaskJob.perform_now task
           expect(task.reload.expired?).to eq true
         end
@@ -56,7 +56,7 @@ RSpec.describe ExpireTaskJob, type: :job do
 
         task.update(due_date: 1.day.from_now.to_date)
 
-        travel_to 1.day.from_now do
+        travel_to 2.days.from_now do
           ExpireTaskJob.perform_now task
           expect(task.reload.expired?).to eq true
         end
@@ -70,7 +70,7 @@ RSpec.describe ExpireTaskJob, type: :job do
         user_role = create :user_role, project:, user: contributor, role: :contributor
         task = create :task, due_date: 5.days.from_now, user_role:, project:, status: :cancelled
 
-        travel_to 5.days.from_now do
+        travel_to 6.days.from_now do
           ExpireTaskJob.perform_now task
 
           expect(task.reload.status).to eq 'cancelled'
@@ -83,7 +83,7 @@ RSpec.describe ExpireTaskJob, type: :job do
         user_role = create :user_role, project:, user: contributor, role: :contributor
         task = create :task, due_date: 5.days.from_now, user_role:, project:, status: :finished
 
-        travel_to 5.days.from_now do
+        travel_to 6.days.from_now do
           ExpireTaskJob.perform_now task
 
           expect(task.reload.status).to eq 'finished'
@@ -98,10 +98,21 @@ RSpec.describe ExpireTaskJob, type: :job do
 
         task.update(due_date: nil)
 
-        travel_to 1.day.from_now do
+        travel_to 6.days.from_now do
           ExpireTaskJob.perform_now task
           expect(task.reload.expired?).to eq false
         end
+      end
+
+      it 'antes de o prazo vencer' do
+        project = create :project
+        contributor = create :user, cpf: '979.612.040-24'
+        user_role = create :user_role, project:, user: contributor, role: :contributor
+        task = create :task, due_date: 5.days.from_now, user_role:, project:, status: :uninitialized
+
+        ExpireTaskJob.perform_now task
+
+        expect(task.reload.expired?).to eq false
       end
     end
   end

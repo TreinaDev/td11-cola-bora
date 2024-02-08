@@ -4,7 +4,7 @@ class ExpireTaskJob < ApplicationJob
   def perform(task)
     return unless task.uninitialized? || task.in_progress?
 
-    return unless task.due_date && task.due_date <= Time.zone.today.to_date
+    return unless task.due_date&.past?
 
     task.expired!
   end

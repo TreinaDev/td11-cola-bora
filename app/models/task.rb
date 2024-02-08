@@ -34,6 +34,6 @@ class Task < ApplicationRecord
   def expire_task
     return unless due_date
 
-    ExpireTaskJob.set(wait_until: due_date.end_of_day).perform_later(self)
+    ExpireTaskJob.set(wait_until: due_date.tomorrow.beginning_of_day).perform_later(self)
   end
 end
