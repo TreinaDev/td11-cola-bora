@@ -6,6 +6,6 @@
                                               author_name: @task.user != @leader ? @task.user.full_name : 'você' ) %><br>
 </p>
 <p>
-  <%= link_to( t('.to_view_the_task_access'), @url) %>
+  <%= link_to( t('.to_view_the_task_access'), project_task_url(@project, @task)) %>
 </p>
 <p><%= t('.thanks_have_a_nice_day') %></p>

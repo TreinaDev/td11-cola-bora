@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   def finish
     @task.finished!
     redirect_to project_task_path(@project), notice: t('.success')
-    TaskMailer.with(task: @task, url: project_task_url(@project, @task)).notify_leader_finish_task.deliver
+    TaskMailer.with(task: @task).notify_leader_finish_task.deliver
   end
 
   def cancel

@@ -15,6 +15,6 @@ pt-BR:
   save: Salvar
   model_description: Descrição do %{model}
   missing_project: Projeto não encontrado
+  ago: atrás
   filter_btn: Filtrar
   all: Todos
-
