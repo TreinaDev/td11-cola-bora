@@ -38,6 +38,7 @@
               <p class="card-text">
                 <%= proposal.message.truncate(@max_characters, separator: ' ') %>
               </p>
+              <%= link_to 'Visualizar', project_portfoliorrr_profile_path(@project, proposal.profile_id)%>
             </div>
             <div class="card-footer text-muted">
               <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>

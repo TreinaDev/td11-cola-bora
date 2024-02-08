@@ -28,6 +28,11 @@
 <% elsif current_invitation.present? && current_invitation.processing? %>
   <p><%= I18n.t('invitations.create.process') %></p>
 <% else %>
+  <% if current_proposal %>
+    <p>Solicitação pendente</p>
+    <%= current_proposal.message %>
+  <% end %>
+
   <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
     <div class="mb-3">
       <div class="row">
@@ -41,9 +46,13 @@
           <%= form.hidden_field :profile_email, value: profile.email %>
         </div>
         <div class="d-flex justify-content-center mb-2">
-          <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
+          <% if current_proposal %>
+            <%= form.submit 'Aceitar', class: 'btn btn-primary' %>
+          <% else %>
+            <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
+          <% end %>
         </div>
       </div>
-    </div>   
+    </div>
   <% end %>
 <% end %>
