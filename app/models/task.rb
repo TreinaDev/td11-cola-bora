@@ -9,13 +9,22 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
 
-  validate :due_date_is_future
+  validate :due_date_is_future_on_create, on: :create
+  validate :due_date_is_future_on_update, on: :update, if: :due_date_changed?
 
   def start_time
     due_date&.to_datetime
   end
 
   private
+
+  def due_date_is_future_on_create
+    due_date_is_future if due_date.present?
+  end
+
+  def due_date_is_future_on_update
+    due_date_is_future
+  end
 
   def due_date_is_future
     errors.add(:due_date, 'deve ser futuro.') if due_date.present? && due_date < Time.zone.today.to_date
@@ -24,6 +33,6 @@ class Task < ApplicationRecord
   def expire_task
     return unless due_date
 
-    ExpiredTaskJob.set(wait_until: due_date.end_of_day).perform_later(self)
+    ExpireTaskJob.set(wait_until: due_date.end_of_day).perform_later(self)
   end
 end

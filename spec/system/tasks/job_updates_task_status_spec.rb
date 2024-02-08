@@ -5,8 +5,8 @@ describe 'Job expira tarefa' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
 
-    expired_task_spy = spy(ExpiredTaskJob)
-    stub_const('ExpiredTaskJob', expired_task_spy)
+    expired_task_spy = spy(ExpireTaskJob)
+    stub_const('ExpireTaskJob', expired_task_spy)
 
     task = create(:task, project:, due_date: 2.days.from_now.to_date, status: 'in_progress')
 
@@ -17,8 +17,8 @@ describe 'Job expira tarefa' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
 
-    expired_task_spy = spy(ExpiredTaskJob)
-    stub_const('ExpiredTaskJob', expired_task_spy)
+    expired_task_spy = spy(ExpireTaskJob)
+    stub_const('ExpireTaskJob', expired_task_spy)
 
     task = create(:task, project:, due_date: 2.days.from_now.to_date, status: 'uninitialized')
 
@@ -30,8 +30,8 @@ describe 'Job expira tarefa' do
     project = create(:project, user: author)
     task = create(:task, project:, due_date: nil, status: 'uninitialized')
 
-    expired_task_spy = spy(ExpiredTaskJob)
-    stub_const('ExpiredTaskJob', expired_task_spy)
+    expired_task_spy = spy(ExpireTaskJob)
+    stub_const('ExpireTaskJob', expired_task_spy)
 
     task.update(due_date: 1.day.from_now.to_date)
 
@@ -41,8 +41,8 @@ describe 'Job expira tarefa' do
   it 'quando a tarefa é criada com prazo e depois é alterada para prazo maior' do
     author = create(:user, email: 'joão@email.com', password: 'password')
     project = create(:project, user: author)
-    expired_task_spy = spy(ExpiredTaskJob)
-    stub_const('ExpiredTaskJob', expired_task_spy)
+    expired_task_spy = spy(ExpireTaskJob)
+    stub_const('ExpireTaskJob', expired_task_spy)
 
     task = create(:task, project:, due_date: 1.day.from_now.to_date, status: 'uninitialized')
 
