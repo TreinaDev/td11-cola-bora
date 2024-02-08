@@ -1,0 +1,12 @@
+<%= form_with(model: [@project, @meeting, @participants]) do |f| %>
+  <p><%= MeetingParticipant.model_name.human(count: 2) %></p>
+  <% @contributors.each do |contributor| %>
+    <p>
+      <%= f.check_box :meeting_participant_ids, {multiple: true}, contributor.id, nil %>
+      <%= f.label "meeting_participant_ids_#{contributor.id}", contributor.user.full_name %>
+    </p>
+  <% end %>
+
+  <%= f.submit t('meeting_participants.add_meeting_participants'), class: 'btn btn-primary'%>
+
+<% end %>

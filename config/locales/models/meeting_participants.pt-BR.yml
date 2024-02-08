@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      meeting_participants:
+        one: Participante
+        other: Participantes
+
+  meeting_participants:
+    add_meeting_participants: Adicionar
+  

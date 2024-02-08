@@ -2,6 +2,8 @@ class Meeting < ApplicationRecord
   belongs_to :user_role
   delegate :user, to: :user_role
   belongs_to :project
+  has_many :meeting_participants, dependent: :destroy
+  has_many :user_roles, through: :meeting_participants
 
   validates :title, :datetime, :duration, :address, presence: true
 

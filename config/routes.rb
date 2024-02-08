@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       end
     end
     resources :documents, only: %i[index new create]
-    resources :meetings, only: %i[index new create show edit update]
+    resources :meetings, only: %i[index new create show edit update] do
+      resources :meeting_participants, only: %i[new create]
+    end
     get 'members', on: :member, to: 'projects#members'
 
     resources :portfoliorrr_profiles, only: %i[show] do
