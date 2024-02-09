@@ -1,4 +1,4 @@
-<%= form_with(model: [@project, @meeting, @participants]) do |f| %>
+<%= form_with(model: [@project, @meeting, @participant]) do |f| %>
   <p><%= MeetingParticipant.model_name.human(count: 2) %></p>
   <% @contributors.each do |contributor| %>
     <p>

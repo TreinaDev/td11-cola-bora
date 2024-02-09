@@ -23,17 +23,24 @@
   <dd><%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></dd>
 </dl>
 
-<div>
-  <h3>Lista de Participantes</h3>
-  <%= @participants.each do |participant| %>
-    <%= participant.user_role.user.full_name %>
-  <% end %>
-</div>
+<% if @participants.blank? %>
+  <small>Adicione participantes para notificá-los</small>
+<% else %>
+  <div>
+    <h3>Lista de Participantes</h3>
+    <% @participants.each do |participant| %>
+      <%= participant.user.full_name %>
+    <% end %>
+  </div>
+<% end %>
 
 <div>
-  <%= link_to I18n.t('meetings.add_meeting_participants'), 
-              new_project_meeting_meeting_participant_path(@project, @meeting),
-              class: 'btn btn-primary' %>
+  <% if current_user == @meeting.user && @participants.blank? %>
+    <%= link_to I18n.t('meetings.add_meeting_participants'), 
+                new_project_meeting_meeting_participant_path(@project, @meeting),
+                class: 'btn btn-primary' %>
+  <% end %>
+
   <%= link_to I18n.t('meetings.edit_meeting'), 
               edit_project_meeting_path(@project, @meeting),
               class: 'btn btn-primary' %>

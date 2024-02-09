@@ -27,7 +27,7 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @participants = @meeting.meeting_participants
+    @participants = @meeting.participants
   end
 
   def edit; end
