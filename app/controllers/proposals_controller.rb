@@ -7,9 +7,9 @@ class ProposalsController < ApplicationController
     status = params[:status]
     @max_characters = Proposal::MAXIMUM_MESSAGE_CHARACTERS
 
-    return @proposals = @project.proposals if status.blank?
+    return @proposals = @project.proposals.order(:updated_at).reverse if status.blank?
 
-    @proposals = @project.proposals.where(status:).order(:created_at)
+    @proposals = @project.proposals.where(status:).order(:updated_at).reverse
   end
 
   def decline

@@ -33,7 +33,7 @@
       </p>
 
       <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
-                    method: :patch, class: 'btn btn-danger' %>
+                    method: :patch, class: 'btn btn-danger w-100' %>
     <% elsif current_invitation&.processing? %>
       <p><%= I18n.t('invitations.create.process') %></p>
     <% else %>
@@ -50,7 +50,7 @@
       </div>
       
       <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
-        <div class="mb-3">
+        <div class="mb-2">
           <div class="row">
             <div class="d-flex flex-column gap-3">
               <%= form.label :expiration_days, 
@@ -71,11 +71,11 @@
               <div class="d-flex justify-content-center">
                 <% if current_proposal %>
                   <%= form.submit t('invitations.accept_btn'), 
-                                  class: 'btn btn-primary',
+                                  class: 'btn btn-primary w-100',
                                   disabled: current_proposal&.processing? %>
                 <% else %>
                   <%= form.submit t('invitations.send_invitation'), 
-                                  class: 'btn btn-primary' if current_proposal.nil? %>
+                                  class: 'btn btn-primary w-100' if current_proposal.nil? %>
                 <% end %>
               </div>
             </div>
@@ -83,11 +83,12 @@
         </div>
       <% end %>
       <% if current_proposal %>
-        <%= button_to 'Recusar',
+        <%= button_to t('invitations.decline_btn'),
                       decline_proposal_path(current_proposal),
                       method: :patch,
-                      class: 'btn btn-danger',
+                      class: 'btn btn-danger w-100',
                       disabled: current_proposal&.processing? %>
+      </div>
       <% end %>
     <% end %>
   </div>
