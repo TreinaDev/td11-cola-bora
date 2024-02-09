@@ -1,6 +1,7 @@
 class MeetingParticipantsController < ApplicationController
   before_action :set_meeting_and_project_and_contributors, only: %i[new create]
   before_action :set_new_meeting_participant, only: %i[new create]
+  before_action :check_authorization, only: %i[new create]
 
   def new; end
 
@@ -40,5 +41,9 @@ class MeetingParticipantsController < ApplicationController
     return unless params[:meeting_participant]
 
     params.require(:meeting_participant).permit(meeting_participant_ids: [])
+  end
+
+  def check_authorization
+    redirect_to root_path, alert: t('unauthorized') unless current_user == @meeting.user
   end
 end
