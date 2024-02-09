@@ -2,6 +2,11 @@ class NotifyParticipantsJob < ApplicationJob
   queue_as :default
 
   def perform(meeting)
+    # if meeting.datetime&.past?
+    return if meeting.datetime&.past?
+
+    #return if meeting.datetime - NotifyParticipantsJob.scheduled_at > 5.minutes
+
     logger.info('Iniciando emfileramento que notifica reunião')
     participants = meeting.project.users
 

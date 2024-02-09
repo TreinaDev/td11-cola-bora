@@ -74,7 +74,7 @@ RSpec.describe Meeting, type: :model do
         meeting.update(datetime: 4.minutes.from_now)
 
         expect(meeting.valid?).to eq false
-        error_message = 'A reunião não pode ser editada 5 minutos antes da hora marcada.'
+        error_message = 'Data e horário não podem ser editadas 5 minutos antes da hora marcada.'
         expect(meeting.errors.full_messages).to include error_message
       end
 

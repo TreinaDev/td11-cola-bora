@@ -3,11 +3,12 @@ class Meeting < ApplicationRecord
   delegate :user, to: :user_role
   belongs_to :project
 
-  validates :title, :datetime, :duration, :address, presence: true
-
-  validate :datetime_is_future
-  validate :five_minutes_ahead, on: :update
   after_create :scheduling_job
+  after_update :scheduling_job
+
+  validates :title, :datetime, :duration, :address, presence: true
+  validate :datetime_is_future, on: :create
+  validate :five_minutes_ahead, on: :update, if: :datetime_changed?
 
   def start_time
     datetime
@@ -16,7 +17,7 @@ class Meeting < ApplicationRecord
   private
 
   def datetime_is_future
-    errors.add(:datetime, 'deve ser futuro.') if datetime.present? && datetime < Time.zone.now
+    errors.add(:datetime, I18n.t('meetings.should_be_in_future')) if datetime.present? && datetime < Time.zone.now
   end
 
   def scheduling_job
@@ -26,7 +27,7 @@ class Meeting < ApplicationRecord
   def five_minutes_ahead
     return unless datetime <= Time.zone.now + 5.minutes
 
-    errors.add(:base,
+    errors.add(:datetime,
                I18n.t('meetings.cant_edit_five_minutes_before'))
   end
 end

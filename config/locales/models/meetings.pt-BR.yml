@@ -33,4 +33,5 @@ pt-BR:
   time: Horário
   empty_state: Sem reuniões registradas
   duration_placeholder: em minutos
-  cant_edit_five_minutes_before: A reunião não pode ser editada 5 minutos antes da hora marcada.
+  cant_edit_five_minutes_before: não podem ser editadas 5 minutos antes da hora marcada.
+  should_be_in_future: deve ser futuro.
