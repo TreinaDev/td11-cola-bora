@@ -3,3 +3,5 @@ pt-BR:
   not_found: Erro, não encontrado.
   invitation:
     conflict: Não é possível alterar convite que não está pendente.
+  proposal:
+    conflict: Essa solicitação não está pendente
