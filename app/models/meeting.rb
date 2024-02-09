@@ -7,6 +7,8 @@ class Meeting < ApplicationRecord
 
   validate :datetime_is_future
 
+  after_create :scheduling_job
+
   def start_time
     datetime
   end
@@ -15,5 +17,9 @@ class Meeting < ApplicationRecord
 
   def datetime_is_future
     errors.add(:datetime, 'deve ser futuro.') if datetime.present? && datetime < Time.zone.now
+  end
+
+  def scheduling_job
+    NotifyParticipantsJob.set(wait_until: datetime - 5.minutes).perform_later(self)
   end
 end

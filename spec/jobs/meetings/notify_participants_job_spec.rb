@@ -32,4 +32,18 @@ RSpec.describe NotifyParticipantsJob, type: :job do
       expect(mail).to have_received(:deliver).twice
     end
   end
+
+  describe '#perform_later' do
+    it 'Verifica agendamento de envio de e-mail' do
+      leader = create(:user)
+      project = create(:project, user: leader)
+      contributor = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
+      contributor_role = project.user_roles.create!(user: contributor)
+      meeting = create(:meeting, project:, user_role: contributor_role, title: 'Reunião sobre Caaptura de Pokémon')
+
+      expect do
+        NotifyParticipantsJob.set(wait_until: meeting.datetime - 5.minutes).perform_later(meeting)
+      end.to have_enqueued_job.with(meeting).at(meeting.datetime - 5.minutes)
+    end
+  end
 end
