@@ -17,6 +17,9 @@ describe 'Usuário vê solicitações de um projeto' do
       cancelled_proposal = create :proposal, project:, status: :cancelled,
                                              email: 'cancelled@email.com',
                                              message: 'Solicitação cancelada'
+      processing_proposal = create :proposal, project:, status: :processing,
+                                              email: 'processing@email.com',
+                                              message: 'Solicitação em processamento!'
 
       login_as leader, scope: :user
       visit project_path project
@@ -28,19 +31,23 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'Pendente'
         expect(page).to have_content 'pending@email.com'
         expect(page).to have_content 'Solicitação pendente'
-        expect(page).to have_content "#{time_ago_in_words pending_proposal.created_at} atrás"
+        expect(page).to have_content "Atualizado há #{time_ago_in_words pending_proposal.updated_at} atrás"
         expect(page).to have_content 'Aceita'
         expect(page).to have_content 'accepted@email.com'
         expect(page).to have_content 'Solicitação aceita'
-        expect(page).to have_content "#{time_ago_in_words accepted_proposal.created_at} atrás"
+        expect(page).to have_content "#{time_ago_in_words accepted_proposal.updated_at} atrás"
         expect(page).to have_content 'Recusada'
         expect(page).to have_content 'declined@email.com'
         expect(page).to have_content 'Solicitação recusada'
-        expect(page).to have_content "#{time_ago_in_words refused_proposal.created_at} atrás"
+        expect(page).to have_content "#{time_ago_in_words refused_proposal.updated_at} atrás"
         expect(page).to have_content 'Cancelada'
         expect(page).to have_content 'cancelled@email.com'
         expect(page).to have_content 'Solicitação cancelada'
-        expect(page).to have_content "#{time_ago_in_words cancelled_proposal.created_at} atrás"
+        expect(page).to have_content "#{time_ago_in_words cancelled_proposal.updated_at} atrás"
+        expect(page).to have_content 'Processando'
+        expect(page).to have_content 'processing@email.com'
+        expect(page).to have_content 'Solicitação em processamento!'
+        expect(page).to have_content "#{time_ago_in_words processing_proposal.updated_at} atrás"
       end
     end
 
@@ -59,6 +66,9 @@ describe 'Usuário vê solicitações de um projeto' do
       create :proposal, project:, status: :cancelled,
                         email: 'cancelled@email.com',
                         message: 'Solicitação cancelada!'
+      create :proposal, project:, status: :processing,
+                        email: 'processing@email.com',
+                        message: 'Solicitação em processamento!'
 
       login_as leader, scope: :user
       visit project_proposals_path(project)
@@ -68,7 +78,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'Pendente'
         expect(page).to have_content 'pending@email.com'
         expect(page).to have_content 'Solicitação pendente!'
-        expect(page).to have_content "#{time_ago_in_words pending_proposal.created_at} atrás"
+        expect(page).to have_content "Atualizado há #{time_ago_in_words pending_proposal.updated_at} atrás"
         expect(page).to have_link 'Visualizar'
         expect(page).not_to have_content 'accepted@email.com'
         expect(page).not_to have_content 'Solicitação aceita!'
@@ -76,6 +86,8 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).not_to have_content 'Solicitação recusada!'
         expect(page).not_to have_content 'cancelled@email.com'
         expect(page).not_to have_content 'Solicitação cancelada!'
+        expect(page).not_to have_content 'Solicitação em processamento!'
+        expect(page).not_to have_content 'processing@email.com'
       end
     end
 
@@ -94,6 +106,9 @@ describe 'Usuário vê solicitações de um projeto' do
       create :proposal, project:, status: :cancelled,
                         email: 'cancelled@email.com',
                         message: 'Solicitação cancelada'
+      create :proposal, project:, status: :processing,
+                        email: 'processing@email.com',
+                        message: 'Solicitação em processamento!'
 
       login_as leader, scope: :user
       visit project_proposals_path(project)
@@ -103,7 +118,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'Aceita'
         expect(page).to have_content 'accepted@email.com'
         expect(page).to have_content 'Solicitação aceita'
-        expect(page).to have_content "#{time_ago_in_words accepted_proposal.created_at} atrás"
+        expect(page).to have_content "Atualizado há #{time_ago_in_words accepted_proposal.updated_at} atrás"
         expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Pendente'
         expect(page).not_to have_content 'pending@email.com'
@@ -114,6 +129,8 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).not_to have_content 'Cancelada'
         expect(page).not_to have_content 'cancelled@email.com'
         expect(page).not_to have_content 'Solicitação cancelada'
+        expect(page).not_to have_content 'Solicitação em processamento!'
+        expect(page).not_to have_content 'processing@email.com'
       end
     end
 
@@ -132,6 +149,9 @@ describe 'Usuário vê solicitações de um projeto' do
       create :proposal, project:, status: :cancelled,
                         email: 'cancelled@email.com',
                         message: 'Solicitação cancelada'
+      create :proposal, project:, status: :processing,
+                        email: 'processing@email.com',
+                        message: 'Solicitação em processamento!'
 
       login_as leader, scope: :user
       visit project_proposals_path(project)
@@ -141,7 +161,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'Recusada'
         expect(page).to have_content 'declined@email.com'
         expect(page).to have_content 'Solicitação recusada'
-        expect(page).to have_content "#{time_ago_in_words declined_proposal.created_at} atrás"
+        expect(page).to have_content "Atualizado há #{time_ago_in_words declined_proposal.updated_at} atrás"
         expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Aceita'
         expect(page).not_to have_content 'accepted@email.com'
@@ -150,8 +170,10 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).not_to have_content 'pending@email.com'
         expect(page).not_to have_content 'Solicitação pendente'
         expect(page).not_to have_content 'Cancelada'
-        expect(page).not_to have_content 'cancelled@email.com'
         expect(page).not_to have_content 'Solicitação cancelada'
+        expect(page).not_to have_content 'cancelled@email.com'
+        expect(page).not_to have_content 'Solicitação em processamento!'
+        expect(page).not_to have_content 'processing@email.com'
       end
     end
 
@@ -170,6 +192,9 @@ describe 'Usuário vê solicitações de um projeto' do
       create :proposal, project:, status: :pending,
                         email: 'pending@email.com',
                         message: 'Solicitação pendente'
+      create :proposal, project:, status: :processing,
+                        email: 'processing@email.com',
+                        message: 'Solicitação em processamento!'
 
       login_as leader, scope: :user
       visit project_proposals_path(project)
@@ -179,7 +204,7 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).to have_content 'Cancelada'
         expect(page).to have_content 'cancelled@email.com'
         expect(page).to have_content 'Solicitação cancelada'
-        expect(page).to have_content "#{time_ago_in_words cancelled_proposal.created_at} atrás"
+        expect(page).to have_content "Atualizado há #{time_ago_in_words cancelled_proposal.updated_at} atrás"
         expect(page).not_to have_link 'Visualizar'
         expect(page).not_to have_content 'Recusada'
         expect(page).not_to have_content 'declined@email.com'
@@ -190,6 +215,8 @@ describe 'Usuário vê solicitações de um projeto' do
         expect(page).not_to have_content 'Pendente'
         expect(page).not_to have_content 'pending@email.com'
         expect(page).not_to have_content 'Solicitação pendente'
+        expect(page).not_to have_content 'Solicitação em processamento!'
+        expect(page).not_to have_content 'processing@email.com'
       end
     end
 

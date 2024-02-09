@@ -23,6 +23,7 @@ pt-BR:
         cancelled:
           one: Cancelada
           other: Canceladas
+        processing: Processando
   proposals:
     decline:
       success: Solicitação recusada com sucesso

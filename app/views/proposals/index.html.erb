@@ -43,7 +43,7 @@
                           class: 'btn btn-sm btn-outline-secondary' if proposal.pending? %>
             </div>
             <div class="card-footer text-muted">
-              <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
+              <%= t(:updated_at) %> <%= time_ago_in_words proposal.updated_at %> <%= t(:ago) %>
             </div>
           </div>
         </div>
