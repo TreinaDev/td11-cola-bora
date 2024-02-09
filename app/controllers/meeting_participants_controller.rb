@@ -1,5 +1,7 @@
 class MeetingParticipantsController < ApplicationController
-  before_action :set_meeting_and_project_and_contributors, only: %i[new create]
+  before_action :set_meeting, only: %i[new create]
+  before_action :set_project, only: %i[new create]
+  before_action :set_contributors, only: %i[new create]
   before_action :set_new_meeting_participant, only: %i[new create]
   before_action :check_authorization, only: %i[new create]
 
@@ -20,9 +22,15 @@ class MeetingParticipantsController < ApplicationController
 
   private
 
-  def set_meeting_and_project_and_contributors
-    @project = Project.find(params[:project_id])
+  def set_meeting
     @meeting = Meeting.find(params[:meeting_id])
+  end
+
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
+
+  def set_contributors
     @contributors = @project.user_roles
   end
 
