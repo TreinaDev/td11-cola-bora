@@ -141,7 +141,7 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
 
 
 
-  ### Erros tratados
+### Erros tratados
 
 Retorno caso o projeto não exista na plataforma Cola?Bora!. (Status: 404)
 
@@ -186,6 +186,47 @@ Retorno esperado:
 ```json
 { 
   "errors": ["Erro interno de servidor."]
+}
+```
+
+---
+## 4 Cancelar solicitação para participação em projetos
+
+### Endpoint
+
+```shell
+PATCH /api/v1/proposals/:id
+```
+
+#### Corpo da requisição
+
+Esta requisição não requer um corpo. Basta somente enviar o patch para o endpoint e a solicitação será cancelada.
+
+Retorno esperado caso a requisição seja bem sucedida. (Status: 204)
+
+### Erros tratados
+
+Retorno caso a solicitação não exista na plataforma Cola?Bora!. (Status: 404)
+
+```json
+{ 
+  "errors": ["Erro, não encontrado."]
+}
+```
+
+Retorno caso ocorra um erro interno no servidor. (Status: 500)
+
+```json
+{ 
+  "errors": ["Erro interno de servidor."]
+}
+```
+
+Retorno caso a solicitação esteja em um estado que não permite o cancelamento (Status: 409)
+
+```json
+{ 
+  "errors": "Essa solicitação não está pendente"
 }
 ```
 
