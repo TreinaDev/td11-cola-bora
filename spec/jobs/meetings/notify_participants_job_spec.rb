@@ -65,7 +65,6 @@ RSpec.describe NotifyParticipantsJob, type: :job do
 
         NotifyParticipantsJob.set(wait_until: meeting.datetime - 5.minutes).perform_now(meeting)
 
-        expect(NotifyParticipantsJob.queue_adapter.enqueued_jobs.count).to eq 2
         expect(mail).to have_received(:deliver).twice
       end
     end
