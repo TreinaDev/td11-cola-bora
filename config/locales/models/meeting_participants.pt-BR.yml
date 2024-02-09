@@ -6,5 +6,8 @@ pt-BR:
         other: Participantes
 
   meeting_participants:
+    create:
+      success: Participantes adicionados com sucesso!
     add_meeting_participants: Adicionar
+    check_number_of_participants: Selecione ao menos 2 participantes
   

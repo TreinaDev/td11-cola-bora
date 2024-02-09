@@ -14,7 +14,7 @@ class MeetingParticipantsController < ApplicationController
 
     return unless participants.all?(&:save)
 
-    redirect_to project_meeting_path(@meeting.project, @meeting), notice: 'Participantes adicionados com sucesso!'
+    redirect_to project_meeting_path(@meeting.project, @meeting), notice: t('.success')
   end
 
   private
@@ -32,7 +32,7 @@ class MeetingParticipantsController < ApplicationController
   def check_number_of_participants
     return unless participants_params.nil? || participants_params[:meeting_participant_ids].count == 1
 
-    flash.now[:alert] = 'Selecione ao menos 2 participantes'
+    flash.now[:alert] = t '.check_number_of_participants'
     render :new, status: :unprocessable_entity
   end
 
