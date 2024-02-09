@@ -6,7 +6,7 @@ class Meeting < ApplicationRecord
   validates :title, :datetime, :duration, :address, presence: true
 
   validate :datetime_is_future
-
+  validate :five_minutes_ahead, on: :update
   after_create :scheduling_job
 
   def start_time
@@ -21,5 +21,12 @@ class Meeting < ApplicationRecord
 
   def scheduling_job
     NotifyParticipantsJob.set(wait_until: datetime - 5.minutes).perform_later(self)
+  end
+
+  def five_minutes_ahead
+    return unless datetime <= Time.zone.now + 5.minutes
+
+    errors.add(:datetime,
+               'só pode ser editada para 5 minutos antes da hora marcada.')
   end
 end
