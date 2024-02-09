@@ -4,10 +4,16 @@ module ProposalService
 
   class Decline
     def self.send(proposal)
-      Faraday.new(
-        url: PORTFOLIORRR_BASE_URL,
-        headers: { 'Content-Type': 'application/json' }
-      ).patch(PORTFOLIORRR_PROPOSAL_URL + proposal.portfoliorrr_proposal_id.to_s)
+      return unless proposal.processing?
+
+      url = PORTFOLIORRR_BASE_URL + PORTFOLIORRR_PROPOSAL_URL + proposal.portfoliorrr_proposal_id.to_s
+      header = { 'Content-Type': 'application/json' }
+
+      return proposal.declined! if Faraday.patch(url, header).success?
+
+      proposal.pending!
+    rescue Faraday::ConnectionFailed
+      proposal.pending!
     end
   end
 end

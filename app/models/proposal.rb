@@ -15,6 +15,26 @@ class Proposal < ApplicationRecord
 
   MAXIMUM_MESSAGE_CHARACTERS = 140
 
+  def pending!
+    super if processing?
+  end
+
+  def accepted!
+    super if pending?
+  end
+
+  def declined!
+    super if processing?
+  end
+
+  def processing!
+    super if pending?
+  end
+
+  def cancelled!
+    super if pending?
+  end
+
   private
 
   def validate_participation
