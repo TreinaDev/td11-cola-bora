@@ -77,4 +77,18 @@ describe 'Usuário adiciona participantes na reunião' do
       expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
     end
   end
+
+  it 'com user_role_id inexistente' do
+    project = create :project
+    author = create :user, cpf: '000.000.001-91'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role
+    params = { meeting_participant: { meeting_participant_ids: [author.id, 999] } }
+
+    login_as author
+    post(project_meeting_meeting_participants_path(project, meeting), params:)
+
+    expect(response).to have_http_status :unprocessable_entity
+    expect(MeetingParticipant.count).to eq 0
+  end
 end

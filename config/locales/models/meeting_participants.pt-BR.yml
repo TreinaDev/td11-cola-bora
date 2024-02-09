@@ -7,6 +7,7 @@ pt-BR:
   meeting_participants:
     create:
       success: Participantes adicionados com sucesso!
+      fail: Não foi possível adicionar os participantes
     add_meeting_participants_btn: Adicionar
     check_number_of_participants: Selecione ao menos 2 participantes
     add_participants: Adicione participantes para notificá-los

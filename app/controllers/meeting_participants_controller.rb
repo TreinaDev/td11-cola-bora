@@ -10,14 +10,15 @@ class MeetingParticipantsController < ApplicationController
   def create
     return unless check_number_of_participants.nil?
 
-    participants = []
-    participants_params[:meeting_participant_ids].each do |participant|
-      participants << @meeting.meeting_participants.build(user_role_id: participant)
+    participants = build_participants
+
+    if participants.all?(&:valid?)
+      participants.each(&:save)
+      redirect_to project_meeting_path(@meeting.project, @meeting), notice: t('.success')
+    else
+      flash.now[:alert] = t '.fail'
+      render :new, status: :unprocessable_entity
     end
-
-    return unless participants.all?(&:save)
-
-    redirect_to project_meeting_path(@meeting.project, @meeting), notice: t('.success')
   end
 
   private
@@ -53,5 +54,15 @@ class MeetingParticipantsController < ApplicationController
 
   def check_authorization
     redirect_to root_path, alert: t('unauthorized') unless current_user == @meeting.user
+  end
+
+  def build_participants
+    participants = []
+
+    participants_params[:meeting_participant_ids].each do |participant|
+      participants << @meeting.meeting_participants.build(user_role_id: participant)
+    end
+
+    participants
   end
 end
