@@ -24,10 +24,12 @@
 </dl>
 
 <% if @participants.blank? %>
-  <small>Adicione participantes para notificá-los</small>
+  <% if current_user == @meeting.user %>
+    <p><small><%= t 'meeting_participants.add_participants' %></small></p>
+  <% end %>
 <% else %>
   <div>
-    <h3>Lista de Participantes</h3>
+    <h3><%= t 'meeting_participants.participants_list' %></h3>
     <% @participants.each do |participant| %>
       <%= participant.user.full_name %>
     <% end %>

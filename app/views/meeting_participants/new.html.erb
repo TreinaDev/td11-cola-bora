@@ -1,5 +1,5 @@
 <%= form_with(model: [@project, @meeting, @participant]) do |f| %>
-  <p><%= MeetingParticipant.model_name.human(count: 2) %></p>
+  <p><%= MeetingParticipant.model_name.human(count: 2) %>:</p>
   <% @contributors.each do |contributor| %>
     <p>
       <%= f.check_box :meeting_participant_ids, {multiple: true}, contributor.id, nil %>
@@ -7,6 +7,5 @@
     </p>
   <% end %>
 
-  <%= f.submit t('meeting_participants.add_meeting_participants'), class: 'btn btn-primary'%>
-
+  <%= f.submit t('meeting_participants.add_meeting_participants_btn'), class: 'btn btn-primary'%>
 <% end %>

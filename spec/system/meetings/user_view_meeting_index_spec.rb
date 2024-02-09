@@ -59,16 +59,31 @@ describe 'Usuário vê página de reuniões de um projeto' do
     travel_back
   end
 
-  it 'e não vê lista de participantes se não houver nenhum' do
+  it 'e acessa uma reunião sem participantes e vê mensagem se for o autor' do
     project = create :project
-    user = create :user, cpf: '875.898.470-46'
-    user_role = create :user_role, project:, user:, role: :contributor
-    meeting = create(:meeting, project:, user_role:)
+    author = create :user, cpf: '875.898.470-46'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role
+
+    login_as author
+    visit project_meeting_path project, meeting
+
+    expect(page).to have_content 'Adicione participantes para notificá-los'
+    expect(page).not_to have_content 'Lista de Participantes'
+  end
+
+  it 'e acessa uma reunião sem participantes e não vê mensagem' do
+    project = create :project
+    author = create :user, cpf: '875.898.470-46'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role
+    user = create :user, cpf: '850.265.590-69', email: 'participant1@email.com'
+    create :user_role, project:, user:, role: :admin
 
     login_as user
     visit project_meeting_path project, meeting
 
-    expect(page).to have_content 'Adicione participantes para notificá-los'
+    expect(page).not_to have_content 'Adicione participantes para notificá-los'
     expect(page).not_to have_content 'Lista de Participantes'
   end
 end
