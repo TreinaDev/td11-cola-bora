@@ -18,6 +18,22 @@ RSpec.describe Proposal, type: :model do
       expect(proposal.errors.full_messages).to include 'Projeto é obrigatório(a)'
     end
 
+    it 'falso se portfoliorrr_proposal_id for vazia' do
+      proposal = Proposal.new(portfoliorrr_proposal_id: '')
+
+      expect(proposal).not_to be_valid
+      expect(proposal.errors).to include :portfoliorrr_proposal_id
+      expect(proposal.errors.full_messages).to include 'ID de Solicitação não pode ficar em branco'
+    end
+
+    it 'falso se portfoliorrr_proposal_id for menor ou igual a zero' do
+      proposal = Proposal.new(portfoliorrr_proposal_id: -1)
+
+      expect(proposal).not_to be_valid
+      expect(proposal.errors).to include :portfoliorrr_proposal_id
+      expect(proposal.errors.full_messages).to include 'ID de Solicitação deve ser maior ou igual a 1'
+    end
+
     it 'falso se email for vazio' do
       proposal = Proposal.new(email: '')
 
@@ -55,6 +71,7 @@ RSpec.describe Proposal, type: :model do
       proposal = Proposal.new(
         profile_id: 5,
         project:,
+        portfoliorrr_proposal_id: 3,
         message: 'Me aceita',
         email: 'proposal@email.com'
       )
