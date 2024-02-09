@@ -56,17 +56,23 @@ describe 'Líder visualiza solicitação' do
     proposal = create :proposal, project:, status: :pending,
                                  profile_id: id, email: proposal_profile.email
     allow(PortfoliorrrProfile).to receive(:find).with(id).and_return(proposal_profile)
-    fake_response = double('faraday_response', status: 204, success?: true)
-    allow(Faraday).to receive(:patch).and_return(fake_response)
+    proposal_service_spy = spy(ProposalService::Decline)
+    stub_const('ProposalService::Decline', proposal_service_spy)
+    allow(proposal_service_spy).to receive(:send)
 
     login_as leader, scope: :user
     visit project_portfoliorrr_profile_path project, id
     click_on 'Recusar'
 
     expect(page).to have_current_path project_portfoliorrr_profile_path project, id
-    expect(page).to have_content 'Solicitação recusada com sucesso'
-    expect(proposal.reload.status).to eq 'declined'
-    expect(page).to have_content 'Envio de Convite'
-    expect(page).to have_button 'Enviar convite'
+    expect(page).to have_content 'Solicitação em processamento'
+    expect(proposal.reload.status).to eq 'processing'
+    expect(page).to have_content 'Em processamento'
+    expect(page).to have_field 'Prazo de validade (em dias)', disabled: true
+    expect(page).to have_field 'Mensagem', disabled: true
+    expect(page).not_to have_button 'Enviar convite'
+    expect(page).to have_button 'Aceitar', disabled: true
+    expect(page).to have_button 'Recusar', disabled: true
+    expect(proposal_service_spy).to have_received(:send)
   end
 end

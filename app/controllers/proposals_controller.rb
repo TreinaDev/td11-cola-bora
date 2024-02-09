@@ -14,13 +14,10 @@ class ProposalsController < ApplicationController
 
   def decline
     proposal = Proposal.find(params[:id])
-    if proposal.declined!
-      redirect_to project_portfoliorrr_profile_path(proposal.project_id, proposal.profile_id),
-                  notice: t('.success')
-    else
-      redirect_to project_portfoliorrr_profile_path(proposal.project_id, proposal.profile_id),
-                  notice: t('.fail')
-    end
+    proposal.processing!
+    ProposalService::Decline.send proposal
+    redirect_to project_portfoliorrr_profile_path(proposal.project_id, proposal.profile_id),
+                notice: t('.processing')
   end
 
   private

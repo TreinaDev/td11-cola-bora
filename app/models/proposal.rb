@@ -9,7 +9,8 @@ class Proposal < ApplicationRecord
     pending: 1,
     accepted: 5,
     declined: 10,
-    cancelled: 15
+    cancelled: 15,
+    processing: 20
   }
 
   MAXIMUM_MESSAGE_CHARACTERS = 140
