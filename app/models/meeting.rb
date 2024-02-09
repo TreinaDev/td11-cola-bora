@@ -26,7 +26,7 @@ class Meeting < ApplicationRecord
   def five_minutes_ahead
     return unless datetime <= Time.zone.now + 5.minutes
 
-    errors.add(:datetime,
-               'só pode ser editada para 5 minutos antes da hora marcada.')
+    errors.add(:base,
+               I18n.t('meetings.cant_edit_five_minutes_before'))
   end
 end
