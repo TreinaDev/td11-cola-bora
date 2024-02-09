@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     end
 
     resources :user_roles, only: %i[edit update]
+    resources :proposals, only: %i[index]
     resources :calendars, only: %i[index]
   end
 
