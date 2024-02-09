@@ -12,4 +12,5 @@ pt-BR:
     check_number_of_participants: Selecione ao menos 2 participantes
     add_participants: Adicione participantes para notificá-los
     participants_list: Lista de Participantes
-  
+    add_meeting_participants: 'Adicione participantes à reunião:'
+    notify_meeting_participants: (*) Participantes serão notificados via E-mail

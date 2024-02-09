@@ -30,9 +30,11 @@
 <% else %>
   <div>
     <h3><%= t 'meeting_participants.participants_list' %></h3>
-    <% @participants.each do |participant| %>
-      <%= participant.user.full_name %>
-    <% end %>
+    <ul>
+      <% @participants.each do |participant| %>
+        <li><%= participant.user.full_name %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
 
@@ -40,7 +42,7 @@
   <% if current_user == @meeting.user && @participants.blank? %>
     <%= link_to I18n.t('meetings.add_meeting_participants'), 
                 new_project_meeting_meeting_participant_path(@project, @meeting),
-                class: 'btn btn-primary' %>
+                class: 'btn btn-outline-primary' %>
   <% end %>
 
   <%= link_to I18n.t('meetings.edit_meeting'), 
