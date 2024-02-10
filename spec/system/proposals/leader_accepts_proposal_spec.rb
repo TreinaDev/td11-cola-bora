@@ -34,7 +34,7 @@ describe 'Líder visualiza solicitação' do
                                  profile_id: id, email: proposal_profile.email
     allow(PortfoliorrrProfile).to receive(:find).with(id).and_return(proposal_profile)
     json = { data: { invitation_id: 3 } }
-    fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
+    fake_response = double('faraday_response', body: json.to_json, success?: true)
     allow(Faraday).to receive(:post).and_return(fake_response)
 
     login_as leader, scope: :user
@@ -44,5 +44,8 @@ describe 'Líder visualiza solicitação' do
     expect(page).to have_current_path project_portfoliorrr_profile_path(project, id)
     expect(page).to have_content 'Convite enviado com sucesso!'
     expect(proposal.reload.status).to eq 'accepted'
+    expect(Invitation.last.project).to eq project
+    expect(Invitation.last.profile_id).to eq proposal_profile.id
+    expect(Invitation.last.status).to eq 'pending'
   end
 end
