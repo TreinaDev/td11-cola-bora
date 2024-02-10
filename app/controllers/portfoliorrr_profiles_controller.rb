@@ -10,6 +10,10 @@ class PortfoliorrrProfilesController < ApplicationController
     @current_invitation&.validate_expiration_days
     @portfoliorrr_profile = PortfoliorrrProfile.find(@portfoliorrr_profile_id)
 
+    unless @current_invitation&.pending? || @current_invitation&.processing?
+      @current_proposal = Proposal.find_by(project: @project, profile_id: @portfoliorrr_profile_id, status: :pending)
+    end
+
     @invitation = Invitation.new
   end
 

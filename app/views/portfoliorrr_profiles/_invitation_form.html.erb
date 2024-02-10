@@ -1,49 +1,83 @@
-<h3 class="mb-3"><%= t('sending_invitation')%></h3>
-
-<% if invitation.errors.any? %>
-  <div class='text-danger'>
-    <h3><%= I18n.t('.errors_title') %>:</h3>
-    <ul>
-      <% invitation.errors.each do |error| %>
-        <li><%= error.full_message %></li>
+<div class="card mb-4 bg-light shadow">
+  <div class="card-body text-center">
+    <h3 class="mb-3">
+      <% if current_proposal %>
+        <%= t(:new_proposal) %>
+      <% else %>
+        <%= t('sending_invitation')%>
       <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% if current_invitation.present? && current_invitation.pending? %>
-  <p><%= I18n.t('invitations.create.pending_invitation') %></p>
-  
-  <% unless current_invitation.message.blank? %>
-    <p><%= Invitation.human_attribute_name :message %>: <%= current_invitation.message  %></p>
-  <% end %>
-
-  <p>
-    <%= Invitation.human_attribute_name :expiration_date %>: 
-    <%= current_invitation.expiration_date ? l(current_invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
-  </p>
-
-  <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
-                method: :patch, class: 'btn btn-danger' %>
-<% elsif current_invitation.present? && current_invitation.processing? %>
-  <p><%= I18n.t('invitations.create.process') %></p>
-<% else %>
-  <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
-    <div class="mb-3">
-      <div class="row">
-        <div class="col-2"></div>
-          <%= form.label :expiration_days, class: 'form-label' %>
-          <%= form.number_field :expiration_days, class: 'form-control', min: 0 %>
-        </div>
-        <div class="col-2"></div>
-          <%= form.label :message, class: 'form-label' %>
-          <%= form.text_area :message, class: 'form-control' %>
-          <%= form.hidden_field :profile_email, value: profile.email %>
-        </div>
-        <div class="d-flex justify-content-center mb-2">
-          <%= form.submit I18n.t('invitations.send_invitation'), class: 'btn btn-primary' %>
-        </div>
+    </h3>
+    
+    <% if invitation.errors.any? %>
+      <div class='text-danger'>
+        <h3><%= I18n.t('.errors_title') %>:</h3>
+        <ul>
+          <% invitation.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
       </div>
-    </div>   
-  <% end %>
-<% end %>
+    <% end %>
+
+    <% if current_invitation&.pending? %>
+      <p><%= I18n.t('invitations.create.pending_invitation') %></p>
+      
+      <% unless current_invitation.message.blank? %>
+        <p><%= Invitation.human_attribute_name :message %>: <%= current_invitation.message %></p>
+      <% end %>
+
+      <p>
+        <%= Invitation.human_attribute_name :expiration_date %>: 
+        <%= current_invitation.expiration_date ? l(current_invitation.expiration_date) : I18n.t('invitations.no_expiration_date') %>
+      </p>
+
+      <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
+                    method: :patch, class: 'btn btn-danger' %>
+    <% elsif current_invitation&.processing? %>
+      <p><%= I18n.t('invitations.create.process') %></p>
+    <% else %>
+      <% if current_proposal %>
+        <div class="mb-2 text-start fst-italic">
+          "<%= current_proposal.message %>"
+        </div>
+      <% end %>
+      
+    <hr>
+      
+      <div class="mb-3">
+        <small><%= t('invitations.fill_in_details') %></small>
+      </div>
+      
+      <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
+        <div class="mb-3">
+          <div class="row">
+            <div class="d-flex flex-column gap-3">
+              <%= form.label :expiration_days, 
+                             class: 'form-label d-none' %>
+              <%= form.number_field :expiration_days, 
+                                    class: 'form-control fs-6', 
+                                    min: 0,
+                                    placeholder: Invitation.human_attribute_name(:expiration_days) %>
+              <%= form.label :message, 
+                             class: 'form-label d-none' %>
+              <%= form.text_area :message, 
+                                 class: 'form-control',
+                                 placeholder: Invitation.human_attribute_name(:message) %>
+              <%= form.hidden_field :profile_email, 
+                                    value: profile.email %>
+              <div class="d-flex justify-content-center">
+                <% if current_proposal %>
+                  <%= form.submit t('invitations.accept_btn'), 
+                                  class: 'btn btn-primary' %>
+                <% else %>
+                  <%= form.submit t('invitations.send_invitation'), 
+                                  class: 'btn btn-primary' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

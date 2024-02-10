@@ -43,6 +43,11 @@ class Invitation < ApplicationRecord
     User.find_by(email: profile_email)
   end
 
+  def accept_proposal
+    proposal = Proposal.find_by(project_id:, profile_id:, status: :pending)
+    proposal&.accepted!
+  end
+
   private
 
   def days_to_date

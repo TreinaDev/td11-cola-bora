@@ -24,6 +24,7 @@ class PortfoliorrrProfile
     return {} unless response.success?
 
     profile_json = JSON.parse(response.body, symbolize_names: true)[:data]
+
     profile = new_profile(profile_json)
     profile.build_details(profile_json)
   rescue Faraday::ConnectionFailed
