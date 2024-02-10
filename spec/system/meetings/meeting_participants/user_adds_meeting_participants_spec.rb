@@ -41,7 +41,7 @@ describe 'Usuário adiciona participantes a reunião' do
     meeting = create :meeting, project:, title: 'Reunião Semanal', user_role: author_role
 
     login_as author
-    visit new_project_meeting_meeting_participant_path project, meeting
+    visit new_meeting_meeting_participant_path meeting
 
     expect(page).to have_unchecked_field 'leader'
     expect(page).to have_unchecked_field 'author'
@@ -56,11 +56,11 @@ describe 'Usuário adiciona participantes a reunião' do
     meeting = create :meeting, project:, title: 'Reunião Semanal', user_role: author_role
 
     login_as author
-    visit new_project_meeting_meeting_participant_path project, meeting
+    visit new_meeting_meeting_participant_path meeting
     click_on 'Adicionar'
 
     expect(page).to have_content 'Selecione ao menos 2 participantes'
-    expect(page).to have_current_path new_project_meeting_meeting_participant_path project, meeting
+    expect(page).to have_current_path new_meeting_meeting_participant_path meeting
   end
 
   it 'e adiciona apenas uma pessoa' do
@@ -71,12 +71,12 @@ describe 'Usuário adiciona participantes a reunião' do
     meeting = create :meeting, project:, title: 'Reunião Semanal', user_role: author_role
 
     login_as author
-    visit new_project_meeting_meeting_participant_path project, meeting
+    visit new_meeting_meeting_participant_path meeting
     check 'leader'
     click_on 'Adicionar'
 
     expect(page).to have_content 'Selecione ao menos 2 participantes'
-    expect(page).to have_current_path new_project_meeting_meeting_participant_path project, meeting
+    expect(page).to have_current_path new_meeting_meeting_participant_path meeting
   end
 
   it 'somente autor adiciona participantes' do

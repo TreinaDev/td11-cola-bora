@@ -13,9 +13,7 @@ Rails.application.routes.draw do
       end
     end
     resources :documents, only: %i[index new create]
-    resources :meetings, only: %i[index new create show edit update] do
-      resources :meeting_participants, only: %i[new create]
-    end
+    resources :meetings, only: %i[index new create show edit update]
     get 'members', on: :member, to: 'projects#members'
 
     resources :portfoliorrr_profiles, only: %i[show] do
@@ -44,6 +42,10 @@ Rails.application.routes.draw do
 
   resources :documents, only: %i[show] do
     patch 'archive', on: :member
+  end
+
+  resources :meetings, only: %i[] do
+    resources :meeting_participants, only: %i[new create]
   end
 
   namespace :api do

@@ -1,6 +1,6 @@
 <%= render 'shared/project_header', project: @project %>
 
-<%= form_with(model: [@project, @meeting, @participant]) do |f| %>
+<%= form_with(model: [@meeting, @participant]) do |f| %>
   <h3><%= t('meeting_participants.add_meeting_participants') %></h3>
   <% @contributors.each do |contributor| %>
     <p>

@@ -28,11 +28,11 @@ class MeetingParticipantsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = @meeting.project
   end
 
   def set_contributors
-    @contributors = @project.user_roles
+    @contributors = @meeting.project.user_roles
   end
 
   def set_new_meeting_participant
@@ -40,7 +40,7 @@ class MeetingParticipantsController < ApplicationController
   end
 
   def check_number_of_participants
-    return unless participants_params.nil? || participants_params[:meeting_participant_ids].count == 1
+    return if participants_params&.count&.>= 2
 
     flash.now[:alert] = t '.check_number_of_participants'
     render :new, status: :unprocessable_entity
@@ -49,7 +49,7 @@ class MeetingParticipantsController < ApplicationController
   def participants_params
     return unless params[:meeting_participant]
 
-    params.require(:meeting_participant).permit(meeting_participant_ids: [])
+    params.require(:meeting_participant).permit(meeting_participant_ids: [])[:meeting_participant_ids]
   end
 
   def check_authorization
@@ -57,12 +57,8 @@ class MeetingParticipantsController < ApplicationController
   end
 
   def build_participants
-    participants = []
-
-    participants_params[:meeting_participant_ids].each do |participant|
-      participants << @meeting.meeting_participants.build(user_role_id: participant)
+    participants_params.map do |participant|
+      @meeting.meeting_participants.build(user_role_id: participant)
     end
-
-    participants
   end
 end

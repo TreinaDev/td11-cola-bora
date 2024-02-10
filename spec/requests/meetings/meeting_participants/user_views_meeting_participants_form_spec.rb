@@ -7,7 +7,7 @@ describe 'Usuário acessa formulário para adicionar participantes da reunião' 
     author_role = create :user_role, project:, user: author, role: :contributor
     meeting = create :meeting, project:, user_role: author_role
 
-    get new_project_meeting_meeting_participant_path project, meeting
+    get new_meeting_meeting_participant_path meeting
 
     expect(response).to redirect_to new_user_session_path
   end
@@ -20,7 +20,7 @@ describe 'Usuário acessa formulário para adicionar participantes da reunião' 
     meeting = create :meeting, project:, user_role: author_role
 
     login_as leader
-    get new_project_meeting_meeting_participant_path project, meeting
+    get new_meeting_meeting_participant_path meeting
 
     expect(response).to redirect_to root_path
     expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
@@ -34,7 +34,7 @@ describe 'Usuário acessa formulário para adicionar participantes da reunião' 
     meeting = create :meeting, project:, user_role: author_role
 
     login_as non_member
-    get new_project_meeting_meeting_participant_path project, meeting
+    get new_meeting_meeting_participant_path meeting
 
     expect(response).to redirect_to root_path
     expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'

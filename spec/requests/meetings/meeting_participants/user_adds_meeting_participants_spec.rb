@@ -5,10 +5,10 @@ describe 'Usuário adiciona participantes na reunião' do
     leader = create(:user)
     project = create(:project, user: leader)
     author = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
-    author_role = project.user_roles.create!(user: author)
+    author_role = create :user_role, project:, user: author, role: :contributor
     meeting = create(:meeting, project:, user_role: author_role, title: 'Reunião blabla')
 
-    post project_meeting_meeting_participants_path project, meeting
+    post meeting_meeting_participants_path meeting
 
     expect(response).to redirect_to new_user_session_path
   end
@@ -23,7 +23,7 @@ describe 'Usuário adiciona participantes na reunião' do
       params = { meeting_participant: { meeting_participant_ids: [author.id, leader.id] } }
 
       login_as leader
-      post(project_meeting_meeting_participants_path(project, meeting), params:)
+      post(meeting_meeting_participants_path(meeting), params:)
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
@@ -39,7 +39,7 @@ describe 'Usuário adiciona participantes na reunião' do
       params = { meeting_participant: { meeting_participant_ids: [author.id, admin.id] } }
 
       login_as admin
-      post(project_meeting_meeting_participants_path(project, meeting), params:)
+      post(meeting_meeting_participants_path(meeting), params:)
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
@@ -55,7 +55,7 @@ describe 'Usuário adiciona participantes na reunião' do
       params = { meeting_participant: { meeting_participant_ids: [author.id, contributor.id] } }
 
       login_as contributor
-      post(project_meeting_meeting_participants_path(project, meeting), params:)
+      post(meeting_meeting_participants_path(meeting), params:)
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
@@ -71,7 +71,7 @@ describe 'Usuário adiciona participantes na reunião' do
       params = { meeting_participant: { meeting_participant_ids: [author.id, leader.id] } }
 
       login_as non_member
-      post(project_meeting_meeting_participants_path(project, meeting), params:)
+      post(meeting_meeting_participants_path(meeting), params:)
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Você não tem acesso a esse recurso'
@@ -86,7 +86,7 @@ describe 'Usuário adiciona participantes na reunião' do
     params = { meeting_participant: { meeting_participant_ids: [author.id, 999] } }
 
     login_as author
-    post(project_meeting_meeting_participants_path(project, meeting), params:)
+    post(meeting_meeting_participants_path(meeting), params:)
 
     expect(response).to have_http_status :unprocessable_entity
     expect(MeetingParticipant.count).to eq 0
