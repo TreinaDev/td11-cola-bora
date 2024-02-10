@@ -24,6 +24,12 @@ describe 'Usuário atualiza o status da tarefa' do
     author_role = create(:user_role, user: author, project:)
     task = create(:task, project:, status: 'in_progress', user_role: author_role)
 
+    mail = double('mail', deliver: true)
+    mailer_double = double('TaskMailer', notify_leader_finish_task: mail)
+
+    allow(TaskMailer).to receive(:with).and_return(mailer_double)
+    allow(mailer_double).to receive(:notify_leader_finish_task).and_return(mail)
+
     login_as(author)
     visit project_task_path(project, task)
     click_on 'Finalizar Tarefa'
@@ -34,6 +40,7 @@ describe 'Usuário atualiza o status da tarefa' do
     expect(page).not_to have_button 'Finalizar Tarefa'
     expect(page).to have_current_path(project_task_path(project, task))
     expect(task.reload.status).to eq 'finished'
+    expect(mail).to have_received(:deliver)
   end
 
   it 'de não iniciada para cancelada' do
