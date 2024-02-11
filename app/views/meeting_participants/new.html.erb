@@ -1,0 +1,14 @@
+<%= render 'shared/project_header', project: @project %>
+
+<%= form_with(model: [@meeting, @participant]) do |f| %>
+  <h3><%= t('meeting_participants.add_meeting_participants') %></h3>
+  <% @contributors.each do |contributor| %>
+    <p>
+    <%= f.check_box :meeting_participant_ids, {multiple: true}, contributor.id, nil %>
+    <%= f.label "meeting_participant_ids_#{contributor.id}", contributor.user.full_name %>
+    </p>
+    <% end %>
+    
+    <p><small><%= t('meeting_participants.notify_meeting_participants') %></small></p>
+    <%= f.submit t('meeting_participants.add_meeting_participants_btn'), class: 'btn btn-primary'%>
+<% end %>
