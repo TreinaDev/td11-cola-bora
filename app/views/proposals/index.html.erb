@@ -5,7 +5,7 @@
     <div class="btn-group" 
          role="group" 
          aria-label="Basic radio toggle button group">
-      <%= link_to t('proposal.all'), 
+      <%= link_to t('proposals.all'), 
                   project_proposals_path(@project), 
                   class: "btn btn-outline-primary #{'active' if params[:status].blank?}" %>
       <%= link_to Proposal.human_attribute_name('status.pending', count: 2), 
@@ -43,7 +43,7 @@
                           class: 'btn btn-sm btn-outline-secondary' if proposal.pending? %>
             </div>
             <div class="card-footer text-muted">
-              <%= time_ago_in_words proposal.created_at %> <%= t(:ago) %>
+              <%= t(:updated_at) %> <%= time_ago_in_words proposal.updated_at %> <%= t(:ago) %>
             </div>
           </div>
         </div>

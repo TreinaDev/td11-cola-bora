@@ -1,18 +1,39 @@
 class Proposal < ApplicationRecord
   belongs_to :project
 
-  validates :profile_id, :email, presence: true
-  validates :profile_id, numericality: { greater_than_or_equal_to: 1 }
+  validates :profile_id, :email, :portfoliorrr_proposal_id, presence: true
+  validates :profile_id, :portfoliorrr_proposal_id, numericality: { greater_than_or_equal_to: 1 }
   validate :validate_participation, :validate_pending_proposal, on: :create
 
   enum status: {
     pending: 1,
     accepted: 5,
     declined: 10,
-    cancelled: 15
+    cancelled: 15,
+    processing: 20
   }
 
   MAXIMUM_MESSAGE_CHARACTERS = 140
+
+  def pending!
+    super if processing?
+  end
+
+  def accepted!
+    super if pending?
+  end
+
+  def declined!
+    super if processing?
+  end
+
+  def processing!
+    super if pending?
+  end
+
+  def cancelled!
+    super if pending?
+  end
 
   private
 
