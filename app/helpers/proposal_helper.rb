@@ -5,6 +5,7 @@ module ProposalHelper
     in 'accepted' then 'success'
     in 'declined' then 'danger'
     in 'cancelled' then 'secondary'
+    in 'processing' then 'dark'
     else 'light'
     end
   end

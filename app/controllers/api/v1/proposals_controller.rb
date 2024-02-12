@@ -20,7 +20,7 @@ module Api
       end
 
       def proposal_params
-        params.require(:proposal).permit(:profile_id, :message, :email)
+        params.require(:proposal).permit(:profile_id, :portfoliorrr_proposal_id, :message, :email)
       end
     end
   end

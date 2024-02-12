@@ -9,6 +9,7 @@ pt-BR:
         profile_id: ID de Perfil
         project: Projeto
         email: E-mail
+        portfoliorrr_proposal_id: ID de Solicitação
       proposal/status:
         pending:
           one: Pendente
@@ -22,7 +23,11 @@ pt-BR:
         cancelled:
           one: Cancelada
           other: Canceladas
-  proposal:
+        processing: Processando
+  proposals:
+    decline:
+      success: Solicitação recusada com sucesso
+      processing: Solicitação em processamento
     all: 'Todas'
   user_already_member_error: Usuário já faz parte deste projeto
   user_has_pending_proposals: Usuário já tem solicitação pendente para o projeto

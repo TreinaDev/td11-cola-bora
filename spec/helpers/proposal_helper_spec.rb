@@ -26,6 +26,12 @@ RSpec.describe ProposalHelper, type: :helper do
       expect(proposal_card_color(status)).to eq 'secondary'
     end
 
+    it 'Retorna dark se status é processing' do
+      status = 'processing'
+
+      expect(proposal_card_color(status)).to eq 'dark'
+    end
+
     it 'Retorna secondary se status não existe' do
       status = 'foo'
 

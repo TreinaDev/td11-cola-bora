@@ -2,7 +2,8 @@
   <div class="card-body text-center">
     <h3 class="mb-3">
       <% if current_proposal %>
-        <%= t(:new_proposal) %>
+        <%= t(:new_proposal) if current_proposal.pending? %>
+        <%= 'Em processamento' if current_proposal.processing? %>
       <% else %>
         <%= t('sending_invitation')%>
       <% end %>
@@ -32,24 +33,24 @@
       </p>
 
       <%= button_to I18n.t('invitations.cancel_button'), cancel_invitation_path(current_invitation.id),
-                    method: :patch, class: 'btn btn-danger' %>
+                    method: :patch, class: 'btn btn-danger w-100' %>
     <% elsif current_invitation&.processing? %>
       <p><%= I18n.t('invitations.create.process') %></p>
     <% else %>
       <% if current_proposal %>
         <div class="mb-2 text-start fst-italic">
-          "<%= current_proposal.message %>"
+          <%= "\"#{current_proposal.message}\"" unless current_proposal.processing? %>
         </div>
       <% end %>
       
     <hr>
       
       <div class="mb-3">
-        <small><%= t('invitations.fill_in_details') %></small>
+        <small><%= t('invitations.fill_in_details') unless current_proposal&.processing? %></small>
       </div>
       
       <%= form_with(model: invitation, url: project_portfoliorrr_profile_invitations_path(project, profile.id), local: true) do |form| %>
-        <div class="mb-3">
+        <div class="mb-2">
           <div class="row">
             <div class="d-flex flex-column gap-3">
               <%= form.label :expiration_days, 
@@ -57,26 +58,37 @@
               <%= form.number_field :expiration_days, 
                                     class: 'form-control fs-6', 
                                     min: 0,
-                                    placeholder: Invitation.human_attribute_name(:expiration_days) %>
+                                    placeholder: Invitation.human_attribute_name(:expiration_days),
+                                    disabled: current_proposal&.processing? %>
               <%= form.label :message, 
                              class: 'form-label d-none' %>
               <%= form.text_area :message, 
                                  class: 'form-control',
-                                 placeholder: Invitation.human_attribute_name(:message) %>
+                                 placeholder: Invitation.human_attribute_name(:message),
+                                 disabled: current_proposal&.processing? %>
               <%= form.hidden_field :profile_email, 
                                     value: profile.email %>
               <div class="d-flex justify-content-center">
                 <% if current_proposal %>
                   <%= form.submit t('invitations.accept_btn'), 
-                                  class: 'btn btn-primary' %>
+                                  class: 'btn btn-primary w-100',
+                                  disabled: current_proposal&.processing? %>
                 <% else %>
                   <%= form.submit t('invitations.send_invitation'), 
-                                  class: 'btn btn-primary' %>
+                                  class: 'btn btn-primary w-100' if current_proposal.nil? %>
                 <% end %>
               </div>
             </div>
           </div>
         </div>
+      <% end %>
+      <% if current_proposal %>
+        <%= button_to t('invitations.decline_btn'),
+                      decline_proposal_path(current_proposal),
+                      method: :patch,
+                      class: 'btn btn-danger w-100',
+                      disabled: current_proposal&.processing? %>
+      </div>
       <% end %>
     <% end %>
   </div>
