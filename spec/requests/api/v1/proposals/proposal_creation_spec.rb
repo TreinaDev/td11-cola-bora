@@ -6,7 +6,7 @@ describe 'Criação de requisição de participação em projeto' do
       project = create :project
       params = { proposal: {
         profile_id: 1,
-        portfoliorrr_proposal_id: 9,
+        invitation_request_id: 9,
         project_id: project.id,
         message: 'Gostaria de participar!',
         email: 'proposer@email.com'
@@ -36,7 +36,7 @@ describe 'Criação de requisição de participação em projeto' do
         project.user_roles.create! project:, user: contributor, active: true
         params = { proposal: {
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           profile_id: contributor_portfoliorrr_profile_id,
           email: 'contributor@email.com'
         } }
@@ -56,7 +56,7 @@ describe 'Criação de requisição de participação em projeto' do
                           email: 'proposer@email.com'
         params = { proposal: {
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           profile_id:,
           email: 'proposer@email.com'
         } }
@@ -73,7 +73,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: 1,
           project_id: 999,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }
@@ -90,7 +90,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '',
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }
@@ -108,7 +108,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: 5,
           project_id: project.id,
-          portfoliorrr_proposal_id: '',
+          invitation_request_id: '',
           message: '',
           email: 'proposal@email.com'
         } }
@@ -126,7 +126,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '1',
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }
