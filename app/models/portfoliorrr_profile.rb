@@ -31,7 +31,7 @@ class PortfoliorrrProfile
   end
 
   def self.new_profile(profile_json)
-    new(id: profile_json[:profile_id],
+    new(id: profile_json[:profile_id] || profile_json[:user_id],
         name: profile_json[:full_name],
         job_categories: JobCategory.build_categories(profile_json[:job_categories]))
   end
