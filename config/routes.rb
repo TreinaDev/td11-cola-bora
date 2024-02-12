@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     resources :user_roles, only: %i[edit update]
     resources :proposals, only: %i[index]
     resources :calendars, only: %i[index]
+
+    get 'forum', to: 'forums#index'
   end
 
   resources :user_roles, only: [] do

@@ -28,15 +28,19 @@
                 class: "nav-item nav-link link-body-emphasis
                 #{'active' if request.path.include?('/members') ||
                            request.path.include?('/user_roles') }" %>
+    <%= link_to t('forum.title'),
+                project_forum_path(project),
+                class: "nav-item nav-link link-body-emphasis
+                #{'active' if request.path.include?('/forum')}" %>
     <% if project.leader?(current_user) %>
       <%= link_to t(:search_users_btn),
-                  search_project_portfoliorrr_profiles_path(project),
-                  class: "nav-item nav-link link-body-emphasis
-                          #{'active' if current_page?(search_project_portfoliorrr_profiles_path(project))}" %>
-      <%= link_to Proposal.model_name.human(count: 2), 
-                  project_proposals_path(project),
-                  class: "nav-item nav-link link-body-emphasis
-                         #{'active' if request.path.include?('/proposals')}" %>
+                search_project_portfoliorrr_profiles_path(project),
+                class: "nav-item nav-link link-body-emphasis
+                        #{'active' if current_page?(search_project_portfoliorrr_profiles_path(project))}" %>
+    <%= link_to Proposal.model_name.human(count: 2),
+                project_proposals_path(project),
+                class: "nav-item nav-link link-body-emphasis
+                        #{'active' if request.path.include?('/proposals')}" %>
     <% end %>
   </nav>
 </div>
