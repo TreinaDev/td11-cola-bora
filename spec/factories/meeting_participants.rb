@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :meeting_participant do
-    meeting { nil }
-    user_role { nil }
+    meeting
+    user_role
   end
 end
