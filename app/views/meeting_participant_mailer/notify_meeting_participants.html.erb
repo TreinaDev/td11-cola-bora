@@ -1,6 +1,6 @@
 <h1><%= t('.subject') %></h1>
 
-<p><%= @meeting.user.full_name %><%= t('.meeting_invitation') %>:</p>
+<p><%= @meeting.user.full_name %> <%= t('.meeting_invitation') %>:</p>
 
 <h3><%= @meeting.title %></h3>
 <p><%= Meeting.human_attribute_name :address %>: <%= link_to_address @meeting.address %></p>
