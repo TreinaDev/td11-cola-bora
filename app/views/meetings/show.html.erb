@@ -41,7 +41,7 @@
 <div>
   <% if current_user == @meeting.user && @participants.blank? %>
     <%= link_to I18n.t('meetings.add_meeting_participants'), 
-                new_meeting_meeting_participant_path(@project, @meeting),
+                new_meeting_meeting_participant_path(@meeting),
                 class: 'btn btn-outline-primary' %>
   <% end %>
 
