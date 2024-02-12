@@ -8,7 +8,7 @@ class JobCategory
   end
 
   def self.all
-    url = 'http://localhost:8000/api/v1/job_categories'
+    url = 'http://localhost:4000/api/v1/job_categories'
     fetch_job_categories(url)
   end
 
@@ -22,7 +22,7 @@ class JobCategory
   end
 
   def self.find(id)
-    url = "http://localhost:8000/api/v1/job_categories/#{id}"
+    url = "http://localhost:4000/api/v1/job_categories/#{id}"
     response = Faraday.get(url)
 
     return {} unless response.success?

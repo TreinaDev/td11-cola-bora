@@ -1,5 +1,5 @@
 module InvitationService
-  PORTFOLIORRR_BASE_URL = 'http://localhost:3002'.freeze
+  PORTFOLIORRR_BASE_URL = 'http://localhost:4000'.freeze
   PORTFOLIORRR_INVITATION_URL = '/api/v1/invitations/'.freeze
   class PortfoliorrrPost
     def self.send(invitation)
