@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe MeetingParticipantMailer, type: :mailer do
-  context '#notify_meeting_participant' do
+  include MeetingHelper
+  context '#notify_meeting_participants' do
     it 'envia email para os participantes' do
       leader = create :user, email: 'leader@email.com'
       project = create :project, user: leader
@@ -34,8 +35,11 @@ RSpec.describe MeetingParticipantMailer, type: :mailer do
       mail = MeetingParticipantMailer.with(participants: meeting.meeting_participants).notify_meeting_participants
 
       expect(mail.body).to include 'Convite para Reunião'
-      expect(mail.body).to include ''
-      expect(mail.body).to include ''
+      expect(mail.body).to include "Endereço: #{link_to_address meeting.address}"
+      expect(mail.body).to include "Data e horário: #{meeting.datetime.strftime('%d/%m/%Y, %H:%M')}"
+      expect(mail.body).to include "Duração: #{format_duration meeting.duration}"
+      expect(mail.body).to include 'Para mais detalhes, clique'
+      expect(mail.body).to include 'aqui'
     end
   end
 end

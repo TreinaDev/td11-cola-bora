@@ -1,1 +1,9 @@
 <h1>Convite para Reunião</h1>
+
+<p><%= @meeting.user.full_name %> está te convidando para uma reunião:</p>
+
+<h3><%= @meeting.title %></h3>
+<p><%= Meeting.human_attribute_name :address %>: <%= link_to_address @meeting.address %></p>
+<p><%= Meeting.human_attribute_name :datetime %>: <%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></p>
+<p><%= Meeting.human_attribute_name :duration %>: <%= format_duration(@meeting.duration)%></p>
+<p>Para mais detalhes, clique <%= link_to 'aqui', project_meeting_url(@meeting.project, @meeting) %></p>

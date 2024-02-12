@@ -15,10 +15,10 @@ describe 'Usuário adiciona participantes a reunião' do
     meeting = create :meeting, project:, title: 'Reunião Semanal', user_role: author_role
 
     mail = double('mail', deliver: true)
-    mailer_double = double('MeetingParticipantMailer', notify_meeting_participant: mail)
+    mailer_double = double('MeetingParticipantMailer', notify_meeting_participants: mail)
 
     allow(MeetingParticipantMailer).to receive(:with).and_return(mailer_double)
-    allow(mailer_double).to receive(:notify_meeting_participant).and_return(mail)
+    allow(mailer_double).to receive(:notify_meeting_participants).and_return(mail)
 
     login_as author
     visit project_meeting_path project, meeting
@@ -36,7 +36,7 @@ describe 'Usuário adiciona participantes a reunião' do
     expect(page).not_to have_content 'not_invited'
     expect(page).not_to have_link 'Adicionar Participantes'
     expect(page).to have_content 'Participantes adicionados com sucesso!'
-    expect(mailer_double).to have_received(:notify_meeting_participant).with(meeting.meeting_participants[0])
+    expect(mailer_double).to have_received(:notify_meeting_participants).with(meeting.meeting_participants)
   end
 
   it 'e não vê usuários que não fazem parte do projeto' do
