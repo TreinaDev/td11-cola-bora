@@ -65,6 +65,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_121744) do
     t.index ["project_id"], name: "index_invitations_on_project_id"
   end
 
+  create_table "meeting_participants", force: :cascade do |t|
+    t.integer "meeting_id", null: false
+    t.integer "user_role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_id"], name: "index_meeting_participants_on_meeting_id"
+    t.index ["user_role_id"], name: "index_meeting_participants_on_user_role_id"
+  end
+
   create_table "meetings", force: :cascade do |t|
     t.integer "user_role_id", null: false
     t.integer "project_id", null: false
@@ -260,6 +269,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_121744) do
   add_foreign_key "documents", "projects"
   add_foreign_key "documents", "users"
   add_foreign_key "invitations", "projects"
+  add_foreign_key "meeting_participants", "meetings"
+  add_foreign_key "meeting_participants", "user_roles"
   add_foreign_key "meetings", "projects"
   add_foreign_key "meetings", "user_roles"
   add_foreign_key "profiles", "users"

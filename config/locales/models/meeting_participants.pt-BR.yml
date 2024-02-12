@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      meeting_participant:
+        one: Participante
+        other: Participantes
+  meeting_participants:
+    create:
+      success: Participantes adicionados com sucesso!
+      fail: Não foi possível adicionar os participantes
+    add_meeting_participants_btn: Adicionar
+    check_number_of_participants: Selecione ao menos 2 participantes
+    add_participants: Adicione participantes para notificá-los
+    participants_list: Lista de Participantes
+    add_meeting_participants: 'Adicione participantes à reunião:'
+    notify_meeting_participants: (*) Participantes serão notificados via E-mail
