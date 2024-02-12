@@ -57,9 +57,9 @@ module InvitationService
 
       response = Faraday.patch(url, json.to_json, headers)
 
-      return false unless response.success?
+      return true if response.success?
 
-      true
+      false
     rescue Faraday::ConnectionFailed
       false
     end
