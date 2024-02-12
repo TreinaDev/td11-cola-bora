@@ -14,6 +14,7 @@ class MeetingParticipantsController < ApplicationController
 
     if participants.all?(&:valid?)
       participants.each(&:save)
+      MeetingParticipantMailer.with(participants:).notify_meeting_participants.deliver
       redirect_to project_meeting_path(@meeting.project, @meeting), notice: t('.success')
     else
       flash.now[:alert] = t '.fail'
