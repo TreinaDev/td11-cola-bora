@@ -19,6 +19,7 @@ module InvitationService
       def set_json
         { data: { invitation: {
           profile_id: @invitation.profile_id,
+          project_id: @invitation.project.id,
           project_title: @invitation.project.title,
           project_description: @invitation.project.description,
           project_category: @invitation.project.category,
