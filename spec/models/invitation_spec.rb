@@ -342,4 +342,62 @@ RSpec.describe Invitation, type: :model do
       expect(invitation.expiration_date).to be nil
     end
   end
+
+  describe '#accept_proposal' do
+    it 'Muda status de uma solicitação de pendente para aceita' do
+      project = create :project
+      invitation = build :invitation,
+                         project:,
+                         profile_id: 1,
+                         profile_email: 'user@email.com',
+                         status: :pending
+      proposal = create :proposal,
+                        project:,
+                        status: :pending,
+                        profile_id: 1,
+                        email: 'user@email'
+
+      invitation.accept_proposal
+
+      expect(proposal.reload.status).to eq 'accepted'
+    end
+
+    it 'Não muda status de uma solicitação de cancelada para aceita' do
+      project = create :project
+      invitation = build :invitation,
+                         project:,
+                         profile_id: 1,
+                         profile_email: 'user@email.com',
+                         status: :pending
+      proposal = create :proposal,
+                        project:,
+                        status: :cancelled,
+                        profile_id: 1,
+                        email: 'user@email.com'
+
+      invitation.accept_proposal
+
+      expect(proposal.reload.status).not_to eq 'accepted'
+      expect(proposal.reload.status).to eq 'cancelled'
+    end
+
+    it 'Não muda status de uma solicitação recusada para aceita' do
+      project = create :project
+      invitation = build :invitation,
+                         project:,
+                         profile_id: 1,
+                         profile_email: 'user@email.com',
+                         status: :pending
+      proposal = create :proposal,
+                        project:,
+                        status: :declined,
+                        profile_id: 1,
+                        email: 'user@email.com'
+
+      invitation.accept_proposal
+
+      expect(proposal.reload.status).not_to eq 'accepted'
+      expect(proposal.reload.status).to eq 'declined'
+    end
+  end
 end

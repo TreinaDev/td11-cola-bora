@@ -36,14 +36,14 @@
                   <div class="card-body">
                     <h4><%= category.name %></h4>
                     <hr>
-                    <h6><%= category.description %></h6>    
+                    <h6><%= category.description %></h6>
                   </div>
                 </div>
               </div>
             </div>
           <% end %>
         </div>
-        
+
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
@@ -51,11 +51,11 @@
               <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
             </div>
           </div>
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation, invitation: @invitation, profile: @portfoliorrr_profile, project: @project } %>
-            </div>
-          </div>        
+          <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation,
+                                                          invitation: @invitation,
+                                                          profile: @portfoliorrr_profile,
+                                                          project: @project,
+                                                          current_proposal: @current_proposal } %>
         </div>
       </div>
     </div>
@@ -64,4 +64,3 @@
   <h3><%= t('profile_not_available') %></h3>
   <h3><%= t('try_again_later') %></h3>
 <% end %>
-

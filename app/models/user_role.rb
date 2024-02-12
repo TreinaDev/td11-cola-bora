@@ -1,6 +1,8 @@
 class UserRole < ApplicationRecord
   belongs_to :user
   belongs_to :project
+  has_many :meeting_participants, dependent: :destroy
+  has_many :meetings, through: :meeting_participants
 
   enum role: { contributor: 1, admin: 5, leader: 9 }
 
