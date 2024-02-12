@@ -32,8 +32,8 @@ class PortfoliorrrProfile
   end
 
   def self.new_profile(profile_json)
-    new(id: profile_json[:id],
-        name: profile_json[:name],
+    new(id: profile_json[:profile_id],
+        name: profile_json[:full_name],
         job_categories: JobCategory.build_categories(profile_json[:job_categories]))
   end
 
@@ -50,7 +50,7 @@ class PortfoliorrrProfile
 
   def build_details(profile_json)
     @email = profile_json[:email]
-    @cover_letter = profile_json[:profile][:cover_letter]
+    @cover_letter = profile_json[:cover_letter]
     self
   end
 

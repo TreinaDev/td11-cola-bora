@@ -1,29 +1,29 @@
 {
   "data" : [
     {
-      "id": 1,
-      "name": "Lucas",
+      "user_id": 1,
+      "full_name": "Lucas",
       "job_categories": [
         {
-          "name": "Desenvolvedor"
+          "title": "Desenvolvedor"
         }
       ]
     },
     {
-      "id": 2,
-      "name": "Mateus",
+      "user_id": 2,
+      "full_name": "Mateus",
       "job_categories": [
         {
-          "name": "Designer"
+          "title": "Designer"
         }
       ]
     },
     {
-      "id": 3,
-      "name": "Rodolfo",
+      "user_id": 3,
+      "full_name": "Rodolfo",
       "job_categories": [
         {
-          "name": "Editor de Video"
+          "title": "Editor de Video"
         }
       ]
     }

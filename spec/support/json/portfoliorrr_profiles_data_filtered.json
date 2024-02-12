@@ -1,11 +1,11 @@
 { 
   "data": [
     {
-      "id": 3,
-      "name": "Rodolfo",
+      "profile_id": 3,
+      "full_name": "Rodolfo",
       "job_categories": [
         {
-          "name": "Editor de Video"
+          "title": "Editor de Video"
         }
       ]
     }

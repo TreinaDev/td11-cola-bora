@@ -76,11 +76,15 @@ RSpec.describe PortfoliorrrProfile, type: :model do
 
       portfoliorrr_profile = PortfoliorrrProfile.find(3)
 
-      expect(portfoliorrr_profile.name).to eq 'Rodolfo'
-      expect(portfoliorrr_profile.email).to eq 'rodolfo@email.com'
-      expect(portfoliorrr_profile.job_categories[0].name).to eq 'Editor de Video'
-      expect(portfoliorrr_profile.job_categories[0].description).to eq 'Canal do Youtube'
-      expect(portfoliorrr_profile.cover_letter).to eq 'Sou editor de vídeos em um canal do Youtube.'
+      expect(portfoliorrr_profile.name).to eq 'João CampusCode Almeida'
+      expect(portfoliorrr_profile.email).to eq 'joao@almeida.com'
+      expect(portfoliorrr_profile.job_categories[0].name).to eq 'Web Design'
+      expect(portfoliorrr_profile.job_categories[0].description).to eq 'Eu uso o Paint.'
+      expect(portfoliorrr_profile.job_categories[1].name).to eq 'Programador Full Stack'
+      expect(portfoliorrr_profile.job_categories[1].description).to eq 'Prefiro Tailwind.'
+      expect(portfoliorrr_profile.job_categories[2].name).to eq 'Ruby on Rails'
+      expect(portfoliorrr_profile.job_categories[2].description).to eq 'Eu amo Rails.'
+      expect(portfoliorrr_profile.cover_letter).to eq 'Sou profissional organizado e apaixonado pelo que faço'
     end
 
     it 'API retorna que não foi encontrado' do

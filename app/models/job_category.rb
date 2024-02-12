@@ -35,7 +35,7 @@ class JobCategory
 
   def self.build_categories(job_categories_json)
     job_categories_json.map do |category|
-      new(id: category[:id], name: category[:name], description: category[:description])
+      new(id: category[:id], name: category[:title] || category[:name], description: category[:description])
     end
   end
 
