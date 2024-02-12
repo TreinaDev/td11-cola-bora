@@ -2,9 +2,9 @@ class NotifyParticipantsJob < ApplicationJob
   queue_as :default
 
   def perform(meeting)
-    return unless test_meeting_time(meeting) == true
+    return unless meeting_starts_soon?(meeting)
 
-    logger.info('Iniciando emfileramento que notifica reunião')
+    logger.info('Iniciando enfileiramento que notifica reunião')
     participants = meeting.project.users
 
     participants.each do |participant|
@@ -14,6 +14,6 @@ class NotifyParticipantsJob < ApplicationJob
   end
 end
 
-def test_meeting_time(meeting)
+def meeting_starts_soon?(meeting)
   (meeting.datetime - 5.minutes).strftime('%H:%M') == Time.zone.now.strftime('%H:%M')
 end

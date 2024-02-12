@@ -47,7 +47,7 @@ RSpec.describe NotifyParticipantsJob, type: :job do
       end.to have_enqueued_job.with(meeting).at(meeting.datetime - 5.minutes)
     end
 
-    describe '#sent_email' do
+    describe '#meeting_starts_soon?' do
       it 'edita o dia e hora da reunião e envia email para dois usuários' do
         leader = create(:user)
         project = create(:project, user: leader)
