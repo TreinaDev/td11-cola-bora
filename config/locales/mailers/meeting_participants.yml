@@ -1,0 +1,7 @@
+pt-BR:
+  meeting_participant_mailer:
+    notify_meeting_participants:
+      subject: Convite para Reunião
+      meeting_invitation: está te convidando para uma reunião
+      here: 'aqui'
+      meeting_details: Para mais detalhes, clique

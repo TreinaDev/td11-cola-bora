@@ -7,6 +7,6 @@ class MeetingParticipantMailer < ApplicationMailer
     @meeting = @meeting_participants.first.meeting
     emails = @meeting_participants.map(&:email)
 
-    mail(to: emails, subject: 'Convite para Reunião')
+    mail(to: emails, subject: t('.subject'))
   end
 end
