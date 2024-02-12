@@ -1,7 +1,7 @@
 {
   "data" : [
     {
-      "user_id": 1,
+      "profile_id": 1,
       "full_name": "Lucas",
       "job_categories": [
         {
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "user_id": 2,
+      "profile_id": 2,
       "full_name": "Mateus",
       "job_categories": [
         {
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "user_id": 3,
+      "profile_id": 3,
       "full_name": "Rodolfo",
       "job_categories": [
         {
