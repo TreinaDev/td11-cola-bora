@@ -20,7 +20,7 @@ RSpec.describe NotifyParticipantsJob, type: :job do
       contributor = create(:user, email: 'contributor@email.com', cpf: '000.000.001-91')
       contributor_role = project.user_roles.create!(user: contributor)
       meeting = create(:meeting, project:, user_role: contributor_role, title: 'Reunião sobre Caaptura de Pokémon',
-                                 datetime: 1.day.from_now)
+                                 datetime: 0.days.from_now + 5.minutes)
 
       mail = double('mail', deliver: true)
       mailer_double = double('MeetingMailer')
@@ -61,7 +61,7 @@ RSpec.describe NotifyParticipantsJob, type: :job do
         allow(MeetingMailer).to receive(:with).and_return(mailer_double)
         allow(mailer_double).to receive(:notify_team_about_meeting).and_return(mail)
 
-        meeting.update(datetime: 6.minutes.from_now)
+        meeting.update(datetime: 5.minutes.from_now)
 
         NotifyParticipantsJob.set(wait_until: meeting.datetime - 5.minutes).perform_now(meeting)
 
