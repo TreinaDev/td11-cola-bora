@@ -17,7 +17,7 @@ module InvitationService
       private
 
       def set_json
-        { data: { invitation: {
+        { invitation: {
           profile_id: @invitation.profile_id,
           project_id: @invitation.project.id,
           project_title: @invitation.project.title,
@@ -26,7 +26,7 @@ module InvitationService
           colabora_invitation_id: @invitation.id,
           message: @invitation.message,
           expiration_date: @invitation.expiration_date
-        } } }
+        } }
       end
 
       def post_connection
@@ -54,7 +54,7 @@ module InvitationService
     def self.send(invitation, status)
       headers = { 'Content-Type': 'application/json' }
       url = "#{PORTFOLIORRR_BASE_URL}#{PORTFOLIORRR_INVITATION_URL}#{invitation.portfoliorrr_invitation_id}"
-      json = { data: { invitation: { status: } } }
+      json = { status: }
 
       response = Faraday.patch(url, json.to_json, headers)
 
