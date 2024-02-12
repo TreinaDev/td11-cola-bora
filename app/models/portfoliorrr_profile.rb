@@ -8,17 +8,17 @@ class PortfoliorrrProfile
   end
 
   def self.all
-    url = 'http://localhost:4000/api/v1/users'
+    url = 'http://localhost:4000/api/v1/profiles'
     fetch_portfoliorrr_profiles(url)
   end
 
   def self.search(query)
-    url = "http://localhost:4000/api/v1/users?search=#{query}"
+    url = "http://localhost:4000/api/v1/profiles?search=#{query}"
     fetch_portfoliorrr_profiles(url)
   end
 
   def self.find(id)
-    url = "http://localhost:4000/api/v1/users/#{id}"
+    url = "http://localhost:4000/api/v1/profiles/#{id}"
     response = Faraday.get(url)
 
     return {} unless response.success?
