@@ -5,6 +5,9 @@ describe 'Usuário cria reunião' do
     user = create(:user)
     project = create(:project, user:, title: 'Pousadaria')
 
+    notify_participants_spy = spy(NotifyParticipantsJob)
+    stub_const('NotifyParticipantsJob', notify_participants_spy)
+
     travel_to Time.zone.local(2023, 11, 24, 13, 55, 44)
     login_as(user, scope: :user)
     visit project_path(project)
@@ -26,7 +29,7 @@ describe 'Usuário cria reunião' do
     expect(page).to have_content "Endereço\nhttps://meet.google.com"
     expect(page).to have_link 'https://meet.google.com'
 
-    expect(NotifyParticipantsJob).to have_been_enqueued.with(Meeting.last)
+    expect(notify_participants_spy).to have_received(:perform_later).with(Meeting.last).once
 
     travel_back
   end
