@@ -4,7 +4,7 @@ module ProposalHelper
     in 'pending' then 'primary'
     in 'accepted' then 'success'
     in 'declined' then 'danger'
-    in 'cancelled' then 'secondary'
+    in 'cancelled' | 'expired' then 'tertiary'
     in 'processing' then 'dark'
     else 'light'
     end

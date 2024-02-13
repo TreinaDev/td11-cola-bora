@@ -1,30 +1,57 @@
 <%= render 'shared/project_header', project: @project %>
 
-<%= link_to t('invitations.all_btn'), 
-            project_invitations_path(@project) %>
-<%= link_to t('invitations.pending_btn'), 
-            project_invitations_path(@project, params: { status: :pending }) %>
-<%= link_to t('invitations.accepted_btn'), 
-            project_invitations_path(@project, params: { status: :accepted }) %>
-<%= link_to t('invitations.declined_btn'), 
-            project_invitations_path(@project, params: { status: :declined }) %>
-<%= link_to t('invitations.cancelled_btn'), 
-            project_invitations_path(@project, params: { status: :cancelled }) %>
-<%= link_to t('invitations.expired_btn'), 
-            project_invitations_path(@project, params: { status: :expired }) %>
+<div class="d-flex justify-content-start row mb-4">
+  <div class="d-flex col-3 gap-2">
+    <div class="btn-group" 
+         role="group" 
+         aria-label="Basic radio toggle button group">
+      <%= link_to t('invitations.all_btn'), 
+                  project_invitations_path(@project),
+                  class: "btn btn-outline-primary #{'active' if params[:status].blank?}" %>
+      <%= link_to t('invitations.pending_btn'), 
+                  project_invitations_path(@project, params: { status: :pending }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'pending' }" %>
+      <%= link_to t('invitations.accepted_btn'), 
+                  project_invitations_path(@project, params: { status: :accepted }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'accepted' }" %>
+      <%= link_to t('invitations.declined_btn'), 
+                  project_invitations_path(@project, params: { status: :declined }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'declined' }" %>
+      <%= link_to t('invitations.cancelled_btn'), 
+                  project_invitations_path(@project, params: { status: :cancelled }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'cancelled' }" %>
+      <%= link_to t('invitations.expired_btn'), 
+                  project_invitations_path(@project, params: { status: :expired }), 
+                  class: "btn btn-outline-primary #{'active' if params[:status].eql? 'expired' }" %>
+    </div>
+  </div>
+</div>
 
 <section id="invitations-list">
-  <% @invitations.each do |invitation| %>
-    <div>
-      <%= t("invitations.#{invitation.status}") %> <br>
-      <%= invitation.profile_email %> <br>
-      <%= invitation_expiration_date(invitation) %> <br>
-      <%= time_ago_in_words invitation.updated_at %> <%= t :ago %> <br>
-    </div>
-    <hr>
-  <% end %>
+  <div class="container">
+    <div class="row">
+      <% @invitations.each do |invitation| %>
+        <div class="col-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header border-bottom border-3 border-<%= proposal_card_color(invitation.status) %> text-<%= proposal_card_color(invitation.status) %> bg-light bg-gradient display-6 fs-5">
+              <%= t("invitations.#{invitation.status}") %>
+            </div>
+            <div class="card-body bg-light bg-gradient">
+              <h5 class="card-title"><%= invitation.profile_email %></h5>
+              <small class="card-text"><%= invitation_expiration_date(invitation) %></small>
+            </div>
+            <div class="card-footer text-muted">
+              <%= t(:updated_at) %> <%= time_ago_in_words invitation.updated_at %> <%= t :ago %>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-  <% if @invitations.empty? %>
-    <%= t('invitations.empty_state') %>
-  <% end %>
+      <% if @invitations.empty? %>
+        <div class="text-muted text-center mt-5 display-6 fs-5">
+          <%= t('invitations.empty_state') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </section>

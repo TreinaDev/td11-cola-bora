@@ -20,10 +20,16 @@ RSpec.describe ProposalHelper, type: :helper do
       expect(proposal_card_color(status)).to eq 'danger'
     end
 
-    it 'Retorna secondary se status é cancelled' do
+    it 'Retorna tertiary se status é cancelled' do
       status = 'cancelled'
 
-      expect(proposal_card_color(status)).to eq 'secondary'
+      expect(proposal_card_color(status)).to eq 'tertiary'
+    end
+
+    it 'Retorna tertiary se status é expired' do
+      status = 'expired'
+
+      expect(proposal_card_color(status)).to eq 'tertiary'
     end
 
     it 'Retorna dark se status é processing' do
