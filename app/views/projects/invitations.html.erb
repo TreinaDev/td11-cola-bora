@@ -35,12 +35,19 @@
           <div class="card h-100">
             <div class="card-header border-bottom border-3 border-<%= card_color(invitation.status) %> text-<%= card_color(invitation.status) %> bg-light bg-gradient display-6 fs-5">
               <%= t("invitations.#{invitation.status}") %>
+              <% if invitation.pending? %>
+               - <small class="card-text"><%= invitation_expiration_date(invitation) %></small>
+              <% end %>
             </div>
             <div class="card-body bg-light bg-gradient">
-              <h5 class="card-title"><%= invitation.profile_email %></h5>
-              <% if invitation.pending? %>
-                <small class="card-text"><%= invitation_expiration_date(invitation) %></small>
-              <% end %>
+              <div class="d-flex flex-column gap-2">
+                <h5 class="card-title"><%= invitation.profile_email %></h5>
+                <% if invitation.pending? %>
+                  <%= link_to t(:view), 
+                              project_portfoliorrr_profile_path(@project, invitation.profile_id),
+                              class: 'btn btn-sm btn-outline-secondary' %>
+                <% end %>
+              </div>
             </div>
             <div class="card-footer text-muted">
               <%= t(:updated_at) %> <%= time_ago_in_words invitation.updated_at %> <%= t :ago %>

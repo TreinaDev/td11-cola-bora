@@ -83,6 +83,7 @@ describe 'Líder vê convites de um projeto' do
       expect(page).to have_content 'pending@email.com'
       expect(page).to have_content invitation_expiration_date(pending_invitation)
       expect(page).to have_content "Atualizado há #{time_ago_in_words pending_invitation.updated_at} atrás"
+      expect(page).to have_link 'Visualizar', href: project_portfoliorrr_profile_path(project, 55)
       expect(page).not_to have_content 'Convite aceito'
       expect(page).not_to have_content 'accepted@email.com'
       expect(page).not_to have_content 'Sem prazo de validade'
@@ -135,6 +136,7 @@ describe 'Líder vê convites de um projeto' do
       expect(page).not_to have_content 'Convite expirado'
       expect(page).not_to have_content 'expired@email.com'
       expect(page).not_to have_content 'Nenhum convite encontrado'
+      expect(page).not_to have_link 'Visualizar'
     end
   end
 
@@ -175,6 +177,7 @@ describe 'Líder vê convites de um projeto' do
       expect(page).not_to have_content 'Convite expirado'
       expect(page).not_to have_content 'expired@email.com'
       expect(page).not_to have_content 'Nenhum convite encontrado'
+      expect(page).not_to have_link 'Visualizar'
     end
   end
 
@@ -215,10 +218,11 @@ describe 'Líder vê convites de um projeto' do
       expect(page).not_to have_content 'Convite expirado'
       expect(page).not_to have_content 'expired@email.com'
       expect(page).not_to have_content 'Nenhum convite encontrado'
+      expect(page).not_to have_link 'Visualizar'
     end
   end
 
-  it 'e não encotnra nenhum convite' do
+  it 'e não encontra nenhum convite' do
     leader = create :user
     project = create :project, user: leader
     expired_invitation = create :invitation, expiration_days: '', profile_id: 99, project:,
@@ -255,6 +259,7 @@ describe 'Líder vê convites de um projeto' do
       expect(page).not_to have_content 'Convite em processamento'
       expect(page).not_to have_content 'processing@email.com'
       expect(page).not_to have_content 'Nenhum convite encontrado'
+      expect(page).not_to have_link 'Visualizar'
     end
   end
 
