@@ -5,10 +5,9 @@ export default {
     return {
       message: 'Hello!',
       insertText: '',
-      project: 's'
+      project: window.project
     }
   },
-  
   
   methods: {
     insertMessage() {

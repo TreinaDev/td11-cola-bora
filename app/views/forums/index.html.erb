@@ -1,6 +1,8 @@
 <%= render 'shared/project_header', project: @project %>
-<div id="vue-app" data-project-title="<%= @project.title %>">
-  <!-- Componente Vue.js será renderizado aqui -->
-  {{ project }}
-  {{ data-project-title }}
+<div id="vue-app">
+  <forum-vue>{{project}}</forum-vue>
 </div>
+
+<script>
+  var project = "<%= @project.title %>"
+</script>
