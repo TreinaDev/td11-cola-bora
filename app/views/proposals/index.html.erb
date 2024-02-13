@@ -30,7 +30,7 @@
       <% @proposals.each do |proposal| %>
         <div class="col-6 mb-3">
           <div class="card h-100">
-            <div class="card-header border-bottom border-3 border-<%= proposal_card_color(proposal.status) %> text-<%= proposal_card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
+            <div class="card-header border-bottom border-3 border-<%= card_color(proposal.status) %> text-<%= card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
               <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
             </div>
             <div class="card-body bg-light bg-gradient">
