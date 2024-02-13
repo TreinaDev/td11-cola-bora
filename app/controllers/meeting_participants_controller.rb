@@ -14,6 +14,7 @@ class MeetingParticipantsController < ApplicationController
 
     if participants.all?(&:valid?)
       participants.each(&:save)
+      send_emails(participants)
       redirect_to project_meeting_path(@meeting.project, @meeting), notice: t('.success')
     else
       flash.now[:alert] = t '.fail'
@@ -59,6 +60,12 @@ class MeetingParticipantsController < ApplicationController
   def build_participants
     participants_params.map do |participant|
       @meeting.meeting_participants.build(user_role_id: participant)
+    end
+  end
+
+  def send_emails(participants)
+    participants.each do |participant|
+      MeetingParticipantMailer.with(participant:).notify_meeting_participants.deliver
     end
   end
 end
