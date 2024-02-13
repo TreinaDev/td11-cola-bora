@@ -1,0 +1,8 @@
+pt-BR:
+ meeting_mailer:
+  notify_team_about_meeting:
+   subject: Sua reunião já vai começar.
+   hello: Olá, %{participant_name}.
+   meeting_about_to_start: A reunião %{title}, marcada para %{meeting_date_and_time}, começa em 5 minutos.
+   click_here: Clique aqui para ver os detalhes da reunião.
+   thanks_have_a_nice_day: Obrigado, tenha um bom dia.
