@@ -11,6 +11,15 @@ module Api
         render json: { errors: proposal.errors.full_messages }, status: :conflict
       end
 
+      def update
+        proposal = Proposal.find(params[:id])
+
+        return render status: :conflict, json: { errors: I18n.t('proposal.conflict') } unless proposal.pending?
+
+        proposal.cancelled!
+        head :no_content
+      end
+
       private
 
       def set_project
