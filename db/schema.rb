@@ -61,6 +61,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_182535) do
     t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
+  create_table "forums", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_forums_on_project_id"
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "profile_id", null: false
@@ -291,6 +298,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_182535) do
   add_foreign_key "comments", "user_roles"
   add_foreign_key "documents", "projects"
   add_foreign_key "documents", "users"
+  add_foreign_key "forums", "projects"
   add_foreign_key "invitations", "projects"
   add_foreign_key "meeting_participants", "meetings"
   add_foreign_key "meeting_participants", "user_roles"
