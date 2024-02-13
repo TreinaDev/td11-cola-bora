@@ -1,12 +1,18 @@
 <%= render 'shared/project_header', project: @project %>
 <div id="vue-app">
   <forum-vue>{{ project }}
-    <ul>
-      <li v-for="item in posts">
-        {{ item.title }}
-        {{item.body}}
-      </li>
-    </ul>
+    <div class="row" v-else>
+      <div class="col-md-4 mx-auto mt-3">
+        <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
+        <input class="form-control" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
+      </div>
+      <ul>
+        <li v-for="item in filteredProjects">
+          {{ item.title }}
+          {{item.body}}
+        </li>
+      </ul>
+    </div>
   </forum-vue>
 </div>
 
