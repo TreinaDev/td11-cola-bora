@@ -5,12 +5,13 @@ export default {
     return {
       message: 'Hello!',
       insertText: '',
-      project: 'Hello Projects'
+      project: 's'
     }
   },
-
+  
+  
   methods: {
-    insertMessage(){
+    insertMessage() {
       return this.message = this.insertText;
     }
   }
