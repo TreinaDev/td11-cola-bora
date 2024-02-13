@@ -123,7 +123,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       visit project_portfoliorrr_profile_path project, profile_id
       click_on 'Voltar'
 
-      expect(current_path).to eq search_project_portfoliorrr_profiles_path project
+      expect(page).to have_current_path search_project_portfoliorrr_profiles_path project
       expect(page).to have_field 'Busca'
       expect(page).to have_button 'Buscar'
     end
