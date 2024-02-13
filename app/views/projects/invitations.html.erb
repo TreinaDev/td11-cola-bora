@@ -18,7 +18,7 @@
     <div>
       <%= t("invitations.#{invitation.status}") %> <br>
       <%= invitation.profile_email %> <br>
-      <%= expiration_date_helper(invitation) %> <br>
+      <%= invitation_expiration_date(invitation) %> <br>
       <%= time_ago_in_words invitation.updated_at %> <%= t :ago %> <br>
     </div>
     <hr>
