@@ -36,8 +36,8 @@ describe 'Usuário adiciona participantes a reunião' do
     expect(page).not_to have_content 'not_invited'
     expect(page).not_to have_link 'Adicionar Participantes'
     expect(page).to have_content 'Participantes adicionados com sucesso!'
-    expect(mailer_double).to have_received(:notify_meeting_participants)
-    expect(mail).to have_received(:deliver)
+    expect(mailer_double).to have_received(:notify_meeting_participants).exactly(3).times
+    expect(mail).to have_received(:deliver).exactly(3).times
   end
 
   it 'e não vê usuários que não fazem parte do projeto' do

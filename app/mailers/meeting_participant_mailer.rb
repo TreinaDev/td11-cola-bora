@@ -3,10 +3,11 @@ class MeetingParticipantMailer < ApplicationMailer
   default from: 'notifications@colabora.com'
 
   def notify_meeting_participants
-    @meeting_participants = params[:participants]
-    @meeting = @meeting_participants.first.meeting
-    emails = @meeting_participants.map(&:email)
+    participant = params[:participant]
+    @meeting = participant.meeting
 
-    mail(to: emails, subject: t('.subject'))
+    @is_author = participant.user_role == @meeting.user_role
+
+    mail(to: participant.email, subject: t('.subject', title: @meeting.project.title))
   end
 end

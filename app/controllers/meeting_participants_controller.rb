@@ -64,6 +64,8 @@ class MeetingParticipantsController < ApplicationController
   end
 
   def send_emails(participants)
-    MeetingParticipantMailer.with(participants:).notify_meeting_participants.deliver
+    participants.each do |participant|
+      MeetingParticipantMailer.with(participant:).notify_meeting_participants.deliver
+    end
   end
 end
