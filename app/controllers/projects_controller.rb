@@ -61,7 +61,10 @@ class ProjectsController < ApplicationController
   end
 
   def invitations
-    @invitations = @project.invitations.order(:updated_at)
+    status = params[:status]
+    return @invitations = @project.invitations.where(status:).order(:updated_at).reverse if status.present?
+
+    @invitations = @project.invitations.order(:updated_at).reverse
   end
 
   private

@@ -1,5 +1,18 @@
 <%= render 'shared/project_header', project: @project %>
 
+<%= link_to t('invitations.all_btn'), 
+            project_invitations_path(@project) %>
+<%= link_to t('invitations.pending_btn'), 
+            project_invitations_path(@project, params: { status: :pending }) %>
+<%= link_to t('invitations.accepted_btn'), 
+            project_invitations_path(@project, params: { status: :accepted }) %>
+<%= link_to t('invitations.declined_btn'), 
+            project_invitations_path(@project, params: { status: :declined }) %>
+<%= link_to t('invitations.cancelled_btn'), 
+            project_invitations_path(@project, params: { status: :cancelled }) %>
+<%= link_to t('invitations.expired_btn'), 
+            project_invitations_path(@project, params: { status: :expired }) %>
+
 <section id="invitations-list">
   <% @invitations.each do |invitation| %>
     <div>
@@ -9,5 +22,9 @@
       <%= time_ago_in_words invitation.updated_at %> <%= t :ago %> <br>
     </div>
     <hr>
+  <% end %>
+
+  <% if @invitations.empty? %>
+    <%= t('invitations.empty_state') %>
   <% end %>
 </section>

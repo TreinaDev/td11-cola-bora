@@ -39,7 +39,13 @@ pt-BR:
     send_invitation: Enviar convite
     pending_invitation: Esse usuário possui convite pendente
     cancel_button: Cancelar convite
-    empty_state: Não há convites registrados
     already_member: Este usuário já faz parte do projeto.
     no_expiration_date: Sem prazo de validade
     fill_in_details: Preencha os dados do convite
+    pending_btn: Pendentes
+    accepted_btn: Aceitos
+    declined_btn: Recusados
+    cancelled_btn: Cancelados
+    expired_btn: Expirados
+    all_btn: Todos
+    empty_state: Nenhum convite encontrado
