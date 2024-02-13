@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe TaskMailer, type: :mailer do
   describe '#notify_team_about_meeting' do
     it 'com sucesso' do
+      travel_to Time.zone.local(2024, 11, 23, 14, 0, 0)
       project = create(:project, title: 'Mestre Pokémon')
       contributor = create(:user, cpf: '167.882.240-05')
       create(:profile, first_name: 'Ash', last_name: 'Ketchum', user: contributor)
@@ -19,6 +20,7 @@ RSpec.describe TaskMailer, type: :mailer do
       expect(mail.subject).to include 'Sua reunião já vai começar.'
       link = '<a href="http://localhost:3000/projects/1/meetings/1">Clique aqui para ver os detalhes da reunião.</a>'
       expect(mail.body.encoded).to include link
+      travel_back
     end
   end
 end
