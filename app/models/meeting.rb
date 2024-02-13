@@ -5,15 +5,18 @@ class Meeting < ApplicationRecord
   has_many :meeting_participants, dependent: :destroy
   has_many :participants, through: :meeting_participants, source: :user_role
 
-  after_create :scheduling_job
-  after_update :scheduling_job
+  after_commit :scheduling_job, on: %i[create update]
 
   validates :title, :datetime, :duration, :address, presence: true
-  validate :datetime_is_future, on: :create
+  validate :datetime_is_future
   validate :five_minutes_ahead, on: :update, if: :datetime_changed?
 
   def start_time
     datetime
+  end
+
+  def starts_soon?(meeting)
+    (meeting.datetime - 5.minutes).strftime('%H:%M') == Time.zone.now.strftime('%H:%M')
   end
 
   private
