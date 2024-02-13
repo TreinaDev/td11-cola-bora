@@ -5,13 +5,16 @@ export default {
     return {
       message: 'Hello!',
       insertText: '',
-      project: window.project
+      project: window.project,
+      posts: []
     }
   },
-  
+  mounted() {
+    this.posts = window.posts.map(item => ({ title: item.title, body: item.body }));
+  },
   methods: {
     insertMessage() {
-      return this.message = this.insertText;
+      this.message = this.insertText;
     }
   }
 }

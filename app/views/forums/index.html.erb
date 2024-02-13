@@ -1,8 +1,16 @@
 <%= render 'shared/project_header', project: @project %>
 <div id="vue-app">
-  <forum-vue>{{project}}</forum-vue>
+  <forum-vue>{{ project }}
+    <ul>
+      <li v-for="item in posts">
+        {{ item.title }}
+        {{item.body}}
+      </li>
+    </ul>
+  </forum-vue>
 </div>
 
 <script>
   var project = "<%= @project.title %>"
+  var posts = <%= @posts.to_json.html_safe %>;
 </script>
