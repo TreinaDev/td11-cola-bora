@@ -25,9 +25,8 @@ describe 'Usuário cria reunião' do
     expect(page).to have_content "Duração\n2h"
     expect(page).to have_content "Endereço\nhttps://meet.google.com"
     expect(page).to have_link 'https://meet.google.com'
-    expect do
-      NotifyParticipantsJob.perform_later(Meeting.last)
-    end.to have_enqueued_job
+
+    expect(NotifyParticipantsJob).to have_been_enqueued.with(Meeting.last)
 
     travel_back
   end
