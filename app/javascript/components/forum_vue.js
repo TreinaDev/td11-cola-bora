@@ -3,10 +3,10 @@ import { ref } from "vue/dist/vue.esm-bundler.js"
 export default {
   data() {
     return {
-      searchText: '',
+      searchText: 'Solução',
       selectedFilter: '',
-      project: window.project,
-      posts: []
+      project: {},
+      posts: [],
     }
   },
 
@@ -15,9 +15,11 @@ export default {
                                              body: item.body,
                                              author: item.user_name,
                                              date: item.created_at }));
+    this.project = { id: window.project.id,
+                     title: window.project.title };
   },
 
-  computed:{
+  computed: {
     filteredProjects() {
       const searchType = this.selectedFilter
       return this.posts.filter(post => {
