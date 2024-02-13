@@ -27,6 +27,8 @@
   var posts = <%= @posts.map { |post| { id: post.id,
                                         title: post.title,
                                         body: post.body,
+                                        comments: post.comments,
                                         created_at: post.updated_at == post.created_at ? "Postado em #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
                                         user_name: post.user.full_name } }.to_json.html_safe %>;
+                                        
 </script>

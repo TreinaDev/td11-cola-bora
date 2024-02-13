@@ -5,8 +5,10 @@ export default {
     return {
       searchText: '',
       selectedFilter: '',
+      selectedPostId: null,
       project: window.project,
-      posts: []
+      posts: [],
+      comments: []
     }
   },
 
@@ -38,6 +40,12 @@ export default {
       this.message = this.insertText;
     },
 
-    showPostDetails(){}
+    showPostDetails(post_id) {
+      this.selectedPostId = post_id
+      selectedPost = this.posts.filter(post => post.id == post_id)
+
+      const comments = this.comments.filter(comment => comment.post_id === post_id);
+
+    }
   }
 }
