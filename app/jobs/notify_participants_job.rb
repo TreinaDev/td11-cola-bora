@@ -5,10 +5,10 @@ class NotifyParticipantsJob < ApplicationJob
     return unless meeting.starts_soon?(meeting)
 
     logger.info('Iniciando enfileiramento que notifica reunião')
-    participants = meeting.project.users
+    participants = meeting.meeting_participants
 
     participants.each do |participant|
-      MeetingMailer.with(meeting:, participant:).notify_team_about_meeting.deliver
+      MeetingMailer.with(meeting:, participant: participant.user).notify_team_about_meeting.deliver
     end
     logger.info('Finalizando job que notifica reunião')
   end
