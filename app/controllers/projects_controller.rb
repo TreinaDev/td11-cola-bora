@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy members]
+  before_action :set_project, only: %i[show edit update destroy members invitations]
   before_action :check_contributor, only: %i[show edit update destroy members]
   before_action :check_leader, only: %i[edit update]
   before_action :set_all_job_categories, only: %i[new create edit update]
@@ -60,6 +60,10 @@ class ProjectsController < ApplicationController
     @contributors = @project.member_roles(:contributor) if query.blank? || query == 'contributor'
   end
 
+  def invitations
+    @invitations = @project.invitations.order(:updated_at)
+  end
+
   private
 
   def update_project_job_categories
@@ -86,7 +90,7 @@ class ProjectsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id]) || Project.find_by(id: params[:project_id])
   end
 
   def project_params

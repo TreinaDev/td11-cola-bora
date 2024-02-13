@@ -1,0 +1,13 @@
+<%= render 'shared/project_header', project: @project %>
+
+<section id="invitations-list">
+  <% @invitations.each do |invitation| %>
+    <div>
+      <%= t("invitations.#{invitation.status}") %> <br>
+      <%= invitation.profile_email %> <br>
+      <%= expiration_date_helper(invitation) %> <br>
+      <%= time_ago_in_words invitation.updated_at %> <%= t :ago %> <br>
+    </div>
+    <hr>
+  <% end %>
+</section>

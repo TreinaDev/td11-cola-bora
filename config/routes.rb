@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :user_roles, only: %i[edit update]
     resources :proposals, only: %i[index]
     resources :calendars, only: %i[index]
+    resources :invitations, only: %i[index], to: 'projects#invitations'
   end
 
   resources :user_roles, only: [] do

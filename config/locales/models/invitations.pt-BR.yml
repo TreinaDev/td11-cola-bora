@@ -28,10 +28,12 @@ pt-BR:
     decline: 
       success: Você recusou o convite
       fail: Não foi possível recusar o convite
+    pending: Convite pendente
     expired: Convite expirado
     cancelled: Convite cancelado
     accepted: Convite aceito
     declined: Convite recusado
+    processing: Convite em processamento
     accept_btn: Aceitar
     decline_btn: Recusar
     send_invitation: Enviar convite
