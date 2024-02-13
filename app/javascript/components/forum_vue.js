@@ -11,7 +11,10 @@ export default {
   },
 
   mounted() {
-    this.posts = window.posts.map(item => ({ title: item.title, body: item.body }));
+    this.posts = window.posts.map(item => ({ title: item.title,
+                                             body: item.body,
+                                             author: item.user_name,
+                                             date: item.created_at }));
   },
 
   computed:{
