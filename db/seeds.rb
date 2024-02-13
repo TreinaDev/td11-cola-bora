@@ -175,3 +175,7 @@ FactoryBot.create(:proposal, project: pikachu_project,
                              status: :accepted,
                              email: 'giovanni_boss@email.com',
                              message: 'Aceite minha proposta e sua jornada será bem recompensada!')
+
+
+
+FactoryBot.create(:post, user_role: ash.user_roles.find_by(project: pikachu_project), project: pikachu_project)

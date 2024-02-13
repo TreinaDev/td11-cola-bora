@@ -18,7 +18,7 @@ export default {
   },
 
   computed:{
-    filteredProjects() {
+    filteredPosts() {
       const searchType = this.selectedFilter
       return this.posts.filter(post => {
         if (searchType === '') {
@@ -36,6 +36,8 @@ export default {
   methods: {
     insertMessage() {
       this.message = this.insertText;
-    }
+    },
+
+    showPostDetails(){}
   }
 }
