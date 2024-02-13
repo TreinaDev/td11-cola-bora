@@ -23,7 +23,28 @@
   <dd><%= @meeting.datetime.strftime("%d/%m/%Y, %H:%M") %></dd>
 </dl>
 
+<% if @participants.blank? %>
+  <% if current_user == @meeting.user %>
+    <p><small><%= t 'meeting_participants.add_participants' %></small></p>
+  <% end %>
+<% else %>
+  <div>
+    <h3><%= t 'meeting_participants.participants_list' %></h3>
+    <ul>
+      <% @participants.each do |participant| %>
+        <li><%= participant.user.full_name %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div>
+  <% if current_user == @meeting.user && @participants.blank? %>
+    <%= link_to I18n.t('meetings.add_meeting_participants'), 
+                new_meeting_meeting_participant_path(@meeting),
+                class: 'btn btn-outline-primary' %>
+  <% end %>
+
   <%= link_to I18n.t('meetings.edit_meeting'), 
               edit_project_meeting_path(@project, @meeting),
               class: 'btn btn-primary' %>

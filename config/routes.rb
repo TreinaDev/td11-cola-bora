@@ -48,6 +48,10 @@ Rails.application.routes.draw do
     patch 'archive', on: :member
   end
 
+  resources :meetings, only: %i[] do
+    resources :meeting_participants, only: %i[new create]
+  end
+
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index]

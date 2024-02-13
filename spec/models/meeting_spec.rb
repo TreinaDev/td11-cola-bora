@@ -66,5 +66,25 @@ RSpec.describe Meeting, type: :model do
         expect(meeting.errors.full_messages).not_to include 'Data e horário deve ser futuro.'
       end
     end
+
+    context 'prazo da edição tem quer ser no futuro' do
+      it 'falso se a reunião estiver menos que 5 minutos para iniciar' do
+        meeting = create(:meeting, datetime: 10.minutes.from_now)
+
+        meeting.update(datetime: 4.minutes.from_now)
+
+        expect(meeting.valid?).to eq false
+        error_message = 'Data e horário não podem ser editadas 5 minutos antes da hora marcada.'
+        expect(meeting.errors.full_messages).to include error_message
+      end
+
+      it 'verdadeiro se estiver 6 minutos para iniciar' do
+        meeting = create(:meeting, datetime: 10.minutes.from_now)
+
+        meeting.update(datetime: 6.minutes.from_now)
+
+        expect(meeting.valid?).to eq true
+      end
+    end
   end
 end

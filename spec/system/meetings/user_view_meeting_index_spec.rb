@@ -14,9 +14,6 @@ describe 'Usuário vê página de reuniões de um projeto' do
     visit project_path(project)
     click_on 'Reuniões'
 
-    # TODO
-    # melhorar o teste quando cards forem implementados
-    # within('2024-11-24') { expect(page).to have_content '24/11/2024' }
     expect(page).to have_content 'Reuniões'
     expect(page).to have_content '24/11/2024'
     expect(page).to have_content '27/11/2024'
@@ -60,5 +57,33 @@ describe 'Usuário vê página de reuniões de um projeto' do
     expect(page).to have_content '24/11/2024'
     expect(page).to have_content '27/11/2024'
     travel_back
+  end
+
+  it 'e acessa uma reunião sem participantes e vê mensagem se for o autor' do
+    project = create :project
+    author = create :user, cpf: '875.898.470-46'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role
+
+    login_as author
+    visit project_meeting_path project, meeting
+
+    expect(page).to have_content 'Adicione participantes para notificá-los'
+    expect(page).not_to have_content 'Lista de Participantes'
+  end
+
+  it 'e acessa uma reunião sem participantes e não vê mensagem' do
+    project = create :project
+    author = create :user, cpf: '875.898.470-46'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role
+    user = create :user, cpf: '850.265.590-69', email: 'participant1@email.com'
+    create :user_role, project:, user:, role: :admin
+
+    login_as user
+    visit project_meeting_path project, meeting
+
+    expect(page).not_to have_content 'Adicione participantes para notificá-los'
+    expect(page).not_to have_content 'Lista de Participantes'
   end
 end

@@ -25,7 +25,7 @@ describe 'Usuário atualiza o status da tarefa' do
     task = create(:task, project:, status: 'in_progress', user_role: author_role)
 
     mail = double('mail', deliver: true)
-    mailer_double = double('TaskMailer', notify_leader_finish_task: mail)
+    mailer_double = double('TaskMailer')
 
     allow(TaskMailer).to receive(:with).and_return(mailer_double)
     allow(mailer_double).to receive(:notify_leader_finish_task).and_return(mail)
