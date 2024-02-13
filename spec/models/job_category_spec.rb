@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe JobCategory, type: :model do
   context '#all' do
     it 'API retorna todos os resultados' do
-      url = 'http://localhost:8000/api/v1/job_categories'
+      url = 'http://localhost:4000/api/v1/job_categories'
       json = File.read(Rails.root.join('spec/support/json/job_categories.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
@@ -18,7 +18,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'API retorna vazio' do
-      url = 'http://localhost:8000/api/v1/job_categories'
+      url = 'http://localhost:4000/api/v1/job_categories'
       fake_response = double('faraday_response', status: 200, body: '{ "data": [] }', success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
@@ -29,7 +29,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'API retorna erro interno' do
-      url = 'http://localhost:8000/api/v1/job_categories'
+      url = 'http://localhost:4000/api/v1/job_categories'
       fake_response = double('faraday_response', status: 500, body: '{ "error": ["Erro interno"] }', success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
 
@@ -40,7 +40,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'e não consegue se conectar na API' do
-      url = 'http://localhost:8000/api/v1/job_categories'
+      url = 'http://localhost:4000/api/v1/job_categories'
       allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
 
       job_categories = JobCategory.all
@@ -52,7 +52,7 @@ RSpec.describe JobCategory, type: :model do
 
   context '#find' do
     it 'API retorna resultado' do
-      url = 'http://localhost:8000/api/v1/job_categories/2'
+      url = 'http://localhost:4000/api/v1/job_categories/2'
       json = File.read(Rails.root.join('spec/support/json/job_category_details_data.json'))
       fake_response = double('faraday_response', status: 200, body: json, success?: true)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
@@ -63,7 +63,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'API retorna que não foi encontrado' do
-      url = 'http://localhost:8000/api/v1/job_categories/999'
+      url = 'http://localhost:4000/api/v1/job_categories/999'
       fake_response = double('faraday_response', status: 404, body: '{ "errors": ["Perfil não encontrado"] }',
                                                  success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
@@ -74,7 +74,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'API retorna erro interno' do
-      url = 'http://localhost:8000/api/v1/job_categories/1'
+      url = 'http://localhost:4000/api/v1/job_categories/1'
       fake_response = double('faraday_response', status: 500, body: '{ "errors": ["Erro interno de servidor"] }',
                                                  success?: false)
       allow(Faraday).to receive(:get).with(url).and_return(fake_response)
@@ -85,7 +85,7 @@ RSpec.describe JobCategory, type: :model do
     end
 
     it 'e não consegue se conectar com a API' do
-      url = 'http://localhost:8000/api/v1/job_categories/1'
+      url = 'http://localhost:4000/api/v1/job_categories/1'
       allow(Faraday).to receive(:get).with(url).and_raise(Faraday::ConnectionFailed)
 
       job_categories = JobCategory.find(1)

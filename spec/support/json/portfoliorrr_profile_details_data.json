@@ -1,17 +1,34 @@
 {
   "data": {
-    "id": 3,
-    "name": "Rodolfo",
-    "email": "rodolfo@email.com",
-    "job_categories": [
-      {
-        "name": "Editor de Video",
-        "description": "Canal do Youtube"
-      }
-    ],
-    "profile":
-      {
-        "cover_letter": "Sou editor de vídeos em um canal do Youtube."
-      }
-  }
+            "profile_id": 1,
+            "email": "joao@almeida.com",
+            "full_name": "João CampusCode Almeida",
+            "cover_letter": "Sou profissional organizado e apaixonado pelo que faço",
+            "professional_infos": [
+                                    { "company": "Campus Code",
+                                      "position": "Dev",
+                                      "start_date": "2022-12-12",
+                                      "end_date": "2023-12-12",
+                                      "description": "Muito código",
+                                      "current_job": false }
+                                  ],
+            "education_infos": [
+                                  { "institution": "Senai",
+                                    "course": "Web dev full stack",
+                                    "start_date": "2022-12-12",
+                                    "end_date": "2023-12-12" },
+                                  { "institution": "Senai",
+                                    "course": "Web dev full stack",
+                                    "start_date": "2022-12-12",
+                                    "end_date": "2023-12-12" }
+                                ],
+            "job_categories": [
+                                  { "name": "Web Design",
+                                    "description": "Eu uso o Paint." },
+                                  { "name": "Programador Full Stack",
+                                    "description": "Prefiro Tailwind." },
+                                  { "name": "Ruby on Rails",
+                                    "description": "Eu amo Rails." }
+                              ]
+          }
 }
