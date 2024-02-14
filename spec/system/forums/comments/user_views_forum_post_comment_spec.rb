@@ -39,5 +39,18 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     expect(page).to have_field 'Conteúdo:'
   end
 
-  xit 'e não vê comentários de outras publicações'
+  it 'e não vê comentários de outros posts' do
+    leader = create :user, email: 'leader@email.com'
+    project = create :project, user: leader, title: 'Projeto Top'
+    leader_role = UserRole.last
+    post_one = create :post, user_role: leader_role, project:, title: 'Post Top'
+    create :comment, user_role: leader_role, post: post_one, content: 'Comentário top'
+    create :post, user_role: leader_role, project:, title: 'Melhor Post'
+
+    login_as leader
+    visit project_forum_path project
+    click_on 'Melhor Post'
+
+    expect(page).not_to have_content 'Comentário top'
+  end
 end

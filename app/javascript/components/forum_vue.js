@@ -59,13 +59,39 @@ export default {
     },
 
     async createComment() {
+      try {
+        const response = await fetch('/comments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.newComment)
+        });
 
+        if (!response.ok){
+          throw new Error('Erro ao criar comentário');
+        }
+
+        this.newComment = await response.json();
+
+        this.comments.push(newComment)
+
+        this.newComment.content = ''
+
+        console.log('Comentário criado com sucesso:', newComment);
+      } catch (error) {
+        console.error('Erro ao criar comentário:', error);
+      }
     },
     
     resetPostDetails(){
       this.selectedPostId = null;
 
       this.selectedPost = null;
+    },
+
+    createComment(){
+
     }
   }
 }

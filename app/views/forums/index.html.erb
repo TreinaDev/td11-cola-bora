@@ -40,7 +40,7 @@
           <form @submit.prevent='createComment' class="mt-4">
             <div>
               <label for="content" class="d-none">Conteúdo:</label>
-              <textarea id="content" v-model="newComment.content" class="form-control"></textarea>
+              <textarea id="content" v-model="newComment.content" placeholder='Insira um comentário' class="form-control"></textarea>
             </div>
             <div>
               <button type="submit" class="btn btn-primary mt-3">Comentar</button>
@@ -54,7 +54,6 @@
     </div>
   </forum-vue>
 </div>
-
 
 <script>
   var project = "<%= @project.title %>"
