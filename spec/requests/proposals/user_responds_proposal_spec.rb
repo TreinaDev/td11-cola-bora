@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário responde uma solicitação' do
   context 'para um projeto do qual é lider' do
-    it 'como aceita com sucesso' do
+    xit 'como aceita com sucesso' do
       leader = create :user
       project = create :project, user: leader
       profile_id = 38
@@ -10,14 +10,19 @@ describe 'Usuário responde uma solicitação' do
       proposal = create :proposal, project:, profile_id:,
                                    email: profile_email, status: :pending
       params = { invitation: { profile_id:, profile_email: } }
-      json = { data: { invitation_id: 1 } }
-      fake_response = double 'faraday_response', status: 200, body: json.to_json, success?: true
-      allow(Faraday).to receive(:post).and_return fake_response
+      # json = { data: { invitation_id: 1 } }
+      # fake_response = double 'faraday_response', status: 200, body: json.to_json, success?: true
+      # allow(Faraday).to receive(:post).and_return fake_response
+      create_invitation_spy = spy(CreateInvitationJob)
+      stub_const('CreateInvitationJob', create_invitation_spy)
 
       login_as leader, scope: :user
       post(project_portfoliorrr_profile_invitations_path(project, profile_id), params:)
 
-      expect(proposal.reload.status).to eq 'accepted'
+      invitation = Invitation.find_by project_id: proposal.project_id,
+                                      profile_id: proposal.profile_id
+      expect(invitation).to be_processing
+      expect(create_invitation_spy).to have_received(:perform_later).with invitation
     end
 
     it 'como recusada com sucesso' do

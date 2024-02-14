@@ -31,6 +31,8 @@ describe 'Usuário envia um convite sendo lider' do
                                    job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
     joao.email = 'joao@email.com'
     create :invitation, project:, profile_id: joao.id, status: :accepted, profile_email: joao.email
+    contributor = create :user, email: joao.email, cpf: '606.323.720-87'
+    create :user_role, project:, user: contributor, role: :contributor
 
     login_as user
     params = {
@@ -41,7 +43,7 @@ describe 'Usuário envia um convite sendo lider' do
     }
     post(project_portfoliorrr_profile_invitations_path(project, joao.id), params:)
 
-    expect(flash[:alert]).to eq 'Não foi possível convidar o usuário'
+    expect(flash[:alert]).to eq 'Este usuário já faz parte do projeto.'
     expect(response).to redirect_to project_portfoliorrr_profile_path(project, joao.id)
   end
 end

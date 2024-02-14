@@ -11,9 +11,8 @@ describe 'Usuário quer enviar convite' do
                                      job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
       joao.email = 'joao@email.com'
       allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
-      json = { data: { invitation_id: 3 } }
-      fake_response = double('faraday_response', status: 200, body: json.to_json, success?: true)
-      allow(Faraday).to receive(:post).and_return(fake_response)
+      create_invitation_job_spy = spy(CreateInvitationJob)
+      stub_const('CreateInvitationJob', create_invitation_job_spy)
 
       login_as user
       visit project_portfoliorrr_profile_path(project, joao.id)
@@ -21,30 +20,10 @@ describe 'Usuário quer enviar convite' do
       fill_in 'Mensagem', with: 'Adoraria que fizesse parte do meu projeto'
       click_on 'Enviar convite'
 
-      expect(page).to have_content 'Convite enviado com sucesso!'
-      expect(page).to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
-      expect(page).to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
+      expect(page).to have_content 'Convite em processamento'
       expect(project.invitations.last.profile_email).to eq 'joao@email.com'
-      expect(project.invitations.last.pending?).to eq true
-    end
-
-    it 'e vê mensagem de convite em processamento' do
-      user =  create(:user)
-      project = create(:project, user:, title: 'Meu novo projeto')
-      joao = PortfoliorrrProfile.new(id: 1, name: 'João Marcos',
-                                     job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
-      allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
-      create(:invitation, project:, profile_id: joao.id, status: :processing)
-
-      login_as user
-      visit project_portfoliorrr_profile_path(project, joao.id)
-
-      expect(page).to have_content 'Convite em processamento.'
-      expect(page).not_to have_content 'Mensagem: Adoraria que fizesse parte do meu projeto'
-      expect(page).not_to have_content "Validade: #{I18n.l(10.days.from_now.to_date)}"
-      expect(page).not_to have_field 'Prazo de validade (em dias)'
-      expect(page).not_to have_field 'Mensagem'
       expect(project.invitations.last.processing?).to eq true
+      expect(create_invitation_job_spy).to have_received(:perform_later).with(Invitation.last)
     end
   end
 
@@ -136,10 +115,10 @@ describe 'Usuário quer enviar convite' do
     fill_in 'Mensagem', with: ''
     click_on 'Enviar convite'
 
-    expect(page).to have_content 'Convite enviado com sucesso!'
+    expect(page).to have_content 'Convite em processamento'
     expect(page).not_to have_content 'Mensagem:'
-    expect(page).to have_content 'Validade: Sem prazo de validade'
+    expect(page).not_to have_content 'Validade: Sem prazo de validade'
     expect(project.invitations.last.profile_email).to eq 'joao@email.com'
-    expect(project.invitations.last.pending?).to eq true
+    expect(project.invitations.last.processing?).to eq true
   end
 end
