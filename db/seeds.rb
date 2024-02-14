@@ -134,6 +134,21 @@ FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email
 FactoryBot.create(:invitation, project: ash_project3, profile_email: brock.email,
                                expiration_days: '', status: :processing)
 
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 5,
+                               profile_id: 89, status: :pending)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: nil,
+                               profile_id: 90, status: :pending)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 7,
+                               profile_id: 91, status: :accepted)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 8,
+                               profile_id: 93, status: :declined)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 10,
+                               profile_id: 94, status: :cancelled)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: nil,
+                               profile_id: 95, status: :expired)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 2,
+                               profile_id: 96, status: :processing)
+
 
 FactoryBot.create(:proposal, project: pikachu_project,
                              profile_id: 50,
