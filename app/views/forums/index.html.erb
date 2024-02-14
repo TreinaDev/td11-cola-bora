@@ -5,7 +5,6 @@
       <div class="col-md-8 mx-auto mt-3">
         <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
         <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
-
         <form @submit.prevent="submitForm">
           <div>
             <label for="title" class="form-label">Título</label>
@@ -19,7 +18,6 @@
             <button type="submit" class="btn btn-primary">Postar</button>
           </div>
         </form>
-
         <div class="list-group">
           <div class="list-group-item" v-for="item in filteredPosts" :key="item.id">
             <div class="d-flex w-100 justify-content-between">
@@ -34,12 +32,11 @@
     </div>
   </forum-vue>
 </div>
-
 <script>
   var project = <%= { id: @project.id, title: @project.title }.to_json.html_safe %>
   var posts = <%= @posts.map { |post| { id: post.id,
                                         title: post.title,
                                         body: post.body,
-                                        created_at: post.updated_at == post.created_at ? "Postado em #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
+                                        created_at: post.updated_at == post.created_at ? "Postado a #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
                                         user_name: post.user.full_name } }.to_json.html_safe %>;
 </script>

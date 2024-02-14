@@ -6,21 +6,24 @@ export default {
       searchText: '',
       selectedFilter: '',
       project: {},
-      posts: [],
+      posts: [{title: 'teste', body: 'Teste'}],
       newPost: {
         title: '',
         body: ''
       }
     }
   },
-
-  mounted() {
-    this.posts = window.posts.map(item => ({ title: item.title,
+  
+  async mounted() {
+    console.log(this.posts)
+    this.posts = await window.posts.map(item => ({ title: item.title,
                                              body: item.body,
                                              author: item.user_name,
                                              date: item.created_at }));
     this.project = { id: window.project.id,
                      title: window.project.title };
+
+                     console.log(this.posts)
   },
 
   computed: {
@@ -40,10 +43,6 @@ export default {
   },
 
   methods: {
-    insertMessage() {
-      this.message = this.insertText;
-    },
-
     async submitForm() {
       try {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -56,6 +55,8 @@ export default {
           },
           body: JSON.stringify(this.newPost)
         });
+
+        location.reload()
 
         this.newPost.title = '';
         this.newPost.body = '';
