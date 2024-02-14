@@ -13,7 +13,7 @@ class PortfoliorrrProfile
   end
 
   def self.search(query)
-    url = "http://localhost:4000/api/v1/profiles?search=#{query}"
+    url = "http://localhost:4000/api/v1/profiles?search=#{CGI.escape query}"
     fetch_portfoliorrr_profiles(url)
   end
 
