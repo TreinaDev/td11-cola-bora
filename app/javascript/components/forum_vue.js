@@ -9,7 +9,10 @@ export default {
       project: window.project,
       posts: [],
       comments: [],
-      activePage: 'postsIndex'
+      activePage: 'postsIndex',
+      newComment: {
+        content: ''
+      }
     }
   },
 
@@ -53,6 +56,10 @@ export default {
       this.comments = this.selectedPost.comments
 
       this.activePage = 'postDetails'
+    },
+
+    async createComment() {
+
     },
     
     resetPostDetails(){

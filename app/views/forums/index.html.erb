@@ -26,7 +26,7 @@
 
         <div class="list-group">
           <p>Comentários:</p>
-          <div class="list-group-item" v-for="item in comments" :key="item.id">
+          <div class="list-group-item" v-if="comments.length > 0" v-for="item in comments" :key="item.id">
             <div class="d-flex w-100 justify-content-between">
               <p class="mb-1">{{ item.content }}</p>
 
@@ -34,9 +34,21 @@
             </div>
             <small>por {{ item.author }}</small>
           </div>
-        </div>
-        <div>
-          <button class='btn btn-outline-primary mt-3' @click="loadPosts">Voltar</button>
+          <div v-else>
+            <p>Seja o primeiro a comentar</p>
+          </div>
+          <form @submit.prevent='createComment' class="mt-4">
+            <div>
+              <label for="content" class="d-none">Conteúdo:</label>
+              <textarea id="content" v-model="newComment.content" class="form-control"></textarea>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary mt-3">Comentar</button>
+            </div>
+          </form>
+          <div>
+            <button class='btn btn-outline-primary mt-3' @click="loadPosts">Voltar</button>
+          </div>
         </div>
       </div>
     </div>

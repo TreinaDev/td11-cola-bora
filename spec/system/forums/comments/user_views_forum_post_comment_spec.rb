@@ -36,7 +36,7 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     expect(page).to have_content 'Comentários:'
     expect(page).to have_content 'Seja o primeiro a comentar'
     expect(page).to have_button 'Comentar'
-    expect(page).to have_field 'Insira seu comentário'
+    expect(page).to have_field 'Conteúdo:'
   end
 
   xit 'e não vê comentários de outras publicações'
