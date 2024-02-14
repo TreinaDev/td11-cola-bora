@@ -94,6 +94,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       end
 
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'
+      expect(page).to have_content '(3)'
       expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
       expect(page).to have_content 'Usuários disponíveis'
       expect(page).to have_content 'Lucas'
