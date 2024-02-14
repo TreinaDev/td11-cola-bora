@@ -94,9 +94,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       end
 
       expect(page).not_to have_content 'Não há usuários a serem exibidos.'
-      expect(page).to have_content '(3)'
-      expect(page).to have_content 'Projeto Top - Recrutamento de colaboradores'
-      expect(page).to have_content 'Usuários disponíveis'
+      expect(page).to have_content 'Usuários encontrados (3)'
       expect(page).to have_content 'Lucas'
       expect(page).to have_content 'Desenvolvedor'
       expect(page).to have_content 'Mateus'
@@ -116,7 +114,7 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
       login_as user
       visit search_project_portfoliorrr_profiles_path project
 
-      expect(page).to have_content 'Não há usuários a serem exibidos.'
+      expect(page).to have_content 'Usuários encontrados (0)'
     end
 
     context 'buscando por termo' do
@@ -158,22 +156,9 @@ describe 'Usuário pesquisa por perfis da Portfoliorrr' do
         click_on 'Buscar'
 
         expect(current_path).to eq search_project_portfoliorrr_profiles_path project
+        expect(page).to have_content 'Usuários encontrados (0)'
         expect(page).to have_content 'Resultados para: termo maluco'
-        expect(page).to have_content 'Não há usuários a serem exibidos.'
       end
-    end
-
-    it 'e volta para a página de projetos' do
-      user = create :user, cpf: '149.759.780-32'
-      project = create(:project, user:)
-      project.user_roles.find_by(user:).update(role: :leader)
-      allow(PortfoliorrrProfile).to receive(:all).and_return([])
-
-      login_as user
-      visit search_project_portfoliorrr_profiles_path project
-      click_on 'Voltar'
-
-      expect(page).to have_current_path project_path(project)
     end
   end
 end

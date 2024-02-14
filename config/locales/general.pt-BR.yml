@@ -6,8 +6,9 @@ pt-BR:
   unauthorized: Você não tem acesso a esse recurso
   results_to: Resultados para
   search: Busca
+  search_profiles: Digite o tipo de serviço desejado
   to_search: Buscar
-  available_users: Usuários disponíveis
+  available_users: Usuários encontrados
   no_users_to_display: Não há usuários a serem exibidos
   try_again_later: Tente novamente mais tarde
   profile: Perfil de %{name}
