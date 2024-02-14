@@ -3,10 +3,14 @@ import { ref } from "vue/dist/vue.esm-bundler.js"
 export default {
   data() {
     return {
-      searchText: 'Solução',
+      searchText: '',
       selectedFilter: '',
       project: {},
       posts: [],
+      newPost: {
+        title: '',
+        body: ''
+      }
     }
   },
 
@@ -20,7 +24,7 @@ export default {
   },
 
   computed: {
-    filteredProjects() {
+    filteredPosts() {
       const searchType = this.selectedFilter
       return this.posts.filter(post => {
         if (searchType === '') {
@@ -38,6 +42,26 @@ export default {
   methods: {
     insertMessage() {
       this.message = this.insertText;
+    },
+
+    async submitForm() {
+      try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        const response = await fetch(`/projects/${this.project.id}/posts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify(this.newPost)
+        });
+
+        this.newPost.title = '';
+        this.newPost.body = '';
+      } catch (error) {
+        console.error('Erro ao enviar o formulário:', error);
+      }
     }
   }
 }
