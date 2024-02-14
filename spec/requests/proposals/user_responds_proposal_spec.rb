@@ -13,8 +13,8 @@ describe 'Usuário responde uma solicitação' do
       # json = { data: { invitation_id: 1 } }
       # fake_response = double 'faraday_response', status: 200, body: json.to_json, success?: true
       # allow(Faraday).to receive(:post).and_return fake_response
-      create_invitation_spy = spy(CreateInvitationJob)
-      stub_const('CreateInvitationJob', create_invitation_spy)
+      create_invitation_spy = spy(PostInvitationJob)
+      stub_const('PostInvitationJob', create_invitation_spy)
 
       login_as leader, scope: :user
       post(project_portfoliorrr_profile_invitations_path(project, profile_id), params:)

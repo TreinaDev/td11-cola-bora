@@ -11,8 +11,8 @@ describe 'Usuário quer enviar convite' do
                                      job_categories: [JobCategory.new(id: 1, name: 'Desenvolvimento')])
       joao.email = 'joao@email.com'
       allow(PortfoliorrrProfile).to receive(:find).with(1).and_return(joao)
-      create_invitation_job_spy = spy(CreateInvitationJob)
-      stub_const('CreateInvitationJob', create_invitation_job_spy)
+      create_invitation_job_spy = spy(PostInvitationJob)
+      stub_const('PostInvitationJob', create_invitation_job_spy)
 
       login_as user
       visit project_portfoliorrr_profile_path(project, joao.id)

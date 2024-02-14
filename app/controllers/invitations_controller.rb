@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
     create_invitation
 
     if @invitation.save
-      CreateInvitationJob.perform_later @invitation
+      PostInvitationJob.perform_later @invitation
       flash[:notice] = t('.process')
     else
       flash[:alert] = invitation_error
