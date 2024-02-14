@@ -1,8 +1,8 @@
 <%= render 'shared/project_header', project: @project %>
 <div id="vue-app">
-  <forum-vue>{{ project }}
+  <forum-vue>
     <div class="row">
-      <div class="col-md-8 mx-auto mt-3">
+      <div v-if="activePage === 'postsIndex'" class="col-md-8 mx-auto mt-3">
         <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
         <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
 
@@ -16,20 +16,28 @@
             <small>por {{ item.author }}</small>
           </div>
         </div>
+      </div>
 
-        <div v-if="selectedPostId != null">
-          <div class="list-group">
+      <div v-if="activePage === 'postDetails'">
+        <div>
+          <h3>{{ selectedPost.title }}</h3>
+          <p>{{ selectedPost.body }}</p>
+        </div>
+
+        <div class="list-group">
+          <p>Comentários:</p>
           <div class="list-group-item" v-for="item in comments" :key="item.id">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ item.content }}</h5>
+              <p class="mb-1">{{ item.content }}</p>
+
               <small>{{ item.created_at }}</small>
             </div>
-            <p class="mb-1">{{ item.content }}</p>
             <small>por {{ item.author }}</small>
           </div>
         </div>
+        <div>
+          <button class='btn btn-outline-primary mt-3' @click="loadPosts">Voltar</button>
         </div>
-
       </div>
     </div>
   </forum-vue>
@@ -46,6 +54,7 @@
                                             id: comment.id,
                                             content: comment.content,
                                             author: comment.user_role.user.full_name,
+                                            created_at: comment.updated_at == comment.created_at ? "Postado em #{time_ago_in_words(comment.created_at)}" : "(Editado) #{time_ago_in_words(comment.updated_at)}",
                                           }
                                         },
                                         created_at: post.updated_at == post.created_at ? "Postado em #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",

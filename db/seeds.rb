@@ -180,3 +180,5 @@ FactoryBot.create(:proposal, project: pikachu_project,
 
 post = FactoryBot.create(:post, user_role: ash.user_roles.find_by(project: pikachu_project), project: pikachu_project)
 FactoryBot.create(:comment, user_role: ash.user_roles.find_by(project: pikachu_project), content: 'Bom trabalho!!', post: post)
+FactoryBot.create(:comment, user_role: ash.user_roles.find_by(project: pikachu_project), content: 'Muito bom!', post: post)
+

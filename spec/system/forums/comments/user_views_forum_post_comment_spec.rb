@@ -15,8 +15,29 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     click_on 'Fórum'
     click_on 'Post Top'
 
-    expect(page).to have_content 'Comentários'
+    expect(page).to have_content 'Comentários:'
     expect(page).to have_content 'Comentário top'
-    expect(page).to have_content "Autor: #{leader.full_name}"
+    expect(page).to have_content "por #{leader.full_name}"
   end
+
+  it 'e não tem nenhum comentário' do
+    leader = create :user, email: 'leader@email.com'
+    project = create :project, user: leader, title: 'Projeto Top'
+    leader_role = UserRole.last
+    create :post, user_role: leader_role, project:, title: 'Post Top'
+
+    login_as leader
+    visit root_path
+    click_on 'Projetos'
+    click_on 'Projeto Top'
+    click_on 'Fórum'
+    click_on 'Post Top'
+
+    expect(page).to have_content 'Comentários:'
+    expect(page).to have_content 'Seja o primeiro a comentar'
+    expect(page).to have_button 'Comentar'
+    expect(page).to have_field 'Insira seu comentário'
+  end
+
+  xit 'e não vê comentários de outras publicações'
 end

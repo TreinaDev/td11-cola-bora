@@ -5,26 +5,22 @@ export default {
     return {
       searchText: '',
       selectedFilter: '',
-      selectedPostId: null,
       selectedPost: null,
       project: window.project,
       posts: [],
-      comments: []
+      comments: [],
+      activePage: 'postsIndex'
     }
   },
 
-  async mounted() {
-    this.posts = window.posts.map(item => ({ id: item.id,
-                                             title: item.title,
-                                             body: item.body,
-                                             author: item.user_name,
-                                             date: item.created_at,
-                                             comments: item.comments }));
-    await showPostDetails;
+  mounted() {
+    this.loadPosts();
   },
 
   computed:{
     filteredPosts() {
+      this.resetPostDetails();
+
       const searchType = this.selectedFilter
       return this.posts.filter(post => {
         if (searchType === '') {
@@ -39,18 +35,30 @@ export default {
     }
   },
   
-
   methods: {
-    async insertMessage() {
-      this.message = this.insertText;
+    loadPosts(){
+      this.posts = window.posts.map(item => ({ id: item.id,
+        title: item.title,
+        body: item.body,
+        author: item.user_name,
+        date: item.created_at,
+        comments: item.comments }));
+
+        this.activePage = 'postsIndex'
     },
 
-    async showPostDetails(id) {
-      this.selectedPostId = id;
-
+    showPostDetails(id) {
       this.selectedPost = this.posts.find(post => post.id === id);
 
       this.comments = this.selectedPost.comments
+
+      this.activePage = 'postDetails'
+    },
+    
+    resetPostDetails(){
+      this.selectedPostId = null;
+
+      this.selectedPost = null;
     }
   }
 }

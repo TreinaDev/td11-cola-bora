@@ -31,7 +31,8 @@
     <%= link_to t('forum.title'),
                 project_forum_path(project),
                 class: "nav-item nav-link link-body-emphasis
-                #{'active' if request.path.include?('/forum')}" %>
+                #{'active' if request.path.include?('/forum')}",
+                data: { turbo: false } %>
     <% if project.leader?(current_user) %>
       <%= link_to t(:search_users_btn),
                 search_project_portfoliorrr_profiles_path(project),
