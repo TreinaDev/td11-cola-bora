@@ -1,5 +1,5 @@
 class PortfoliorrrProfile
-  attr_accessor :id, :name, :email, :job_categories, :cover_letter
+  attr_accessor :id, :name, :email, :job_categories, :cover_letter, :professional_infos, :education_infos
 
   def initialize(id:, name:, job_categories:)
     @id = id
@@ -26,6 +26,7 @@ class PortfoliorrrProfile
     profile_json = JSON.parse(response.body, symbolize_names: true)[:data]
     profile = new_profile(profile_json)
     profile.build_details(profile_json)
+    profile
   rescue Faraday::ConnectionFailed
     {}
   end
@@ -50,8 +51,19 @@ class PortfoliorrrProfile
   def build_details(profile_json)
     @email = profile_json[:email]
     @cover_letter = profile_json[:cover_letter]
-    self
+    @professional_infos = profile_json[:professional_infos]
+    @education_infos = profile_json[:education_infos]
+    convert_dates(@professional_infos, @education_infos)
   end
 
   private_class_method :fetch_portfoliorrr_profiles, :new_profile
+
+  private
+
+  def convert_dates(*attribute_array)
+    attribute_array.flatten.each do |attribute|
+      attribute[:start_date] = Date.parse(attribute[:start_date])
+      attribute[:end_date] = Date.parse(attribute[:end_date])
+    end
+  end
 end

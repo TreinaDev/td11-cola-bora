@@ -1,6 +1,4 @@
-<%= link_to t('back'), search_project_portfoliorrr_profiles_path(@project), class: 'btn btn-secondary' %>
-
-<h1><%= t('profile_search_title', project_title: @project.title) %></h1>
+<%= render 'shared/project_header', project: @project %>
 
 <% if @portfoliorrr_profile.present? %>
   <section>
@@ -42,6 +40,45 @@
               </div>
             </div>
           <% end %>
+
+          <h2><%= t('portfoliorrr_profile.attributes.education_infos')%></h2>
+
+          <% @portfoliorrr_profile.education_infos&.each do |education| %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-4">
+                  <div class="card-body">
+                    <h4><%= education[:institution] %></h4>
+                    <hr>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.institution') %>:</strong> <%= education[:institution] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.course') %>:</strong> <%= education[:course] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= l education[:start_date] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= l education[:end_date] %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <h2><%= t('portfoliorrr_profile.attributes.professional_infos') %></h2>
+
+          <% @portfoliorrr_profile.professional_infos&.each do |professional| %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-4">
+                  <div class="card-body">
+                    <h4><%= professional[:company] %></h4>
+                    <hr>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.position') %>:</strong> <%= professional[:position] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= l professional[:start_date] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= l professional[:end_date] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.description') %>:</strong> <%= professional[:description] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.current_job') %>:</strong> <%= professional[:current_job] ? t('positive') : t('negative') %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
 
         <div class="col-lg-4">
@@ -51,11 +88,12 @@
               <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
             </div>
           </div>
-          <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation,
-                                                          invitation: @invitation,
-                                                          profile: @portfoliorrr_profile,
-                                                          project: @project,
-                                                          current_proposal: @current_proposal } %>
+          <%= render partial: 'invitation_form', 
+                     locals: { current_invitation: @current_invitation,
+                               invitation: @invitation,
+                               profile: @portfoliorrr_profile,
+                               project: @project,
+                               current_proposal: @current_proposal } %>
         </div>
       </div>
     </div>
