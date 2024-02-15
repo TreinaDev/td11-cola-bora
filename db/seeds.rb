@@ -134,44 +134,67 @@ FactoryBot.create(:invitation, project: ash_project2, profile_email: brock.email
 FactoryBot.create(:invitation, project: ash_project3, profile_email: brock.email,
                                expiration_days: '', status: :processing)
 
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 5,
+                               profile_id: 89, status: :pending)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: nil,
+                               profile_id: 90, status: :pending)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 7,
+                               profile_id: 91, status: :accepted)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 8,
+                               profile_id: 93, status: :declined)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 10,
+                               profile_id: 94, status: :cancelled)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: nil,
+                               profile_id: 95, status: :expired)
+FactoryBot.create(:invitation, project: pikachu_project, expiration_days: 2,
+                               profile_id: 96, status: :processing)
+
 
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 1,
+                             profile_id: 50,
+                             portfoliorrr_proposal_id: 101,
                              status: :pending,
                              email: 'gary@email.com,',
                              message: 'Olá! Gostaria de fazer parte de seu projeto')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 2,
-                             status: :accepted,
+                             profile_id: 51,
+                             portfoliorrr_proposal_id: 102,
+                              status: :accepted,
                              email: 'misty2@email.com',
                              message: 'Me aceita!!!')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 3,
+                             profile_id: 52,
+                             portfoliorrr_proposal_id: 103,
                              status: :declined,
                              email: 'jessie_rocket@email.com',
                              message: 'Eu prometo que não quero roubar o Pikachu')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 4,
+                             profile_id: 53,
+                             portfoliorrr_proposal_id: 104,
                              status: :pending,
                              email: 'ash_ketchum@email.com',
                              message: 'Oi! Estou super interessado no seu projeto, posso ajudar?')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 5,
+                             profile_id: 54,
+                             portfoliorrr_proposal_id: 105,
                              status: :accepted,
                              email: 'brock_rock@email.com',
                              message: 'Por favor, aceite minha proposta. Estou pronto para começar a trabalhar!')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 6,
+                             profile_id: 55,
+                             portfoliorrr_proposal_id: 106,
                              status: :cancelled,
                              email: 'professor_oak@email.com',
                              message: 'Infelizmente não posso participar neste momento. Boa sorte com o projeto!')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 7,
+                             profile_id: 56,
+                             portfoliorrr_proposal_id: 107,
                              status: :pending,
                              email: 'team_rocket@email.com',
                              message: 'Preparem-se para se render, ou enfrentem a nossa ira!')
 FactoryBot.create(:proposal, project: pikachu_project,
-                             portfoliorrr_proposal_id: 8,
+                             profile_id: 57,
+                             portfoliorrr_proposal_id: 108,
                              status: :accepted,
                              email: 'giovanni_boss@email.com',
                              message: 'Aceite minha proposta e sua jornada será bem recompensada!')
