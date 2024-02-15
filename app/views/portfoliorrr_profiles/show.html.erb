@@ -108,6 +108,8 @@
     </div>
   </section>
 <% else %>
-  <h3><%= t('profile_not_available') %></h3>
-  <h3><%= t('try_again_later') %></h3>
+  <div class="text-center mt-5">
+    <p class="display-6 fs-3"><%= t('profile_not_available') %></p>
+    <p class="text-muted display-6 fs-5"><%= t('try_again_later') %></p>
+  </div>
 <% end %>
