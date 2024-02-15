@@ -175,10 +175,12 @@ FactoryBot.create(:proposal, project: pikachu_project,
                              status: :accepted,
                              email: 'giovanni_boss@email.com',
                              message: 'Aceite minha proposta e sua jornada será bem recompensada!')
+                             
 
+ash_post = FactoryBot.create(:post, user_role: ash.user_roles.find_by(project: pikachu_project), project: pikachu_project)
+FactoryBot.create(:comment, user_role: misty.user_roles.find_by(project: pikachu_project), content: 'Bom trabalho, Ash!!', post: ash_post)
+FactoryBot.create(:comment, user_role: brock.user_roles.find_by(project: pikachu_project), content: 'Muito bom, Ash!', post: ash_post)
 
-
-post = FactoryBot.create(:post, user_role: ash.user_roles.find_by(project: pikachu_project), project: pikachu_project)
-FactoryBot.create(:comment, user_role: ash.user_roles.find_by(project: pikachu_project), content: 'Bom trabalho!!', post: post)
-FactoryBot.create(:comment, user_role: ash.user_roles.find_by(project: pikachu_project), content: 'Muito bom!', post: post)
-
+brock_post = FactoryBot.create(:post, user_role: brock.user_roles.find_by(project: pikachu_project), project: pikachu_project)
+FactoryBot.create(:comment, user_role: misty.user_roles.find_by(project: pikachu_project), content: 'Bom trabalho, Brock!!', post: brock_post)
+FactoryBot.create(:comment, user_role: ash.user_roles.find_by(project: pikachu_project), content: 'Muito bom, Brock!', post: brock_post)

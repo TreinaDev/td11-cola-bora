@@ -23,8 +23,6 @@ export default {
 
   computed:{
     filteredPosts() {
-      this.resetPostDetails();
-
       const searchType = this.selectedFilter
       return this.posts.filter(post => {
         if (searchType === '') {
@@ -82,6 +80,6 @@ export default {
       this.newComment = {
         content: ''
       }
-    }
+    },
   }
 }
