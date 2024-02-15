@@ -11,7 +11,7 @@ RSpec.describe InvitationHelper, type: :helper do
     it 'retorna tempo em dias para expiração do convite' do
       invitation = create :invitation, expiration_days: 5
 
-      expect(invitation_expiration_date(invitation)).to eq 'Expira em 4 dias'
+      expect(invitation_expiration_date(invitation)).to eq 'Expira em 5 dias'
     end
   end
 end
