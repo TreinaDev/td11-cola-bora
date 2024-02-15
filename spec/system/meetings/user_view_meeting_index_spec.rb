@@ -86,4 +86,22 @@ describe 'Usuário vê página de reuniões de um projeto' do
     expect(page).not_to have_content 'Adicione participantes para notificá-los'
     expect(page).not_to have_content 'Lista de Participantes'
   end
+
+  it 'e acessa uma reunião de um participante removido do projeto' do
+    leader = create :user, cpf: '850.265.590-69', email: 'participant1@email.com'
+    project = create :project, user: leader
+    author = create :user, cpf: '875.898.470-46'
+    author.profile.update first_name: 'João', last_name: 'Almeida'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    meeting = create :meeting, project:, user_role: author_role, title: 'Planejamento estratégico',
+                               description: 'Vamos planejar a estratégia'
+    author_role.update active: false
+
+    login_as leader
+    visit project_meeting_path project, meeting
+
+    expect(page).to have_content 'João Almeida'
+    expect(page).to have_content 'Planejamento estratégico'
+    expect(page).to have_content 'Vamos planejar a estratégia'
+  end
 end
