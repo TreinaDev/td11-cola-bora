@@ -65,7 +65,7 @@
                                             id: comment.id,
                                             content: comment.content,
                                             author: comment.user_role.user.full_name,
-                                            created_at: comment.updated_at == comment.created_at ? "Postado em #{time_ago_in_words(comment.created_at)}" : "(Editado) #{time_ago_in_words(comment.updated_at)}",
+                                            created_at: comment.updated_at == comment.created_at ? "Postado há #{time_ago_in_words(comment.created_at)}" : "(Editado) #{time_ago_in_words(comment.updated_at)}",
                                           }
                                         },
                                         created_at: post.updated_at == post.created_at ? "Postado em #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",

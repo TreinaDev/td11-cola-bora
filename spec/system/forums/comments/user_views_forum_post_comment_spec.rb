@@ -6,7 +6,7 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     project = create :project, user: leader, title: 'Projeto Top'
     leader_role = UserRole.last
     post = create :post, user_role: leader_role, project:, title: 'Post Top'
-    create :comment, user_role: leader_role, post:, content: 'Comentário top'
+    comment = create :comment, user_role: leader_role, post:, content: 'Comentário top'
 
     login_as leader
     visit root_path
@@ -18,6 +18,7 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     expect(page).to have_content 'Comentários:'
     expect(page).to have_content 'Comentário top'
     expect(page).to have_content "por #{leader.full_name}"
+    expect(page).to have_content comment.formatted_date
   end
 
   it 'e não tem nenhum comentário' do
