@@ -39,7 +39,6 @@ export default {
 
   methods: {
     loadPosts(){
-      console.log(window.posts)
       this.posts = window.posts.map(item => ({ id: item.id,
         title: item.title,
         body: item.body,

@@ -30,14 +30,14 @@
         </div>
       </div>
     </div>
-  </forum-vue>
+  </forum-vue>ss
 </div>
 <script>
   var project = <%= { id: @project.id, title: @project.title }.to_json.html_safe %>
   var posts = <%= @posts.map { |post| { id: post.id,
                                         title: post.title,
                                         body: post.body,
-                                        date: post.updated_at == post.created_at ? "Postado há #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
+                                        date: "Postado há #{time_ago_in_words(post.created_at)}",
                                         author: post.user.full_name } }.to_json.html_safe %>;
   var errors = <%= { error: @errors }.to_json.html_safe %>;
 </script>

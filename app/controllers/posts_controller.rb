@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   private
 
   def json_response(post)
-    { id: post.id, title: post.title, body: post.body, author: post.user.full_name }
+    { id: post.id, title: post.title, body: post.body, author: post.user.full_name, date: 'Postado agora' }
   end
 
   def set_project
