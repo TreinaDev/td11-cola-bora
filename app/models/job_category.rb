@@ -1,6 +1,9 @@
 class JobCategory
   attr_accessor :id, :name, :description
 
+  URL = Rails.configuration.portfoliorrr_api[:base_url] +
+        Rails.configuration.portfoliorrr_api[:job_endpoint]
+
   def initialize(id:, name:, description: nil)
     @id = id
     @name = name
@@ -8,8 +11,7 @@ class JobCategory
   end
 
   def self.all
-    url = 'http://localhost:4000/api/v1/job_categories'
-    fetch_job_categories(url)
+    fetch_job_categories(URL)
   end
 
   def self.fetch_job_categories_by_project(project_job_categories)
@@ -22,8 +24,7 @@ class JobCategory
   end
 
   def self.find(id)
-    url = "http://localhost:4000/api/v1/job_categories/#{id}"
-    response = Faraday.get(url)
+    response = Faraday.get(URL + id.to_s)
 
     return {} unless response.success?
 

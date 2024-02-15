@@ -1,12 +1,12 @@
 module ProposalService
-  PORTFOLIORRR_BASE_URL = 'http://localhost:4000'.freeze
-  PORTFOLIORRR_PROPOSAL_URL = '/api/v1/invitation_request/'.freeze
+  URL = Rails.configuration.portfoliorrr_api[:base_url] +
+        Rails.configuration.portfoliorrr_api[:proposal_endpoint]
 
   class Decline
     def self.send(proposal)
       return unless proposal.processing?
 
-      url = PORTFOLIORRR_BASE_URL + PORTFOLIORRR_PROPOSAL_URL + proposal.portfoliorrr_proposal_id.to_s
+      url = URL + proposal.portfoliorrr_proposal_id.to_s
       header = { 'Content-Type': 'application/json' }
 
       return proposal.declined! if Faraday.patch(url, header).success?

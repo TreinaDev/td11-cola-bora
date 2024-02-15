@@ -1,6 +1,7 @@
 module InvitationService
-  PORTFOLIORRR_BASE_URL = 'http://localhost:4000'.freeze
-  PORTFOLIORRR_INVITATION_URL = '/api/v1/invitations/'.freeze
+  URL = Rails.configuration.portfoliorrr_api[:base_url] +
+        Rails.configuration.portfoliorrr_api[:invitation_endpoint]
+
   class PortfoliorrrPost
     def self.send(invitation)
       @invitation = invitation
@@ -31,9 +32,8 @@ module InvitationService
 
       def post_connection
         headers = { 'Content-Type': 'application/json' }
-        url = "#{PORTFOLIORRR_BASE_URL}#{PORTFOLIORRR_INVITATION_URL}"
 
-        @response = Faraday.post(url, set_json.to_json, headers)
+        @response = Faraday.post(URL, set_json.to_json, headers)
       end
 
       def post_success
@@ -53,9 +53,9 @@ module InvitationService
   class PortfoliorrrPatch
     def self.send(invitation, status)
       headers = { 'Content-Type': 'application/json' }
-      url = "#{PORTFOLIORRR_BASE_URL}#{PORTFOLIORRR_INVITATION_URL}#{invitation.portfoliorrr_invitation_id}"
       json = { status: }
 
+      url = URL + invitation.id.to_s
       response = Faraday.patch(url, json.to_json, headers)
 
       return true if response.success?
