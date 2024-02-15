@@ -3,3 +3,9 @@
 @import 'style.scss';
 @import 'bootstrap_overwrite';
 @import 'simple_calendar';
+@import 'app_theme';
+
+.form-control:focus {
+  border-color: $colaBoraGreen;
+  box-shadow: 0 0 0 0.2rem rgba(19, 121, 91, 0.075);
+}
