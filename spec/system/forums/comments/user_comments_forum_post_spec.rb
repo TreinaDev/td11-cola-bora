@@ -16,8 +16,8 @@ describe 'Usuário comenta em post do fórum' do
     fill_in 'Conteúdo:', with: 'Muito boa sugestão!!'
     click_on 'Comentar'
 
-    expect(page).not_to have_content 'Seja o primeiro a comentar'
     expect(Comment.count).to eq 1
+    expect(page).not_to have_content 'Seja o primeiro a comentar'
     expect(page).to have_content 'Muito boa sugestão!!'
     expect(page).to have_content "por #{leader.full_name}"
     expect(page).to have_content "Postado em #{time_ago_in_words(Comment.last.created_at)}"

@@ -59,28 +59,20 @@ export default {
     },
 
     async createComment() {
-      try {
-        const response = await fetch('/comments', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.newComment)
-        });
+      const response = await fetch(`/posts/${this.selectedPost.id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ comment: this.newComment })
+      })
 
-        if (!response.ok){
-          throw new Error('Erro ao criar comentário');
-        }
-
-        this.newComment = await response.json();
-
-        this.comments.push(newComment)
-
-        this.newComment.content = ''
-
-        console.log('Comentário criado com sucesso:', newComment);
-      } catch (error) {
-        console.error('Erro ao criar comentário:', error);
+      const data = await response.json()
+      console.log(data);
+      this.comments.push(data)
+      this.newComment = {
+        content: ''
       }
     },
     
@@ -89,9 +81,5 @@ export default {
 
       this.selectedPost = null;
     },
-
-    createComment(){
-
-    }
   }
 }

@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     resources :calendars, only: %i[index]
 
     get 'forum', to: 'forums#index'
+  end
+
+  resources :posts, only: [] do
     resources :comments, only: %i[create]
   end
 
