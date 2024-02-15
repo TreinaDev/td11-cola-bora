@@ -5,7 +5,7 @@ export default {
     return {
       searchText: '',
       selectedFilter: '',
-      selectedPost: null,
+      selectedPost: '',
       project: window.project,
       posts: [],
       comments: [],
@@ -82,12 +82,6 @@ export default {
       this.newComment = {
         content: ''
       }
-    },
-    
-    resetPostDetails(){
-      this.selectedPostId = null;
-
-      this.selectedPost = null;
-    },
+    }
   }
 }
