@@ -8,7 +8,7 @@ describe 'Usuário anexa documento ao projeto' do
 
       login_as user, scope: :user
       visit root_path
-      within 'nav' do
+      within '#navbar' do
         click_on 'Projetos'
       end
       click_on 'Projeto teste'

@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index]
   before_action :set_project, only: %i[show edit update destroy members invitations]
   before_action :check_contributor, only: %i[show edit update destroy members invitations]
   before_action :check_leader, only: %i[edit update invitations]
@@ -6,6 +7,7 @@ class ProjectsController < ApplicationController
   before_action :set_project_job_categories, only: %i[show edit]
 
   def index
+    return redirect_to home_path unless user_signed_in?
     return @projects = current_user.contributing_projects if params[:filter] == 'contributing_projects'
     return @projects = current_user.my_projects if params[:filter] == 'my_projects'
 
