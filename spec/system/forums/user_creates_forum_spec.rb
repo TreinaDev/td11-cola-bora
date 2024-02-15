@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário cria um novo tópico no forum' do
-  it 'a partir da tela do projeto' do
+  it 'a partir da tela do projeto', js: true do
     user = create(:user)
     project = create(:project, user:)
 
@@ -11,12 +11,12 @@ describe 'Usuário cria um novo tópico no forum' do
     fill_in 'title', with: 'Esse é meu jeito de viver'
     fill_in 'body', with: 'De quem nunca que foi igual.'
 
-    click_on 'Postar'
+    click_button 'Postar'
 
-    expect(Post.count).to eq 1
     expect(page).to have_content 'Esse é meu jeito de viver'
     expect(page).to have_content 'De quem nunca que foi igual.'
     expect(page).to have_content 'Postado a menos de um minuto'
     expect(page).to have_content 'por Ash Ketchum'
+    expect(Post.count).to eq 1
   end
 end

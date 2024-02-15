@@ -11,7 +11,7 @@ export default {
         title: '',
         body: ''
       },
-      errors: window.errors
+      errors: []
     }
   },
   
@@ -51,22 +51,24 @@ export default {
 
     async submitForm() {
       try { 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        const response = await fetch(`/projects/${this.project.id}/posts`, {
+        const response = await fetch(`/api/v1/projects/${this.project.id}/posts`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': csrfToken
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(this.newPost)
         });
 
         const data = await response.json()
-        console.log(data)
+        console.log(data.errors)
         this.posts.unshift(data)
         this.newPost.title = ''
         this.newPost.body = ''
+        if(data.errors.length > 0){
+          this.errors = data.errors
+        }
+
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
       }

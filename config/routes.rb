@@ -57,7 +57,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :projects, only: %i[index]
+      resources :projects, only: %i[index] do
+        resources :posts, only: %i[create]
+      end
       resources :invitations, only: %i[index update]
       resources :proposals, only: %i[create update]
     end

@@ -19,11 +19,10 @@
           </div>
         </form>
         <div class="list-group">
-          <div class="list-group-item py-3" v-for="item, index in filteredPosts" :key="item.id">
+          <div class="list-group-item py-3" v-for="item in filteredPosts" :key="item.id">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ item.title }}</h5>
               <small>{{ item.date }}</small>
-              <small>{{ index }}</small>
             </div>
             <p class="mb-1">{{ item.body }}</p>
             <small>por {{ item.author }}</small>
@@ -31,7 +30,7 @@
         </div>
       </div>
     </div>
-  </forum-vue>ss
+  </forum-vue>
 </div>
 <script>
   var project = <%= { id: @project.id, title: @project.title }.to_json.html_safe %>

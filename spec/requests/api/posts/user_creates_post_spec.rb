@@ -6,7 +6,7 @@ describe 'Usuário cria postagem' do
     project = create(:project, user:)
 
     login_as user, scope: :user
-    post project_posts_path(project),
+    post api_v1_project_posts_path(project),
          params: { post: { title: 'Postagem inicial', body: 'Vamos abordar boas práticas' } }
 
     expect(Post.count).to eq 1
@@ -21,11 +21,12 @@ describe 'Usuário cria postagem' do
     create(:project, user: not_colaborator)
 
     login_as not_colaborator, scope: :user
-    post project_posts_path(project),
+    post api_v1_project_posts_path(project),
          params: { post: { title: 'Postagem inicial', body: 'Vamos abordar boas práticas' } }
 
     expect(Post.count).to eq 0
-    expect(response).to redirect_to root_path
-    expect(flash[:alert]).to eq 'Você não é um colaborador desse projeto.'
+    expect(response).to have_http_status :forbidden
+    json_response = JSON.parse(response.body)
+    expect(json_response['error']).to eq 'Você não possui permissão.'
   end
 end
