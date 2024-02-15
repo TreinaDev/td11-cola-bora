@@ -10,6 +10,7 @@ describe 'Usuário cria um novo tópico no forum' do
     click_on 'Fórum'
     fill_in 'title', with: 'Esse é meu jeito de viver'
     fill_in 'body', with: 'De quem nunca que foi igual.'
+
     click_on 'Postar'
 
     expect(Post.count).to eq 1

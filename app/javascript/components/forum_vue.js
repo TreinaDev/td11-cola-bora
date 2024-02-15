@@ -50,7 +50,7 @@ export default {
     },
 
     async submitForm() {
-      try {
+      try { 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         const response = await fetch(`/projects/${this.project.id}/posts`, {
