@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário comenta em post do fórum' do
-  it 'com sucesso' do
+  it 'com sucesso', js: true do
     leader = create :user, email: 'leader@email.com'
     project = create :project, user: leader, title: 'Projeto Top'
     leader_role = UserRole.last
@@ -16,11 +16,11 @@ describe 'Usuário comenta em post do fórum' do
     fill_in 'Conteúdo:', with: 'Muito boa sugestão!!'
     click_on 'Comentar'
 
-    expect(Comment.count).to eq 1
     expect(page).not_to have_content 'Seja o primeiro a comentar'
     expect(page).to have_content 'Muito boa sugestão!!'
     expect(page).to have_content "por #{leader.full_name}"
     expect(page).to have_content "Postado em #{time_ago_in_words(Comment.last.created_at)}"
+    expect(Comment.count).to eq 1
   end
 
   xit 'com campo em branco'

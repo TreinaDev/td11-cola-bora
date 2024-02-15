@@ -68,9 +68,11 @@ export default {
         body: JSON.stringify({ comment: this.newComment })
       })
 
+      console.log(response)
+
       const data = await response.json()
-      console.log(data);
       this.comments.push(data)
+
       this.newComment = {
         content: ''
       }
