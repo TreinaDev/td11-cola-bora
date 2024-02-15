@@ -12,7 +12,8 @@ export default {
       activePage: 'postsIndex',
       newComment: {
         content: ''
-      }
+      },
+      errorMessages: ''
     }
   },
 
@@ -59,16 +60,23 @@ export default {
     },
 
     async createComment() {
-      const response = await fetch(`/posts/${this.selectedPost.id}/comments`, {
+      this.errorMessages = ''
+
+      const response = await fetch(`/api/v1/posts/${this.selectedPost.id}/comments`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ comment: this.newComment })
       })
 
       const data = await response.json()
+      console.log(data.errors)
+
+      if (!response.ok) {
+        return this.errorMessages = data.errors
+      } 
+
       this.comments.push(data)
 
       this.newComment = {

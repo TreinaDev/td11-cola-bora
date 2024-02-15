@@ -33,10 +33,6 @@ Rails.application.routes.draw do
     get 'forum', to: 'forums#index'
   end
 
-  resources :posts, only: [] do
-    resources :comments, only: %i[create]
-  end
-
   resources :user_roles, only: [] do
     patch :remove, on: :member
   end
@@ -63,6 +59,9 @@ Rails.application.routes.draw do
       resources :projects, only: %i[index]
       resources :invitations, only: %i[index update]
       resources :proposals, only: %i[create update]
+      resources :posts, only: %i[] do
+        resources :comments, only: %i[create]
+      end
     end
   end
 end

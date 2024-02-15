@@ -7,13 +7,13 @@
         <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
 
         <div class="list-group">
-          <div class="list-group-item" v-for="item in filteredPosts" :key="item.id">
+          <div class="list-group-item" v-for="post in filteredPosts" :key="post.id">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><a href="#" @click.prevent="showPostDetails(item.id)"> {{ item.title }}</a></h5>
-              <small>{{ item.date }}</small>
+              <h5 class="mb-1"><a href="#" @click.prevent="showPostDetails(post.id)"> {{ post.title }}</a></h5>
+              <small>{{ post.date }}</small>
             </div>
-            <p class="mb-1">{{ item.body }}</p>
-            <small>por {{ item.author }}</small>
+            <p class="mb-1">{{ post.body }}</p>
+            <small>por {{ post.author }}</small>
           </div>
         </div>
       </div>
@@ -26,13 +26,13 @@
 
         <div class="list-group">
           <p>Comentários:</p>
-          <div class="list-group-item" v-if="comments.length > 0" v-for="item in comments" :key="item.id">
+          <div class="list-group-item" v-if="comments.length > 0" v-for="comment in comments" :key="comment.id">
             <div class="d-flex w-100 justify-content-between">
-              <p class="mb-1">{{ item.content }}</p>
+              <p class="mb-1">{{ comment.content }}</p>
 
-              <small>{{ item.created_at }}</small>
+              <small>{{ comment.created_at }}</small>
             </div>
-            <small>por {{ item.author }}</small>
+            <small>por {{ comment.author }}</small>
           </div>
           <div v-else>
             <p>Seja o primeiro a comentar</p>
@@ -41,6 +41,9 @@
             <div>
               <label for="content" class="d-none">Conteúdo:</label>
               <textarea id="content" v-model="newComment.content" placeholder='Insira um comentário' class="form-control"></textarea>
+              <div v-if="errorMessages.length > 0" v-for="msg in errorMessages">
+                <small class="text-danger">{{ msg }}</small>
+              </div>
             </div>
             <div>
               <button type="submit" class="btn btn-primary mt-3">Comentar</button>

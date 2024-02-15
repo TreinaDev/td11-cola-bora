@@ -11,7 +11,7 @@ describe 'Usuário cria comentário em postagem do fórum' do
     params = { comment: { content: 'Muito bom!!' } }
 
     login_as comment_author
-    post post_comments_path(post, params:)
+    post api_v1_post_comments_path(post, params:)
 
     expect(response).to have_http_status :created
     expect(response.content_type).to include 'application/json'
@@ -27,7 +27,7 @@ describe 'Usuário cria comentário em postagem do fórum' do
     post_author_role = create :user_role, project:, user: post_author, role: :contributor
     post = create :post, project:, user_role: post_author_role
 
-    post post_comments_path(post, params: '')
+    post api_v1_post_comments_path(post, params: '')
 
     expect(response).to redirect_to new_user_session_path
   end
@@ -42,7 +42,7 @@ describe 'Usuário cria comentário em postagem do fórum' do
     params = { comment: { content: '' } }
 
     login_as comment_author
-    post post_comments_path(post, params:)
+    post api_v1_post_comments_path(post, params:)
 
     expect(response).to have_http_status :unprocessable_entity
     expect(Comment.count).to eq 0
@@ -57,7 +57,7 @@ describe 'Usuário cria comentário em postagem do fórum' do
     params = { comment: { content: 'Péssimo post!' } }
 
     login_as non_member
-    post post_comments_path(post, params:)
+    post api_v1_post_comments_path(post, params:)
 
     expect(response).to have_http_status :unauthorized
     expect(Comment.count).to eq 0
