@@ -26,6 +26,9 @@
 
   <div class="mb-3">
     <%= f.label :file, class: 'form-label required' %>
+    <div class="small mb-2 text-secondary">
+      <small><%= t(:allowed_extensions) %></small>
+    </div>
     <%= f.file_field :file, class: 'form-control' %>
   </div>
 

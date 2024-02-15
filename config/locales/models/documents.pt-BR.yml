@@ -38,3 +38,4 @@ pt-BR:
   document_size: Tamanho
   document_extension: Tipo
   document_filename: Nome do arquivo
+  allowed_extensions: "Tipos permitidos: jpg, png, mp4, mp3, pdf, docx, xlsx, ppt, csv, zip"
