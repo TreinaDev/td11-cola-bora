@@ -25,7 +25,7 @@
         </div>
 
         <div class="list-group">
-          <p>Comentários:</p>
+          <p><%= t(Comment.model_name.human(count: 2))%>:</p>
           <div class="list-group-item" v-if="comments.length > 0" v-for="comment in comments" :key="comment.id">
             <div class="d-flex w-100 justify-content-between">
               <p class="mb-1">{{ comment.content }}</p>
@@ -35,22 +35,22 @@
             <small>por {{ comment.author }}</small>
           </div>
           <div v-else>
-            <p>Seja o primeiro a comentar</p>
+            <p><%= t('comments.first') %></p>
           </div>
           <form @submit.prevent='createComment' class="mt-4">
             <div>
-              <label for="content" class="d-none">Conteúdo:</label>
-              <textarea id="content" v-model="newComment.content" placeholder='Insira um comentário' class="form-control"></textarea>
+              <label for="content" class="d-none"><%= Comment.human_attribute_name :content %>:</label>
+              <textarea id="content" v-model="newComment.content" placeholder="<%= t('comments.comment_placeholder') %>" class="form-control"></textarea>
               <div v-if="errorMessages.length > 0" v-for="msg in errorMessages">
                 <small class="text-danger">{{ msg }}</small>
               </div>
             </div>
             <div>
-              <button type="submit" class="btn btn-primary mt-3">Comentar</button>
+              <button type="submit" class="btn btn-primary mt-3"><%= t('comments.comment_btn')%></button>
             </div>
           </form>
           <div>
-            <button class='btn btn-outline-primary mt-3' @click="loadPosts">Voltar</button>
+            <button class='btn btn-outline-primary mt-3' @click="loadPosts"><%= t('back')%></button>
           </div>
         </div>
       </div>
