@@ -1,6 +1,6 @@
 <%= render 'shared/project_header', project: @project %>
 <div id="vue-app">
-  <forum-vue>{{ project.title }}
+  <forum-vue>
     <div class="row">
       <div class="col-md-8 mx-auto mt-3">
         <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
@@ -21,6 +21,9 @@
             <button type="submit" class="btn btn-primary mb-3 mt-1">Postar</button>
           </div>
         </form>
+        <div v-if="filteredPosts.length === 0">
+          <h3>Não existem postagens.</h3>
+        </div>
         <div class="card h-20 mb-3" v-for="item in filteredPosts" :key="item.id">
           <div class="card-header border-bottom border-3 border-success text-success bg-light bg-gradient display-6 fs-5">
             {{ item.title }}

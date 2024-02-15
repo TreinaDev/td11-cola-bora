@@ -17,4 +17,15 @@ describe 'Usuário vê página de fórum de um projeto' do
     expect(page).to have_content 'Como vivemos?'
     expect(page).to have_content 'Da melhor maneira'
   end
+
+  it 'e não há postagens' do
+    user = create(:user)
+    project = create(:project, user:)
+
+    login_as(user, scope: :user)
+    visit project_path(project)
+    click_on 'Fórum'
+
+    expect(page).to have_content 'Não existem postagens.'
+  end
 end

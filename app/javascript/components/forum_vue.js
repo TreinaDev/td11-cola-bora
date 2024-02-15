@@ -1,4 +1,4 @@
-import { ref } from "vue/dist/vue.esm-bundler.js"
+
 
 export default {
   data() {
@@ -6,7 +6,7 @@ export default {
       searchText: '',
       selectedFilter: '',
       project: {},
-      posts: ref([]),
+      posts: [],
       newPost: {
         title: '',
         body: ''
@@ -64,7 +64,7 @@ export default {
 
         const data = await response.json()
         if (response.ok) {
-          this.posts.unshift(data);
+          this.filteredPosts.unshift(data);
           this.newPost.title = ''
           this.newPost.body = ''
         } else {
