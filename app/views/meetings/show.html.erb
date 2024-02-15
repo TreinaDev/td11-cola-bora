@@ -4,7 +4,7 @@
 
 <dl>
   <dt><%= Meeting.human_attribute_name :user_role %></dt>
-  <dd><%= @meeting.user_role.user.email %></dd>
+  <dd><%= @meeting.user_role.user.full_name %></dd>
 
   <dt><%= Meeting.human_attribute_name :duration %></dt>
   <dd><%= format_duration(@meeting.duration) %></dd>

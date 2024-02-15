@@ -64,4 +64,22 @@ describe 'Usuário vê tarefas' do
     expect(page).to have_link 'Tarefa 4'
     expect(current_path).to eq project_tasks_path(project)
   end
+
+  it 'e acessa uma tarefa de um participante removido do projeto' do
+    leader = create :user, cpf: '850.265.590-69', email: 'participant1@email.com'
+    project = create :project, user: leader
+    author = create :user, cpf: '875.898.470-46'
+    author.profile.update first_name: 'João', last_name: 'Almeida'
+    author_role = create :user_role, project:, user: author, role: :contributor
+    task = create :task, project:, user_role: author_role, title: 'Planejamento estratégico',
+                         description: 'Vamos planejar a estratégia'
+    author_role.update active: false
+
+    login_as leader
+    visit project_task_path project, task
+
+    expect(page).to have_content 'João Almeida'
+    expect(page).to have_content 'Planejamento estratégico'
+    expect(page).to have_content 'Vamos planejar a estratégia'
+  end
 end
