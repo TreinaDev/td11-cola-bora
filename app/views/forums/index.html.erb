@@ -7,19 +7,19 @@
         <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
         <form @submit.prevent="submitForm">
           <div>
-            <label for="title" class="form-label">Título</label>
+            <label for="title" class="form-label"><%= Post.human_attribute_name('title') %></label>
             <input type="text" id="title" v-model="newPost.title" class="form-control">
           </div>
           <div>
-            <label for="body" class="form-label">Corpo</label>
+            <label for="body" class="form-label"><%= Post.human_attribute_name('body') %></label>
             <textarea id="body" v-model="newPost.body" class="form-control"></textarea>
           </div>
           <div>
-            <button type="submit" class="btn btn-primary">Postar</button>
+            <button type="submit" class="btn btn-primary mb-3 mt-1">Postar</button>
           </div>
         </form>
         <div class="list-group">
-          <div class="list-group-item" v-for="item in filteredPosts" :key="item.id">
+          <div class="list-group-item py-3" v-for="item in filteredPosts" :key="item.id">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ item.title }}</h5>
               <small>{{ item.date }}</small>
@@ -37,6 +37,7 @@
   var posts = <%= @posts.map { |post| { id: post.id,
                                         title: post.title,
                                         body: post.body,
-                                        created_at: post.updated_at == post.created_at ? "Postado a #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
-                                        user_name: post.user.full_name } }.to_json.html_safe %>;
+                                        date: post.updated_at == post.created_at ? "Postado há #{time_ago_in_words(post.created_at)}" : "(Editado) #{time_ago_in_words(post.updated_at)}",
+                                        author: post.user.full_name } }.to_json.html_safe %>;
+  var errors = <%= { error: @errors }.to_json.html_safe %>;
 </script>

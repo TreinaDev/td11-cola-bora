@@ -6,24 +6,19 @@ export default {
       searchText: '',
       selectedFilter: '',
       project: {},
-      posts: [{title: 'teste', body: 'Teste'}],
+      posts: ref([]),
       newPost: {
         title: '',
         body: ''
-      }
+      },
+      errors: window.errors
     }
   },
   
   async mounted() {
-    console.log(this.posts)
-    this.posts = await window.posts.map(item => ({ title: item.title,
-                                             body: item.body,
-                                             author: item.user_name,
-                                             date: item.created_at }));
+    this.loadPosts();
     this.project = { id: window.project.id,
                      title: window.project.title };
-
-                     console.log(this.posts)
   },
 
   computed: {
@@ -43,6 +38,18 @@ export default {
   },
 
   methods: {
+    loadPosts(){
+      console.log(window.posts)
+      this.posts = window.posts.map(item => ({ id: item.id,
+        title: item.title,
+        body: item.body,
+        author: item.author,
+        date: item.date }));
+
+        this.activePage = 'postsIndex'
+       
+    },
+
     async submitForm() {
       try {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -56,10 +63,11 @@ export default {
           body: JSON.stringify(this.newPost)
         });
 
-        location.reload()
-
-        this.newPost.title = '';
-        this.newPost.body = '';
+        const data = await response.json()
+        console.log(data)
+        this.posts.unshift(data)
+        this.newPost.title = ''
+        this.newPost.body = ''
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
       }

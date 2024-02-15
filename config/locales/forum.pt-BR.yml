@@ -1,3 +1,5 @@
 pt-BR:
   forum:
     title: Fórum
+  forums:
+    not_contributor: Você não é um colaborador desse projeto

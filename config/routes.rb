@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :calendars, only: %i[index]
 
     get 'forum', to: 'forums#index'
-    resources :posts, only: [:create]
+    resources :posts, only: %i[create update]
   end
 
   resources :user_roles, only: [] do

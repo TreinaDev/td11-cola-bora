@@ -6,11 +6,14 @@ describe 'Usuário vê página de fórum de um projeto' do
     project = create(:project, user:)
     user_role = user.user_roles.first
     create(:post, user_role:, project:, title: 'Postagem inicial')
+    create(:post, user_role:, project:, title: 'Como ajustar tarefas iniciadas')
 
     login_as(user, scope: :user)
     visit project_path(project)
     click_on 'Fórum'
+    fill_in 'Pesquisar', with: 'Como'
 
-    expect(page).to have_content 'Postagem inicial'
+    expect(page).to have_content 'Como ajustar tarefas iniciadas'
+    expect(page).not_to have_content 'Postagem inicial'
   end
 end
