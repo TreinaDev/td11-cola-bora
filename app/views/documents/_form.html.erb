@@ -10,7 +10,7 @@
   <% end %>
 <%= form_with model: [@project, @document] do |f| %>
   <div class="mb-3">
-    <%= f.label :title, class: 'form-label' %>
+    <%= f.label :title, class: 'form-label required' %>
     <%= f.text_field :title,
         placeholder: I18n.t(:document_title_placeholder),
         class: 'form-control',
@@ -25,9 +25,11 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :file, class: 'form-label' %>
+    <%= f.label :file, class: 'form-label required' %>
     <%= f.file_field :file, class: 'form-control' %>
   </div>
+
+  <%= render 'shared/required_fields' %>
 
   <div>
     <%= f.submit class: 'btn btn-primary' %>
