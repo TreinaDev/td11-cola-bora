@@ -20,3 +20,4 @@ pt-BR:
   filter_btn: Filtrar
   all: Todos
   updated_at: Atualizado há
+  required_field: "* Campo(s) Obrigatório(s)"
