@@ -13,6 +13,16 @@ module Api
         render json: { errors: @post.errors.full_messages }, status: :conflict
       end
 
+      def destroy
+        @post = Post.find(params[:id])
+
+        if @post.destroy
+          render json: { msg: 'Postagem apagada com sucesso' }, status: :ok
+        else
+          render json: { errors: @post.errors.full_messages }, status: :conflict
+        end
+      end
+
       private
 
       def json_response(post)

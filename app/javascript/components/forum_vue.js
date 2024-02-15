@@ -73,6 +73,27 @@ export default {
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
       }
+    },
+    async deletePost(item) {
+    
+      const response = await fetch(`/api/v1/projects/${this.project.id}/posts/${item.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    
+      if (response.ok) {
+        const index = this.filteredPosts.findIndex(post => post.id === item.id);
+        
+        if (index !== -1) {
+          this.filteredPosts.splice(index, 1);
+        }
+        console.log(this.filteredPosts)
+
+      } else {
+        console.error('Erro ao excluir post:', response.statusText);
+      }
     }
   }
 }
