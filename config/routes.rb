@@ -31,7 +31,8 @@ Rails.application.routes.draw do
     resources :calendars, only: %i[index]
 
     get 'forum', to: 'forums#index'
-    resources :posts, only: %i[create update]
+
+    resources :invitations, only: %i[index], to: 'projects#invitations'
   end
 
   resources :user_roles, only: [] do

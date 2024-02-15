@@ -30,7 +30,7 @@
       <% @proposals.each do |proposal| %>
         <div class="col-6 mb-3">
           <div class="card h-100">
-            <div class="card-header border-bottom border-3 border-<%= proposal_card_color(proposal.status) %> text-<%= proposal_card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
+            <div class="card-header border-bottom border-3 border-<%= card_color(proposal.status) %> text-<%= card_color(proposal.status) %> bg-light bg-gradient display-6 fs-5">
               <%= Proposal.human_attribute_name("status.#{proposal.status}") %>
             </div>
             <div class="card-body bg-light bg-gradient">
@@ -38,9 +38,11 @@
               <p class="card-text">
                 <%= proposal.message.truncate(@max_characters, separator: ' ') %>
               </p>
-              <%= link_to t(:view), 
-                          project_portfoliorrr_profile_path(@project, proposal.profile_id),
-                          class: 'btn btn-sm btn-outline-secondary' if proposal.pending? %>
+              <div class="d-flex flex-column">
+                <%= link_to t(:view), 
+                            project_portfoliorrr_profile_path(@project, proposal.profile_id),
+                            class: 'btn btn-sm btn-outline-secondary' if proposal.pending? %>
+              </div>
             </div>
             <div class="card-footer text-muted">
               <%= t(:updated_at) %> <%= time_ago_in_words proposal.updated_at %> <%= t(:ago) %>
