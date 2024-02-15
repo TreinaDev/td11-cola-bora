@@ -86,7 +86,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       rodolfo_profile.education_infos = [{ "institution": 'Senai',
                                            "course": 'Web dev full stack',
                                            "start_date": Date.parse('2022-12-12'),
-                                           "end_date": Date.parse('2023-12-12') }]
+                                           "end_date": nil }]
       rodolfo_profile.professional_infos = [{ "company": 'Campus Code',
                                               "position": 'Dev',
                                               "start_date": Date.parse('2022-12-12'),
@@ -105,13 +105,13 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
       expect(page).to have_content "E-mail\nrodolfo@email.com"
       expect(page).to have_content "Editor de Video\nCanal do Youtube"
       expect(page).to have_content "Editor de Imagem\nPhotoshop"
-      expect(page).to have_content "Sobre mim\nSou editor de vídeos em um canal do Youtube."
+      expect(page).to have_content "Sobre mim\n\"Sou editor de vídeos em um canal do Youtube.\""
 
       expect(page).to have_content 'Educação'
       expect(page).to have_content 'Instituição: Senai'
       expect(page).to have_content 'Curso: Web dev full stack'
       expect(page).to have_content 'Data de Início: 12/12/2022'
-      expect(page).to have_content 'Data de Término: 12/12/2023'
+      expect(page).to have_content 'Data de Término: ---'
 
       expect(page).to have_content 'Experiência Profissional'
       expect(page).to have_content 'Posição:'

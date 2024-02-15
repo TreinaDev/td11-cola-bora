@@ -62,8 +62,8 @@ class PortfoliorrrProfile
 
   def convert_dates(*attribute_array)
     attribute_array.flatten.each do |attribute|
-      attribute[:start_date] = Date.parse(attribute[:start_date])
-      attribute[:end_date] = Date.parse(attribute[:end_date])
+      attribute[:start_date] = Date.parse(attribute[:start_date]) if attribute[:start_date]
+      attribute[:end_date] = Date.parse(attribute[:end_date]) if attribute[:end_date]
     end
   end
 end

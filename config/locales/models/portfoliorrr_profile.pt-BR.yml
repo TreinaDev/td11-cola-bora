@@ -20,3 +20,5 @@ pt-BR:
       education_infos: Educação
   positive: Sim
   negative: Não
+  abilities: Habilidades
+  nil: ---
