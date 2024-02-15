@@ -19,6 +19,7 @@ export default {
     this.loadPosts();
     this.project = { id: window.project.id,
                      title: window.project.title };
+    this.errors = []
   },
 
   computed: {
@@ -60,15 +61,15 @@ export default {
           body: JSON.stringify(this.newPost)
         });
 
-        const data = await response.json()
-        console.log(data.errors)
-        this.posts.unshift(data)
-        this.newPost.title = ''
-        this.newPost.body = ''
-        if(data.errors.length > 0){
-          this.errors = data.errors
-        }
 
+        const data = await response.json()
+        if (response.ok) {
+          this.posts.unshift(data);
+          this.newPost.title = ''
+          this.newPost.body = ''
+        } else {
+          this.errors = data.errors;
+        }
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
       }
