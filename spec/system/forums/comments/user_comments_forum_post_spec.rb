@@ -14,7 +14,7 @@ describe 'Usuário comenta em post do fórum' do
     click_on 'Fórum'
     click_on 'Post Top'
     fill_in 'Conteúdo:', with: 'Muito boa sugestão!!'
-    click_on 'Comentar'
+    click_button 'Comentar'
 
     expect(page).not_to have_content 'Seja o primeiro a comentar'
     expect(page).to have_content 'Muito boa sugestão!!'

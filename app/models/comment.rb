@@ -1,6 +1,7 @@
 require 'action_view'
 
 class Comment < ApplicationRecord
+  validates :content, presence: true
   include ActionView::Helpers::DateHelper
 
   belongs_to :post
