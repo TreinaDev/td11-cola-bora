@@ -1,0 +1,7 @@
+shared:
+  base_url: http://localhost:4000
+  invitation_endpoint: /api/v1/invitations/
+  proposal_endpoint: /api/v1/invitation_request/
+  job_endpoint: /api/v1/job_categories/
+  profiles_endpoint: /api/v1/profiles/
+  profiles_search_endpoint: "/api/v1/profiles?search="

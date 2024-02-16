@@ -1,6 +1,11 @@
 class PortfoliorrrProfile
   attr_accessor :id, :name, :email, :job_categories, :cover_letter
 
+  URL = Rails.configuration.portfoliorrr_api[:base_url] +
+        Rails.configuration.portfoliorrr_api[:profiles_endpoint]
+  SEARCH_URL = Rails.configuration.portfoliorrr_api[:base_url] +
+               Rails.configuration.portfoliorrr_api[:profiles_search_endpoint]
+
   def initialize(id:, name:, job_categories:)
     @id = id
     @name = name
@@ -8,18 +13,15 @@ class PortfoliorrrProfile
   end
 
   def self.all
-    url = 'http://localhost:4000/api/v1/profiles'
-    fetch_portfoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(URL)
   end
 
   def self.search(query)
-    url = "http://localhost:4000/api/v1/profiles?search=#{CGI.escape query}"
-    fetch_portfoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(SEARCH_URL + CGI.escape(query))
   end
 
   def self.find(id)
-    url = "http://localhost:4000/api/v1/profiles/#{id}"
-    response = Faraday.get(url)
+    response = Faraday.get(URL + id.to_s)
 
     return {} unless response.success?
 
