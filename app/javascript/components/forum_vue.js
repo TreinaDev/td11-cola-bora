@@ -64,7 +64,7 @@ export default {
 
         const data = await response.json()
         if (response.ok) {
-          this.filteredPosts.unshift(data);
+          this.posts.unshift(data);
           this.newPost.title = ''
           this.newPost.body = ''
         } else {
