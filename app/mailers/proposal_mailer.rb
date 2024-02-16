@@ -4,7 +4,7 @@ class ProposalMailer < ApplicationMailer
   def notify_leader
     @proposal = params[:proposal]
     @project = @proposal.project
-    @leader = @project.member_roles(:leader).first.user
+    @leader = @project.user
 
     mail to: @leader.email, subject: t('.subject')
   end
