@@ -1,5 +1,6 @@
-<% if @document.errors.any? %>
-    <div class='text-danger'>
+<section class="mb-3">
+  <% if @document.errors.any? %>
+    <div class='alert alert-danger'>
       <h3><%= I18n.t(:error, count: @document.errors.count) %>:</h3>
       <ul>
         <% @document.errors.each do |error| %>
@@ -8,36 +9,37 @@
       </ul>
     </div>
   <% end %>
-<%= form_with model: [@project, @document] do |f| %>
-  <div class="mb-3">
-    <%= f.label :title, class: 'form-label required' %>
-    <%= f.text_field :title,
-        placeholder: I18n.t(:document_title_placeholder),
-        class: 'form-control',
-        autofocus: true %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :description, class: 'form-label' %>
-    <%= f.text_area :description,
-        placeholder: I18n.t(:document_description_placeholder),
-        class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :file, class: 'form-label required' %>
-    <div class="small mb-2 text-secondary">
-      <small><%= t(:allowed_extensions) %></small>
+  <%= form_with model: [@project, @document] do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, class: 'form-label required' %>
+      <%= f.text_field :title,
+          placeholder: I18n.t(:document_title_placeholder),
+          class: 'form-control',
+          autofocus: true %>
     </div>
-    <%= f.file_field :file, class: 'form-control' %>
-  </div>
 
-  <%= render 'shared/required_fields' %>
+    <div class="mb-3">
+      <%= f.label :description, class: 'form-label' %>
+      <%= f.text_area :description,
+          placeholder: I18n.t(:document_description_placeholder),
+          class: 'form-control' %>
+    </div>
 
-  <div>
-    <%= f.submit class: 'btn btn-primary' %>
-    <%= link_to 'Voltar',
-        project_documents_path(@project),
-        class: 'btn btn-secondary' %>
-  </div>
-<% end %>
+    <div class="mb-3">
+      <%= f.label :file, class: 'form-label required' %>
+      <div class="small mb-2 text-secondary">
+        <small><%= t(:allowed_extensions) %></small>
+      </div>
+      <%= f.file_field :file, class: 'form-control' %>
+    </div>
+
+    <%= render 'shared/required_fields' %>
+
+    <div>
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to 'Voltar',
+          project_documents_path(@project),
+          class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</section>

@@ -1,53 +1,54 @@
-<%= form_with(model: [@project, @task]) do |f| %>
-  <% if @task.errors.any? %>
-    <div class='text-danger'>
-      <h3><%= I18n.t('.errors_title') %>:</h3>
-      <ul>
-        <% @task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<section class="mb-3">
+  <%= form_with(model: [@project, @task]) do |f| %>
+    <% if @task.errors.any? %>
+      <div class='alert alert-danger'>
+        <h3><%= I18n.t('.errors_title') %>:</h3>
+        <ul>
+          <% @task.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="mb-3">
+      <%= f.label :title, 
+                  class: 'form-label required' %>
+      <%= f.text_field :title, 
+                      class: 'form-control',
+                      autofocus: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :description, 
+                  class: 'form-label' %>
+      <%= f.text_area :description, 
+                      class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :due_date, 
+                  class: 'form-label' %>
+      <%= f.date_field :due_date, 
+                      value: f.object.try(:strftime,"%d/%m/%Y"), 
+                      class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :assigned_id, 
+                  class: 'form-label' %>
+      <%= f.collection_select :assigned_id, 
+                              @project.users, 
+                              :id, 
+                              :email, 
+                              { include_blank: true }, 
+                              { class: 'form-select' } %>
+    </div>
+    
+    <%= render 'shared/required_fields' %>
+    
+    <div>
+      <%= f.submit I18n.t('tasks.save'), 
+                  class: 'btn btn-primary'%>
+      <%= link_to t(:back), 
+                  project_tasks_path(@task.project), 
+                  class: 'btn btn-secondary' %>
     </div>
   <% end %>
-  <div class="mb-3">
-    <%= f.label :title, 
-                class: 'form-label required' %>
-    <%= f.text_field :title, 
-                     class: 'form-control',
-                     autofocus: true %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :description, 
-                class: 'form-label' %>
-    <%= f.text_area :description, 
-                    class: 'form-control' %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :due_date, 
-                class: 'form-label' %>
-    <%= f.date_field :due_date, 
-                     value: f.object.try(:strftime,"%d/%m/%Y"), 
-                     class: 'form-control' %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :assigned_id, 
-                class: 'form-label' %>
-    <%= f.collection_select :assigned_id, 
-                            @project.users, 
-                            :id, 
-                            :email, 
-                            { include_blank: true }, 
-                            { class: 'form-select' } %>
-  </div>
-  
-  <%= render 'shared/required_fields' %>
-  
-  <div>
-    <%= f.submit I18n.t('tasks.save'), 
-                 class: 'btn btn-primary'%>
-    <%= link_to t(:back), 
-                project_tasks_path(@task.project), 
-                class: 'btn btn-secondary' %>
-  </div>
-<% end %>
-
+</section>

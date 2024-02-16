@@ -1,7 +1,7 @@
 <section class="mb-3">
   <%= form_with(model: [@project, @meeting]) do |f| %>
     <% if @meeting.errors.any? %>
-      <div class='text-danger'>
+      <div class='alert alert-danger'>
         <h3><%= I18n.t('.errors_title') %>:</h3>
         <ul>
           <% @meeting.errors.each do |error| %>
