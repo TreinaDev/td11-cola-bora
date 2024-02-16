@@ -1,6 +1,7 @@
 module Api
   module V1
     class CommentsController < Api::V1::ApiController
+      include ActionView::Helpers::DateHelper
       before_action :authenticate_user!
       before_action :set_post, only: %i[create]
       before_action :authorize_member, only: %i[create]
@@ -18,7 +19,7 @@ module Api
 
       def json_response(comment)
         { id: comment.id, content: comment.content, author: comment.user_role.user.full_name,
-          created_at: comment.formatted_date }
+          created_at: "#{I18n.t(:posted_at)} #{time_ago_in_words(comment.created_at)}" }
       end
 
       def comment_params

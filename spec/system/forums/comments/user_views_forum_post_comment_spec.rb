@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário visualiza comentário de publicação no Fórum' do
+  include ActionView::Helpers::DateHelper
   it 'a partir da tela inicial' do
     leader = create :user, email: 'leader@email.com'
     project = create :project, user: leader, title: 'Projeto Top'
@@ -18,7 +19,7 @@ describe 'Usuário visualiza comentário de publicação no Fórum' do
     expect(page).to have_content 'Comentários:'
     expect(page).to have_content 'Comentário top'
     expect(page).to have_content "por #{leader.full_name}"
-    expect(page).to have_content comment.formatted_date
+    expect(page).to have_content "Postado há #{time_ago_in_words comment.created_at}"
   end
 
   it 'e não tem nenhum comentário' do
