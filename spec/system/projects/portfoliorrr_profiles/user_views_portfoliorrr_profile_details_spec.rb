@@ -52,14 +52,13 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
 
   context 'com sucesso sendo líder do projeto' do
     it 'a partir da pagina inicial' do
-      user = create :user, cpf: '149.759.780-32'
-      project = create :project, user:, title: 'Projeto Top'
-      project.user_roles.find_by(user:).update(role: :leader)
+      leader = create :user, cpf: '149.759.780-32'
+      project = create :project, user: leader, title: 'Projeto Top'
       rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo',
                                                 job_categories: [JobCategory.new(id: 1, name: 'Designer')]
       allow(PortfoliorrrProfile).to receive(:all).and_return([rodolfo_profile])
 
-      login_as user
+      login_as leader
       visit root_path
       click_on 'Projetos'
       click_on 'Projeto Top'
@@ -71,9 +70,8 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
     end
 
     it 'com sucesso' do
-      user = create :user, cpf: '149.759.780-32'
-      project = create :project, user:, title: 'Projeto Top'
-      project.user_roles.find_by(user:).update(role: :leader)
+      leader = create :user, cpf: '149.759.780-32'
+      project = create :project, user: leader, title: 'Projeto Top'
       rodolfo_profile = PortfoliorrrProfile.new id: 2, name: 'Rodolfo',
                                                 job_categories: [
                                                   JobCategory.new(id: 1, name: 'Editor de Video',
@@ -95,7 +93,7 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
                                               "current_job": false }]
       allow(PortfoliorrrProfile).to receive(:find).and_return(rodolfo_profile)
 
-      login_as user
+      login_as leader
       visit project_portfoliorrr_profile_path project, rodolfo_profile.id
 
       expect(page).to have_current_path project_portfoliorrr_profile_path project, rodolfo_profile.id
@@ -135,12 +133,11 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
     end
 
     it 'e não há resultado' do
-      user = create :user, cpf: '149.759.780-32'
-      project = create :project, user:, title: 'Projeto Top'
-      project.user_roles.find_by(user:).update(role: :leader)
+      leader = create :user, cpf: '149.759.780-32'
+      project = create :project, user: leader, title: 'Projeto Top'
       allow(PortfoliorrrProfile).to receive(:find).and_return({})
 
-      login_as user
+      login_as leader
       visit project_portfoliorrr_profile_path project, 999
 
       expect(page).to have_content 'Perfil não disponível'
@@ -148,14 +145,13 @@ describe 'Usuário vê detalhes de um perfil da Portfoliorrr' do
     end
 
     it 'e volta para a página de busca' do
-      user = create :user, cpf: '149.759.780-32'
-      project = create :project, user:, title: 'Projeto Top'
-      project.user_roles.find_by(user:).update(role: :leader)
+      leader = create :user, cpf: '149.759.780-32'
+      project = create :project, user: leader, title: 'Projeto Top'
       profile_id = 1
       allow(PortfoliorrrProfile).to receive(:find).and_return({})
       allow(PortfoliorrrProfile).to receive(:all).and_return([])
 
-      login_as user
+      login_as leader
       visit project_portfoliorrr_profile_path project, profile_id
       click_on 'Procurar usuários'
 
