@@ -16,7 +16,8 @@ module Api
       private
 
       def json_response(post)
-        { id: post.id, title: post.title, body: post.body, author: post.user.full_name, date: 'Postado agora' }
+        { id: post.id, title: post.title, body: post.body, author: post.user.full_name,
+          date: I18n.t('posts.posted_now') }
       end
 
       def set_project
@@ -26,7 +27,7 @@ module Api
       def check_contributor
         return if @project.member?(current_user)
 
-        response = { error: 'Você não possui permissão.' }
+        response = { error: I18n.t('posts.no_permission') }
 
         render status: :forbidden, json: response
       end

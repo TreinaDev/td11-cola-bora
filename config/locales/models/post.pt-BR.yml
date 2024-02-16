@@ -10,3 +10,5 @@ pt-BR:
         body: Corpo
   posts:
     not_contributor: Você não é um colaborador desse projeto.
+    posted_now: Postado agora
+    no_permission: Você não possui permissão.

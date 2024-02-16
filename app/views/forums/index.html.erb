@@ -3,8 +3,8 @@
   <forum-vue>
     <div class="row">
       <div class="col-md-8 mx-auto mt-3">
-        <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
-        <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Busque por postagens">
+        <label class="form-label visually-hidden" for="searchText"><%= t('forums.search') %></label>
+        <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="<%= t('forums.search_posts')%>">
         <form @submit.prevent="submitForm">
           <div v-if="errors.length > 0" class="alert alert-danger" v-for="error in errors">
             {{ error }}
@@ -18,11 +18,11 @@
             <textarea id="body" v-model="newPost.body" class="form-control"></textarea>
           </div>
           <div>
-            <button type="submit" class="btn btn-primary mb-3 mt-1">Postar</button>
+            <button type="submit" class="btn btn-primary mb-3 mt-1"><%= t('forums.post') %></button>
           </div>
         </form>
         <div v-if="filteredPosts.length === 0">
-          <h3>Não existem postagens.</h3>
+          <h3><%= t('forums.no_posts') %></h3>
         </div>
         <div class="card h-20 mb-3" v-for="item in filteredPosts" :key="item.id">
           <div class="card-header border-bottom border-3 border-success text-success bg-light bg-gradient display-6 fs-5">
@@ -48,7 +48,7 @@
   var posts = <%= @posts.map { |post| { id: post.id,
                                         title: post.title,
                                         body: post.body,
-                                        date: "Postado há #{time_ago_in_words(post.created_at)}",
+                                        date: t('forums.posted_in', time: time_ago_in_words(post.created_at)),
                                         author: post.user.full_name } }.to_json.html_safe %>;
   var errors = <%= { error: @errors }.to_json.html_safe %>;
 </script>
