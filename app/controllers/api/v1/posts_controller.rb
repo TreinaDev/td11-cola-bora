@@ -29,7 +29,7 @@ module Api
 
         response = { error: I18n.t('posts.no_permission') }
 
-        render status: :forbidden, json: response
+        render status: :unauthorized, json: response
       end
 
       def post_params

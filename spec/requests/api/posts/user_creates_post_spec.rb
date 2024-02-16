@@ -25,7 +25,7 @@ describe 'Usuário cria postagem' do
          params: { post: { title: 'Postagem inicial', body: 'Vamos abordar boas práticas' } }
 
     expect(Post.count).to eq 0
-    expect(response).to have_http_status :forbidden
+    expect(response).to have_http_status :unauthorized
     json_response = JSON.parse(response.body)
     expect(json_response['error']).to eq 'Você não possui permissão.'
   end
