@@ -22,7 +22,7 @@
           </div>
         </form>
         <div v-if="filteredPosts.length === 0">
-          <h3><%= t('forums.no_posts') %></h3>
+          <%= render 'shared/empty_state', message: t('forums.no_posts') %>
         </div>
         <div class="card h-20 mb-3" v-for="item in filteredPosts" :key="item.id">
           <div class="card-header border-bottom border-3 border-success text-success bg-light bg-gradient display-6 fs-5">
