@@ -11,6 +11,11 @@ pt-BR:
         work_experience: Experiência profissional
         education: Informação acadêmica
   profiles:
+    form:
+      first_name: Nome
+      last_name: Sobrenome
+      work_experience: Experiência profissional
+      education: Informação acadêmica
     update:
       success: Perfil atualizado com sucesso!
       error: Não foi possível atualizar perfil!
