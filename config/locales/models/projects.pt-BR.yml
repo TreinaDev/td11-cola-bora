@@ -23,9 +23,12 @@ pt-BR:
     destroy:
       success: Projeto deletado com sucesso!
       fail: Não foi possível completar a sua requisição
+    form:
+        title: Título
+        description: Descrição
+        category: Categoria
     not_contributor: Você não é um colaborador desse projeto
     not_leader: Você não possui permissão para prosseguir
-
   new_project: Novo Projeto
   create_project_link: Criar Projeto
   save_project: Salvar Projeto

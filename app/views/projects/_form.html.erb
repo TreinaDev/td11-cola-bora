@@ -16,19 +16,22 @@
                   class: 'form-label required' %>
       <%= f.text_field :title, 
                       class: 'form-control',
-                      autofocus: true %>
+                      autofocus: true,
+                      placeholder: t('.title') %>
     </div>
     <div class="mb-3">
       <%= f.label :description, 
                   class: 'form-label required' %>
       <%= f.text_area :description, 
-                      class: 'form-control' %>
+                      class: 'form-control',
+                      placeholder: t('.description') %>
     </div>
     <div class="mb-3">
       <%= f.label :category, 
                   class: 'form-label required' %>
       <%= f.text_field :category, 
-                      class: 'form-control'%>
+                      class: 'form-control',
+                      placeholder: t('.category') %>
     </div>
     <div class="mb-3" id="project_job_category"> 
       <p><%= ProjectJobCategory.model_name.human(count: 2) %></p>
