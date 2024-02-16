@@ -1,48 +1,52 @@
 pt-BR:
- uninitialized: Não iniciada
- in_progress: Em andamento
- task_empty_state: Sem tarefas registradas
- finished: Finalizada
- expired: Expirada
- cancelled: Cancelada
- task_cancel_confirmation: Cancelar tarefa?
- activerecord:
-  models:
-   task:
-    one: Tarefa
-    other: Tarefas
-  attributes:
-   task:
-    title: Título
-    description: Descrição
-    due_date: Prazo
-    project_id: Projeto
-    user_role_id: Autor
-    user_role: Autor
-    assigned_id: Responsável
-    assigned: Responsável
-    status: Status
- tasks:
-  create:
-   success: Tarefa criada com sucesso.
-   fail: Não foi possível criar a tarefa.
-  update:
-   success: Tarefa editada com sucesso.
-   fail: Não foi possível editar a tarefa.
-  start:
-   success: Tarefa iniciada.
-  finish:
-   success: Tarefa finalizada.
-  cancel:
-   success: Tarefa cancelada.
-  check_user:
-   fails: "Você não possui acesso a esta tarefa."
-  edit_task: Editar Tarefa
-  start_task: Iniciar Tarefa
-  finish_task: Finalizar Tarefa
-  cancel_task: Cancelar Tarefa
-  new_task: Nova Tarefa
-  create_task: Criar Tarefa
-  no_due_date: Sem prazo
-  no_assigned: Sem responsável
-  save: Salvar
+  uninitialized: Não iniciada
+  in_progress: Em andamento
+  task_empty_state: Sem tarefas registradas
+  finished: Finalizada
+  expired: Expirada
+  cancelled: Cancelada
+  task_cancel_confirmation: Cancelar tarefa?
+  activerecord:
+    models:
+      task:
+        one: Tarefa
+        other: Tarefas
+    attributes:
+      task:
+        title: Título
+        description: Descrição
+        due_date: Prazo
+        project_id: Projeto
+        user_role_id: Autor
+        user_role: Autor
+        assigned_id: Responsável
+        assigned: Responsável
+        status: Status
+  tasks:
+    create:
+      success: Tarefa criada com sucesso.
+      fail: Não foi possível criar a tarefa.
+    update:
+      success: Tarefa editada com sucesso.
+      fail: Não foi possível editar a tarefa.
+    start:
+      success: Tarefa iniciada.
+    finish:
+      success: Tarefa finalizada.
+    cancel:
+      success: Tarefa cancelada.
+    check_user:
+      fails: "Você não possui acesso a esta tarefa."
+    edit_task: Editar Tarefa
+    start_task: Iniciar Tarefa
+    finish_task: Finalizar Tarefa
+    cancel_task: Cancelar Tarefa
+    new_task: Nova Tarefa
+    create_task: Criar Tarefa
+    no_due_date: Sem prazo
+    no_assigned: Sem responsável
+    save: Salvar
+    form:
+      title: Título da Tarefa
+      description: Descrição da Tarefa
+      assigned: Selecione o Colaborador

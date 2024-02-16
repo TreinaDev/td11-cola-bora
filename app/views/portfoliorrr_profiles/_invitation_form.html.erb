@@ -10,7 +10,7 @@
     </h3>
     
     <% if invitation.errors.any? %>
-      <div class='text-danger'>
+      <div class='alert alert-danger'>
         <h3><%= I18n.t('.errors_title') %>:</h3>
         <ul>
           <% invitation.errors.each do |error| %>

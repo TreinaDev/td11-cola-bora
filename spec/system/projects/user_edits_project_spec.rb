@@ -20,7 +20,7 @@ describe 'Usuário edita projeto' do
     visit root_path
     click_on 'Projetos'
     click_on 'Projeto Original'
-    click_on 'Editar Projeto'
+    click_on 'Editar'
 
     expect(page).to have_current_path edit_project_path(project)
     expect(page).to have_checked_field 'Desenvolvedor'
@@ -48,7 +48,7 @@ describe 'Usuário edita projeto' do
     visit root_path
     click_on 'Projetos'
     click_on 'Projeto Original'
-    click_on 'Editar Projeto'
+    click_on 'Editar'
     fill_in 'Título', with: 'Projeto editado'
     fill_in 'Descrição', with: 'Edição realizada'
     uncheck 'RH'
@@ -127,12 +127,12 @@ describe 'Usuário edita projeto' do
     visit root_path
     click_on 'Projetos'
     click_on 'Projeto Original'
-    click_on 'Editar Projeto'
+    click_on 'Editar'
     fill_in 'Título', with: 'Projeto editado'
     fill_in 'Descrição', with: 'Edição realizada'
     uncheck 'RH'
     click_on 'Salvar'
-    click_on 'Editar Projeto'
+    click_on 'Editar'
     fill_in 'Título', with: 'Projeto editado 2x'
     fill_in 'Descrição', with: 'Edição realizada 2x'
     check 'RH'

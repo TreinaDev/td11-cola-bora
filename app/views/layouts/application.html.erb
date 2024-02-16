@@ -10,10 +10,10 @@
     <%= favicon_link_tag asset_path('favicon.png') %>
   </head>
   <body>
+    <div class="mb-3">
+      <%= render partial: 'layouts/navbar' %>
+    </div>
     <div class="container">
-      <div class="mb-3">
-        <%= render partial: 'layouts/navbar' %>
-      </div>
       <%= render partial: 'layouts/flash' %>
       <%= yield %>
     </div>

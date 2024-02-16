@@ -5,7 +5,7 @@
 @import 'simple_calendar';
 @import 'app_theme';
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
   border-color: $colaBoraGreen;
   box-shadow: 0 0 0 0.2rem rgba(19, 121, 91, 0.075);
 }

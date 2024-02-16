@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  root to: "home#index"
+  root to: "projects#index"
+
+  get 'home', to: "home#index"
 
   resources :profiles, only: %i[edit update show]
   resources :projects, only: %i[new create show index edit update destroy] do

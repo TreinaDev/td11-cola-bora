@@ -19,4 +19,7 @@ pt-BR:
   complete_profile_msg: Complete o seu perfil
   update_profile_msg: Atualizar perfil
   my_profile: Meu Perfil
-  
+  profile_empty_state: Seu perfil ainda não tem informações
+  click_the_button_below_to_fill_out: Clique no botão abaixo para preencher
+  complete_profile: Completar perfil
+  not_informed: Não informado
