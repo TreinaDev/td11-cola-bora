@@ -1,26 +1,13 @@
 require 'rails_helper'
 
 describe 'Usuário acessa fórum' do
-  context 'e deve estar autenticado' do
-    it 'para acessar o index do forum' do
-      user = create(:user)
-      project = create(:project, user:)
+  it 'e não está autenticado' do
+    user = create(:user)
+    project = create(:project, user:)
 
-      login_as user, scope: :user
+    get project_forum_path(project)
 
-      get project_forum_path(project)
-
-      expect(response).to have_http_status :ok
-    end
-
-    it 'e não está autenticado' do
-      user = create(:user)
-      project = create(:project, user:)
-
-      get project_forum_path(project)
-
-      expect(response).to redirect_to new_user_session_path
-    end
+    expect(response).to redirect_to new_user_session_path
   end
 
   context 'e deve ter acesso ao projeto' do
