@@ -1,5 +1,5 @@
 <%= render 'shared/project_header', project: @task.project %>
-<h1><%= Task.model_name.human %>: <%= @task.title %></h1>
+<h1 class="display-6"><%= Task.model_name.human %>: <%= @task.title %></h1>
 <dl>
   <dt><%= Task.human_attribute_name :description %></dt>
   <dd><%= @task.description %></dd>

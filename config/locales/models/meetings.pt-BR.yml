@@ -21,6 +21,10 @@ pt-BR:
     update:
       success: Reunião editada com sucesso.
       fail: Não foi possível editar a Reunião.
+    form:
+        title: Título da Reunião
+        description: Descrição da Reunião
+        address: Endereço físico ou Link
     edit_meeting: Editar Reunião
     cancel_meeting: Cancelar Reunião
     new_meeting: Nova Reunião

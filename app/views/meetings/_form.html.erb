@@ -16,13 +16,15 @@
                   class: 'form-label required' %>
       <%= f.text_field :title, 
                       class: 'form-control',
-                      autofocus: true %>
+                      autofocus: true,
+                      placeholder: t('.title') %>
     </div>
     <div class="mb-3">
       <%= f.label :description, 
                   class: 'form-label' %>
       <%= f.text_area :description, 
-                      class: 'form-control' %>
+                      class: 'form-control',
+                      placeholder: t('.description') %>
     </div>
     <div class="mb-3">
       <%= f.label :datetime, 
@@ -42,7 +44,8 @@
       <%= f.label :address, 
                   class: 'form-label required' %>
       <%= f.text_field :address, 
-                      class: 'form-control' %>
+                      class: 'form-control',
+                      placeholder: t('.address') %>
     </div>
     
     <%= render 'shared/required_fields' %>

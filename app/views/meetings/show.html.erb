@@ -1,6 +1,6 @@
 <%= render 'shared/project_header', project: @project %>
 
-<h1><%= Meeting.model_name.human %>: <%= @meeting.title %></h1>
+<h1 class="display-6"><%= Meeting.model_name.human %>: <%= @meeting.title %></h1>
 
 <dl>
   <dt><%= Meeting.human_attribute_name :user_role %></dt>

@@ -39,3 +39,4 @@ pt-BR:
   document_extension: Tipo
   document_filename: Nome do arquivo
   allowed_extensions: "Tipos permitidos: jpg, png, mp4, mp3, pdf, docx, xlsx, ppt, csv, zip"
+  new_document: Novo documento

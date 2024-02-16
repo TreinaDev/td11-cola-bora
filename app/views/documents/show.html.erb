@@ -1,8 +1,8 @@
 <%= render 'shared/project_header', project: @document.project %>
 
-<main>
+<main class="mb-3">
   <div id="document-details">
-    <h1><%= @document.title %></h1>
+    <h1 class="display-6"><%= @document.title %></h1>
 
     <div>
       <% if @document.file.image? %>
@@ -15,7 +15,7 @@
       <% elsif @document.file.video? %>
         <video controls width="480">
           <source src="<%= rails_blob_url @document.file %>"
-                  type="<%= @document.file.content_type %>">
+                type="<%= @document.file.content_type %>">
         </video>
       <% end %>
     </div>
