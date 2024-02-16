@@ -57,20 +57,18 @@
 
           <div class="row">
             <% @portfoliorrr_profile.education_infos&.each do |education| %>
-              <% 2.times do %>
-                <div class="col-md-6">
-                  <div class="card mb-4 mb-md-4 bg-light shadow">
-                    <div class="card-body">
-                      <h4><%= education[:institution] %></h4>
-                      <hr>
-                      <p><strong><%= t('portfoliorrr_profile.attributes.institution') %>:</strong> <%= education[:institution] %></p>
-                      <p><strong><%= t('portfoliorrr_profile.attributes.course') %>:</strong> <%= education[:course] %></p>
-                      <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= education[:start_date] ? l(education[:start_date]) : t('nil')%></p>
-                      <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= education[:end_date] ? l(education[:end_date]) : t('nil') %></p>
-                    </div>
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-4 bg-light shadow">
+                  <div class="card-body">
+                    <h4><%= education[:institution] %></h4>
+                    <hr>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.institution') %>:</strong> <%= education[:institution] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.course') %>:</strong> <%= education[:course] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= education[:start_date] ? l(education[:start_date]) : t('nil')%></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= education[:end_date] ? l(education[:end_date]) : t('nil') %></p>
                   </div>
                 </div>
-              <% end %>
+              </div>
             <% end %>
           </div>
           
