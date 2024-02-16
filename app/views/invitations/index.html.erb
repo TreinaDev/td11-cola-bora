@@ -24,7 +24,7 @@
         </div>
       <% end %>
     <% else %>
-      <h3><%= t('invitations.empty_state') %></h3>
+      <%= render 'shared/empty_state', message: t('invitations.empty_state') %>
     <% end %>
   </div>
 </div>

@@ -52,9 +52,7 @@
       <% end %>
 
       <% if @proposals.empty? %>
-        <div class="text-muted text-center mt-5 display-6 fs-5">
-          <%= t(:proposals_empty_state) %>
-        </div>
+        <%= render 'shared/empty_state', message: t(:proposals_empty_state) %>
       <% end %>
     </div>
   </div>

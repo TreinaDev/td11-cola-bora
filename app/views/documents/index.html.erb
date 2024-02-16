@@ -10,7 +10,7 @@
   <div id="documents-list">
     <% if @documents.empty? %>
       <div class="text-muted">
-        <%= t(:documents_empty_state) %>
+        <%= render 'shared/empty_state', message: t(:documents_empty_state) %>
       </div>
     <% else %>
       <table class="table table-hover">
