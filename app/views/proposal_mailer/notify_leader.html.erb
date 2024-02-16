@@ -1,0 +1,10 @@
+<main>
+  <h1><%= t '.project_received_a_new_proposal', project_title: @project.title %> </h1>
+  
+  <p><%= t '.proposer', email: @proposal.email %></p>
+  <p><%= t '.message', message: @proposal.message %></p>
+  
+  <%= link_to t('.view_proposal'), 
+              project_portfoliorrr_profile_url(@project, @proposal.profile_id) %>
+</main>
+

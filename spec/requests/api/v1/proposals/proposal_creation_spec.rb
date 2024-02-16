@@ -11,6 +11,10 @@ describe 'Criação de requisição de participação em projeto' do
         message: 'Gostaria de participar!',
         email: 'proposer@email.com'
       } }
+      mail = double 'mail', deliver: true
+      mailer = double 'ProposalMailer'
+      allow(ProposalMailer).to receive(:with).and_return mailer
+      allow(mailer).to receive(:notify_leader).and_return mail
 
       post(api_v1_proposals_path, params:)
 
@@ -26,6 +30,7 @@ describe 'Criação de requisição de participação em projeto' do
       expect(Proposal.last.message).to eq 'Gostaria de participar!'
       expect(Proposal.last.email).to eq 'proposer@email.com'
       expect(Proposal.last.status).to eq 'pending'
+      expect(mail).to have_received :deliver
     end
 
     context 'sem sucesso' do
@@ -40,6 +45,10 @@ describe 'Criação de requisição de participação em projeto' do
           profile_id: contributor_portfoliorrr_profile_id,
           email: 'contributor@email.com'
         } }
+        mail = double 'mail', deliver: true
+        mailer = double 'ProposalMailer'
+        allow(ProposalMailer).to receive(:with).and_return mailer
+        allow(mailer).to receive(:notify_leader).and_return mail
 
         post(api_v1_proposals_path, params:)
 
@@ -47,6 +56,7 @@ describe 'Criação de requisição de participação em projeto' do
         json_response = JSON.parse(response.body)
         expect(response).to have_http_status :conflict
         expect(json_response['errors']).to eq ['Usuário já faz parte deste projeto']
+        expect(mail).not_to have_received :deliver
       end
 
       it 'se já existe uma solicitação pendente' do
