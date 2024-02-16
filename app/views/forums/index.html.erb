@@ -2,7 +2,7 @@
 <div id="vue-app">
   <forum-vue>
     <div class="row">
-      <div class="col-md-8 mx-auto mt-3">
+      <div v-if="activePage === 'postsIndex'" class="col-md-8 mx-auto mt-3">
         <label class="form-label visually-hidden" for="searchText"><%= t('forums.search') %></label>
         <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="<%= t('forums.search_posts')%>">
         <form @submit.prevent="submitForm">
@@ -26,7 +26,7 @@
         </div>
         <div class="card h-20 mb-3" v-for="item in filteredPosts" :key="item.id">
           <div class="card-header border-bottom border-3 border-success text-success bg-light bg-gradient display-6 fs-5">
-            {{ item.title }}
+            <h5 class="mb-1"><a href="#" @click.prevent="showPostDetails(item.id)"> {{ item.title }}</a></h5>
           </div>
           <div class="card-body bg-light bg-gradient">
             <p class="card-text">
@@ -40,6 +40,42 @@
           </div>
         </div>
       </div>
+
+      <div v-if="activePage === 'postDetails'">
+        <div>
+          <h3>{{ selectedPost.title }}</h3>
+          <p>{{ selectedPost.body }}</p>
+        </div>
+
+        <div class="list-group">
+          <p><%= t(Comment.model_name.human(count: 2))%>:</p>
+          <div class="list-group-item" v-if="comments.length > 0" v-for="comment in comments" :key="comment.id">
+            <div class="d-flex w-100 justify-content-between">
+              <p class="mb-1">{{ comment.content }}</p>
+              <small>{{ comment.created_at }}</small>
+            </div>
+            <small>por {{ comment.author }}</small>
+          </div>
+          <div v-else>
+            <p><%= t('comments.first') %></p>
+          </div>
+          <form @submit.prevent='createComment' class="mt-4">
+            <div>
+              <label for="content" class="d-none"><%= Comment.human_attribute_name :content %>:</label>
+              <textarea id="content" v-model="newComment.content" placeholder="<%= t('comments.comment_placeholder') %>" class="form-control"></textarea>
+              <div v-if="errorMessages.length > 0" v-for="msg in errorMessages">
+                <small class="text-danger">{{ msg }}</small>
+              </div>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary mt-3"><%= t('comments.comment_btn')%></button>
+            </div>
+          </form>
+          <div>
+            <button class='btn btn-outline-primary mt-3' @click="loadPosts"><%= t('back')%></button>
+          </div>
+        </div>
+      </div>
     </div>
   </forum-vue>
 </div>
@@ -49,6 +85,15 @@
                                         title: post.title,
                                         body: post.body,
                                         date: t('forums.posted_in', time: time_ago_in_words(post.created_at)),
-                                        author: post.user.full_name } }.to_json.html_safe %>;
-  var errors = <%= { error: @errors }.to_json.html_safe %>;
+                                        author: post.user.full_name,           
+                                        comments: post.comments.map { |comment|
+                                          { 
+                                            id: comment.id,
+                                            content: comment.content,
+                                            author: comment.user_role.user.full_name,
+                                            created_at: "#{t(:posted_at)} #{time_ago_in_words(comment.created_at)}",
+                                          }
+                                        }
+                                      }
+                              }.to_json.html_safe %>
 </script>

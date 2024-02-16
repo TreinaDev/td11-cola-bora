@@ -17,7 +17,7 @@ module Api
 
       def json_response(post)
         { id: post.id, title: post.title, body: post.body, author: post.user.full_name,
-          date: I18n.t('posts.posted_now') }
+          date: I18n.t('posts.posted_now'), comments: [] }
       end
 
       def set_project

@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      comment:
+        one: Comentário
+        other: Comentários
+    attributes:
+      comment:
+        content: Conteúdo
+        user_role_id: Autor
+        post_id: Publicação
+  comments:
+    comment_btn: Comentar
+    comment_placeholder: Insira um comentário
+    first: Seja o primeiro a comentar

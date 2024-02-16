@@ -65,6 +65,9 @@ Rails.application.routes.draw do
       end
       resources :invitations, only: %i[index update]
       resources :proposals, only: %i[create update]
+      resources :posts, only: %i[] do
+        resources :comments, only: %i[create]
+      end
     end
   end
 end

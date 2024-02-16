@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_12_192630) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_13_182535) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_192630) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "post_id", null: false
+    t.integer "user_role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_role_id"], name: "index_comments_on_user_role_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "project_id", null: false
@@ -49,6 +59,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_192630) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_documents_on_project_id"
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_forums_on_project_id"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -277,8 +294,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_192630) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "user_roles"
   add_foreign_key "documents", "projects"
   add_foreign_key "documents", "users"
+  add_foreign_key "forums", "projects"
   add_foreign_key "invitations", "projects"
   add_foreign_key "meeting_participants", "meetings"
   add_foreign_key "meeting_participants", "user_roles"
