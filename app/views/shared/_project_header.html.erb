@@ -36,7 +36,7 @@
       <%= link_to t(:search_users_btn),
                   search_project_portfoliorrr_profiles_path(project),
                   class: "nav-item nav-link link-body-emphasis
-                          #{'active' if current_page?(search_project_portfoliorrr_profiles_path(project))}" %>
+                          #{'active' if request.path.include?('/portfoliorrr_profiles')}" %>
       <%= link_to Invitation.model_name.human(count: 2), 
                   project_invitations_path(project),
                   class: "nav-item nav-link link-body-emphasis

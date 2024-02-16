@@ -9,7 +9,7 @@
 
 <div id="task-list">
     <% if @tasks.empty? %>
-      <p><%= t(:task_empty_state) %></p>
+      <%= render 'shared/empty_state', message: t(:task_empty_state) %>
     <% else %>
       <table class="table table-hover">
         <thead>

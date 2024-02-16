@@ -1,45 +1,68 @@
-<%= form_with model: @project do |f| %>
-  <% if @project.errors.any? %>
-    <div class='text-danger'>
-      <h3>Erros:</h3>
-      <ul>
-        <% @project.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= f.label :title, class: 'form-label' %>
-    <%= f.text_field :title, class: 'form-control' %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :description, class: 'form-label' %>
-    <%= f.text_area :description, class: 'form-control' %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :category, class: 'form-label' %>
-    <%= f.text_field :category, class: 'form-control' %>
-  </div>
-  <div class="mb-3" id="project_job_category"> 
-    <p><%= ProjectJobCategory.model_name.human(count: 2) %></p>
-    <% if @job_categories&.any? %>
-      <% @job_categories.each do |job_category| %>
-        <p>
-          <% checked_value = @project_job_categories&.any? { |pjc| pjc.job_category_id == job_category.id } %>
-          <%= f.check_box :project_job_category_ids, {multiple: true, checked: checked_value}, job_category.id, nil %>
-          <%= f.label "project_job_category_ids_#{job_category.id}", job_category.name %>
-        </p>
-      <% end %>
-    <% else %>
-      <div style="font-size: 14px;">
-        <%= t('project_job_categories.is_empty') %>
+<section class="mb-3">
+  <%= form_with model: @project do |f| %>
+    <% if @project.errors.any? %>
+      <div class='alert alert-danger'>
+        <h3><%= t(:errors_title) %>:</h3>
+        <ul>
+          <% @project.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
-  </div>
 
-  <div>
-    <%= f.submit t('save_project'), class: 'btn btn-primary'%>
-  </div>
-<% end %>
+    <div class="mb-3">
+      <%= f.label :title, 
+                  class: 'form-label required' %>
+      <%= f.text_field :title, 
+                      class: 'form-control',
+                      autofocus: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :description, 
+                  class: 'form-label required' %>
+      <%= f.text_area :description, 
+                      class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :category, 
+                  class: 'form-label required' %>
+      <%= f.text_field :category, 
+                      class: 'form-control'%>
+    </div>
+    <div class="mb-3" id="project_job_category"> 
+      <p><%= ProjectJobCategory.model_name.human(count: 2) %></p>
+      <% if @job_categories&.any? %>
+        <% @job_categories.each do |job_category| %>
+          <p>
+            <% checked_value = @project_job_categories&.any? { |pjc| pjc.job_category_id == job_category.id } %>
+            <%= f.check_box :project_job_category_ids, 
+                            {multiple: true, checked: checked_value}, 
+                            job_category.id, 
+                            nil %>
+            <%= f.label "project_job_category_ids_#{job_category.id}", 
+                        job_category.name %>
+          </p>
+        <% end %>
+      <% else %>
+        <div style="font-size: 14px;">
+          <%= t('project_job_categories.is_empty') %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render 'shared/required_fields' %>
+
+    <div>
+      <%= f.submit t('save_project'), class: 'btn btn-primary'%>
+      <% if @project.persisted? %>
+        <%= link_to t(:delete_project_btn),
+                project_path(@project),
+                method: :delete,
+                data: { turbo_confirm: t(:delete_confirm_message),
+                        turbo_method: :delete },
+                class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

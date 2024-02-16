@@ -21,7 +21,7 @@
         </div>
       <% end %>
     <% else %>
-      <h3><%= t(:projects_empty_state) %></h3>
+      <%= render 'shared/empty_state', message: t(:projects_empty_state) %>
     <% end %>
   </div>
 </div>

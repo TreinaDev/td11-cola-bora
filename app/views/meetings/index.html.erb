@@ -9,7 +9,7 @@
 
   <div id="meeting-list">
     <% if @meetings.empty? %>
-      <p><%= t('meetings.empty_state') %></p>
+      <%= render 'shared/empty_state', message: t('meetings.empty_state') %>
     <% else %>
       <table class="table table-hover">
         <thead>

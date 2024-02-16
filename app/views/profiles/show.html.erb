@@ -1,13 +1,15 @@
-<h1>Meu <%= Profile.model_name.human %></h1>
+<h1><%= t(:my_profile) %></h1>
 
 
 <% if @profile.first_update? %>
-  <h2>Seu perfil ainda não tem informações</h2>
-  <p>
-    <strong>Clique no botão abaixo para preencher</strong>
-  </p>
+  
+  <h2><%= t(:profile_empty_state) %></h2>
+  
+  <div class="text-muted mb-3">
+    <%= t(:click_the_button_below_to_fill_out) %>
+  </div>
 
-  <%= link_to 'Completar perfil',
+  <%= link_to t(:complete_profile),
               edit_profile_path(current_user.profile),
               class: 'btn btn-primary' %>
 <% else %>

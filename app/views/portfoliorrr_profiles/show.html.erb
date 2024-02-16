@@ -1,14 +1,14 @@
-<%= link_to t('back'), search_project_portfoliorrr_profiles_path(@project), class: 'btn btn-secondary' %>
-
-<h1><%= t('profile_search_title', project_title: @project.title) %></h1>
+<%= render 'shared/project_header', project: @project %>
 
 <% if @portfoliorrr_profile.present? %>
   <section>
     <div class="container">
       <div class="row">
-        <h3 class="mb-3"><%= t('profile', name: @portfoliorrr_profile.name) %></h3>
+        
+        <h2 class="mb-3 display-6"><%= t('profile', name: @portfoliorrr_profile.name) %></h2>
+
         <div class="col-lg-8">
-          <div class="card mb-4">
+          <div class="card mb-4 bg-light bg-gradient shadow">
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -29,10 +29,20 @@
               </div>
             </div>
           </div>
-          <% @portfoliorrr_profile.job_categories.each do |category| %>
-            <div class="row">
+          
+          <div class="card mb-4 bg-light shadow">
+            <div class="card-body p-3">
+              <h5 class="my-3 text-muted"><%= t('portfoliorrr_profile.attributes.cover_letter') %></h5>
+              <p class="mb-4 fs-5">"<%= @portfoliorrr_profile.cover_letter %>"</p>
+            </div>
+          </div>
+          
+          <h3 class="mb-3"><%= t('abilities')%></h3>
+          
+          <div class="row">
+            <% @portfoliorrr_profile.job_categories.each do |category| %>
               <div class="col-md-6">
-                <div class="card mb-4 mb-md-4">
+                <div class="card mb-4 mb-md-4 bg-light shadow">
                   <div class="card-body">
                     <h4><%= category.name %></h4>
                     <hr>
@@ -40,27 +50,66 @@
                   </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+          
+          <h3 class="mb-3"><%= t('portfoliorrr_profile.attributes.education_infos')%></h3>
+
+          <div class="row">
+            <% @portfoliorrr_profile.education_infos&.each do |education| %>
+              <% 2.times do %>
+                <div class="col-md-6">
+                  <div class="card mb-4 mb-md-4 bg-light shadow">
+                    <div class="card-body">
+                      <h4><%= education[:institution] %></h4>
+                      <hr>
+                      <p><strong><%= t('portfoliorrr_profile.attributes.institution') %>:</strong> <%= education[:institution] %></p>
+                      <p><strong><%= t('portfoliorrr_profile.attributes.course') %>:</strong> <%= education[:course] %></p>
+                      <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= education[:start_date] ? l(education[:start_date]) : t('nil')%></p>
+                      <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= education[:end_date] ? l(education[:end_date]) : t('nil') %></p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          
+          <h3 class="mb-3"><%= t('portfoliorrr_profile.attributes.professional_infos') %></h3>
+
+          <div class="row">
+            <% @portfoliorrr_profile.professional_infos&.each do |professional| %>
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-4 bg-light shadow">
+                  <div class="card-body">
+                    <h4><%= professional[:company] %></h4>
+                    <hr>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.position') %>:</strong> <%= professional[:position] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.start_date') %>:</strong> <%= professional[:start_date] ? l(professional[:start_date]) : t('nil')%></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.end_date') %>:</strong> <%= professional[:end_date] ? l(professional[:end_date]) : t('nil')%></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.description') %>:</strong> <%= professional[:description] %></p>
+                    <p><strong><%= t('portfoliorrr_profile.attributes.current_job') %>:</strong> <%= professional[:current_job] ? t('positive') : t('negative') %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
 
         <div class="col-lg-4">
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <h5 class="my-3"><%= t('portfoliorrr_profile.attributes.cover_letter') %></h5>
-              <h4 class="mb-4"><%= @portfoliorrr_profile.cover_letter %></h4>
-            </div>
-          </div>
-          <%= render partial: 'invitation_form', locals: { current_invitation: @current_invitation,
-                                                          invitation: @invitation,
-                                                          profile: @portfoliorrr_profile,
-                                                          project: @project,
-                                                          current_proposal: @current_proposal } %>
+          
+          <%= render partial: 'invitation_form', 
+                     locals: { current_invitation: @current_invitation,
+                               invitation: @invitation,
+                               profile: @portfoliorrr_profile,
+                               project: @project,
+                               current_proposal: @current_proposal } %>
         </div>
       </div>
     </div>
   </section>
 <% else %>
-  <h3><%= t('profile_not_available') %></h3>
-  <h3><%= t('try_again_later') %></h3>
+  <div class="text-center mt-5">
+    <p class="display-6 fs-3"><%= t('profile_not_available') %></p>
+    <p class="text-muted display-6 fs-5"><%= t('try_again_later') %></p>
+  </div>
 <% end %>

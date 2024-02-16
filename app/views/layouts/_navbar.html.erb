@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-light shadow-sm" id="navbar">
+  <div class="container">
     <%= link_to 'Cola?Bora!', 
                 root_path, 
                 class:"navbar-brand" %>
@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 d-flex align-items-center">
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to t(:create_project_link), 
@@ -35,12 +35,12 @@
                         profile_path(current_user.profile), 
                         class: 'nav-link' %>
           </li>
-          <p class="nav-link"><%= current_user.email %></p>
+          <li class="nav-link"><%= current_user.email %></li>
           <li class="nav-item">
             <%= button_to t(:log_out), 
                           destroy_user_session_path, 
                           method: :delete, 
-                          class: 'btn btn-danger' %>
+                          class: 'btn btn-sm btn-outline-secondary' %>
           </li>
         <% else %>
           <li>

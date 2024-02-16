@@ -1,3 +1,5 @@
-<h1><%= I18n.t('tasks.edit_task')%></h1>
+<%= render 'shared/project_header', project: @project %>
+
+<h1 class="display-6"><%= I18n.t('tasks.edit_task')%></h1>
 
 <%= render 'form' %>

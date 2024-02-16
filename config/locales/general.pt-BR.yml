@@ -21,3 +21,4 @@ pt-BR:
   all: Todos
   updated_at: Atualizado há
   posted_at: Postado há
+  required_field: "* Campo(s) Obrigatório(s)"

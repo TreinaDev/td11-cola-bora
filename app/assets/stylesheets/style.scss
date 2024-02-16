@@ -13,3 +13,7 @@
     color: $colaBoraGreenHover!important;
   }
 }
+
+label.required:after {
+  content: "*";
+}

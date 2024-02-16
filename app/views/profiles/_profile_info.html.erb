@@ -5,10 +5,10 @@
 
 <p>
   <strong><%= Profile.human_attribute_name :work_experience %>: </strong>
-  <%= profile.work_experience %>
+  <%= profile.work_experience.present? ? profile.work_experience : t(:not_informed) %>
 </p>
 
 <p>
   <strong><%= Profile.human_attribute_name :education %>: </strong>
-  <%= profile.education %>
+  <%= profile.education.present? ? profile.education : t(:not_informed) %>
 </p>
