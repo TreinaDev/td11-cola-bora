@@ -2,6 +2,6 @@
 import "@hotwired/turbo-rails"
 import * as bootstrap from "bootstrap"
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
-import HelloComponent from './components/hello_vue.js'
+import ForumComponent from './components/forum_vue.js'
 
-createApp(HelloComponent).mount('#vue-app')
+createApp(ForumComponent).mount('#vue-app')

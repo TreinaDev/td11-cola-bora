@@ -1,0 +1,54 @@
+<%= render 'shared/project_header', project: @project %>
+<div id="vue-app">
+  <forum-vue>
+    <div class="row">
+      <div class="col-md-8 mx-auto mt-3">
+        <label class="form-label visually-hidden" for="searchText"><%= t('forums.search') %></label>
+        <input class="form-control mb-3" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="<%= t('forums.search_posts')%>">
+        <form @submit.prevent="submitForm">
+          <div v-if="errors.length > 0" class="alert alert-danger" v-for="error in errors">
+            {{ error }}
+          </div>
+          <div>
+            <label for="title" class="form-label"><%= Post.human_attribute_name('title') %></label>
+            <input type="text" id="title" v-model="newPost.title" class="form-control">
+          </div>
+          <div>
+            <label for="body" class="form-label"><%= Post.human_attribute_name('body') %></label>
+            <textarea id="body" v-model="newPost.body" class="form-control"></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary mb-3 mt-1"><%= t('forums.post') %></button>
+          </div>
+        </form>
+        <div v-if="filteredPosts.length === 0">
+          <h3><%= t('forums.no_posts') %></h3>
+        </div>
+        <div class="card h-20 mb-3" v-for="item in filteredPosts" :key="item.id">
+          <div class="card-header border-bottom border-3 border-success text-success bg-light bg-gradient display-6 fs-5">
+            {{ item.title }}
+          </div>
+          <div class="card-body bg-light bg-gradient">
+            <p class="card-text">
+              {{ item.body }}
+            </p>
+          </div>
+          <div class="card-footer text-muted ">
+            <small >
+              <span class="text-end">por {{ item.author }} - {{ item.date }}</span>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </forum-vue>
+</div>
+<script>
+  var project = <%= { id: @project.id, title: @project.title }.to_json.html_safe %>
+  var posts = <%= @posts.map { |post| { id: post.id,
+                                        title: post.title,
+                                        body: post.body,
+                                        date: t('forums.posted_in', time: time_ago_in_words(post.created_at)),
+                                        author: post.user.full_name } }.to_json.html_safe %>;
+  var errors = <%= { error: @errors }.to_json.html_safe %>;
+</script>

@@ -198,3 +198,23 @@ FactoryBot.create(:proposal, project: pikachu_project,
                              status: :accepted,
                              email: 'giovanni_boss@email.com',
                              message: 'Aceite minha proposta e sua jornada será bem recompensada!')
+
+FactoryBot.create(:post, title: 'Vencer o ginásio de pedra',
+                         body: 'Precisamos evoluir uma Butterfree e usar o ataque confusão para vencer a Ônix',
+                         project: pikachu_project,
+                         user_role: UserRole.find_by(user: brock, project: pikachu_project))
+
+FactoryBot.create(:post, title: 'Capturar um Pokémon lendário',
+                         body: 'Procurar em todos os matos altos por um Mew.',
+                         project: pikachu_project,
+                         user_role: UserRole.find_by(user: brock, project: pikachu_project))
+
+FactoryBot.create(:post, title: 'Vencer a Elite 4',
+                         body: 'Criar um time com 6 Pokémon capazes de vencer qualquer batalha.',
+                         project: pikachu_project,
+                         user_role: UserRole.find_by(user: brock, project: pikachu_project))
+
+FactoryBot.create(:post, title: 'Voltar para casa como campeão',
+                         body: 'Derrotar o Charizard do treinador Leon e me tornar o campeão mundial.',
+                         project: pikachu_project,
+                         user_role: UserRole.find_by(user: brock, project: pikachu_project))

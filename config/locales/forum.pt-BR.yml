@@ -1,0 +1,10 @@
+pt-BR:
+  forum:
+    title: Fórum
+  forums:
+    not_contributor: Você não é um colaborador desse projeto
+    search: Pesquisar
+    search_posts: Busque por postagens
+    post: Postar
+    posted_in: Postado há %{time}
+    no_posts: Não existem postagens.
