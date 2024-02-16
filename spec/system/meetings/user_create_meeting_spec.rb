@@ -22,7 +22,7 @@ describe 'Usuário cria reunião' do
     expect(Meeting.count).to eq 1
     expect(page).to have_content 'Reunião criada com sucesso.'
     expect(page).to have_content 'Reunião: Daily'
-    expect(page).to have_content "Autor\n#{user.email}"
+    expect(page).to have_content "Autor\n#{user.full_name}"
     expect(page).to have_content "Descrição\nSem descrição"
     expect(page).to have_content "Data e horário\n24/11/2024, 14:00"
     expect(page).to have_content "Duração\n2h"

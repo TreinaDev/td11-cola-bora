@@ -4,7 +4,7 @@
   <dt><%= Task.human_attribute_name :description %></dt>
   <dd><%= @task.description %></dd>
   <dt><%= Task.human_attribute_name :user_role %></dt>
-  <dd><%= @task.user_role.user.email %></dd>
+  <dd><%= @task.user_role.user.full_name %></dd>
   <dt><%= Task.human_attribute_name :status %></dt>
   <dd><%= I18n.t(@task.status) %></dd>
   <dt><%= Task.human_attribute_name :assigned %></dt>
@@ -22,11 +22,11 @@
 </dl>
 <br>
 <div class="d-flex mb-3">
-  <%= button_to I18n.t('tasks.start_task'), 
+  <%= button_to I18n.t('tasks.start_task'),
                 start_project_task_path(@project, @task), method: :patch,
                 class: 'btn btn-primary me-2' if @task.uninitialized? %>
-  <%= button_to I18n.t('tasks.finish_task'), 
-                finish_project_task_path(@project, @task), method: :patch, 
+  <%= button_to I18n.t('tasks.finish_task'),
+                finish_project_task_path(@project, @task), method: :patch,
                 class: 'btn btn-primary me-2' if @task.in_progress? %>
   <%= button_to I18n.t('tasks.cancel_task'),
                 cancel_project_task_path(@project, @task), method: :patch,
@@ -37,7 +37,7 @@
               class: 'btn btn-secondary' unless @task.finished? || @task.cancelled? %>
 </div>
 <div>
-  <%= link_to I18n.t('.back'), 
+  <%= link_to I18n.t('.back'),
               project_tasks_path(@task.project),
               class: 'btn btn-secondary' %>
 </div>

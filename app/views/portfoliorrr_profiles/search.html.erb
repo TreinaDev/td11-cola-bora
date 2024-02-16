@@ -1,51 +1,62 @@
 <%= render 'shared/project_header', project: @project %>
 
-<%= link_to t('back'), project_path(@project), class: 'btn btn-secondary' %>
-
-<h1><%= t('profile_search_title', project_title: @project.title) %></h1>
-<h2><%= t('available_users') %></h2>
-
-<% if @query.present? %>
-  <h3><%= t('results_to') %>: <%= @query %></h3>
-<% end %>
-
-<%= form_with url: search_project_portfoliorrr_profiles_path(@project), method: :get do |f| %>
-  <div class="input-group">
-    <%= f.label :q, t('search'), class: 'd-none' %>
-    <%= f.text_field :q, class: 'form-control rounded', placeholder: t('search') %>
-    <%= f.submit t('to_search'), class: 'btn btn-outline-primary' %>
+<main>
+  <div class="mt-3 mb-3">
+    <%= form_with url: search_project_portfoliorrr_profiles_path(@project), method: :get do |f| %>
+      <div class="input-group">
+        <%= f.label :q, t('search'), 
+                        class: 'd-none' %>
+        <%= f.text_field :q, 
+                          class: 'form-control rounded', 
+                          placeholder: t('search_profiles'),
+                          autofocus: true %>
+        <%= f.submit t('to_search'), 
+                     class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  
+  <h2 class="display-6 fs-2">
+    <%= t('available_users') %>
+    <%= @portfoliorrr_profiles.any? ? "(#{@portfoliorrr_profiles.count})" : '(0)' %>
+  </h2>
 
-<% if @portfoliorrr_profiles.any? %>
-  <table class="table table-hover align-middle mb-0 bg-white">
-    <thead class="bg-light">
-      <tr>
-        <th><%= t('portfoliorrr_profile.attributes.name') %></th>
-        <th><%= t('portfoliorrr_profile.attributes.job_category') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @portfoliorrr_profiles.each do |profile| %>
+  <div class="mt-3 text-muted">
+    <% if @query.present? %>
+      <p><%= t('results_to') %>: <%= @query %></p>
+    <% end %>
+  </div>
+
+  <% if @portfoliorrr_profiles.any? %>
+    <table class="table table-hover align-middle mb-0 bg-white">
+      <thead class="bg-light">
         <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="ms-3">
-                <p class="fw-bold mb-1">
-                  <%= link_to profile.name, project_portfoliorrr_profile_path(@project, profile.id) %>
-                </p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">
-              <%= profile.job_categories.map(&:name).to_sentence %>
-            </p>
-          </td>
+          <th><%= t('portfoliorrr_profile.attributes.name') %></th>
+          <th><%= t('portfoliorrr_profile.attributes.job_category') %></th>
         </tr>
-      <% end %>    
-    </tbody>
-  </table>
-<% else %>
-  <h3><%= t('no_users_to_display') %>.</h3>
-<% end %>
+      </thead>
+      <tbody>
+        <% @portfoliorrr_profiles.each do |profile| %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">
+                    <%= link_to profile.name, project_portfoliorrr_profile_path(@project, profile.id) %>
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">
+                <%= profile.job_categories.map(&:name).to_sentence %>
+              </p>
+            </td>
+          </tr>
+        <% end %>    
+      </tbody>
+    </table>
+  <% else %>
+    <%# <h3><%= t('no_users_to_display') .</h3> %>
+  <% end %>
+</main>

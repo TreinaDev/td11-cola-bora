@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :project
-  belongs_to :user_role
+  belongs_to :user_role, -> { unscope(where: :active) }, inverse_of: :tasks
   delegate :user, to: :user_role
   belongs_to :assigned, class_name: 'User', optional: true
   after_create :expire_task

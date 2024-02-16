@@ -1,0 +1,8 @@
+pt-BR:
+ proposal_mailer:
+  notify_leader:
+    subject: Nova solicitação para seu projeto!
+    project_received_a_new_proposal: Seu projeto %{project_title} recebeu uma nova solicitação!
+    proposer: "Solicitante: %{email}"
+    message: "Mensagem: %{message}"
+    view_proposal: Visualizar solicitação

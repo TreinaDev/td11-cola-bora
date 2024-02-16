@@ -1,5 +1,5 @@
 class Meeting < ApplicationRecord
-  belongs_to :user_role
+  belongs_to :user_role, -> { unscope(where: :active) }, inverse_of: :meetings
   delegate :user, to: :user_role
   belongs_to :project
   has_many :meeting_participants, dependent: :destroy

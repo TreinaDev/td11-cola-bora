@@ -6,11 +6,15 @@ describe 'Criação de requisição de participação em projeto' do
       project = create :project
       params = { proposal: {
         profile_id: 1,
-        portfoliorrr_proposal_id: 9,
+        invitation_request_id: 9,
         project_id: project.id,
         message: 'Gostaria de participar!',
         email: 'proposer@email.com'
       } }
+      mail = double 'mail', deliver: true
+      mailer = double 'ProposalMailer'
+      allow(ProposalMailer).to receive(:with).and_return mailer
+      allow(mailer).to receive(:notify_leader).and_return mail
 
       post(api_v1_proposals_path, params:)
 
@@ -26,6 +30,7 @@ describe 'Criação de requisição de participação em projeto' do
       expect(Proposal.last.message).to eq 'Gostaria de participar!'
       expect(Proposal.last.email).to eq 'proposer@email.com'
       expect(Proposal.last.status).to eq 'pending'
+      expect(mail).to have_received :deliver
     end
 
     context 'sem sucesso' do
@@ -36,10 +41,14 @@ describe 'Criação de requisição de participação em projeto' do
         project.user_roles.create! project:, user: contributor, active: true
         params = { proposal: {
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           profile_id: contributor_portfoliorrr_profile_id,
           email: 'contributor@email.com'
         } }
+        mail = double 'mail', deliver: true
+        mailer = double 'ProposalMailer'
+        allow(ProposalMailer).to receive(:with).and_return mailer
+        allow(mailer).to receive(:notify_leader).and_return mail
 
         post(api_v1_proposals_path, params:)
 
@@ -47,6 +56,7 @@ describe 'Criação de requisição de participação em projeto' do
         json_response = JSON.parse(response.body)
         expect(response).to have_http_status :conflict
         expect(json_response['errors']).to eq ['Usuário já faz parte deste projeto']
+        expect(mail).not_to have_received :deliver
       end
 
       it 'se já existe uma solicitação pendente' do
@@ -56,7 +66,7 @@ describe 'Criação de requisição de participação em projeto' do
                           email: 'proposer@email.com'
         params = { proposal: {
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           profile_id:,
           email: 'proposer@email.com'
         } }
@@ -73,7 +83,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: 1,
           project_id: 999,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }
@@ -90,7 +100,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '',
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }
@@ -108,7 +118,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: 5,
           project_id: project.id,
-          portfoliorrr_proposal_id: '',
+          invitation_request_id: '',
           message: '',
           email: 'proposal@email.com'
         } }
@@ -126,7 +136,7 @@ describe 'Criação de requisição de participação em projeto' do
         params = { proposal: {
           profile_id: '1',
           project_id: project.id,
-          portfoliorrr_proposal_id: 9,
+          invitation_request_id: 9,
           message: '',
           email: 'proposal@email.com'
         } }

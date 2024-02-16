@@ -40,7 +40,7 @@ describe 'Usuário vê convites' do
     visit root_path
     click_on 'Convites'
 
-    expect(page).to have_content 'Não há convites registrados'
+    expect(page).to have_content 'Nenhum convite encontrado'
     expect(page).not_to have_content 'Projeto Top'
     expect(page).not_to have_content 'Categoria: Video'
     expect(page).not_to have_content "Validade: #{I18n.l 8.days.from_now.to_date}"

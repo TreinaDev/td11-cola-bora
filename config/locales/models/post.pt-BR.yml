@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      post:
+        one: Postagem
+        other: Postagens
+    attributes:
+      post:
+        title: Título
+        body: Corpo
+  posts:
+    not_contributor: Você não é um colaborador desse projeto.
+    posted_now: Postado agora
+    no_permission: Você não possui permissão.

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário reponde convite' do
+describe 'Usuário responde convite' do
   it 'como aceito' do
     owner = create :user
     project = create :project, user: owner, title: 'Projeto Top', category: 'Video'
@@ -12,6 +12,9 @@ describe 'Usuário reponde convite' do
                                      message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
     second_invitation = create :invitation, profile_id: profile.id, project: second_project, profile_email: user.email,
                                             message: 'Por favor aceite', expiration_days: 5, status: :pending
+    invitation_spy = spy('InvitationService::PortfoliorrrPatch')
+    stub_const('InvitationService::PortfoliorrrPatch', invitation_spy)
+    allow(invitation_spy).to receive(:send)
 
     login_as user
     visit root_path
@@ -26,6 +29,7 @@ describe 'Usuário reponde convite' do
     expect(page).to have_content 'Parabéns, você agora faz parte deste projeto!'
     expect(page).to have_content 'Projeto Master'
     expect(current_path).to eq project_path second_project
+    expect(invitation_spy).to have_received(:send).with(Invitation.last, 'accepted')
   end
 
   it 'como recusado' do
@@ -39,6 +43,9 @@ describe 'Usuário reponde convite' do
                                      message: 'Gostaria de te convidar', expiration_days: 8, status: :pending
     second_invitation = create :invitation, profile_id: profile.id, project: second_project, profile_email: user.email,
                                             message: 'Por favor aceite', expiration_days: 5, status: :pending
+    invitation_spy = spy InvitationService::PortfoliorrrPatch
+    stub_const 'InvitationService::PortfoliorrrPatch', invitation_spy
+    allow(invitation_spy).to receive(:send)
 
     login_as user
     visit root_path
@@ -59,5 +66,6 @@ describe 'Usuário reponde convite' do
     expect(page).to have_content 'Gostaria de te convidar'
     expect(page).to have_content 'Categoria: Video'
     expect(page).to have_content "Validade: #{I18n.l 8.days.from_now.to_date}"
+    expect(invitation_spy).to have_received(:send).with(Invitation.last, 'declined')
   end
 end

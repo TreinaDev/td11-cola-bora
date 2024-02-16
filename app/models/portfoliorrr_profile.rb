@@ -1,6 +1,11 @@
 class PortfoliorrrProfile
   attr_accessor :id, :name, :email, :job_categories, :cover_letter
 
+  URL = Rails.configuration.portfoliorrr_api[:base_url] +
+        Rails.configuration.portfoliorrr_api[:profiles_endpoint]
+  SEARCH_URL = Rails.configuration.portfoliorrr_api[:base_url] +
+               Rails.configuration.portfoliorrr_api[:profiles_search_endpoint]
+
   def initialize(id:, name:, job_categories:)
     @id = id
     @name = name
@@ -8,23 +13,19 @@ class PortfoliorrrProfile
   end
 
   def self.all
-    url = 'http://localhost:8000/api/v1/users'
-    fetch_portfoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(URL)
   end
 
   def self.search(query)
-    url = "http://localhost:8000/api/v1/users?search=#{query}"
-    fetch_portfoliorrr_profiles(url)
+    fetch_portfoliorrr_profiles(SEARCH_URL + CGI.escape(query))
   end
 
   def self.find(id)
-    url = "http://localhost:8000/api/v1/users/#{id}"
-    response = Faraday.get(url)
+    response = Faraday.get(URL + id.to_s)
 
     return {} unless response.success?
 
     profile_json = JSON.parse(response.body, symbolize_names: true)[:data]
-
     profile = new_profile(profile_json)
     profile.build_details(profile_json)
   rescue Faraday::ConnectionFailed
@@ -32,8 +33,8 @@ class PortfoliorrrProfile
   end
 
   def self.new_profile(profile_json)
-    new(id: profile_json[:id],
-        name: profile_json[:name],
+    new(id: profile_json[:profile_id] || profile_json[:user_id],
+        name: profile_json[:full_name],
         job_categories: JobCategory.build_categories(profile_json[:job_categories]))
   end
 
@@ -50,7 +51,7 @@ class PortfoliorrrProfile
 
   def build_details(profile_json)
     @email = profile_json[:email]
-    @cover_letter = profile_json[:profile][:cover_letter]
+    @cover_letter = profile_json[:cover_letter]
     self
   end
 

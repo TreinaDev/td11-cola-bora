@@ -40,5 +40,8 @@ module ColaBora
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configuration for the Portfolio API endpoint
+    config.portfoliorrr_api = config_for(:portfoliorrr_api)
   end
 end

@@ -27,7 +27,7 @@ class InvitationsController < ApplicationController
   def cancel
     @invitation.processing!
     if @invitation.cancelled!
-      InvitationService::PortfoliorrrPatch.send(@invitation, @invitation.status)
+      send_new_status_to_portfoliorrr
       redirect_to project_portfoliorrr_profile_path(@invitation.project, @invitation.profile_id), notice: t('.success')
     else
       @invitation.pending!
@@ -37,6 +37,7 @@ class InvitationsController < ApplicationController
 
   def accept
     if @invitation.accepted!
+      send_new_status_to_portfoliorrr
       @project.user_roles.create(user: User.find_by(email: @invitation.profile_email))
       redirect_to project_path(@project), notice: t('.success')
     else
@@ -46,6 +47,7 @@ class InvitationsController < ApplicationController
 
   def decline
     if @invitation.declined!
+      send_new_status_to_portfoliorrr
       redirect_to invitations_path, notice: t('.success')
     else
       redirect_to root_path, alert: t('.fail')
@@ -53,6 +55,10 @@ class InvitationsController < ApplicationController
   end
 
   private
+
+  def send_new_status_to_portfoliorrr
+    InvitationService::PortfoliorrrPatch.send(@invitation, @invitation.status)
+  end
 
   def invitation_params
     params.require(:invitation).permit(:expiration_days, :message, :profile_email)

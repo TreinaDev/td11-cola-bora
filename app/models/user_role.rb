@@ -4,6 +4,7 @@ class UserRole < ApplicationRecord
   has_many :meeting_participants, dependent: :destroy
   has_many :meetings, through: :meeting_participants
   has_many :comments, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   enum role: { contributor: 1, admin: 5, leader: 9 }
 
